@@ -21,4 +21,4 @@ The entire project is divided into 5 modules:
 * Completed goodies route from drawer module.
 
 ### How can you contribute?
-Read the [Contributing Guidelines](https://www.google.com) to know how easy it is to contribute to this project.
+Read the [Contributing Guidelines](https://github.com/siesgstarena/Arena-2.0/blob/master/CONTRIBUTING.md) to know how easy it is to contribute to this project.

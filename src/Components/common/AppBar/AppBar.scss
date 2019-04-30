@@ -1,0 +1,19 @@
+@import '@material/react-top-app-bar/index.scss';
+@import '@material/react-material-icon/index.scss';
+@import '@material/react-drawer/index.scss';
+@import '@material/react-list/index.scss';
+@import "@material/elevation/mdc-elevation";
+@import "@material/top-app-bar/mixins";
+@import "@material/list/mixins";
+@import "@material/drawer/mixins";
+
+
+.react-top-app-bar-alternate {
+  @include mdc-top-app-bar-fill-color-accessible(#ffffff);
+  @include mdc-top-app-bar-icon-ink-color(#808080);
+  @include mdc-elevation(1, #808080, 0.1);
+}
+
+.react-drawer-alternate {
+  @include mdc-list-item-shape-radius(100px, true);
+}

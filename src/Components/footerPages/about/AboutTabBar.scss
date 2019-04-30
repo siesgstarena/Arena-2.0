@@ -1,0 +1,5 @@
+@import "@material/elevation/mdc-elevation";
+
+.react-tab-bar-alternate {
+  @include mdc-elevation(1, #808080, 0);
+}

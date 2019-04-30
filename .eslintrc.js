@@ -7,6 +7,7 @@ module.exports = {
     "rules": {
       "react/prop-types": [2],
       "react/forbid-prop-types": [2, {"forbid" : []}],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     },
     "env": {
       "browser": true,

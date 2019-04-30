@@ -15,8 +15,4 @@ deploy:
   on:
     branch: master
 env:
-<<<<<<< HEAD
   - SASS_PATH=./node_modules
-=======
-  - SASS_PATH=./node_modules
->>>>>>> 860610331bfe5cc8fcb70c3322ddb4c4474f8afe

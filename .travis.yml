@@ -11,7 +11,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $github_token
-  SASS_PATH: ./node_modules
   local_dir: build
   on:
     branch: master
+env:
+  - SASS_PATH=./node_modules

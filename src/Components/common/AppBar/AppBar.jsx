@@ -78,6 +78,9 @@ class AppBar extends React.Component {
     const { pathname: currentPathname } = location;
     const { location: oldLocation } = prevProps;
     const { pathname: oldPathname } = oldLocation;
+    // Here we update the states when the URL is changed
+    // And according to value of the URL(currentPathname) we assign the value of selectedIndex
+    // And we also make sure that when the URL is changed we close the drawer
 
     if (oldPathname !== currentPathname) {
       if (currentPathname === '/') {
@@ -103,6 +106,7 @@ class AppBar extends React.Component {
       } else if (currentPathname === '/problem-set') {
         this.setState({
           selectedIndex: 4,
+          open: false,
         });
       } else if (currentPathname === '/playlists') {
         this.setState({

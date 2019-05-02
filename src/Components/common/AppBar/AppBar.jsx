@@ -73,6 +73,63 @@ class AppBar extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+    const { pathname: currentPathname } = location;
+    const { location: oldLocation } = prevProps;
+    const { pathname: oldPathname } = oldLocation;
+
+    if (oldPathname !== currentPathname) {
+      if (currentPathname === '/') {
+        this.setState({
+          selectedIndex: 0,
+          open: false,
+        });
+      } else if (currentPathname === '/contests') {
+        this.setState({
+          selectedIndex: 1,
+          open: false,
+        });
+      } else if (currentPathname === '/ratings') {
+        this.setState({
+          selectedIndex: 2,
+          open: false,
+        });
+      } else if (currentPathname === '/blog') {
+        this.setState({
+          selectedIndex: 3,
+          open: false,
+        });
+      } else if (currentPathname === '/problem-set') {
+        this.setState({
+          selectedIndex: 4,
+        });
+      } else if (currentPathname === '/playlists') {
+        this.setState({
+          selectedIndex: 5,
+          open: false,
+        });
+      } else if (currentPathname === '/goodies') {
+        this.setState({
+          selectedIndex: 6,
+          open: false,
+        });
+      } else if (currentPathname === '/turing-cup') {
+        this.setState({
+          selectedIndex: 7,
+          open: false,
+        });
+      } else {
+        this.setState({
+        // selectedIndex : 100 specifies that no item from the drawer is selected
+        // Any random large number can be taken
+          selectedIndex: 100,
+          open: false,
+        });
+      }
+    }
+  }
+
   // The following function closes the drawer (by making open=false)
   // and updates selectedIndex depending upon which item is clicked
   onItemClick = (index) => {

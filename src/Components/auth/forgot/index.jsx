@@ -1,66 +1,41 @@
 import React from 'react';
-import './index.scss';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import 'tachyons';
 
-class Feedback extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      message: '',
-    };
-  }
+class Forgot extends React.Component {
+  state = {
+    email: '',
+  };
 
   render() {
-    const { name, email, message } = this.state;
+    const { email } = this.state;
     return (
       <Grid className="mw8 center">
         <Row className="">
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <Headline4 className="purple">
-              Feedback time
+              Reset Password
             </Headline4>
             <Body1 className="mid-gray">
-              Your Valuable feedback matters us a lot.
-              It helps us to constantly improve our platform
-              to make it a better place for the community.
+            To reset your password, you need to provide us your email address.
+            We will send you an email with a link for resetting your password.
+            You may need to check your spam folder or unblock codechef@siesgst.ac.in
             </Body1>
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <div className="pa3">
-              <TextField
-                label="Full Name"
-                className="pa2 mb4 w-100"
-                outlined
-              >
-                <Input
-                  value={name}
-                  onChange={e => this.setState({ name: e.currentTarget.value })}
-                />
-              </TextField>
               <TextField
                 label="Email address"
                 className="pa2 mb4 w-100"
                 outlined
               >
                 <Input
+                  id="1"
                   value={email}
                   onChange={e => this.setState({ email: e.currentTarget.value })}
-                />
-              </TextField>
-              <TextField
-                label="Message"
-                className="mb4 text-area-border"
-                textarea
-              >
-                <Input
-                  value={message}
-                  onChange={e => this.setState({ message: e.currentTarget.value })}
                 />
               </TextField>
               <Button raised>
@@ -74,4 +49,4 @@ class Feedback extends React.Component {
   }
 }
 
-export default Feedback;
+export default Forgot;

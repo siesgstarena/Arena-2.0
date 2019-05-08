@@ -1,8 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import TopAppBar, { TopAppBarFixedAdjust } from '@material/react-top-app-bar';
+import TopAppBar, {
+  TopAppBarFixedAdjust,
+  TopAppBarIcon,
+  TopAppBarRow,
+  TopAppBarSection,
+  TopAppBarTitle,
+} from '@material/react-top-app-bar';
 import MaterialIcon from '@material/react-material-icon';
+import Button from '@material/react-button';
 import Drawer, {
   DrawerContent, DrawerHeader, DrawerTitle, DrawerSubtitle,
 } from '@material/react-drawer';
@@ -146,6 +153,7 @@ class AppBar extends React.Component {
 
   render() {
     const { open, selectedIndex } = this.state;
+    const { history } = this.props;
     return (
       <div>
         { open
@@ -187,22 +195,32 @@ class AppBar extends React.Component {
           : <div />
         }
 
-        <TopAppBar
-          fixed
-          className="react-top-app-bar-alternate"
-          title="SIESGSTarena"
-          navigationIcon={(
-            <MaterialIcon
-              icon="menu"
-              onClick={() => this.setState({ open: !open })}
-            />
-          )}
-          actionItems={[
-            <MaterialIcon key="item" icon="search" />,
-            <MaterialIcon key="item" icon="account_circle" />,
-          ]}
-        />
+        <TopAppBar className="react-top-app-bar-alternate">
+          <TopAppBarRow>
+            <TopAppBarSection align="start">
+              <TopAppBarIcon navIcon tabIndex={0}>
+                <MaterialIcon hasRipple icon="menu" onClick={() => this.setState({ open: !open })} />
+              </TopAppBarIcon>
+              <TopAppBarTitle>SIESGSTarena</TopAppBarTitle>
+            </TopAppBarSection>
+            <TopAppBarSection align="end" role="toolbar">
+              <Button
+                className="mr2"
+                onClick={() => history.push('/signin')}
+              >
+                Sign In
+              </Button>
+              <Button
+                raised
+                onClick={() => history.push('/signup')}
+              >
+                Sign Up
+              </Button>
+            </TopAppBarSection>
+          </TopAppBarRow>
+        </TopAppBar>
         <TopAppBarFixedAdjust />
+
       </div>
     );
   }
@@ -210,6 +228,7 @@ class AppBar extends React.Component {
 
 AppBar.propTypes = {
   location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default AppBar;

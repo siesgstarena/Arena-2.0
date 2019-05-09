@@ -152,6 +152,8 @@ class AppBar extends React.Component {
   }
 
   render() {
+    // notMobile turns out to be true when the device width is greater than 480px
+    const notMobile = window.innerWidth > 480;
     const { open, selectedIndex } = this.state;
     const { history } = this.props;
     return (
@@ -204,18 +206,39 @@ class AppBar extends React.Component {
               <TopAppBarTitle>SIESGSTarena</TopAppBarTitle>
             </TopAppBarSection>
             <TopAppBarSection align="end" role="toolbar">
-              <Button
-                className="mr2"
-                onClick={() => history.push('/signin')}
-              >
-                Sign In
-              </Button>
-              <Button
-                raised
-                onClick={() => history.push('/signup')}
-              >
-                Sign Up
-              </Button>
+              {/* The following section is used to render Signin and Signup
+                buttons on non-mobile devices( tablets and desktops) and to render
+                only singin button on mobile devices. This was done to make the site a bit
+                more responsive
+              */}
+              { notMobile
+                ? (
+                  <div>
+                    <Button
+                      className="mr2"
+                      style={{ textTransform: 'capitalize' }}
+                      onClick={() => history.push('/signin')}
+                    >
+                      Sign In
+                    </Button>
+                    <Button
+                      raised
+                      onClick={() => history.push('/signup')}
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
+                )
+                : (
+                  <Button
+                    className="mr2"
+                    raised
+                    onClick={() => history.push('/signin')}
+                  >
+                    Sign In
+                  </Button>
+                )
+              }
             </TopAppBarSection>
           </TopAppBarRow>
         </TopAppBar>

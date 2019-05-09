@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
@@ -55,6 +57,13 @@ class SignIn extends React.Component {
               <Body2 className="mid-gray dim" onClick={() => history.push('/forgot')}>
                 Forgot Password?
               </Body2>
+              <Body1 className="mid-gray">
+                Don&apos;t have an account?
+                <span className="dim" onClick={() => history.push('/signup')}>
+                &nbsp;
+                Let&apos;s create one
+                </span>
+              </Body1>
               <Button raised>
                 Sign in
               </Button>

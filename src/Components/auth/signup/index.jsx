@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
-import TextField, { Input } from '@material/react-text-field';
+import TextField, { Input, HelperText } from '@material/react-text-field';
 import {
   Headline3, Headline4, Body1, Body2,
 } from '@material/react-typography';
@@ -73,6 +73,7 @@ class SignUp extends React.Component {
               </TextField>
               <TextField
                 label="Email address"
+                helperText={<HelperText>Use your SIESGST student email account</HelperText>}
                 className="pa2 w-100"
                 outlined
               >
@@ -82,12 +83,9 @@ class SignUp extends React.Component {
                   onChange={e => this.setState({ email: e.currentTarget.value })}
                 />
               </TextField>
-              <Body2 className="mid-gray pa0 ma1 mb4">
-                Use your SIESGST student email account
-              </Body2>
               <TextField
                 label="Password"
-                className="pa2 mb3 w-100"
+                className="pa2 mt3 mb3 w-100"
                 outlined
               >
                 <Input

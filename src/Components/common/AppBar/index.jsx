@@ -217,13 +217,13 @@ class AppBar extends React.Component {
                     <Button
                       className="mr2"
                       style={{ textTransform: 'capitalize' }}
-                      onClick={() => history.push('/signin')}
+                      onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signin`)}
                     >
                       Sign In
                     </Button>
                     <Button
                       raised
-                      onClick={() => history.push('/signup')}
+                      onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signup`)}
                     >
                       Sign Up
                     </Button>
@@ -233,7 +233,7 @@ class AppBar extends React.Component {
                   <Button
                     className="mr2"
                     raised
-                    onClick={() => history.push('/signin')}
+                    onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signin`)}
                   >
                     Sign In
                   </Button>

@@ -1,51 +1,56 @@
+import {
+  homePath, contestsPath, ratingsPath, blogPath, problemSetPath,
+  playlistsPath, goodiesPath, turingCupPath,
+} from '../../../routes';
+
 const drawerItems = [
   {
     id: 1,
     name: 'Home',
     icon: 'home',
-    path: '/',
+    path: homePath,
   },
   {
     id: 2,
     name: 'Contests',
     icon: 'code',
-    path: '/contests',
+    path: contestsPath,
   },
   {
     id: 3,
     name: 'Ratings',
     icon: 'star',
-    path: '/ratings',
+    path: ratingsPath,
   },
   {
     id: 4,
     name: 'Blog',
     icon: 'library_books',
-    path: '/blog',
+    path: blogPath,
   },
   {
     id: 5,
     name: 'Problem Set',
     icon: 'question_answer',
-    path: '/problem-set',
+    path: problemSetPath,
   },
   {
     id: 6,
     name: 'Playlists',
     icon: 'playlist_play',
-    path: '/playlists',
+    path: playlistsPath,
   },
   {
     id: 7,
     name: 'Goodies',
     icon: 'card_giftcard',
-    path: '/goodies',
+    path: goodiesPath,
   },
   {
     id: 8,
     name: 'Turing Cup',
     icon: 'star',
-    path: '/turing-cup',
+    path: turingCupPath,
   },
 ];
 

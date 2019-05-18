@@ -1,37 +1,42 @@
+import {
+  aboutPath, competitionsPath, contactPath, developersPath,
+  feedbackPath, faqPath, privacyPath,
+} from '../../../routes';
+
 const footerRoutes = [
   {
     id: 1,
-    changeRouteTo: '/about',
+    changeRouteTo: aboutPath,
     routeName: 'About',
   },
   {
     id: 2,
-    changeRouteTo: '/competitions',
+    changeRouteTo: competitionsPath,
     routeName: 'Competitions',
   },
   {
     id: 3,
-    changeRouteTo: '/contact',
+    changeRouteTo: contactPath,
     routeName: 'Contact',
   },
   {
     id: 4,
-    changeRouteTo: '/developers',
+    changeRouteTo: developersPath,
     routeName: 'Developers',
   },
   {
     id: 5,
-    changeRouteTo: '/feedback',
+    changeRouteTo: feedbackPath,
     routeName: 'Feedback',
   },
   {
     id: 6,
-    changeRouteTo: '/faq',
+    changeRouteTo: faqPath,
     routeName: 'FAQ',
   },
   {
     id: 7,
-    changeRouteTo: '/privacy',
+    changeRouteTo: privacyPath,
     routeName: 'Privacy',
   },
 ];

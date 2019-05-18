@@ -8,6 +8,7 @@ import {
 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
+import { privacyPath } from '../../../routes';
 import 'tachyons';
 
 class SignUp extends React.Component {
@@ -98,7 +99,7 @@ class SignUp extends React.Component {
               <Body2 className="mid-gray ma3 ml0">
                 By Signing up, you agree with our
                 &nbsp;
-                <span className="dim" onClick={() => history.push('/privacy')}>
+                <span className="dim" onClick={() => history.push(privacyPath)}>
                   privacy policy
                 </span>
               </Body2>

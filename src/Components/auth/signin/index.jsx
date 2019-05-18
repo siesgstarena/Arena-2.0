@@ -6,6 +6,7 @@ import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
+import { signupPath, forgotPath } from '../../../routes';
 import 'tachyons';
 
 class SignIn extends React.Component {
@@ -54,12 +55,12 @@ class SignIn extends React.Component {
                 />
               </TextField>
               {/* When Forgot Password is clicked, we are redirected to forgot route */}
-              <Body2 className="mid-gray dim" onClick={() => history.push('/forgot')}>
+              <Body2 className="mid-gray dim" onClick={() => history.push(forgotPath)}>
                 Forgot Password?
               </Body2>
               <Body1 className="mid-gray">
                 Don&apos;t have an account?
-                <span className="dim" onClick={() => history.push('/signup')}>
+                <span className="dim" onClick={() => history.push(signupPath)}>
                 &nbsp;
                 Let&apos;s create one
                 </span>

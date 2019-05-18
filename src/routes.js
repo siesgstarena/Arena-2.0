@@ -19,8 +19,6 @@ export const playlistsPath = '/playlists';
 export const goodiesPath = '/goodies';
 // The components for the turing-cup route have not been created yet
 export const turingCupPath = '/turing-cup';
-// The components for schedule route is present in src/Components/drawer/contests/schehdule folder
-export const schedulePath = '/schedule';
 // The components for signin route is present in src/Components/auth/signin folder
 export const signinPath = '/auth/signin';
 // The components for signup route is present in src/Components/auth/signup folder

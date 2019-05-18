@@ -2,13 +2,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {
-  appBarPath, schedulePath, signinPath, signupPath, forgotPath,
+  appBarPath, signinPath, signupPath, forgotPath,
   resetPath, goodiesPath, aboutPath, competitionsPath, contactPath,
   developersPath, feedbackPath, faqPath, privacyPath, footerPath,
 } from './routes';
 import ScrollToTop from './ScrollToTop';
 import AppBar from './Components/common/AppBar/index';
-import Schedule from './Components/drawer/contests/schedule/index';
 import SignIn from './Components/auth/signin/index';
 import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
@@ -39,7 +38,6 @@ class App extends Component {
               on all the pages which has REACT_APP_BASE_ADDRESS in their URL
           */}
           <Route path={appBarPath} component={AppBar} />
-          <Route path={schedulePath} exact component={Schedule} />
           <Route path={signinPath} exact component={SignIn} />
           <Route path={signupPath} exact component={SignUp} />
           <Route path={forgotPath} exact component={Forgot} />

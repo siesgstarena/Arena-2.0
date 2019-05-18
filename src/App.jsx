@@ -30,7 +30,7 @@ class App extends Component {
   // Depending upon the path, individual route will be rendered.
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTop>
           {/*
               Here we are not using exact prop for components like AppBar and Footer,

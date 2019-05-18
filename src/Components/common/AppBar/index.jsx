@@ -19,6 +19,10 @@ import List, {
 import drawerItems from './drawerItems';
 import './AppBar.scss';
 import 'tachyons';
+import {
+  homePath, contestsPath, ratingsPath, blogPath, problemSetPath,
+  playlistsPath, goodiesPath, turingCupPath,
+} from '../../../routes';
 
 class AppBar extends React.Component {
   constructor(props) {
@@ -39,35 +43,35 @@ class AppBar extends React.Component {
     // with 0 but the active link was the same as the previous one.
     const { location } = this.props;
     const { pathname: currentPathname } = location;
-    if (currentPathname === '/') {
+    if (currentPathname === homePath) {
       this.setState({
         selectedIndex: 0,
       });
-    } else if (currentPathname === '/contests') {
+    } else if (currentPathname === contestsPath) {
       this.setState({
         selectedIndex: 1,
       });
-    } else if (currentPathname === '/ratings') {
+    } else if (currentPathname === ratingsPath) {
       this.setState({
         selectedIndex: 2,
       });
-    } else if (currentPathname === '/blog') {
+    } else if (currentPathname === blogPath) {
       this.setState({
         selectedIndex: 3,
       });
-    } else if (currentPathname === '/problem-set') {
+    } else if (currentPathname === problemSetPath) {
       this.setState({
         selectedIndex: 4,
       });
-    } else if (currentPathname === '/playlists') {
+    } else if (currentPathname === playlistsPath) {
       this.setState({
         selectedIndex: 5,
       });
-    } else if (currentPathname === '/goodies') {
+    } else if (currentPathname === goodiesPath) {
       this.setState({
         selectedIndex: 6,
       });
-    } else if (currentPathname === '/turing-cup') {
+    } else if (currentPathname === turingCupPath) {
       this.setState({
         selectedIndex: 7,
       });
@@ -90,42 +94,42 @@ class AppBar extends React.Component {
     // And we also make sure that when the URL is changed we close the drawer
 
     if (oldPathname !== currentPathname) {
-      if (currentPathname === '/') {
+      if (currentPathname === homePath) {
         this.setState({
           selectedIndex: 0,
           open: false,
         });
-      } else if (currentPathname === '/contests') {
+      } else if (currentPathname === contestsPath) {
         this.setState({
           selectedIndex: 1,
           open: false,
         });
-      } else if (currentPathname === '/ratings') {
+      } else if (currentPathname === ratingsPath) {
         this.setState({
           selectedIndex: 2,
           open: false,
         });
-      } else if (currentPathname === '/blog') {
+      } else if (currentPathname === blogPath) {
         this.setState({
           selectedIndex: 3,
           open: false,
         });
-      } else if (currentPathname === '/problem-set') {
+      } else if (currentPathname === problemSetPath) {
         this.setState({
           selectedIndex: 4,
           open: false,
         });
-      } else if (currentPathname === '/playlists') {
+      } else if (currentPathname === playlistsPath) {
         this.setState({
           selectedIndex: 5,
           open: false,
         });
-      } else if (currentPathname === '/goodies') {
+      } else if (currentPathname === goodiesPath) {
         this.setState({
           selectedIndex: 6,
           open: false,
         });
-      } else if (currentPathname === '/turing-cup') {
+      } else if (currentPathname === turingCupPath) {
         this.setState({
           selectedIndex: 7,
           open: false,

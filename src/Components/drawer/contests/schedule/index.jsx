@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Headline3, Headline4, Body1, Body2,
+  Headline3
 } from '@material/react-typography';
 import 'tachyons';
 

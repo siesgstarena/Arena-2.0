@@ -99,7 +99,7 @@ class SignUp extends React.Component {
               <Body2 className="mid-gray ma3 ml0">
                 By Signing up, you agree with our
                 &nbsp;
-                <span className="dim" onClick={() => history.push(privacyPath)}>
+                <span className="dim pointer" onClick={() => history.push(privacyPath)}>
                   privacy policy
                 </span>
               </Body2>

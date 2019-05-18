@@ -237,7 +237,7 @@ class AppBar extends React.Component {
                   <Button
                     className="mr2"
                     raised
-                    onClick={() => history.push(signupPath)}
+                    onClick={() => history.push(signinPath)}
                   >
                     Sign In
                   </Button>

@@ -55,12 +55,12 @@ class SignIn extends React.Component {
                 />
               </TextField>
               {/* When Forgot Password is clicked, we are redirected to forgot route */}
-              <Body2 className="mid-gray dim" onClick={() => history.push(forgotPath)}>
+              <Body2 className="mid-gray dim pointer" onClick={() => history.push(forgotPath)}>
                 Forgot Password?
               </Body2>
               <Body1 className="mid-gray">
                 Don&apos;t have an account?
-                <span className="dim" onClick={() => history.push(signupPath)}>
+                <span className="dim pointer" onClick={() => history.push(signupPath)}>
                 &nbsp;
                 Let&apos;s create one
                 </span>

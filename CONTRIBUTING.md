@@ -38,4 +38,5 @@ command:
   * Use our [Pull Request Template](https://github.com/siesgstarena/Arena-2.0/blob/master/.github/PULL_REQUEST_TEMPLATE.md) for making a new pull request.
   * When you are fixing any issue, create a new branch and name it as `issue{issue_number}`(without the curly braces). Once the issue is fixed and the changes are thoroughly tested then you can generate a pull request to merge it in the original repository.
   * When you are working on a route, create a new branch and name it as `route-name`. Once the route is thoroughly tested then you can generate a pull request to merge it in the original repository.
+  * Once a particular issue is resolved or a new route is successfully created then make sure you delete the respective branch.
   

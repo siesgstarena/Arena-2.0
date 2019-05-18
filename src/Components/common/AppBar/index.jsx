@@ -21,7 +21,7 @@ import './AppBar.scss';
 import 'tachyons';
 import {
   homePath, contestsPath, ratingsPath, blogPath, problemSetPath,
-  playlistsPath, goodiesPath, turingCupPath,
+  playlistsPath, goodiesPath, turingCupPath, signinPath, signupPath,
 } from '../../../routes';
 
 class AppBar extends React.Component {
@@ -221,13 +221,13 @@ class AppBar extends React.Component {
                     <Button
                       className="mr2"
                       style={{ textTransform: 'capitalize' }}
-                      onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signin`)}
+                      onClick={() => history.push(signinPath)}
                     >
                       Sign In
                     </Button>
                     <Button
                       raised
-                      onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signup`)}
+                      onClick={() => history.push(signupPath)}
                     >
                       Sign Up
                     </Button>
@@ -237,7 +237,7 @@ class AppBar extends React.Component {
                   <Button
                     className="mr2"
                     raised
-                    onClick={() => history.push(`${process.env.REACT_APP_BASE_ADDRESS}auth/signin`)}
+                    onClick={() => history.push(signupPath)}
                   >
                     Sign In
                   </Button>

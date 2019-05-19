@@ -7,6 +7,9 @@ import './index.scss';
 import 'tachyons';
 
 const ContestsScehdule = () => {
+  // hidden variable is used to hide the list of setters when the width
+  // of the page goes below 900
+  const hidden = window.innerWidth < 900;
   // currentContestArray is the array of all the rows in the
   // the table of current contests
   const currentContestsArray = currentContests.map(contest => (
@@ -19,13 +22,18 @@ const ContestsScehdule = () => {
           {contest.contestName}
         </Link>
       </td>
-      <td>
-        {
-          contest.setters.map((setter, index) => (
-            <div className="ma1" key={index}>{setter}</div>
-          ))
-        }
-      </td>
+      { hidden
+        ? <td className="pa0" />
+        : (
+          <td>
+            {
+              contest.setters.map((setter, index) => (
+                <div className="ma1" key={index}>{setter}</div>
+              ))
+            }
+          </td>
+        )
+      }
       <td>{contest.start}</td>
       <td>{contest.duration}</td>
       <td>{contest.moreDetails}</td>
@@ -44,13 +52,19 @@ const ContestsScehdule = () => {
           {contest.contestName}
         </Link>
       </td>
-      <td>
-        {
-          contest.setters.map((setter, index) => (
-            <div className="ma1" key={index}>{setter}</div>
-          ))
-        }
-      </td>
+      {
+        hidden
+          ? <td className="pa0" />
+          : (
+            <td>
+              {
+                contest.setters.map((setter, index) => (
+                  <div className="ma1" key={index}>{setter}</div>
+                ))
+              }
+            </td>
+          )
+      }
       <td>{contest.start}</td>
       <td>{contest.duration}</td>
       <td><Link className="no-underline pointer dim black" to={`/contests/${contest.id}/scoreboard`}>{contest.moreDetails}</Link></td>
@@ -66,7 +80,11 @@ const ContestsScehdule = () => {
           <tbody className="">
             <tr className="white bg-black">
               <th>Contest name</th>
-              <th>Setter</th>
+              {
+                hidden
+                  ? <th className="pa0" />
+                  : <th>Setter</th>
+              }
               <th>Start</th>
               <th>Duration</th>
               <th>More details</th>
@@ -81,7 +99,11 @@ const ContestsScehdule = () => {
           <tbody className="">
             <tr className="white bg-black">
               <th>Contest name</th>
-              <th>Setter</th>
+              {
+                hidden
+                  ? <td className="pa0" />
+                  : <th>Setter</th>
+              }
               <th>Start</th>
               <th>Duration</th>
               <th>More details</th>

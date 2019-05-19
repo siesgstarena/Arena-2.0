@@ -45,7 +45,7 @@ const pastContests = [
   {
     id: 5,
     contestName: 'Single Round Match #07',
-    setters: ['Nsanoop menon', 'venkhatesh'],
+    setters: ['Sanoop Menon', 'Venkhatesh'],
     start: 'Sunday, January 27, 2019 7:00 PM',
     duration: '3 hours',
     moreDetails: 'Scoreboard',

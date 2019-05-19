@@ -61,8 +61,8 @@ const ContestsScehdule = () => {
     <div className="pa2 mw8-ns center">
       <Headline4 className="purple mt2">Contests</Headline4>
       <Headline6 className="purple mb2 mt1">Ongoing Contests</Headline6>
-      <div style={{ overflowX: 'auto' }}>
-        <table>
+      <div className="shadow-4 rounded-corners" style={{ overflowX: 'auto' }}>
+        <table className="">
           <tbody className="">
             <tr className="white bg-black">
               <th>Contest name</th>
@@ -76,7 +76,7 @@ const ContestsScehdule = () => {
         </table>
       </div>
       <Headline6 className="purple mb2">Past Contests</Headline6>
-      <div style={{ overflowX: 'auto' }}>
+      <div className="shadow-4 rounded-corners" style={{ overflowX: 'auto' }}>
         <table>
           <tbody className="">
             <tr className="white bg-black">

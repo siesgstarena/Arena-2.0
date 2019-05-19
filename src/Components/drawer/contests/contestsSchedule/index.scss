@@ -5,10 +5,18 @@ table {
   border: 1px solid #ddd;
 }
 
+.rounded-corners {
+  border-radius: 8px;
+}
+
 // Making the text of each row left-aligned
 th, td {
   text-align: left;
   padding: 8px;
+}
+
+tr {
+  border-bottom:1px solid #ddd;
 }
 
 //Colour of the even row

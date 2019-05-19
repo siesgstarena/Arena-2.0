@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {
   appBarPath, signinPath, signupPath, forgotPath,
-  resetPath, goodiesPath, aboutPath, competitionsPath, contactPath,
+  resetPath, contestsPath, goodiesPath, aboutPath, competitionsPath, contactPath,
   developersPath, feedbackPath, faqPath, privacyPath, footerPath,
 } from './routes';
 import ScrollToTop from './ScrollToTop';
@@ -12,6 +12,7 @@ import SignIn from './Components/auth/signin/index';
 import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
 import Reset from './Components/auth/reset/index';
+import ContestsSchedule from './Components/drawer/contests/contestsSchedule/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -42,6 +43,7 @@ class App extends Component {
           <Route path={signupPath} exact component={SignUp} />
           <Route path={forgotPath} exact component={Forgot} />
           <Route path={resetPath} exact component={Reset} />
+          <Route path={contestsPath} exact component={ContestsSchedule} />
           <Route path={goodiesPath} exact component={Goodies} />
           <Route path={aboutPath} exact component={About} />
           <Route path={competitionsPath} exact component={Competitions} />

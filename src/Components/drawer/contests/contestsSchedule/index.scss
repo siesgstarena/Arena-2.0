@@ -1,0 +1,15 @@
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+// Making the text of each row left-aligned
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+//Colour of the even row
+tr:nth-child(even){background-color: #f2f2f2}

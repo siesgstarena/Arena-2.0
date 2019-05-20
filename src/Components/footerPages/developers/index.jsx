@@ -5,7 +5,7 @@ import developers from './developers';
 import DeveloperCard from './DeveloperCard';
 import 'tachyons';
 
-const Contact = () => {
+const Developers = () => {
   const developerCardsArray = developers.map(developer => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard
@@ -37,4 +37,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Developers;

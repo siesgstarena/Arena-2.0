@@ -8,6 +8,7 @@ import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
 import Reset from './Components/auth/reset/index';
 import ContestsSchedule from './Components/drawer/contests/contestsSchedule/index';
+import ContestPage from './Components/drawer/contests/contestPage/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -17,7 +18,6 @@ import Feedback from './Components/footerPages/feedback/index';
 import FAQ from './Components/footerPages/faq/index';
 import Privacy from './Components/footerPages/privacy/index';
 import Footer from './Components/common/Footer/index';
-
 import './App.scss';
 
 class App extends Component {
@@ -38,6 +38,7 @@ class App extends Component {
           <Route path="/auth/signup" exact component={SignUp} />
           <Route path="/auth/forgot" exact component={Forgot} />
           <Route path="/auth/reset" exact component={Reset} />
+          <Route path="/contests/:id" exact component={ContestPage} />
           <Route path="/contests" exact component={ContestsSchedule} />
           <Route path="/goodies" exact component={Goodies} />
           <Route path="/about" exact component={About} />

@@ -1,42 +1,37 @@
-import {
-  aboutPath, competitionsPath, contactPath, developersPath,
-  feedbackPath, faqPath, privacyPath,
-} from '../../../routes';
-
 const footerRoutes = [
   {
     id: 1,
-    changeRouteTo: aboutPath,
+    changeRouteTo: '/about',
     routeName: 'About',
   },
   {
     id: 2,
-    changeRouteTo: competitionsPath,
+    changeRouteTo: '/competitions',
     routeName: 'Competitions',
   },
   {
     id: 3,
-    changeRouteTo: contactPath,
+    changeRouteTo: '/contact',
     routeName: 'Contact',
   },
   {
     id: 4,
-    changeRouteTo: developersPath,
+    changeRouteTo: '/developers',
     routeName: 'Developers',
   },
   {
     id: 5,
-    changeRouteTo: feedbackPath,
+    changeRouteTo: '/feedback',
     routeName: 'Feedback',
   },
   {
     id: 6,
-    changeRouteTo: faqPath,
+    changeRouteTo: '/faq',
     routeName: 'FAQ',
   },
   {
     id: 7,
-    changeRouteTo: privacyPath,
+    changeRouteTo: '/privacy',
     routeName: 'Privacy',
   },
 ];

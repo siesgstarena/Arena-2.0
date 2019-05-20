@@ -43,12 +43,12 @@ const SimpleExpansionPanel = (props) => {
           <div className="mid-gray">
             Following are the languages and compilers supported by Arena:
             <div className="pa4 mid-gray">
-              <div className="overflow-auto">
+              <div className="overflow-auto br3">
                 <table className="f6 w-100 mw8 center">
                   <thead>
                     <tr>
-                      <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white">Language</th>
-                      <th className="fw6 bb b--black-20 tl pb3 pr3 bg-white">Version</th>
+                      <th className="fw6 bb tl pb3 pr3">Language</th>
+                      <th className="fw6 bb tl pb3 pr3">Version</th>
                     </tr>
                   </thead>
                   <tbody className="lh-copy">

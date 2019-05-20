@@ -19,10 +19,6 @@ import List, {
 import drawerItems from './drawerItems';
 import './AppBar.scss';
 import 'tachyons';
-import {
-  homePath, contestsPath, ratingsPath, blogPath, problemSetPath,
-  playlistsPath, goodiesPath, turingCupPath, signinPath, signupPath,
-} from '../../../routes';
 
 const AppBar = (props) => {
   // selectedIndex is the state variable which decides which option is selected
@@ -35,28 +31,28 @@ const AppBar = (props) => {
   const { history } = props;
 
   useEffect(() => {
-    if (currentPathname === homePath) {
+    if (currentPathname === '/') {
       setSelectedIndex(0);
       setOpen(false);
-    } else if (currentPathname === contestsPath) {
+    } else if (currentPathname === '/contests') {
       setSelectedIndex(1);
       setOpen(false);
-    } else if (currentPathname === ratingsPath) {
+    } else if (currentPathname === '/ratings') {
       setSelectedIndex(2);
       setOpen(false);
-    } else if (currentPathname === blogPath) {
+    } else if (currentPathname === '/blogs') {
       setSelectedIndex(3);
       setOpen(false);
-    } else if (currentPathname === problemSetPath) {
+    } else if (currentPathname === '/problem-set') {
       setSelectedIndex(4);
       setOpen(false);
-    } else if (currentPathname === playlistsPath) {
+    } else if (currentPathname === '/playlists') {
       setSelectedIndex(5);
       setOpen(false);
-    } else if (currentPathname === goodiesPath) {
+    } else if (currentPathname === '/goodies') {
       setSelectedIndex(6);
       setOpen(false);
-    } else if (currentPathname === turingCupPath) {
+    } else if (currentPathname === '/turing-cup') {
       setSelectedIndex(7);
       setOpen(false);
     } else {
@@ -135,13 +131,13 @@ const AppBar = (props) => {
                   <Button
                     className="mr2"
                     style={{ textTransform: 'capitalize' }}
-                    onClick={() => history.push(signinPath)}
+                    onClick={() => history.push('/auth/signin')}
                   >
                     Sign In
                   </Button>
                   <Button
                     raised
-                    onClick={() => history.push(signupPath)}
+                    onClick={() => history.push('/auth/signup')}
                   >
                     Sign Up
                   </Button>
@@ -151,7 +147,7 @@ const AppBar = (props) => {
                 <Button
                   className="mr2"
                   raised
-                  onClick={() => history.push(signinPath)}
+                  onClick={() => history.push('/auth/signin')}
                 >
                   Sign In
                 </Button>

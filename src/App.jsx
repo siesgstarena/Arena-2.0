@@ -1,11 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import {
-  appBarPath, signinPath, signupPath, forgotPath,
-  resetPath, contestsPath, goodiesPath, aboutPath, competitionsPath, contactPath,
-  developersPath, feedbackPath, faqPath, privacyPath, footerPath,
-} from './routes';
 import ScrollToTop from './ScrollToTop';
 import AppBar from './Components/common/AppBar/index';
 import SignIn from './Components/auth/signin/index';
@@ -38,21 +33,21 @@ class App extends Component {
               some part of the URL. Hence in our case, AppBar and Footer will be rendered
               on all the pages which has REACT_APP_BASE_ADDRESS in their URL
           */}
-          <Route path={appBarPath} component={AppBar} />
-          <Route path={signinPath} exact component={SignIn} />
-          <Route path={signupPath} exact component={SignUp} />
-          <Route path={forgotPath} exact component={Forgot} />
-          <Route path={resetPath} exact component={Reset} />
-          <Route path={contestsPath} exact component={ContestsSchedule} />
-          <Route path={goodiesPath} exact component={Goodies} />
-          <Route path={aboutPath} exact component={About} />
-          <Route path={competitionsPath} exact component={Competitions} />
-          <Route path={contactPath} exact component={Contact} />
-          <Route path={developersPath} exact component={Developers} />
-          <Route path={feedbackPath} exact component={Feedback} />
-          <Route path={faqPath} exact component={FAQ} />
-          <Route path={privacyPath} exact component={Privacy} />
-          <Route path={footerPath} component={Footer} />
+          <Route path="/" component={AppBar} />
+          <Route path="/auth/signin" exact component={SignIn} />
+          <Route path="/auth/signup" exact component={SignUp} />
+          <Route path="/auth/forgot" exact component={Forgot} />
+          <Route path="/auth/reset" exact component={Reset} />
+          <Route path="/contests" exact component={ContestsSchedule} />
+          <Route path="/goodies" exact component={Goodies} />
+          <Route path="/about" exact component={About} />
+          <Route path="/competitions" exact component={Competitions} />
+          <Route path="/contact" exact component={Contact} />
+          <Route path="/developers" exact component={Developers} />
+          <Route path="/feedback" exact component={Feedback} />
+          <Route path="/faq" exact component={FAQ} />
+          <Route path="/privacy" exact component={Privacy} />
+          <Route path="/" component={Footer} />
         </ScrollToTop>
       </BrowserRouter>
     );

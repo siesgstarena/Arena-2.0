@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopAppBar, {
@@ -24,234 +24,147 @@ import {
   playlistsPath, goodiesPath, turingCupPath, signinPath, signupPath,
 } from '../../../routes';
 
-class AppBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      selectedIndex: 0,
-    };
-  }
+const AppBar = (props) => {
   // selectedIndex is the state variable which decides which option is selected
+  const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const notMobile = window.innerWidth > 480;
+  // notMobile turns out to be true when the device width is greater than 480px
+  const { location } = props;
+  const { pathname: currentPathname } = location;
+  const { history } = props;
 
-  componentDidMount() {
-    // The following conditional statements are used to
-    // check that on which route our page was refreshed
-    // and thereby updating the value of selectedIndex respectively.
-    // This was needed to be done because when the page is refreshed
-    // all the states are reset and hence the selectedIndex always was initialized
-    // with 0 but the active link was the same as the previous one.
-    const { location } = this.props;
-    const { pathname: currentPathname } = location;
+  useEffect(() => {
     if (currentPathname === homePath) {
-      this.setState({
-        selectedIndex: 0,
-      });
+      setSelectedIndex(0);
+      setOpen(false);
     } else if (currentPathname === contestsPath) {
-      this.setState({
-        selectedIndex: 1,
-      });
+      setSelectedIndex(1);
+      setOpen(false);
     } else if (currentPathname === ratingsPath) {
-      this.setState({
-        selectedIndex: 2,
-      });
+      setSelectedIndex(2);
+      setOpen(false);
     } else if (currentPathname === blogPath) {
-      this.setState({
-        selectedIndex: 3,
-      });
+      setSelectedIndex(3);
+      setOpen(false);
     } else if (currentPathname === problemSetPath) {
-      this.setState({
-        selectedIndex: 4,
-      });
+      setSelectedIndex(4);
+      setOpen(false);
     } else if (currentPathname === playlistsPath) {
-      this.setState({
-        selectedIndex: 5,
-      });
+      setSelectedIndex(5);
+      setOpen(false);
     } else if (currentPathname === goodiesPath) {
-      this.setState({
-        selectedIndex: 6,
-      });
+      setSelectedIndex(6);
+      setOpen(false);
     } else if (currentPathname === turingCupPath) {
-      this.setState({
-        selectedIndex: 7,
-      });
+      setSelectedIndex(7);
+      setOpen(false);
     } else {
-      this.setState({
-        // selectedIndex : 100 specifies that no item from the drawer is selected
-        // Any random large number can be taken
-        selectedIndex: 100,
-      });
+      // selectedIndex : 100 specifies that no item from the drawer is selected
+      // Any random large number can be taken
+      setSelectedIndex(100);
+      setOpen(false);
     }
-  }
-
-  componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    const { pathname: currentPathname } = location;
-    const { location: oldLocation } = prevProps;
-    const { pathname: oldPathname } = oldLocation;
-    // Here we update the states when the URL is changed
-    // And according to value of the URL(currentPathname) we assign the value of selectedIndex
-    // And we also make sure that when the URL is changed we close the drawer
-
-    if (oldPathname !== currentPathname) {
-      if (currentPathname === homePath) {
-        this.setState({
-          selectedIndex: 0,
-          open: false,
-        });
-      } else if (currentPathname === contestsPath) {
-        this.setState({
-          selectedIndex: 1,
-          open: false,
-        });
-      } else if (currentPathname === ratingsPath) {
-        this.setState({
-          selectedIndex: 2,
-          open: false,
-        });
-      } else if (currentPathname === blogPath) {
-        this.setState({
-          selectedIndex: 3,
-          open: false,
-        });
-      } else if (currentPathname === problemSetPath) {
-        this.setState({
-          selectedIndex: 4,
-          open: false,
-        });
-      } else if (currentPathname === playlistsPath) {
-        this.setState({
-          selectedIndex: 5,
-          open: false,
-        });
-      } else if (currentPathname === goodiesPath) {
-        this.setState({
-          selectedIndex: 6,
-          open: false,
-        });
-      } else if (currentPathname === turingCupPath) {
-        this.setState({
-          selectedIndex: 7,
-          open: false,
-        });
-      } else {
-        this.setState({
-        // selectedIndex : 100 specifies that no item from the drawer is selected
-        // Any random large number can be taken
-          selectedIndex: 100,
-          open: false,
-        });
-      }
-    }
-  }
+  }, [currentPathname]);
 
   // The following function closes the drawer (by making open=false)
   // and updates selectedIndex depending upon which item is clicked
-  onItemClick = (index) => {
-    const { open } = this.state;
-    this.setState({
-      open: !open,
-      selectedIndex: index,
-    });
-  }
+  const onItemClick = (index) => {
+    setOpen(!open);
+    setSelectedIndex(index);
+  };
 
-  render() {
-    // notMobile turns out to be true when the device width is greater than 480px
-    const notMobile = window.innerWidth > 480;
-    const { open, selectedIndex } = this.state;
-    const { history } = this.props;
-    return (
-      <div>
-        { open
-          ? (
-            <Drawer
-              className="react-drawer-alternate"
-              modal
-              open={open}
-              onClose={() => this.setState({ open: false })}
-            >
+  return (
+    <div>
+      { open
+        ? (
+          <Drawer
+            className="react-drawer-alternate"
+            modal
+            open={open}
+            onClose={() => setOpen(false)}
+          >
 
-              <DrawerHeader>
-                {/* defaults to div */}
-                <DrawerTitle tag="h2">
-                  {/* defaults to h3 */}
-                  Explore Arena
-                </DrawerTitle>
-                <DrawerSubtitle>
-                  {/* defaults to h6 */}
-                  matt@email.com
-                </DrawerSubtitle>
-              </DrawerHeader>
+            <DrawerHeader>
+              {/* defaults to div */}
+              <DrawerTitle tag="h2">
+                {/* defaults to h3 */}
+                Explore Arena
+              </DrawerTitle>
+              <DrawerSubtitle>
+                {/* defaults to h6 */}
+                matt@email.com
+              </DrawerSubtitle>
+            </DrawerHeader>
 
-              <DrawerContent>
-                <List singleSelection selectedIndex={selectedIndex}>
-                  { drawerItems.map((item, index) => (
-                    <ListItem key={item.id} className="pointer" style={{ padding: '0' }} onClick={() => this.onItemClick(index)}>
-                      <NavLink to={{ pathname: item.path }} exact className="no-underline db pa3 black" activeStyle={{ color: '#6200EE' }} style={{ width: '100%' }}>
-                        <ListItemGraphic className="v-mid" graphic={<MaterialIcon icon={item.icon} />} />
-                        <ListItemText className="v-mid" primaryText={item.name} />
-                      </NavLink>
-                    </ListItem>
-                  ))
-                  }
-                </List>
-              </DrawerContent>
-            </Drawer>
-          )
-          : <div />
-        }
+            <DrawerContent>
+              <List singleSelection selectedIndex={selectedIndex}>
+                { drawerItems.map((item, index) => (
+                  <ListItem key={item.id} className="pointer" style={{ padding: '0' }} onClick={() => onItemClick(index)}>
+                    <NavLink to={{ pathname: item.path }} exact className="no-underline db pa3 black" activeStyle={{ color: '#6200EE' }} style={{ width: '100%' }}>
+                      <ListItemGraphic className="v-mid" graphic={<MaterialIcon icon={item.icon} />} />
+                      <ListItemText className="v-mid" primaryText={item.name} />
+                    </NavLink>
+                  </ListItem>
+                ))
+                }
+              </List>
+            </DrawerContent>
+          </Drawer>
+        )
+        : <div />
+      }
 
-        <TopAppBar className="react-top-app-bar-alternate">
-          <TopAppBarRow>
-            <TopAppBarSection align="start">
-              <TopAppBarIcon navIcon tabIndex={0}>
-                <MaterialIcon hasRipple icon="menu" onClick={() => this.setState({ open: !open })} />
-              </TopAppBarIcon>
-              <TopAppBarTitle>SIESGSTarena</TopAppBarTitle>
-            </TopAppBarSection>
-            <TopAppBarSection align="end" role="toolbar">
-              {/* The following section is used to render Signin and Signup
-                buttons on non-mobile devices( tablets and desktops) and to render
-                only singin button on mobile devices. This was done to make the site a bit
-                more responsive
-              */}
-              { notMobile
-                ? (
-                  <div>
-                    <Button
-                      className="mr2"
-                      style={{ textTransform: 'capitalize' }}
-                      onClick={() => history.push(signinPath)}
-                    >
-                      Sign In
-                    </Button>
-                    <Button
-                      raised
-                      onClick={() => history.push(signupPath)}
-                    >
-                      Sign Up
-                    </Button>
-                  </div>
-                )
-                : (
+      <TopAppBar className="react-top-app-bar-alternate">
+        <TopAppBarRow>
+          <TopAppBarSection align="start">
+            <TopAppBarIcon navIcon tabIndex={0}>
+              <MaterialIcon hasRipple icon="menu" onClick={() => setOpen(!open)} />
+            </TopAppBarIcon>
+            <TopAppBarTitle>SIESGSTarena</TopAppBarTitle>
+          </TopAppBarSection>
+          <TopAppBarSection align="end" role="toolbar">
+            {/* The following section is used to render Signin and Signup
+              buttons on non-mobile devices( tablets and desktops) and to render
+              only singin button on mobile devices. This was done to make the site a bit
+              more responsive
+            */}
+            { notMobile
+              ? (
+                <div>
                   <Button
                     className="mr2"
-                    raised
+                    style={{ textTransform: 'capitalize' }}
                     onClick={() => history.push(signinPath)}
                   >
                     Sign In
                   </Button>
-                )
-              }
-            </TopAppBarSection>
-          </TopAppBarRow>
-        </TopAppBar>
-        <TopAppBarFixedAdjust />
+                  <Button
+                    raised
+                    onClick={() => history.push(signupPath)}
+                  >
+                    Sign Up
+                  </Button>
+                </div>
+              )
+              : (
+                <Button
+                  className="mr2"
+                  raised
+                  onClick={() => history.push(signinPath)}
+                >
+                  Sign In
+                </Button>
+              )
+            }
+          </TopAppBarSection>
+        </TopAppBarRow>
+      </TopAppBar>
+      <TopAppBarFixedAdjust />
 
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 AppBar.propTypes = {
   location: PropTypes.object.isRequired,

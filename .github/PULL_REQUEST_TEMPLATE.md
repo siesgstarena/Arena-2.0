@@ -1,4 +1,4 @@
-Thank you for contributing to Epicentre. Before pressing the "Create Pull Request" button, please provide the following:
+Thank you for contributing to Arena-2.0. Before pressing the "Create Pull Request" button, please provide the following:
 
 - [ ] A description about what and why you are contributing, even if it's trivial.
 

@@ -8,6 +8,7 @@ import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
 import Reset from './Components/auth/reset/index';
 import ContestsSchedule from './Components/drawer/contests/contestsSchedule/index';
+import ContestTabBar from './Components/drawer/contests/contestPage/ContestTabBar';
 import ContestPage from './Components/drawer/contests/contestPage/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
@@ -38,6 +39,7 @@ class App extends Component {
           <Route path="/auth/signup" exact component={SignUp} />
           <Route path="/auth/forgot" exact component={Forgot} />
           <Route path="/auth/reset" exact component={Reset} />
+          <Route path="/contests/:id" component={ContestTabBar} />
           <Route path="/contests/:id" exact component={ContestPage} />
           <Route path="/contests" exact component={ContestsSchedule} />
           <Route path="/goodies" exact component={Goodies} />

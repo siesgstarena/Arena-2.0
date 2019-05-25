@@ -12,6 +12,7 @@ import ContestTabBar from './Components/drawer/contests/contestPage/ContestTabBa
 import ContestPage from './Components/drawer/contests/contestPage/index';
 import ContestStatusPage from './Components/drawer/contests/contestStatus/index';
 import ContestMySubmissionsPage from './Components/drawer/contests/mySubmissions/index';
+import Ratings from './Components/drawer/ratings/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -46,6 +47,7 @@ class App extends Component {
           <Route path="/contests/:id/status" exact component={ContestStatusPage} />
           <Route path="/contests/:id/my" exact component={ContestMySubmissionsPage} />
           <Route path="/contests" exact component={ContestsSchedule} />
+          <Route path="/ratings" exact component={Ratings} />
           <Route path="/goodies" exact component={Goodies} />
           <Route path="/about" exact component={About} />
           <Route path="/competitions" exact component={Competitions} />

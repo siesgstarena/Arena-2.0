@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from '@material/react-tab';
 import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
@@ -11,8 +11,27 @@ const ContestTabBar = (props) => {
   };
 
   const { history } = props;
+  const { location } = props;
+  const { pathname: currentPathname } = location;
   const { match } = props;
   const { url } = match;
+
+  // This useEffect checks on which url we currently are and accordingly
+  // updates the value of activeIndex. So that the TabBar displays the
+  // particular tab on which we are at the moment.
+  useEffect(() => {
+    if (currentPathname === `${url}`) {
+      setActiveIndex(0);
+    } else if (currentPathname === `${url}/status`) {
+      setActiveIndex(1);
+    } else if (currentPathname === `${url}/my`) {
+      setActiveIndex(2);
+    } else if (currentPathname === `${url}/scoreboard`) {
+      setActiveIndex(3);
+    } else if (currentPathname === `${url}/submit`) {
+      setActiveIndex(4);
+    }
+  }, []);
 
   const onTabClick = (path) => {
     history.push(path);
@@ -57,6 +76,7 @@ const ContestTabBar = (props) => {
 
 ContestTabBar.propTypes = {
   match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

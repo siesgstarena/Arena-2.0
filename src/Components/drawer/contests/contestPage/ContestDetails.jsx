@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@material/react-card';
 import {
   Body1,
@@ -9,8 +9,13 @@ import 'tachyons';
 
 
 const ContestDetails = () => {
-  const dayDetails = new Date();
-  const extractedDate = dayDetails.toLocaleTimeString();
+  const [timeStamp, setTimeStamp] = useState(new Date());
+  const [extractedDate, setExtractedDate] = useState(timeStamp.toLocaleTimeString());
+
+  useEffect(() => {
+    setTimeStamp(new Date());
+    setExtractedDate(timeStamp.toLocaleTimeString());
+  }, [timeStamp]);
 
   return (
     <Card className="pa2 tc">

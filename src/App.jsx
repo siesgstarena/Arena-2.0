@@ -10,6 +10,8 @@ import Reset from './Components/auth/reset/index';
 import ContestsSchedule from './Components/drawer/contests/contestsSchedule/index';
 import ContestTabBar from './Components/drawer/contests/contestPage/ContestTabBar';
 import ContestPage from './Components/drawer/contests/contestPage/index';
+import ContestStatusPage from './Components/drawer/contests/contestStatus/index';
+import ContestMySubmissionsPage from './Components/drawer/contests/mySubmissions/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -41,6 +43,8 @@ class App extends Component {
           <Route path="/auth/reset" exact component={Reset} />
           <Route path="/contests/:id" component={ContestTabBar} />
           <Route path="/contests/:id" exact component={ContestPage} />
+          <Route path="/contests/:id/status" exact component={ContestStatusPage} />
+          <Route path="/contests/:id/my" exact component={ContestMySubmissionsPage} />
           <Route path="/contests" exact component={ContestsSchedule} />
           <Route path="/goodies" exact component={Goodies} />
           <Route path="/about" exact component={About} />

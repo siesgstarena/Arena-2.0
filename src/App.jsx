@@ -13,6 +13,9 @@ import ContestPage from './Components/drawer/contests/contestPage/index';
 import ContestStatusPage from './Components/drawer/contests/contestStatus/index';
 import ContestMySubmissionsPage from './Components/drawer/contests/mySubmissions/index';
 import Ratings from './Components/drawer/ratings/index';
+import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
+import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
+import PlaylistsTopicExplanationPage from './Components/drawer/playlists/topicExplanationPage/index';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -48,6 +51,9 @@ class App extends Component {
           <Route path="/contests/:id/my" exact component={ContestMySubmissionsPage} />
           <Route path="/contests" exact component={ContestsSchedule} />
           <Route path="/ratings" exact component={Ratings} />
+          <Route path="/playlists" exact component={PlaylistsWelcomePage} />
+          <Route path="/playlists/home" exact component={PlaylistsHomePage} />
+          <Route path="/playlists/topic/:id" exact component={PlaylistsTopicExplanationPage} />
           <Route path="/goodies" exact component={Goodies} />
           <Route path="/about" exact component={About} />
           <Route path="/competitions" exact component={Competitions} />

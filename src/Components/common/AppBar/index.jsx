@@ -111,7 +111,7 @@ const AppBar = (props) => {
         : <div />
       }
 
-      <TopAppBar className="react-top-app-bar-alternate">
+      <TopAppBar fixed className="react-top-app-bar-alternate">
         <TopAppBarRow>
           <TopAppBarSection align="start">
             <TopAppBarIcon navIcon tabIndex={0}>

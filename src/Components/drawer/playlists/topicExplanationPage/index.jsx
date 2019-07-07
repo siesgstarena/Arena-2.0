@@ -1,30 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Headline5, Body1 } from '@material/react-typography';
 import './index.scss';
 
-const TopicExplanationPage = () => (
-  <div className="center tc">
-    <div className="sidebar">
-      <p> Topic: Adhoc </p>
-      <a className="active" href="#home">Home</a>
-      <a className="" href="#news">News</a>
-      <a className="" href="#contact">Contact</a>
-      <a className="" href="#about">About</a>
-    </div>
+const TopicExplanationPage = () => {
+  const [isGettingStarted, setIsGettingStarted] = useState(true);
+  const [isDissectingProblem, setIsDissectingProblem] = useState(false);
+  const [isPseudoCode, setIsPseudoCode] = useState(false);
+  const [isWritingCode, setIsWritingCode] = useState(false);
 
-    <div id="home" className="content">
-      <h2>Responsive Sidebar Example</h2>
-      <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or less.</p>
-      <p id="">We have also added a media query for screens that are 400px or less, which will vertically stack and center the navigation links.</p>
-      <h3 id="">Resize the browser window to see the effect.</h3>
+  const gettingStartedClass = isGettingStarted ? 'active' : '';
+  const dissectingProblemClass = isDissectingProblem ? 'active' : '';
+  const pseudoCodeClass = isPseudoCode ? 'active' : '';
+  const writingCodeClass = isWritingCode ? 'active' : '';
+
+
+  const handleItemClick = (setItem) => {
+    setIsGettingStarted(false);
+    setIsDissectingProblem(false);
+    setIsPseudoCode(false);
+    setIsWritingCode(false);
+    setItem(true);
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <div className="center">
+      <div className="sidebar">
+        <Headline5 className="tc"> Topic: Adhoc </Headline5>
+        <div role="presentation" onClick={() => handleItemClick(setIsGettingStarted)} className={gettingStartedClass}>
+          Getting Started
+        </div>
+        <div
+          role="presentation"
+          onClick={() => handleItemClick(setIsDissectingProblem)}
+          className={dissectingProblemClass}
+        >
+          Dissecting the problem
+        </div>
+        <div role="presentation" onClick={() => handleItemClick(setIsPseudoCode)} className={pseudoCodeClass}>
+          Creting a Pseudo Code
+        </div>
+        <div role="presentation" onClick={() => handleItemClick(setIsWritingCode)} className={writingCodeClass}>
+          Writing Code
+        </div>
+      </div>
+
+
+      <div className="content">
+        {
+          isGettingStarted
+            ? <Body1>Getting started</Body1>
+            : <span />
+        }
+        {
+          isDissectingProblem
+            ? <Body1>Dissecting the problem</Body1>
+            : <span />
+        }
+        {
+          isPseudoCode
+            ? <Body1>Writing the pseudo code</Body1>
+            : <span />
+        }
+        {
+          isWritingCode
+            ? <Body1>Writing Code</Body1>
+            : <span />
+        }
+
+      </div>
     </div>
-    <div className="content">
-      <h2 id="news">Responsive Sidebar Example</h2>
-      <p>This example use media queries to transform the sidebar to a top navigation bar when the screen size is 700px or less.</p>
-      <p id="contact">We have also added a media query for screens that are 400px or less, which will vertically stack and center the navigation links.</p>
-      <h3>Resize the browser window to see the effect.</h3>
-    </div>
-  </div>
-);
+  );
+};
 
 export default TopicExplanationPage;

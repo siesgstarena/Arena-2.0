@@ -8,21 +8,22 @@
   overflow: auto;
 }
 
-.sidebar a {
+.sidebar div {
   display: block;
   color: black;
   padding: 16px;
   margin: 10px;
   border-radius: 5px;
   text-decoration: none;
+  cursor: pointer;
 }
  
-.sidebar a.active {
+.sidebar div.active {
   background-color: #A463F2;
   color: white;
 }
 
-.sidebar a:hover:not(.active) {
+.sidebar div:hover:not(.active) {
   background-color: #A463F2;
   color: white;
 }

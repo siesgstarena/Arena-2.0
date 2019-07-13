@@ -17,11 +17,17 @@ const styles = () => ({
 
 
 const SimpleExpansionPanel = (props) => {
+  
   const { classes } = props;
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   return (
     <div className={classes.root}>
 
-      <ExpansionPanel>
+      <ExpansionPanel  expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}>What is Arena ?</Body1>
         </ExpansionPanelSummary>
@@ -35,7 +41,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}>What languages are supported and what are its specifications?</Body1>
         </ExpansionPanelSummary>
@@ -92,7 +98,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}> How can I take part in a contest?</Body1>
         </ExpansionPanelSummary>
@@ -106,7 +112,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}>How can I organize a contest?</Body1>
         </ExpansionPanelSummary>
@@ -122,7 +128,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}>What are ratings?</Body1>
         </ExpansionPanelSummary>
@@ -135,7 +141,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}>What are blog posts here? Who can write?</Body1>
         </ExpansionPanelSummary>
@@ -149,7 +155,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
 
-      <ExpansionPanel>
+      <ExpansionPanel expanded={expanded === 'panel7'} onChange={handleChange('panel7')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }}> What is the specification of the machine on which code is executed?</Body1>
         </ExpansionPanelSummary>

@@ -26,11 +26,11 @@ const SimpleExpansionPanel = (props) => {
   return (
     <div className={classes.root}>
 
-      <ExpansionPanel  expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
-        <Body1 style={{ color: '#1967d2' }} className="mb0">What is Arena ?</Body1>
+          <Body1 style={{ color: '#1967d2' }} className="mb0">What is Arena ?</Body1>
         </ExpansionPanelSummary>
-        
+
         <ExpansionPanelDetails>
           <Body1 className="mid-gray mt0">
             Arena is a contest platform cum social networking site for people who are
@@ -45,7 +45,7 @@ const SimpleExpansionPanel = (props) => {
         <ExpansionPanelSummary expandIcon={<MaterialIcon style={{ color: '#1967d2' }} icon="keyboard_arrow_down" />}>
           <Body1 style={{ color: '#1967d2' }} className="mb0">What languages are supported and what are its specifications?</Body1>
         </ExpansionPanelSummary>
-        
+
         <ExpansionPanelDetails>
           <div className="mid-gray">
             Following are the languages and compilers supported by Arena:

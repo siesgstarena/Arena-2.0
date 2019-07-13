@@ -21,12 +21,12 @@ const DeveloperCard = (props) => {
 
   return (
 
-    <Card className="">
+    <Card className="" style={{ height: '305px' }}>
       { /*
             pl3 -> PaddingLeft3
             pr3 -> PaddingRight3
             tc -> TextCenter
-            ms2 -> MarginAll2
+            ma2 -> MarginAll2
             dim -> Dims the element on hover
         */
       }
@@ -35,10 +35,9 @@ const DeveloperCard = (props) => {
 
       <div className="pl3 pr3">
         { /* This part prints the name of the person */}
-        <Body1 className="tc">
+        <Body1 className="tc mb0">
           {name}
         </Body1>
-
         { /* This part prints the social media icons of the person, if any */}
         <div className="tc">
           { githubUrl

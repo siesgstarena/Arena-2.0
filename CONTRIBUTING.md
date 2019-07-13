@@ -22,8 +22,14 @@ to install them on your system.
   npm install
   ```
 * Exporting the SASS_PATH to node_modules by typing the following commmand:
+   * If using OSX or Linux:
   ``` 
-  export SASS_PATH=./node_modules
+	  export SASS_PATH=./node_modules
+  ```
+  * If using Windows:
+  ``` 
+	  SET SASS_PATH=.\node_modules
+  ```
 * Run the development server to view the changes you are making by typing the following
 command:
   ```

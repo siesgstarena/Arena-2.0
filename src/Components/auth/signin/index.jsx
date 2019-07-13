@@ -11,7 +11,11 @@ import 'tachyons';
 const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { history } = props;
+  const { history, setIsLoggedIn } = props;
+
+  const handleSignIn = () => {
+    setIsLoggedIn(true);
+  };
 
   return (
     <Grid className="mw8 center">
@@ -60,7 +64,7 @@ const SignIn = (props) => {
               Let&apos;s create one
               </span>
             </Body1>
-            <Button raised>
+            <Button raised onClick={handleSignIn}>
               Sign in
             </Button>
           </div>
@@ -72,6 +76,7 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   history: PropTypes.object.isRequired,
+  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default SignIn;

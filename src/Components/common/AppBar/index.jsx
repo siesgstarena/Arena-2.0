@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -24,11 +25,12 @@ const AppBar = (props) => {
   // selectedIndex is the state variable which decides which option is selected
   const [open, setOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const notMobile = window.innerWidth > 480;
-  // notMobile turns out to be true when the device width is greater than 480px
+  const mobileDevice = window.innerWidth < 480;
+  // mobileDevice turns out to be true when the device width is less than 480px
+
   const { location } = props;
   const { pathname: currentPathname } = location;
-  const { history } = props;
+  const { history, isLoggedIn } = props;
 
   useEffect(() => {
     if (currentPathname === '/') {
@@ -125,33 +127,48 @@ const AppBar = (props) => {
               only singin button on mobile devices. This was done to make the site a bit
               more responsive
             */}
-            { notMobile
-              ? (
-                <div>
+            {
+              !mobileDevice && !isLoggedIn
+                ? (
+                  <div>
+                    <Button
+                      className="mr2"
+                      style={{ textTransform: 'capitalize' }}
+                      onClick={() => history.push('/auth/signin')}
+                    >
+                      Sign In
+                    </Button>
+                    <Button
+                      raised
+                      onClick={() => history.push('/auth/signup')}
+                    >
+                      Sign Up
+                    </Button>
+                  </div>
+                ) : null
+            }
+            {
+              !mobileDevice && isLoggedIn
+                ? <MaterialIcon icon="account_circle" style={{ color: '#6200EE' }} />
+                : null
+            }
+            {
+              mobileDevice && isLoggedIn
+                ? <MaterialIcon icon="account_circle" style={{ color: '#6200EE' }} />
+                : null
+            }
+            {
+              mobileDevice && !isLoggedIn
+                ? (
                   <Button
                     className="mr2"
-                    style={{ textTransform: 'capitalize' }}
+                    raised
                     onClick={() => history.push('/auth/signin')}
                   >
-                    Sign In
-                  </Button>
-                  <Button
-                    raised
-                    onClick={() => history.push('/auth/signup')}
-                  >
-                    Sign Up
-                  </Button>
-                </div>
-              )
-              : (
-                <Button
-                  className="mr2"
-                  raised
-                  onClick={() => history.push('/auth/signin')}
-                >
                   Sign In
-                </Button>
-              )
+                  </Button>
+                )
+                : <span />
             }
           </TopAppBarSection>
         </TopAppBarRow>
@@ -165,6 +182,7 @@ const AppBar = (props) => {
 AppBar.propTypes = {
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export default AppBar;

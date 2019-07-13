@@ -21,7 +21,7 @@ const DeveloperCard = (props) => {
 
   return (
 
-    <Card className=""  style={{height : '305px'}} >
+    <Card className="" style={{ height: '305px' }}>
       { /*
             pl3 -> PaddingLeft3
             pr3 -> PaddingRight3

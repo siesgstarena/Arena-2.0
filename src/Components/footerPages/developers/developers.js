@@ -19,7 +19,6 @@ const developers = [
     facebookUrl: 'https://fb.com/sid.poduval',
     instagramUrl: 'https://www.instagram.com/sid12598',
   },
-  
   {
     id: 3,
     name: 'Mandar Kotnis',
@@ -58,7 +57,7 @@ const developers = [
     linkdinUrl: 'https://www.linkedin.com/in/ashok-choudhary-153a09150/',
     twitterUrl: 'https://twitter.com/_ashokc',
     facebookUrl: '',
-    instagramUrl: ''
+    instagramUrl: '',
   },
   {
     id: 7,

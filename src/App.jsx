@@ -16,7 +16,7 @@ import Ratings from './Components/drawer/ratings/index';
 import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
-import PlaylistsTopicExplanationPage from './Components/drawer/playlists/topicExplanationPage/index';
+import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';
 import Goodies from './Components/drawer/goodies/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
@@ -55,7 +55,7 @@ class App extends Component {
           <Route path="/problem-set" exact component={ProblemSet} />
           <Route path="/playlists" exact component={PlaylistsWelcomePage} />
           <Route path="/playlists/home" exact component={PlaylistsHomePage} />
-          <Route path="/playlists/topic/:id" exact component={PlaylistsTopicExplanationPage} />
+          <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
           <Route path="/goodies" exact component={Goodies} />
           <Route path="/about" exact component={About} />
           <Route path="/competitions" exact component={Competitions} />

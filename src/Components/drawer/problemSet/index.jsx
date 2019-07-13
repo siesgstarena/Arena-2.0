@@ -3,11 +3,13 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 
 const ProblemSet = ({location, history}) => {
-  console.log(location)
-  console.log(history);
-  console.log(location.query);
   let params = new URLSearchParams(location.search);
+
+  console.log(location);
   const tags = params.get("tags");
+  console.log(tags);
+  console.log(params);
+  console.log(params.get("newtag"));
   return (
     <div className="center pa2 mt5 mw7">
       <a className="purple mt0 mb5 tc" href="?tags=adhoc">Playlists Home</a>

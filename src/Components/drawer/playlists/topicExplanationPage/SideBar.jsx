@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Headline5, Body1 } from '@material/react-typography';
-import './index.scss';
+import { Headline5 } from '@material/react-typography';
+import PropTypes from 'prop-types';
+import './SideBar.scss';
 
-const TopicExplanationPage = () => {
+const SideBar = ({
+  gettingStartedContent, dissectingProblemContent, pseudoCodeContent, writingCodeContent,
+}) => {
   const [isGettingStarted, setIsGettingStarted] = useState(true);
   const [isDissectingProblem, setIsDissectingProblem] = useState(false);
   const [isPseudoCode, setIsPseudoCode] = useState(false);
@@ -12,7 +15,6 @@ const TopicExplanationPage = () => {
   const dissectingProblemClass = isDissectingProblem ? 'active' : '';
   const pseudoCodeClass = isPseudoCode ? 'active' : '';
   const writingCodeClass = isWritingCode ? 'active' : '';
-
 
   const handleItemClick = (setItem) => {
     setIsGettingStarted(false);
@@ -45,26 +47,25 @@ const TopicExplanationPage = () => {
         </div>
       </div>
 
-
       <div className="content">
         {
           isGettingStarted
-            ? <Body1>Getting started</Body1>
+            ? gettingStartedContent
             : <span />
         }
         {
           isDissectingProblem
-            ? <Body1>Dissecting the problem</Body1>
+            ? dissectingProblemContent
             : <span />
         }
         {
           isPseudoCode
-            ? <Body1>Writing the pseudo code</Body1>
+            ? pseudoCodeContent
             : <span />
         }
         {
           isWritingCode
-            ? <Body1>Writing Code</Body1>
+            ? writingCodeContent
             : <span />
         }
 
@@ -73,4 +74,11 @@ const TopicExplanationPage = () => {
   );
 };
 
-export default TopicExplanationPage;
+SideBar.propTypes = {
+  gettingStartedContent: PropTypes.object.isRequired,
+  dissectingProblemContent: PropTypes.object.isRequired,
+  pseudoCodeContent: PropTypes.object.isRequired,
+  writingCodeContent: PropTypes.object.isRequired,
+};
+
+export default SideBar;

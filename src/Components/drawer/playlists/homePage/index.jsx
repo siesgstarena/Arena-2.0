@@ -7,7 +7,7 @@ import './index.scss';
 
 const WelcomePage = () => {
   const topicsArray = topics.map(topic => (
-    <Link to={`/playlists/topic/${topic.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+    <Link key={topic.id} to={`/playlists/topic/${topic.id}`} style={{ textDecoration: 'none', color: 'black' }}>
       <div key={topic.id} className="pointer ma0 br4 mb3 b--purple ba pa3 hover-background-color">
         <Body2 className="fr gray">
           {topic.date}

@@ -6,6 +6,7 @@
   position: fixed;
   height: 100%;
   overflow: auto;
+  box-shadow: 0px 0px 5px 0px rgba(211,211,211,1);
 }
 
 .sidebar div {
@@ -48,5 +49,8 @@ div.content {
   .sidebar a {
     text-align: center;
     float: none;
+  }
+  div.content {
+    height: auto;
   }
 }

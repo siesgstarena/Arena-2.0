@@ -56,8 +56,9 @@ const developers = [
     imageUrl: 'https://media.licdn.com/dms/image/C5103AQFgxAdXbRRggg/profile-displayphoto-shrink_800_800/0?e=1567641600&v=beta&t=f8GTj93cSDS7g8Y7dTs9O0mieFwz3AjM1AN7p84Ohd8',
     githubUrl: 'https://github.com/ac030540',
     linkdinUrl: 'https://www.linkedin.com/in/ashok-choudhary-153a09150/',
-    twitterUrl: '',
+    twitterUrl: 'https://twitter.com/_ashokc',
     facebookUrl: '',
+    instagramUrl: ''
   },
   {
     id: 7,

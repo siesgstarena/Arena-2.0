@@ -30,6 +30,7 @@
     "react": "^16.8.3",
     "react-card": "^1.0.4",
     "react-dom": "^16.7.0",
+    "react-google-charts": "^3.0.14",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",

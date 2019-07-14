@@ -18,6 +18,7 @@ import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/inde
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
 import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';
 import Goodies from './Components/drawer/goodies/index';
+import Profile from './Components/user/profile/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
 import Contact from './Components/footerPages/contact/index';
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/playlists/home" exact component={PlaylistsHomePage} />
         <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
         <Route path="/goodies" exact component={Goodies} />
+        <Route path="/profile/:id" exact component={Profile} />
         <Route path="/about" exact component={About} />
         <Route path="/competitions" exact component={Competitions} />
         <Route path="/contact" exact component={Contact} />

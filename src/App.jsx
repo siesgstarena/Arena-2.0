@@ -41,7 +41,7 @@ const App = () => {
             some part of the URL. Hence in our case, AppBar and Footer will be rendered
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
-        <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} {...props} />} />
+        <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/forgot" exact component={Forgot} />

@@ -17,20 +17,25 @@ import Drawer, {
 import List, {
   ListItem, ListItemGraphic, ListItemText,
 } from '@material/react-list';
+import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import drawerItems from './drawerItems';
+import '@material/react-menu-surface/dist/menu-surface.css';
+import '@material/react-menu/dist/menu.css';
 import './AppBar.scss';
 import 'tachyons';
 
 const AppBar = (props) => {
   // selectedIndex is the state variable which decides which option is selected
   const [open, setOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [coordinatesOfUserMenu, setCoordinatesOfUserMenu] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const mobileDevice = window.innerWidth < 480;
   // mobileDevice turns out to be true when the device width is less than 480px
 
   const { location } = props;
   const { pathname: currentPathname } = location;
-  const { history, isLoggedIn } = props;
+  const { history, isLoggedIn, setIsLoggedIn } = props;
 
   useEffect(() => {
     if (currentPathname === '/') {
@@ -67,10 +72,59 @@ const AppBar = (props) => {
 
   // The following function closes the drawer (by making open=false)
   // and updates selectedIndex depending upon which item is clicked
-  const onItemClick = (index) => {
+  const onDrawerItemClick = (index) => {
     setOpen(!open);
     setSelectedIndex(index);
   };
+
+  const onCloseUserMenu = () => {
+    setIsUserMenuOpen(false);
+  };
+
+  const onUserIconClick = (event) => {
+    setIsUserMenuOpen(true);
+    setCoordinatesOfUserMenu({ x: event.clientX, y: event.clientY });
+  };
+
+  const userMenuOptions = [
+    'New Post',
+    'My Posts',
+    'My Profile',
+    'Settings',
+    'Logout',
+  ];
+
+  const onUserMenuItemClick = (index, item) => {
+    if (index === 0) {
+      history.push('/blog/create');
+    } else if (index === 1) {
+      history.push('/blog/my');
+    } else if (index === 2) {
+      history.push('/profile/id');
+    } else if (index === 3) {
+      history.push('/profile/settings');
+    } else if (index === 4) {
+      setIsLoggedIn(false);
+      setIsUserMenuOpen(false);
+    }
+  };
+
+  const userMenu = (
+    <Menu
+      open={isUserMenuOpen}
+      onClose={onCloseUserMenu}
+      coordinates={coordinatesOfUserMenu}
+      onSelected={(index, item) => onUserMenuItemClick(index, item)}
+    >
+      <MenuList>
+        {userMenuOptions.map(option => (
+          <MenuListItem className="pointer" key={option}>
+            <MenuListItemText className="outline-0" primaryText={option} />
+          </MenuListItem>
+        ))}
+      </MenuList>
+    </Menu>
+  );
 
   return (
     <div>
@@ -98,7 +152,7 @@ const AppBar = (props) => {
             <DrawerContent>
               <List singleSelection selectedIndex={selectedIndex}>
                 { drawerItems.map((item, index) => (
-                  <ListItem key={item.id} className="pointer" style={{ padding: '0' }} onClick={() => onItemClick(index)}>
+                  <ListItem key={item.id} className="pointer" style={{ padding: '0' }} onClick={() => onDrawerItemClick(index)}>
                     <NavLink to={{ pathname: item.path }} exact className="no-underline db pa3 black" activeStyle={{ color: '#6200EE' }} style={{ width: '100%' }}>
                       <ListItemGraphic className="v-mid" graphic={<MaterialIcon icon={item.icon} />} />
                       <ListItemText className="v-mid" primaryText={item.name} />
@@ -149,12 +203,22 @@ const AppBar = (props) => {
             }
             {
               !mobileDevice && isLoggedIn
-                ? <MaterialIcon icon="account_circle" style={{ color: '#6200EE' }} />
+                ? (
+                  <div>
+                    <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
+                    {userMenu}
+                  </div>
+                )
                 : null
             }
             {
               mobileDevice && isLoggedIn
-                ? <MaterialIcon icon="account_circle" style={{ color: '#6200EE' }} />
+                ? (
+                  <div>
+                    <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
+                    {userMenu}
+                  </div>
+                )
                 : null
             }
             {
@@ -183,6 +247,7 @@ AppBar.propTypes = {
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default AppBar;

@@ -102,7 +102,7 @@ const AppBar = (props) => {
     } else if (index === 2) {
       history.push('/profile/id');
     } else if (index === 3) {
-      history.push('/profile/settings');
+      history.push('/profile/id/settings');
     } else if (index === 4) {
       setIsLoggedIn(false);
       setIsUserMenuOpen(false);

@@ -3,7 +3,7 @@ import Info from './Info';
 import RatingsGraph from './RatingsGraph';
 import Posts from './Posts';
 
-const About = () => (
+const Profile = () => (
   <div className="mw7 center pa3 pt0">
     <Info />
     <RatingsGraph />
@@ -11,4 +11,4 @@ const About = () => (
   </div>
 );
 
-export default About;
+export default Profile;

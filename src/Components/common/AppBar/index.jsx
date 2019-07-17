@@ -187,6 +187,7 @@ const AppBar = (props) => {
                   <div>
                     <Button
                       className="mr2"
+                      outlined
                       style={{ textTransform: 'capitalize' }}
                       onClick={() => history.push('/auth/signin')}
                     >

@@ -1,0 +1,6 @@
+@import "@material/switch/mixins";
+@import '@material/react-switch/index.scss';
+
+.react-switch-alternate {
+  @include mdc-switch-toggled-on-color(#6200EE);
+}

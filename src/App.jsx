@@ -7,11 +7,11 @@ import SignIn from './Components/auth/signin/index';
 import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
 import Reset from './Components/auth/reset/index';
-import ContestsSchedule from './Components/drawer/contests/contestsSchedule/index';
-import ContestTabBar from './Components/drawer/contests/contestPage/ContestTabBar';
-import ContestPage from './Components/drawer/contests/contestPage/index';
-import ContestStatusPage from './Components/drawer/contests/contestStatus/index';
-import ContestMySubmissionsPage from './Components/drawer/contests/mySubmissions/index';
+import ContestsSchedule from './Components/drawer/contests/schedule/index';
+import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+import ContestDashboard from './Components/drawer/contests/dashboard/index';
+import ContestStatus from './Components/drawer/contests/status/index';
+import ContestMySubmissions from './Components/drawer/contests/mySubmissions/index';
 import Ratings from './Components/drawer/ratings/index';
 import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
@@ -49,9 +49,9 @@ const App = () => {
         <Route path="/auth/forgot" exact component={Forgot} />
         <Route path="/auth/reset" exact component={Reset} />
         <Route path="/contests/:id" component={ContestTabBar} />
-        <Route path="/contests/:id" exact component={ContestPage} />
-        <Route path="/contests/:id/status" exact component={ContestStatusPage} />
-        <Route path="/contests/:id/my" exact component={ContestMySubmissionsPage} />
+        <Route path="/contests/:id" exact component={ContestDashboard} />
+        <Route path="/contests/:id/status" exact component={ContestStatus} />
+        <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
         <Route path="/contests" exact component={ContestsSchedule} />
         <Route path="/ratings" exact component={Ratings} />
         <Route path="/problem-set" exact component={ProblemSet} />

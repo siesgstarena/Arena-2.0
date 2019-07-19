@@ -15,7 +15,12 @@ const SignUp = (props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { history } = props;
+  const { history, setIsLoggedIn } = props;
+
+  const handleSignUp = () => {
+    setIsLoggedIn(true);
+  };
+
   return (
     <Grid className="mw8 center">
       <Row className="">
@@ -95,7 +100,7 @@ const SignUp = (props) => {
                 privacy policy
               </span>
             </Body2>
-            <Button raised>
+            <Button raised onClick={handleSignUp}>
               Sign up
             </Button>
           </div>
@@ -107,6 +112,7 @@ const SignUp = (props) => {
 
 SignUp.propTypes = {
   history: PropTypes.object.isRequired,
+  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default SignUp;

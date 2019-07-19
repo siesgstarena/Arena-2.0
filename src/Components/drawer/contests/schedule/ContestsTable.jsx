@@ -1,13 +1,12 @@
 import React from 'react';
-import './Table.scss';
 import PropTypes from 'prop-types';
 
-const Table = ({ rows }) => {
+const ContestsTable = ({ rows }) => {
   // hidden variable is used to hide the list of setters when the width
   // of the page goes below 900
   const hidden = window.innerWidth < 900;
   return (
-    <div className="shadow-4 rounded-corners" style={{ overflowX: 'auto' }}>
+    <div className="" style={{ overflowX: 'auto' }}>
       <table className="">
         <tbody className="">
           <tr className="">
@@ -28,8 +27,8 @@ const Table = ({ rows }) => {
   );
 };
 
-Table.propTypes = {
+ContestsTable.propTypes = {
   rows: PropTypes.array.isRequired,
 };
 
-export default Table;
+export default ContestsTable;

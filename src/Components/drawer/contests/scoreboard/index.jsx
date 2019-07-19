@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
-import ContestDetails from '../contestPage/ContestDetails';
-import Announcements from '../contestPage/Announcements';
+import ContestDetails from '../common/ContestDetails';
+import Announcements from '../common/Announcements';
 import 'tachyons';
 
 const ContestPage = () => (

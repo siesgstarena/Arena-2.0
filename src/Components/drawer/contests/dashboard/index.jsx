@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
-import ProblemStatusTable from './ProblemStatusTable';
-import ContestDetails from '../contestPage/ContestDetails';
-import Announcements from '../contestPage/Announcements';
+import ProblemsTable from './ProblemsTable';
+import SubmissionDetails from './SubmissionDetails';
+import ContestDetails from '../common/ContestDetails';
+import Announcements from '../common/Announcements';
 import 'tachyons';
 
-const ContestPage = (props) => {
+const ContestStatusPage = (props) => {
   const { location } = props;
   const { pathname } = location;
-  const { match } = props;
-  const { params } = match;
-  const { id: contestId } = params;
+
   return (
     <Grid className="mw9 center">
       <Row>
         <Cell desktopColumns={9} tabletColumns={8}>
           <Cell className="">
-            <ProblemStatusTable pathname={pathname} contestId={contestId} />
+            <ProblemsTable pathname={pathname} />
+          </Cell>
+          <Cell>
+            <SubmissionDetails />
           </Cell>
         </Cell>
         <Cell desktopColumns={3} tabletColumns={8}>
@@ -33,10 +35,9 @@ const ContestPage = (props) => {
   );
 };
 
-ContestPage.propTypes = {
+ContestStatusPage.propTypes = {
   location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
 };
 
 
-export default ContestPage;
+export default ContestStatusPage;

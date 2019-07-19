@@ -52,9 +52,9 @@ const ProblemStatusTable = () => {
 
   return (
     <div className="" style={{ overflowX: 'auto' }}>
-      <table className="">
+      <table>
         <tbody className="">
-          <tr className="">
+          <tr>
             <th className="tc">#</th>
             <th className="tc">When</th>
             <th className="tc">Who</th>

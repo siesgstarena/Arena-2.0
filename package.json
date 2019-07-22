@@ -26,6 +26,8 @@
     "@material/react-typography": "^0.8.0",
     "@material/ripple": "^0.44.1",
     "@material/top-app-bar": "^0.44.0",
+    "babel-polyfill": "^6.26.0",
+    "draft-js": "^0.11.0",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",

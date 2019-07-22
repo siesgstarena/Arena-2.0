@@ -13,6 +13,8 @@ import ContestDashboard from './Components/drawer/contests/dashboard/index';
 import ContestStatus from './Components/drawer/contests/status/index';
 import ContestMySubmissions from './Components/drawer/contests/mySubmissions/index';
 import Ratings from './Components/drawer/ratings/index';
+import BlogsList from './Components/drawer/blogs/blogsList/index';
+import Editor from './Components/drawer/blogs/create/editor';
 import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
@@ -44,6 +46,7 @@ const App = () => {
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
         <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
+        <Route path="/test" exact component={Editor} />
         <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/forgot" exact component={Forgot} />
@@ -54,6 +57,7 @@ const App = () => {
         <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
         <Route path="/contests" exact component={ContestsSchedule} />
         <Route path="/ratings" exact component={Ratings} />
+        <Route path="/blogs" exact component={BlogsList} />
         <Route path="/problem-set" exact component={ProblemSet} />
         <Route path="/playlists" exact component={PlaylistsWelcomePage} />
         <Route path="/playlists/home" exact component={PlaylistsHomePage} />

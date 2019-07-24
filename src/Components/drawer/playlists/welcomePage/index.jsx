@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import welcomeImage from './assets/mbri-add-submenu.svg';
 
 const WelcomePage = ({ history }) => (
-  <div className="center tc mt4" style={{ maxWidth: '400px' }}>
+  <div className="center tc mt4 pa2" style={{ maxWidth: '400px' }}>
     <img height="auto" width="150px" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }} alt="welcome" src={welcomeImage} />
     <Headline5 className="purple mt0 mb5">Introducing Playlists</Headline5>
     <Body1 className="mb0">Playlists provides a guided, tutorial, hands-on coding experience of topics with fresh problem ideas.</Body1>

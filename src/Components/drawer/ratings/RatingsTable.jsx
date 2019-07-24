@@ -9,7 +9,7 @@ const RatingsTable = () => {
         {user.rank}
       </td>
       <td className="tc pa3">
-        <Link className="no-underline black" to={`/profile/${user.profileId}`}>
+        <Link className="no-underline dim blue pointer" to={`/profile/${user.profileId}`}>
           {user.name}
         </Link>
       </td>

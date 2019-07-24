@@ -13,7 +13,7 @@ const ProblemsTable = ({ pathname }) => {
         {problem.points}
       </td>
       <td>
-        <Link className="no-underline black" to={`${pathname}/problem/${problem.id}`}>
+        <Link className="no-underline dim blue pointer" to={`${pathname}/problem/${problem.id}`}>
           {problem.name}
         </Link>
       </td>

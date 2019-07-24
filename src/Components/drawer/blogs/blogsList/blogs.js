@@ -6,7 +6,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
 
   {
@@ -70,7 +70,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
   {
     id: 9,
@@ -79,7 +79,7 @@ const blogs = [
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
     timeToRead: '2 min read',
-    updated: '11 hours ago',
+    updated: 'Updated 11 hours ago',
   },
 ];
 

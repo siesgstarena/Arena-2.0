@@ -1,41 +1,33 @@
-import React from 'react';
-// import { Headline6, Body1, Body2 } from '@material/react-typography';
-// import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import Button from '@material/react-button';
+import { Headline4, Body1 } from '@material/react-typography';
+import ProblemSetTable from './ProblemSetTable';
 
-const ProblemSet = ({ location, history }) => {
-  const params = new URLSearchParams(location.search);
+const ProblemSet = () => {
+  const [displayClearFilters, setDisplayClearFilters] = useState(false);
+  const [key, setKey] = useState(1);
 
-  console.log(location);
-  const tags = params.get('tags');
-  console.log(tags);
-  console.log(params);
-  console.log(params.get('newtag'));
+  // Key in this case is used to re-mount the ProblemSetTable when
+  // the user clicks on clear filters button
+  // Everytime the key changes, the ProblemSetTable is re-mounted
+  const clearFilters = () => {
+    setKey(key + 1);
+    setDisplayClearFilters(false);
+  };
   return (
-    <div className="center pa2 mt5 mw7">
-      <a className="purple mt0 mb5 tc" href="?tags=adhoc">Playlists Home</a>
-      <a href="?tags=string">
-        Hello
-      </a>
+    <div className="mw7 center pa3 pt0">
+      <Headline4 className="purple mb0">Problems</Headline4>
+      <Body1 className="mid-gray">Problems from previous contests</Body1>
       {
-        tags === null
-          ? (
-            <div>
-              <a href="?tags=adhoc">Adhoc</a>
-              <a href="?tags=string">String</a>
-            </div>
-          )
-          : <span />
+      displayClearFilters
+        ? (
+          <Button className="mb2" onClick={clearFilters}>
+            Clear Filters
+          </Button>
+        )
+        : null
       }
-      {
-        tags === 'adhoc'
-          ? <p>Adhoc</p>
-          : <span />
-      }
-      {
-        tags === 'string'
-          ? <p>String</p>
-          : <span />
-      }
+      <ProblemSetTable key={key} setDisplayClearFilters={setDisplayClearFilters} />
     </div>
   );
 };

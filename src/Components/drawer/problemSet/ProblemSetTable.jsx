@@ -1,12 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import Button from '@material/react-button';
 import problemsList from './problemsList';
 
-const ProblemsSetTable = ({ setDisplayClearFilters }) => {
+const ProblemsSetTable = () => {
   const [problems, setProblems] = useState(problemsList);
   const allProblems = useRef(problemsList);
   const [problemsArray, setProblemsArray] = useState([]);
+  const [displayClearFilters, setDisplayClearFilters] = useState(false);
+
+  // The following function is triggered when the user clicks on clear filters button
+  const clearFilters = () => {
+    setDisplayClearFilters(false);
+    setProblems(allProblems.current);
+  };
 
   // when the tag clicked, we display the clear filters button
   // we also update the problems state with only those problems which have the tag
@@ -22,20 +29,16 @@ const ProblemsSetTable = ({ setDisplayClearFilters }) => {
       const tagsArray = problem.tags.map((tag, index) => {
         if (index !== problem.tags.length - 1) {
           return (
-            <Link className="no-underline" onClick={() => onTagClick(tag)} key={tag} to={`problem-set?tags=${tag}`}>
-              <span className="i blue pointer dim">
-                {tag}
-                ,&nbsp;
-              </span>
-            </Link>
+            <span role="presentation" className="i blue pointer dim" onClick={() => onTagClick(tag)} key={tag}>
+              {tag}
+              ,&nbsp;
+            </span>
           );
         }
         return (
-          <Link className="no-underline" onClick={() => onTagClick(tag)} key={tag} to={`problem-set?tags=${tag}`}>
-            <span className="i blue pointer dim">
-              {tag}
-            </span>
-          </Link>
+          <span role="presentation" className="i blue pointer dim" onClick={() => onTagClick(tag)} key={tag}>
+            {tag}
+          </span>
         );
       });
       let backgroundColor = '';
@@ -82,6 +85,15 @@ const ProblemsSetTable = ({ setDisplayClearFilters }) => {
 
   return (
     <div className="" style={{ overflowX: 'auto' }}>
+      {
+        displayClearFilters
+          ? (
+            <Button className="mb2" onClick={clearFilters}>
+              Clear Filters
+            </Button>
+          )
+          : null
+      }
       <table className="">
         <tbody className="">
           <tr className="">
@@ -95,10 +107,6 @@ const ProblemsSetTable = ({ setDisplayClearFilters }) => {
       </table>
     </div>
   );
-};
-
-ProblemsSetTable.propTypes = {
-  setDisplayClearFilters: PropTypes.func.isRequired,
 };
 
 export default ProblemsSetTable;

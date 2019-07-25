@@ -12,7 +12,7 @@ export const currentContestsArray = currentContests.map(contest => (
   <tr key={contest.id}>
     <td>
       <Link
-        className="no-underline pointer dim black"
+        className="no-underline pointer dim blue"
         to={`/contests/${contest.id}`}
       >
         {contest.contestName}
@@ -24,7 +24,15 @@ export const currentContestsArray = currentContests.map(contest => (
         <td>
           {
             contest.setters.map((setter, index) => (
-              <div className="ma1" key={index}>{setter}</div>
+              <Link
+                className="no-underline pointer blue"
+                to="/profile/1"
+                key={index}
+              >
+                <div className="ma1 dim">
+                  {setter}
+                </div>
+              </Link>
             ))
           }
         </td>
@@ -42,7 +50,7 @@ export const pastContestsArray = pastContests.map(contest => (
   <tr key={contest.id}>
     <td>
       <Link
-        className="no-underline pointer dim black"
+        className="no-underline pointer dim blue"
         to={`/contests/${contest.id}`}
       >
         {contest.contestName}
@@ -55,7 +63,15 @@ export const pastContestsArray = pastContests.map(contest => (
           <td>
             {
               contest.setters.map((setter, index) => (
-                <div className="ma1" key={index}>{setter}</div>
+                <Link
+                  className="no-underline pointer blue"
+                  to="/profile/1"
+                  key={index}
+                >
+                  <div className="ma1 dim">
+                    {setter}
+                  </div>
+                </Link>
               ))
             }
           </td>

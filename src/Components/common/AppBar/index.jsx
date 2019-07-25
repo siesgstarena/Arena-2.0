@@ -47,7 +47,7 @@ const AppBar = (props) => {
     } else if (currentPathname === '/ratings') {
       setSelectedIndex(2);
       setOpen(false);
-    } else if (currentPathname === '/blogs') {
+    } else if (currentPathname === '/blog') {
       setSelectedIndex(3);
       setOpen(false);
     } else if (currentPathname === '/problem-set') {

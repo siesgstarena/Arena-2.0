@@ -17,7 +17,7 @@ const ProblemStatusTable = () => {
     return (
       <tr key={status.id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">
-          <Link className="no-underline black" to={`submission/${status.id}`}>
+          <Link className="no-underline dim blue pointer" to={`submission/${status.id}`}>
             {status.id}
           </Link>
         </td>
@@ -25,12 +25,12 @@ const ProblemStatusTable = () => {
           {status.when}
         </td>
         <td className="tc pa3">
-          <Link className="no-underline black" to={`/profile/${status.who.id}`}>
+          <Link className="no-underline dim blue pointer" to={`/profile/${status.who.id}`}>
             {status.who.username}
           </Link>
         </td>
         <td className="tc pa3">
-          <Link className="no-underline black" to={`problem/${status.problem.id}`}>
+          <Link className="no-underline dim blue pointer" to={`problem/${status.problem.id}`}>
             {status.problem.name}
           </Link>
         </td>

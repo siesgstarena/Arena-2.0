@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import problems from './problems';
+import Table from '../../../common/Table/index';
 
 const ProblemsTable = ({ pathname }) => {
+  const tableHeadings = ['#', 'Points', 'Problem Name'];
   const problemsArray = problems.map(problem => (
     <tr key={problem.id}>
       <td>
@@ -20,18 +22,7 @@ const ProblemsTable = ({ pathname }) => {
     </tr>
   ));
   return (
-    <div className="" style={{ overflowX: 'auto' }}>
-      <table className="">
-        <tbody className="">
-          <tr className="">
-            <th>#</th>
-            <th>Points</th>
-            <th>Problem Name</th>
-          </tr>
-          {problemsArray}
-        </tbody>
-      </table>
-    </div>
+    <Table tableHeadings={tableHeadings} tableData={problemsArray} />
   );
 };
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Table from '../../../common/Table/index';
 import problemStatus from './problemStatus';
 
 const ProblemStatusTable = () => {
+  const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   const problemStatusArray = problemStatus.map((status) => {
     // This portion checks which color is to be assigned to the verdict
     let color = '';
@@ -51,23 +53,7 @@ const ProblemStatusTable = () => {
   });
 
   return (
-    <div className="" style={{ overflowX: 'auto' }}>
-      <table>
-        <tbody className="">
-          <tr>
-            <th className="tc">#</th>
-            <th className="tc">When</th>
-            <th className="tc">Who</th>
-            <th className="tc">Problem</th>
-            <th className="tc">Verdict</th>
-            <th className="tc">Language</th>
-            <th className="tc">Time</th>
-            <th className="tc">Memory</th>
-          </tr>
-          {problemStatusArray}
-        </tbody>
-      </table>
-    </div>
+    <Table tableHeadings={tableHeadings} tableData={problemStatusArray} tableHeadingClassName="tc" />
   );
 };
 

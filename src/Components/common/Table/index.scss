@@ -1,0 +1,64 @@
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+table tr td {
+  border-bottom: 1px solid #ded4ff;
+  padding: 10px;
+  text-align: left;
+}
+
+table tr th {
+  background:#f0e8ff;
+  border-right: 1px solid #f0e8ff;
+  color: purple;
+  border-top: 1px solid purple;
+  text-align: left;
+  padding: 20px;
+  padding-left: 8px;
+}
+
+
+// Adding left border to the table
+table tr th:first-child,
+table tr td:first-child {
+  border-left: 1px solid purple;
+}
+
+// Adding right border to the table
+table tr th:last-child,
+table tr td:last-child {
+  border-right: 1px solid purple;
+}
+
+// Adding border below the table
+table tr:last-child td {
+  border-bottom: 1px solid purple;
+}
+
+// Adding below the table heading
+table tr:first-child th {
+  border-bottom: 1px solid purple;
+}
+
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}

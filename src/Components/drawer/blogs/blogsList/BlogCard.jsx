@@ -2,6 +2,7 @@ import React from 'react';
 import { Body1, Body2 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import './BlogCard.scss';
 
 const BlogCard = ({
   tags, id, date, name, timeToRead, author, updated,
@@ -15,7 +16,7 @@ const BlogCard = ({
   ));
 
   return (
-    <div key={id} className="ma0 br4 mb3 b--purple ba pa3 hover-background-color">
+    <div key={id} className="ma0 br4 mb3 b--purple ba pa3 card">
       <Body2 className="fr gray">
         {date}
         &nbsp;&nbsp;.&nbsp;&nbsp;

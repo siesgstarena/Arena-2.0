@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
+import Table from '../../common/Table/index';
 import problemsList from './problemsList';
 
 const ProblemsSetTable = () => {
@@ -8,6 +9,7 @@ const ProblemsSetTable = () => {
   const allProblems = useRef(problemsList);
   const [problemsArray, setProblemsArray] = useState([]);
   const [displayClearFilters, setDisplayClearFilters] = useState(false);
+  const tableHeadings = ['#', 'Problem Name', 'Tags', 'Points'];
 
   // The following function is triggered when the user clicks on clear filters button
   const clearFilters = () => {
@@ -84,7 +86,7 @@ const ProblemsSetTable = () => {
   }, [problems]);
 
   return (
-    <div className="" style={{ overflowX: 'auto' }}>
+    <div>
       {
         displayClearFilters
           ? (
@@ -94,17 +96,7 @@ const ProblemsSetTable = () => {
           )
           : null
       }
-      <table className="">
-        <tbody className="">
-          <tr className="">
-            <th>#</th>
-            <th>Problem Name</th>
-            <th>Tags</th>
-            <th>Points</th>
-          </tr>
-          {problemsArray}
-        </tbody>
-      </table>
+      <Table tableHeadings={tableHeadings} tableData={problemsArray} />
     </div>
   );
 };

@@ -21,7 +21,10 @@ const BlogCard = ({
       <div
         className="pa1"
         style={{
-          borderBottom: '1px solid #D3D3D3',
+          borderBottom: '1px solid purple',
+          background: '#F0E8FF',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px',
         }}
       >
         <Link to={`/blog/${id}`} className="no-underline black">

@@ -6,6 +6,7 @@ import BlogCard from '../../drawer/blogs/blogsList/BlogCard';
 const Posts = () => {
   const myPostsArray = myPosts.map(myPost => (
     <BlogCard
+      key={myPost.id}
       tags={myPost.tags}
       id={myPost.id}
       author={myPost.author}

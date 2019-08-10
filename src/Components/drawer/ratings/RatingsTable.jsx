@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Table from '../../common/Table/index';
 import ratings from './ratings';
 
 const RatingsTable = () => {
+  const tableHeadings = ['#', 'Name', 'Ratings'];
   const ratingsArray = ratings.map(user => (
     <tr key={user.rank} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
@@ -20,18 +22,7 @@ const RatingsTable = () => {
   ));
 
   return (
-    <div className="" style={{ overflowX: 'auto' }}>
-      <table className="">
-        <tbody className="">
-          <tr className="">
-            <th className="tc">#</th>
-            <th className="tc">Name</th>
-            <th className="tc">Ratings</th>
-          </tr>
-          {ratingsArray}
-        </tbody>
-      </table>
-    </div>
+    <Table tableHeadings={tableHeadings} tableData={ratingsArray} tableHeadingClassName="tc" />
   );
 };
 

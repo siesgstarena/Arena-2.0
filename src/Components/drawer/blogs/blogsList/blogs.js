@@ -1,7 +1,7 @@
 const blogs = [
   {
     id: 1,
-    name: 'Single Round Match #03',
+    name: 'Learn to code, drink coffee, change the world',
     tags: ['SRM', 'SRM03', 'contest'],
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
@@ -10,7 +10,7 @@ const blogs = [
   },
   {
     id: 2,
-    name: 'Single Round Match #03',
+    name: 'Learn to code, change the world',
     tags: ['SRM', 'SRM03', 'contest'],
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',
@@ -19,7 +19,7 @@ const blogs = [
   },
   {
     id: 3,
-    name: 'Single Round Match #03',
+    name: 'Learn to code, drink coffee',
     tags: ['SRM', 'SRM03', 'contest'],
     author: 'Swapnil Satish Shinde',
     date: 'Jan 4, 2019',

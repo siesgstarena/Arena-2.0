@@ -6,6 +6,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { Body1 } from '@material/react-typography';
 import MaterialIcon from '@material/react-material-icon';
+import Table from '../../common/Table/index';
+import supportedLanguagesAndVersions from './supportedLanguagesAndVersions';
 import 'tachyons';
 
 
@@ -23,6 +25,18 @@ const SimpleExpansionPanel = (props) => {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  const supportedLanguagesTableHeadings = ['Languages', 'Version'];
+  const supportedLanguagesTableData = supportedLanguagesAndVersions.map(supportedLanguage => (
+    <tr key={supportedLanguage.language}>
+      <td>
+        {supportedLanguage.language}
+      </td>
+      <td>
+        {supportedLanguage.version}
+      </td>
+    </tr>
+  ));
   return (
     <div className={classes.root}>
 
@@ -49,51 +63,11 @@ const SimpleExpansionPanel = (props) => {
         <ExpansionPanelDetails>
           <div className="mid-gray">
             Following are the languages and compilers supported by Arena:
-            <div className="pa4 mid-gray">
-              <div className="overflow-auto br3">
-                <table className="f6 w-100 mw8 center">
-                  <thead>
-                    <tr>
-                      <th className="fw6 bb tl pb3 pr3">Language</th>
-                      <th className="fw6 bb tl pb3 pr3">Version</th>
-                    </tr>
-                  </thead>
-                  <tbody className="lh-copy">
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">C</td>
-                      <td className="pv3 pr3 bb b--black-20">5.1.1</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">C++</td>
-                      <td className="pv3 pr3 bb b--black-20">5.1.1</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">C++ 14</td>
-                      <td className="pv3 pr3 bb b--black-20">5.1.1</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">Go</td>
-                      <td className="pv3 pr3 bb b--black-20">1.4</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">Java</td>
-                      <td className="pv3 pr3 bb b--black-20">jdk 8.5.1</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">Javascript (spidermonkey)</td>
-                      <td className="pv3 pr3 bb b--black-20">24.2.0</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">Python</td>
-                      <td className="pv3 pr3 bb b--black-20">2.7.10</td>
-                    </tr>
-                    <tr>
-                      <td className="pv3 pr3 bb b--black-20">Python 3</td>
-                      <td className="pv3 pr3 bb b--black-20"> 3.4.3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            <div className="mid-gray pt3">
+              <Table
+                tableData={supportedLanguagesTableData}
+                tableHeadings={supportedLanguagesTableHeadings}
+              />
             </div>
           </div>
         </ExpansionPanelDetails>

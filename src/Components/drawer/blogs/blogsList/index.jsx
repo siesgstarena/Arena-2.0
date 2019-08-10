@@ -4,16 +4,16 @@ import BlogCard from './BlogCard';
 import blogs from './blogs';
 
 const BlogsList = () => {
-  const BlogsArray = blogs.map(myPost => (
+  const BlogsArray = blogs.map(blog => (
     <BlogCard
-      key={myPost.id}
-      tags={myPost.tags}
-      id={myPost.id}
-      date={myPost.date}
-      name={myPost.name}
-      timeToRead={myPost.timeToRead}
-      author={myPost.author}
-      updated={myPost.updated}
+      key={blog.id}
+      tags={blog.tags}
+      id={blog.id}
+      date={blog.date}
+      name={blog.name}
+      timeToRead={blog.timeToRead}
+      author={blog.author}
+      updated={blog.updated}
     />
   ));
   return (

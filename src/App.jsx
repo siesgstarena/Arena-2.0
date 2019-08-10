@@ -29,6 +29,9 @@ import Developers from './Components/footerPages/developers/index';
 import Feedback from './Components/footerPages/feedback/index';
 import FAQ from './Components/footerPages/faq/index';
 import Privacy from './Components/footerPages/privacy/index';
+import Search from './Components/search/index';
+import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
+import AdminContestDashboard from './Components/admin/contestDashboard/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -72,6 +75,9 @@ const App = () => {
         <Route path="/feedback" exact component={Feedback} />
         <Route path="/faq" exact component={FAQ} />
         <Route path="/privacy" exact component={Privacy} />
+        <Route path="/search" exact component={Search} />
+        <Route path="/admin/:id/announcements" exact component={AdminEditAnnoucements} />
+        <Route path="/admin/:id" exact component={AdminContestDashboard} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

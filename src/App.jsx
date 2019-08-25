@@ -32,6 +32,7 @@ import Privacy from './Components/footerPages/privacy/index';
 import Search from './Components/search/index';
 import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
 import AdminContestDashboard from './Components/admin/contestDashboard/index';
+import AdminPlagiarism from './Components/admin/plagiarism/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -78,6 +79,7 @@ const App = () => {
         <Route path="/search" exact component={Search} />
         <Route path="/admin/:id/announcements" exact component={AdminEditAnnoucements} />
         <Route path="/admin/:id" exact component={AdminContestDashboard} />
+        <Route path="/admin/:id/plagiarism" exact component={AdminPlagiarism} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

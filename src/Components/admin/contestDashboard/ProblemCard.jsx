@@ -18,6 +18,9 @@ const ProblemCard = ({
   const onDeleteClick = () => {
     history.push(`${location.pathname}/${id}/delete`);
   };
+  const onResetStatusClick = () => {
+    history.push(`${location.pathname}/reset/${id}`);
+  };
   return (
     <div className="ba br4 b--black-20 pa3 mt2">
       <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>{name}</Headline6>
@@ -36,6 +39,10 @@ const ProblemCard = ({
       </Button>
       <Button style={{ color: '#555555' }} onClick={onDeleteClick}>
         Delete Problem
+      </Button>
+      <br />
+      <Button style={{ color: '#555555' }} onClick={onResetStatusClick}>
+        Reset Submission Status
       </Button>
     </div>
   );

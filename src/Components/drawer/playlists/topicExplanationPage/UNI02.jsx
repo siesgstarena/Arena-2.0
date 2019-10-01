@@ -25,11 +25,17 @@ const UNI02 = () => {
     <div>
       <Headline3 className="purple">Dissecting the Problem</Headline3>
       <Body1 className="ma0">
-        There is a very straightforward description for this problem. <br/>
+        There is a very straightforward description for this problem.
+        {' '}
+        <br />
 
-        Understand the input output and the pattern for it. <br/>
+        Understand the input output and the pattern for it.
+        {' '}
+        <br />
 
-        Only thing that you should consider is that the output is needed to be on a single line. <br/>
+        Only thing that you should consider is that the output is needed to be on a single line.
+        {' '}
+        <br />
       </Body1>
     </div>
   );
@@ -44,7 +50,8 @@ const UNI02 = () => {
       </Body1>
       <Headline6 className="mt3 ma0">Let's write our pseudo code!</Headline6>
       <Body1 className="ma0">
-        This is simple set of steps written for our understanding.<br/>
+        This is simple set of steps written for our understanding.
+        <br />
 
         Now you need to think about it and maybe even write it down, with enough practice you will be able to map all these instructions at once and follow the flow of the program.
       </Body1>
@@ -73,7 +80,8 @@ const UNI02 = () => {
             </div>
             <div className="dark-blue mb4">int main() &#123;</div>
             <div className="ml3">
-              <div>int t, i, T, g;</div><br/>
+              <div>int t, i, T, g;</div>
+              <br />
               <div className="mb4">
                 <span className="green">scanf</span>
                 (
@@ -84,7 +92,7 @@ const UNI02 = () => {
               <div>
                 for (i =
                 <span className="red"> 0</span>
-                ; i &lt; 
+                ; i &lt;
                 <span> T</span>
                 ; i++) &#123;
               </div>
@@ -98,11 +106,11 @@ const UNI02 = () => {
                 </div>
                 <div>
                 for (i =
-                <span className="red"> 0</span>
+                  <span className="red"> 0</span>
                 ; i &lt;
-                <span> t</span>
+                  <span> t</span>
                 ; i++) &#123;
-              </div>
+                </div>
                 <div className="ml3">
                   <div className="gray">&#47;&#47; input the number of integers to be taken next</div>
                   <span className="green">scanf</span>
@@ -110,7 +118,15 @@ const UNI02 = () => {
                   <span className="red">&quot;%d&quot;</span>
                   , &g);
                 </div>
-                <div className="ml3"> if (g%<span className="red">2</span>==<span className="red">0</span>) &#123; </div>
+                <div className="ml3">
+                  {' '}
+if (g%
+                  <span className="red">2</span>
+==
+                  <span className="red">0</span>
+) &#123;
+                  {' '}
+                </div>
                 <div className="ml4">
                   <span className="green">printf</span>
                   (
@@ -124,14 +140,17 @@ const UNI02 = () => {
                   <span className="red">&quot;O&quot;</span>
                   );
                 </div>
-                <div className="ml3"> &#125; </div> 
+                <div className="ml3"> &#125; </div>
                 <div className="mb3">&#125;</div>
               </div>
               <div className="mb3">
                 &#125;
               </div>
               <div className="mb3">
-                return <span className="red">0</span>;
+                return
+                {' '}
+                <span className="red">0</span>
+;
               </div>
             </div>
             &#125;

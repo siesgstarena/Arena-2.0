@@ -40,7 +40,7 @@ const SideBar = ({
           Dissecting the problem
         </div>
         <div role="presentation" onClick={() => handleItemClick(setIsPseudoCode)} className={pseudoCodeClass}>
-          Creting a Pseudo Code
+          Creating a Pseudo Code
         </div>
         <div role="presentation" onClick={() => handleItemClick(setIsWritingCode)} className={writingCodeClass}>
           Writing Code

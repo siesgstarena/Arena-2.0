@@ -48,22 +48,23 @@ const UNI02 = () => {
         It&apos;s just a bunch of arrows and block which do the processing.
         To know more about pseudo code visit here.
       </Body1>
-      <Headline6 className="mt3 ma0">Let's write our pseudo code!</Headline6>
+      <Headline6 className="mt3 ma0">Let&apos;s write our pseudo code!</Headline6>
       <Body1 className="ma0">
         This is simple set of steps written for our understanding.
         <br />
-
-        Now you need to think about it and maybe even write it down, with enough practice you will be able to map all these instructions at once and follow the flow of the program.
+        Now you need to think about it and maybe even write it down,
+        with enough practice you will be able to map all these instructions at once and
+        follow the flow of the program.
       </Body1>
-      <Headline6 className="mt3 ma0">Let's start!</Headline6>
+      <Headline6 className="mt3 ma0">Let&apos;s start!</Headline6>
       <Body1 className="ma0">
         We need to take input for the integer.
 
         Then we&apos;ll check whether the integer is a multiple of 2 or not.
-
-        This can be done easily by checking the remainder for the division of that number. If it is 0, means the number is ever or else it is odd.
-
-        We'll print the parity in terms of &apos;E&apos; or &apos;O&apos; as per the description.
+        This can be done easily by checking the remainder for the division of that number.
+        If it is 0, means the number is ever or else it is odd.
+        We&apos;ll print the parity in terms of
+        &apos;E&apos; or &apos;O&apos; as per the description.
       </Body1>
     </div>
   );

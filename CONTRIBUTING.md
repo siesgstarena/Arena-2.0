@@ -41,7 +41,7 @@ command:
    Steps to be followed:
    1. Fork the respository.
    2. Perform the changes.
-   3. Run eslint on the proejct by the following command:
+   3. Run eslint on the project by the following command:
    ```
    npx eslint . --ext .jsx --ext .js
    ```

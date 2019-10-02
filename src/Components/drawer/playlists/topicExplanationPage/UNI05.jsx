@@ -94,8 +94,7 @@ const UNI05 = () => {
               <div>int T;</div>
               <div className="mb4">
                 <span className="green">cin</span>
-                {' '}
->> T;
+                {'>> T;'}
                 <br />
                 char temp;
                 <br />
@@ -119,13 +118,12 @@ const UNI05 = () => {
               <div className="ml3">
                 <div className="mb4">
                   <span className="gray">
-                    // Notice the input and set up the cin to take input for
-                    coordinates
+                    {'// Notice the input and set up the cin to take input for coordinates'}
                   </span>
                 </div>
                 <div className="mb4">
                   <span className="green">cin </span>
-                  >> temp >> x1 >> temp >> y1 >> temp >> temp >> x2 >> temp >> y2 >> temp;
+                  {'>> temp >> x1 >> temp >> y1 >> temp >> temp >> x2 >> temp >> y2 >> temp;'}
                 </div>
                 <div className="mb4">
                   int tot=
@@ -157,10 +155,10 @@ const UNI05 = () => {
                   {'<< fixed << setprecision('}
                   <span className="red">2</span>
                   {') << dist <<'}
-                  <span className="red">"/n"</span>
-;
+                  <span className="red">&quot;/n&quot;</span>
+                  {';'}
                   <span className="gray">
-                    // Printing the distance upto 2 digits after decimal
+                    {'// Printing the distance upto 2 digits after decimal'}
                   </span>
                 </div>
               </div>

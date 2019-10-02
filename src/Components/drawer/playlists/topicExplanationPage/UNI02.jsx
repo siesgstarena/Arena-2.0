@@ -24,19 +24,17 @@ const UNI02 = () => {
   const dissectingProblemContent = (
     <div>
       <Headline3 className="purple">Dissecting the Problem</Headline3>
-      <Body1 className="ma0">
-        <div className="mb1">
-          There is a very straightforward description for this problem.
-          {' '}
-        </div>
-        <div className="mb1">
-          Understand the input output and the pattern for it.
-          {' '}
-        </div>
-        <div className="mb1">
+      <Body1 className="mb1">
+        There is a very straightforward description for this problem.
+        {' '}
+      </Body1>
+      <Body1 className="ma0 mb1">
+        Understand the input output and the pattern for it.
+        {' '}
+      </Body1>
+      <Body1 className="ma0 mb1">
         Only thing that you should consider is that the output is needed to be on a single line.
-          {' '}
-        </div>
+        {' '}
       </Body1>
     </div>
   );
@@ -165,6 +163,7 @@ if (g%
   return (
     <div>
       <SideBar
+        topic="Adhoc"
         gettingStartedContent={gettingStartedContent}
         dissectingProblemContent={dissectingProblemContent}
         pseudoCodeContent={pseudoCodeContent}

@@ -167,6 +167,7 @@ const UNI01 = () => {
   return (
     <div>
       <SideBar
+        topic="Adhoc"
         gettingStartedContent={gettingStartedContent}
         dissectingProblemContent={dissectingProblemContent}
         pseudoCodeContent={pseudoCodeContent}

@@ -36,8 +36,7 @@ const ResetSubmissionStatus = ({ match }) => {
           {data.verdict}
         </td>
         <td className="pa3 tc">{data.language}</td>
-        <td className="pa3 tc">
-        </td>
+        <td className="pa3 tc" />
       </tr>
     );
   });

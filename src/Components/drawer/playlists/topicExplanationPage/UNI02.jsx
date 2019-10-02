@@ -27,11 +27,11 @@ const UNI02 = () => {
       <Body1 className="ma0">
         There is a very straightforward description for this problem.
         {' '}
-        <br />
+        <br /><br /><br />
 
         Understand the input output and the pattern for it.
         {' '}
-        <br />
+        <br /><br/><br />
 
         Only thing that you should consider is that the output is needed to be on a single line.
         {' '}

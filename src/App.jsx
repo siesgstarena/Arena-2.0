@@ -19,6 +19,7 @@ import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
 import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';
+import PlaylistsUNI02 from './Components/drawer/playlists/topicExplanationPage/UNI02';
 import Goodies from './Components/drawer/goodies/index';
 import Profile from './Components/user/profile/index';
 import Settings from './Components/user/settings/index';
@@ -65,6 +66,7 @@ const App = () => {
         <Route path="/playlists" exact component={PlaylistsWelcomePage} />
         <Route path="/playlists/home" exact component={PlaylistsHomePage} />
         <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
+        <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
         <Route path="/goodies" exact component={Goodies} />
         <Route path="/profile/:id/settings" exact component={Settings} />
         <Route path="/profile/:id" exact component={Profile} />

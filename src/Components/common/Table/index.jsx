@@ -25,12 +25,13 @@ const Table = ({ tableData, tableHeadings, tableHeadingClassName }) => {
 
 Table.propTypes = {
   tableHeadings: PropTypes.array.isRequired,
-  tableData: PropTypes.array.isRequired,
+  tableData: PropTypes.array,
   tableHeadingClassName: PropTypes.string,
 };
 
 Table.defaultProps = {
   tableHeadingClassName: '',
+  tableData: [],
 };
 
 export default Table;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './SideBar.scss';
 
 const SideBar = ({
-  gettingStartedContent, dissectingProblemContent, pseudoCodeContent, writingCodeContent,
+  gettingStartedContent, dissectingProblemContent, pseudoCodeContent, writingCodeContent, topic,
 }) => {
   const [isGettingStarted, setIsGettingStarted] = useState(true);
   const [isDissectingProblem, setIsDissectingProblem] = useState(false);
@@ -28,7 +28,10 @@ const SideBar = ({
   return (
     <div className="center">
       <div className="sidebar">
-        <Headline5 className="tc"> Topic: Adhoc </Headline5>
+        <Headline5 className="tc">
+          Topic:
+          {topic}
+        </Headline5>
         <div role="presentation" onClick={() => handleItemClick(setIsGettingStarted)} className={gettingStartedClass}>
           Getting Started
         </div>
@@ -75,6 +78,7 @@ const SideBar = ({
 };
 
 SideBar.propTypes = {
+  topic: PropTypes.string.isRequired,
   gettingStartedContent: PropTypes.object.isRequired,
   dissectingProblemContent: PropTypes.object.isRequired,
   pseudoCodeContent: PropTypes.object.isRequired,

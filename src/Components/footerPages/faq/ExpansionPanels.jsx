@@ -47,7 +47,7 @@ const SimpleExpansionPanel = (props) => {
 
         <ExpansionPanelDetails>
           <Body1 className="mid-gray mt0">
-            Arena is a contest platform cum social networking site for people who are
+            Arena is a contest platform and social networking site for people who are
             interested in and want to take part in competitive programming challenges.
             People can organize contests and discuss about other contests.
             People can share and learn about several technical domains.

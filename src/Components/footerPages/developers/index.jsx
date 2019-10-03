@@ -49,41 +49,28 @@ const Developers = () => {
   return (
     <div className="mw8-ns pa2 center">
       <Headline6>
-        <span className="purple">
-          SIESGSTarena Alumni
-        </span>
+        <span className="purple">SIESGSTarena Alumni</span>
         <Body1 className="mid-gray"> People behind the chapter</Body1>
       </Headline6>
-      <Grid>
-        <Row>
-          {alumniCardsArray}
-        </Row>
+      <Grid className="smallScreen">
+        <Row>{alumniCardsArray}</Row>
       </Grid>
 
       <Headline6>
-        <span className="purple">
-          SIESGSTarena developers
-        </span>
+        <span className="purple">SIESGSTarena developers</span>
         <Body1 className="mid-gray"> People behind this platform</Body1>
       </Headline6>
       <Grid>
-        <Row>
-          {developerCardsArray}
-        </Row>
+        <Row>{developerCardsArray}</Row>
       </Grid>
 
       <Headline6>
-        <span className="purple">
-          SIESGSTarena operation managers
-        </span>
+        <span className="purple">SIESGSTarena operation managers</span>
         <Body1 className="mid-gray"> People behind building the operations</Body1>
       </Headline6>
       <Grid>
-        <Row>
-          {operationManagersCardsArray}
-        </Row>
+        <Row>{operationManagersCardsArray}</Row>
       </Grid>
-
     </div>
   );
 };

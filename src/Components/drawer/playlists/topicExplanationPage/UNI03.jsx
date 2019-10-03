@@ -45,22 +45,18 @@ const UNI01 = () => {
         It&apos;s just a bunch of arrows and block which do the processing.
         To know more about pseudo code visit here.
       </Body1>
-      <Body1>Let&apos;s write our pseudo code!</Body1>
-      <Body1>
+      <Headline6 className="mt3 ma0">Let&apos;s write our pseudo code!</Headline6>
+      <Body1 className="ma0">
         This is simple set of steps written for our understanding.
-      </Body1>
-      <Body1>
         Now you need to think about it and maybe even write it down,
         with enough practice you will be able to map all these instructions
         at once and follow the flow of the program.
       </Body1>
-      <Body1>Lets start!</Body1>
-      <Body1>We will really keep things simple here.</Body1>
-      <Body1>
+      <Headline6 className="mt3 ma0">Lets start!</Headline6>
+      <Body1 className="ma0">
+        We will really keep things simple here.
         All we need to do is take string as input and check for
         every character whether it is a vowel or not.
-      </Body1>
-      <Body1>
         If it is not we will output the character, else we
         will skip it until the entire string is traced.
       </Body1>
@@ -167,7 +163,7 @@ const UNI01 = () => {
   return (
     <div>
       <SideBar
-        topic="Adhoc"
+        topic="Strings"
         gettingStartedContent={gettingStartedContent}
         dissectingProblemContent={dissectingProblemContent}
         pseudoCodeContent={pseudoCodeContent}

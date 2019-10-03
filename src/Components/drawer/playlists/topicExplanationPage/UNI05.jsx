@@ -27,13 +27,12 @@ const UNI05 = () => {
   const dissectingProblemContent = (
     <div>
       <Headline3 className="purple">Dissecting the Problem</Headline3>
-      <Body1 className="ma0">
+      <Body1>
         There is a very straightforward description for this problem.
-        <Body1>Understand the input output and the pattern for it.</Body1>
-        <Body1>
-          The input for this problem isn’t as straightforward as the description
-          though!
-        </Body1>
+      </Body1>
+      <Body1>Understand the input output and the pattern for it.</Body1>
+      <Body1>
+        The input for this problem isn’t as straightforward as the description though!
       </Body1>
     </div>
   );

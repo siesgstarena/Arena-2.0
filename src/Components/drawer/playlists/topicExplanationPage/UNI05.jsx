@@ -19,9 +19,7 @@ const UNI05 = () => {
         problems are kept open for submission for a long span of time.
       </Body1>
       <Body1 className="ml1">
-        We are going to choose the fifth problem &nbsp;
-        <a href="/contest/UNIVERSE/problem/UNI05">Distance Finder</a>
-.
+        We are going to choose the fifth problem Distance Finder.
       </Body1>
     </div>
   );
@@ -31,11 +29,11 @@ const UNI05 = () => {
       <Headline3 className="purple">Dissecting the Problem</Headline3>
       <Body1 className="ma0">
         There is a very straightforward description for this problem.
-        <p>Understand the input output and the pattern for it.</p>
-        <p>
+        <Body1>Understand the input output and the pattern for it.</Body1>
+        <Body1>
           The input for this problem isn’t as straightforward as the description
           though!
-        </p>
+        </Body1>
       </Body1>
     </div>
   );
@@ -45,10 +43,7 @@ const UNI05 = () => {
       <Headline3 className="purple">Creating a Pseudo Code</Headline3>
       <Body1 className="ma0">
         We know how to create a pseudo code! It&apos;s just a bunch of arrows
-        and block which do the processing. To know more about pseudo code visit
-        &nbsp;
-        <a href="https://en.wikipedia.org/wiki/Pseudocode">here</a>
-.
+        and block which do the processing. To know more about pseudo code visit here.
       </Body1>
       <Headline6 className="mt3 ma0">Let’s write our pseudo code!</Headline6>
       <Body1>This is simple set of steps written for our understanding.</Body1>
@@ -68,9 +63,7 @@ const UNI05 = () => {
         it is done with cin, or rather any other input object.
       </Body1>
       <Body1>
-        We will be using the Euclidean distance formula More info &nbsp;
-        <a href="https://en.wikipedia.org/wiki/Euclidean_distance">here</a>
-.
+        We will be using the Euclidean distance formula More info here.
       </Body1>
     </div>
   );

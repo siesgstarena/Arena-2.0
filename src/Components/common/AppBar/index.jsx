@@ -59,9 +59,6 @@ const AppBar = (props) => {
     } else if (currentPathname === '/goodies') {
       setSelectedIndex(6);
       setOpen(false);
-    } else if (currentPathname === '/turing-cup') {
-      setSelectedIndex(7);
-      setOpen(false);
     } else {
       // selectedIndex : 100 specifies that no item from the drawer is selected
       // Any random large number can be taken

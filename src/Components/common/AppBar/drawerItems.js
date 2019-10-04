@@ -41,12 +41,6 @@ const drawerItems = [
     icon: 'card_giftcard',
     path: '/goodies',
   },
-  {
-    id: 8,
-    name: 'Turing Cup',
-    icon: 'star',
-    path: '/turing-cup',
-  },
 ];
 
 export default drawerItems;

@@ -54,26 +54,9 @@ const App = () => {
             some part of the URL. Hence in our case, AppBar and Footer will be rendered
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
-        <Route
-          path="/"
-          render={props => (
-            <AppBar
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path="/auth/signin"
-          exact
-          render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />}
-        />
-        <Route
-          path="/auth/signup"
-          exact
-          render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />}
-        />
+        <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
+        <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
+        <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/auth/forgot" exact component={Forgot} />
         <Route path="/auth/reset" exact component={Reset} />
         <Route path="/contests/:id" component={ContestTabBar} />
@@ -103,26 +86,10 @@ const App = () => {
         <Route path="/faq" exact component={FAQ} />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/search" exact component={Search} />
-        <Route
-          path="/admin/:contestId/announcements"
-          exact
-          component={AdminEditAnnoucements}
-        />
-        <Route
-          path="/admin/:contestId"
-          exact
-          component={AdminContestDashboard}
-        />
-        <Route
-          path="/admin/:contestId/plagiarism"
-          exact
-          component={AdminPlagiarism}
-        />
-        <Route
-          path="/admin/:contestId/reset/:problemId"
-          exact
-          component={AdminResetSubmissionStatus}
-        />
+        <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+        <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
+        <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
+        <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

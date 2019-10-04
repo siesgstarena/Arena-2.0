@@ -20,6 +20,7 @@ import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/inde
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
 import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';
 import PlaylistsUNI02 from './Components/drawer/playlists/topicExplanationPage/UNI02';
+import PlaylistsUNI03 from './Components/drawer/playlists/topicExplanationPage/UNI03';
 import PlaylistsUNI06 from './Components/drawer/playlists/topicExplanationPage/UNI06';
 import Goodies from './Components/drawer/goodies/index';
 import Profile from './Components/user/profile/index';
@@ -34,6 +35,8 @@ import Privacy from './Components/footerPages/privacy/index';
 import Search from './Components/search/index';
 import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
 import AdminContestDashboard from './Components/admin/contestDashboard/index';
+import AdminPlagiarism from './Components/admin/plagiarism/index';
+import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -68,6 +71,7 @@ const App = () => {
         <Route path="/playlists/home" exact component={PlaylistsHomePage} />
         <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
         <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
+        <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
         <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
         <Route path="/goodies" exact component={Goodies} />
         <Route path="/profile/:id/settings" exact component={Settings} />
@@ -80,8 +84,10 @@ const App = () => {
         <Route path="/faq" exact component={FAQ} />
         <Route path="/privacy" exact component={Privacy} />
         <Route path="/search" exact component={Search} />
-        <Route path="/admin/:id/announcements" exact component={AdminEditAnnoucements} />
-        <Route path="/admin/:id" exact component={AdminContestDashboard} />
+        <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+        <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
+        <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
+        <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

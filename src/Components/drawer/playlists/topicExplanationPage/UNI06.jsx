@@ -79,16 +79,18 @@ We&apos;ll convert the hours to minutes, and minutes to
               <span className="blue"> &lt;bits/stdc++.h&gt;</span>
             </div>
             <div className="mb4">
+
 using namespace
-              <span className="green">std</span>
+              {' '}
+              <span className="green"> std</span>
 ;
             </div>
             <div className="dark-blue mb4">int main() &#123;</div>
             <div className="ml3">
               <div>int T;</div>
               <div>
-                <span className="green">cin</span>
-                <div>&gt;&gt; T;</div>
+                <span className="green">cin </span>
+                <span>&gt;&gt; T;</span>
               </div>
               <div className="mt3 mb3">
                 <div>
@@ -114,8 +116,10 @@ using namespace
                 <div className="gray">&#47;&#47; Converting time to seconds and calculating difference in one step</div>
                 <div>
 second = (((hrs2 - hrs1) *
+                  {' '}
                   <span className="red">60</span>
 ) + (min2 - min1)) *
+                  {' '}
                   <span className="red">60</span>
 ;
                 </div>
@@ -147,6 +151,7 @@ second = (((hrs2 - hrs1) *
   return (
     <div>
       <SideBar
+        topic="Math"
         gettingStartedContent={gettingStartedContent}
         dissectingProblemContent={dissectingProblemContent}
         pseudoCodeContent={pseudoCodeContent}

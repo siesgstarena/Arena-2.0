@@ -22,6 +22,8 @@ import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/U
 import PlaylistsUNI02 from './Components/drawer/playlists/topicExplanationPage/UNI02';
 import PlaylistsUNI03 from './Components/drawer/playlists/topicExplanationPage/UNI03';
 import PlaylistsUNI06 from './Components/drawer/playlists/topicExplanationPage/UNI06';
+import PlaylistsUNI04 from './Components/drawer/playlists/topicExplanationPage/UNI04';
+import PlaylistsUNI05 from './Components/drawer/playlists/topicExplanationPage/UNI05';
 import Goodies from './Components/drawer/goodies/index';
 import Profile from './Components/user/profile/index';
 import Settings from './Components/user/settings/index';
@@ -73,6 +75,8 @@ const App = () => {
         <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
         <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
         <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
+        <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
+        <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
         <Route path="/goodies" exact component={Goodies} />
         <Route path="/profile/:id/settings" exact component={Settings} />
         <Route path="/profile/:id" exact component={Profile} />

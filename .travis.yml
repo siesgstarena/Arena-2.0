@@ -14,5 +14,3 @@ deploy:
   local_dir: build
   on:
     branch: master
-env:
-  - SASS_PATH=./node_modules

@@ -21,14 +21,13 @@ to install them on your system.
   ```
   npm install
   ```
-* Exporting the SASS_PATH to node_modules by typing the following commmand:
-   * If using OSX or Linux:
+* Creating the .env file and copying the contents of .env.example into it by typing the following command:
   ``` 
-	  export SASS_PATH=./node_modules
+	  cp .env.example .env
   ```
-  * If using Windows:
+* Navigate to the newly created .env file and set the value of SASS_PATH environment varaible
   ``` 
-	  SET SASS_PATH=.\node_modules
+	  SASS_PATH=./node_modules
   ```
 * Run the development server to view the changes you are making by typing the following
 command:

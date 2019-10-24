@@ -25,7 +25,7 @@ to install them on your system.
   ``` 
   cp .env.example .env
   ```
-* Navigate to the newly created .env file and set the value of SASS_PATH environment varaible
+* Navigate to the newly created .env file and set the value of SASS_PATH environment variable
   ``` 
   SASS_PATH=./node_modules
   ```

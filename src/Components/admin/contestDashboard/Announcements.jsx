@@ -19,7 +19,7 @@ const Announcements = ({ history, location }) => {
           AnnouncementsAnnouncements
           Announcements
           AnnouncementsAnnouncements
-          AnnouncementsAnnouncementsAnnouncementsAnnouncements
+          AnnouncementsAnnouncementsAnnouncements
         </Headline6>
         <Headline6 className="mid-gray ma0">
           Announcements

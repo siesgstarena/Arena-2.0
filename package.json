@@ -44,7 +44,7 @@
     "tachyons": "^4.11.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export SASS_PATH=./node_modules; react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "predeploy": "npm run build",

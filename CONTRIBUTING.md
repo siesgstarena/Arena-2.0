@@ -13,6 +13,7 @@ Also, make sure to indicate the earliest version that has the issue being report
 ## Getting started with the project
 
 * Fork the repository on GitHub.
+* Clone the forked repository to your local machine.
 * Navigate to the folder of the repository.
 * To run this project, you should have node.js and npm installed on your system.
 If you don't have node.js and npm, you can vist [The official site of node.js](https://nodejs.org/en/)

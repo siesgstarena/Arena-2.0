@@ -23,11 +23,11 @@ to install them on your system.
   ```
 * Creating the .env file and copying the contents of .env.example into it by typing the following command:
   ``` 
-	  cp .env.example .env
+  cp .env.example .env
   ```
 * Navigate to the newly created .env file and set the value of SASS_PATH environment varaible
   ``` 
-	  SASS_PATH=./node_modules
+  SASS_PATH=./node_modules
   ```
 * Run the development server to view the changes you are making by typing the following
 command:

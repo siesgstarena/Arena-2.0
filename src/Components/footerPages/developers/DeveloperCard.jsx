@@ -14,7 +14,7 @@ const DeveloperCard = (props) => {
     imageUrl,
     githubUrl,
     facebookUrl,
-    linkdinUrl,
+    linkedinUrl,
     instagramUrl,
     twitterUrl,
   } = props;
@@ -84,12 +84,12 @@ const DeveloperCard = (props) => {
             )
             : <span />
           }
-          { linkdinUrl
+          { linkedinUrl
             ? (
               <SocialIcon
                 className="ma1 dim"
                 target="_blank"
-                url={linkdinUrl}
+                url={linkedinUrl}
                 style={{ height: 25, width: 25 }}
               />
             )
@@ -106,7 +106,7 @@ DeveloperCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   githubUrl: PropTypes.string.isRequired,
   facebookUrl: PropTypes.string.isRequired,
-  linkdinUrl: PropTypes.string.isRequired,
+  linkedinUrl: PropTypes.string.isRequired,
   instagramUrl: PropTypes.string.isRequired,
   twitterUrl: PropTypes.string.isRequired,
 };

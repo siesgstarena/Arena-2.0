@@ -42,11 +42,11 @@ command:
    2. Perform the changes.
    3. Run eslint on the project by the following command:
    ```
-   npx eslint . --ext .jsx --ext .js
+   npm run lint
    ```
    4. Fix the linting issues by running the following command:
    ```
-   npx eslint . --fix --ext .jsx --ext .js
+   npx run lint-fix
    ```
    5. Generate a pull request on Arena 2.0 repository (our repository). Use our [Pull Request Template](https://github.com/siesgstarena/Arena-2.0/blob/master/.github/PULL_REQUEST_TEMPLATE.md) for making a new pull request.
    6. Once the code changes are thoroughly tested, they will be merged into the master of our repository.

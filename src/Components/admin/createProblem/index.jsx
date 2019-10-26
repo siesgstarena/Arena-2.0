@@ -20,7 +20,7 @@ const CreateProblem = () => {
     tags: '',
   };
   const [formDetails, setFormDetails] = useState(intialFormDetails);
-  console.log(formDetails);
+  // console.log(formDetails);
 
   return (
     <Grid className="mw7 center pa2">

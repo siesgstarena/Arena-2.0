@@ -20,8 +20,8 @@ const DeveloperCard = (props) => {
   } = props;
 
   return (
-
-    <Card className="" style={{ height: '305px' }}>
+  /* card h-100 class makes the card height 100% of available row height */
+    <Card className="card h-100">
       { /*
             pl3 -> PaddingLeft3
             pr3 -> PaddingRight3

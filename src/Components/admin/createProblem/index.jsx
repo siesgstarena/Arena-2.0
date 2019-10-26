@@ -20,7 +20,23 @@ const CreateProblem = () => {
     tags: '',
   };
   const [formDetails, setFormDetails] = useState(intialFormDetails);
-  // console.log(formDetails);
+  console.log(formDetails);
+
+  const onTextFieldChange = (event, keyToBeUpdated) => {
+    const { value } = event.target;
+    return (setFormDetails((previousFormDetails) => {
+      previousFormDetails[keyToBeUpdated] = value;
+      return { ...previousFormDetails };
+    }));
+  };
+
+  const onFileChange = (event, keyToBeUpdated) => {
+    const file = event.target.files[0];
+    return (setFormDetails((previousFormDetails) => {
+      previousFormDetails[keyToBeUpdated] = file;
+      return { ...previousFormDetails };
+    }));
+  };
 
   return (
     <Grid className="mw7 center pa2">
@@ -39,13 +55,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.code}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.code = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'code')}
             />
           </TextField>
         </Cell>
@@ -57,13 +67,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.points}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.points = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'points')}
             />
           </TextField>
         </Cell>
@@ -77,13 +81,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.name}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.name = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'name')}
             />
           </TextField>
         </Cell>
@@ -97,13 +95,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.description}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.description = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'description')}
             />
           </TextField>
         </Cell>
@@ -117,13 +109,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.input}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.input = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'input')}
             />
           </TextField>
         </Cell>
@@ -137,13 +123,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.output}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.output = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'output')}
             />
           </TextField>
         </Cell>
@@ -157,13 +137,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.constraints}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.constraints = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'constraints')}
             />
           </TextField>
         </Cell>
@@ -177,13 +151,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.examples}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.examples = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'examples')}
             />
           </TextField>
         </Cell>
@@ -197,13 +165,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.explanation}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.explanation = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'explanation')}
             />
           </TextField>
         </Cell>
@@ -212,27 +174,13 @@ const CreateProblem = () => {
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
           <input
             type="file"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              return (setFormDetails((previousFormDetails) => {
-                previousFormDetails.inputFile = file;
-                return { ...previousFormDetails };
-              }));
-            }
-          }
+            onChange={e => onFileChange(e, 'inputFile')}
           />
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
           <input
             type="file"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              return (setFormDetails((previousFormDetails) => {
-                previousFormDetails.outputFile = file;
-                return { ...previousFormDetails };
-              }));
-            }
-          }
+            onChange={e => onFileChange(e, 'outputFile')}
           />
         </Cell>
       </Row>
@@ -245,13 +193,7 @@ const CreateProblem = () => {
           >
             <Input
               value={formDetails.tags}
-              onChange={(e) => {
-                const { value } = e.target;
-                return (setFormDetails((previousFormDetails) => {
-                  previousFormDetails.tags = value;
-                  return { ...previousFormDetails };
-                }));
-              }}
+              onChange={e => onTextFieldChange(e, 'tags')}
             />
           </TextField>
         </Cell>

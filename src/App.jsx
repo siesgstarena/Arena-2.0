@@ -39,6 +39,7 @@ import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
 import AdminContestDashboard from './Components/admin/contestDashboard/index';
 import AdminPlagiarism from './Components/admin/plagiarism/index';
 import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus/index';
+import AdminCreateProblem from './Components/admin/createProblem/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -92,6 +93,7 @@ const App = () => {
         <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
         <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
         <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
+        <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

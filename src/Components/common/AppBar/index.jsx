@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopAppBar, {
   TopAppBarFixedAdjust,
@@ -170,7 +170,11 @@ const AppBar = (props) => {
             <TopAppBarIcon navIcon tabIndex={0}>
               <MaterialIcon hasRipple icon="menu" onClick={() => setOpen(!open)} />
             </TopAppBarIcon>
-            <TopAppBarTitle>SIESGSTarena</TopAppBarTitle>
+            <TopAppBarTitle>
+              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
+                SIESGSTarena
+              </Link>
+            </TopAppBarTitle>
           </TopAppBarSection>
           <TopAppBarSection align="end" role="toolbar">
             {/* The following section is used to render Signin and Signup

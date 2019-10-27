@@ -172,16 +172,26 @@ const CreateProblem = () => {
       </Row>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <input
-            type="file"
-            onChange={e => onFileChange(e, 'inputFile')}
-          />
+          <label className="custom-file-upload" htmlFor="input-file-upload">
+            <span className="ma2">Input File</span>
+            <input
+              className="ma2 noselect"
+              id="input-file-upload"
+              type="file"
+              onChange={e => onFileChange(e, 'inputFile')}
+            />
+          </label>
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <input
-            type="file"
-            onChange={e => onFileChange(e, 'outputFile')}
-          />
+          <label className="custom-file-upload" htmlFor="output-file-upload">
+            <span className="ma2">Output File</span>
+            <input
+              className="ma2"
+              id="output-file-upload"
+              type="file"
+              onChange={e => onFileChange(e, 'outputFile')}
+            />
+          </label>
         </Cell>
       </Row>
       <Row>

@@ -10,13 +10,33 @@
 @import '@material/react-notched-outline/index.scss';
 @import '@material/react-list/index.scss';
 
-// input[type="file"] {
-//   display: none;
+// .noselect {
+//   -webkit-user-select: none;
+//   -khtml-user-select: none;
+//   -moz-user-select: -moz-none;
+//   -o-user-select: none;
+//   user-select: none;
 // }
 
-// .custom-file-upload {
-//   border: 1px solid #ccc;
-//   display: inline-block;
-//   padding: 6px 12px;
-//   cursor: pointer;
-// }
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: block;
+  padding: 6px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  color: #505050;
+}
+
+.custom-file-upload:hover {
+  color: #6200EE;
+}
+
+
+::-webkit-file-upload-button {
+  border-radius: 4px;
+  cursor: pointer;
+}
+::-webkit-file-upload-button:hover {
+  border-color: #6200EE;
+}

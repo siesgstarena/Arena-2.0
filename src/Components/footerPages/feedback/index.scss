@@ -1,5 +1,10 @@
-@import '@material/react-text-field/index.scss';
+// @import '@material/react-text-field/index.scss';
 .text-area-border {
-    @include mdc-text-field-textarea-stroke-color(#808080);
+    // @include mdc-text-field-textarea-stroke-color(#808080);
     border-color: rgba(0, 0, 0, 0.24) !important;
+}
+
+.text-area-border:hover:not(.mdc-text-field--focused) {
+    // @include mdc-text-field-textarea-stroke-color(#808080);
+    border-color: black !important;
 }

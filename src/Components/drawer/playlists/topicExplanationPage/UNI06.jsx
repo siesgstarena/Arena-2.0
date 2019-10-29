@@ -6,7 +6,7 @@ const UNI06 = () => {
   const gettingStartedContent = (
     <div>
       <Headline3 className="purple">Getting Started</Headline3>
-      <Body1 className="ma1">So here we are! If you ready to start the playlist let&apos;s get started!</Body1>
+      <Body1 className="ma1">So here we are! If you&apos;re ready to start the playlist let&apos;s get started!</Body1>
       <Body1 className="ma1">
                 If you are a beginner and this is your first playlist,
                 don&apos;t worry you are at the right place!
@@ -37,12 +37,12 @@ const UNI06 = () => {
       <Headline3 className="purple">Creating a Pseudo Code</Headline3>
       <Body1 className="ma0">
                 We know how to create a pseudo code!
-          Its just a bunch of arrows and block which do the processing.
-          To know more about pseudo code visit here.
+          It&apos;s just a bunch of arrows and block which do the processing.
+          To know more about pseudo code visit <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>.
       </Body1>
       <Headline6 className="mt3 ma0">Let&apos;s write our pseudo code!</Headline6>
       <Body1 className="ma0">
-                This is simple set of steps written for our understanding.
+                This is a simple set of steps written for our understanding.
       </Body1>
       <Body1>
 Now you need to think about it and maybe even write it down,
@@ -52,7 +52,7 @@ Now you need to think about it and maybe even write it down,
       <Headline6 className="mt3 ma0">Let&apos;s start!</Headline6>
       <Body1 className="ma0">We take input for time as hr:min and store the respective values in respective variables.</Body1>
       <Body1>
-This is easily achievable using scanf or even cin creating
+This is easily achievable using scanf or cin creating
           a temporary variable, or using getchar(), or even using string delimiter!
       </Body1>
       <Body1>

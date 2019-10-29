@@ -57,7 +57,7 @@ const Privacy = () => (
         and all associated comments are publicly viewable on the SIESGSTarena Platform,
         along with your name. This also may be indexed by search engines
         and be republished elsewhere on the internet. As of December 2018, we will be publishing
-        all the data generated on this platform, on a website called &nbsp;
+        all the data generated on this platform, on a website called&nbsp;
         <a
           className="dim no-underline i mid-gray"
           href="https://www.kaggle.com/datasets"
@@ -124,7 +124,7 @@ const Privacy = () => (
       <br />
       <span className="mid-gray">
         If you have any questions about our practices or this Privacy Policy,
-        please contact us at &nbsp;
+        please contact us at&nbsp;
         <a
           className="no-underline dim mid-gray i"
           href="mailto:codechef@siesgst.ac.in"

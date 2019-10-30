@@ -12,7 +12,7 @@ const Developers = () => {
         name={developer.name}
         imageUrl={developer.imageUrl}
         githubUrl={developer.githubUrl}
-        linkdinUrl={developer.linkdinUrl}
+        linkedinUrl={developer.linkedinUrl}
         twitterUrl={developer.twitterUrl}
         facebookUrl={developer.facebookUrl}
         instagramUrl={developer.instagramUrl}
@@ -25,7 +25,7 @@ const Developers = () => {
         name={developer.name}
         imageUrl={developer.imageUrl}
         githubUrl={developer.githubUrl}
-        linkdinUrl={developer.linkdinUrl}
+        linkedinUrl={developer.linkedinUrl}
         twitterUrl={developer.twitterUrl}
         facebookUrl={developer.facebookUrl}
         instagramUrl={developer.instagramUrl}
@@ -38,7 +38,7 @@ const Developers = () => {
         name={developer.name}
         imageUrl={developer.imageUrl}
         githubUrl={developer.githubUrl}
-        linkdinUrl={developer.linkdinUrl}
+        linkedinUrl={developer.linkedinUrl}
         twitterUrl={developer.twitterUrl}
         facebookUrl={developer.facebookUrl}
         instagramUrl={developer.instagramUrl}

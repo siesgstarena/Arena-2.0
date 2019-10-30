@@ -8,7 +8,7 @@ You can have a look at our [Arena 2.0](https://siesgstarena.github.io/Arena-2.0/
 The project is focused on providing a good UI and performance to our end users in order to provide them a good coding experience. We are making use of material UI components (provided by Google) and material design guidelines to redesign our website.
 
 ### Project Structure
-The project structure is based on the idea of keeping all the components and assets required by a route in it's own seperate folder.
+The project structure is based on the idea of keeping all the components and assets required by a route in its own separate folder.
 The entire project is divided into 5 modules:
 1. common: This module contains the components which are common across all the routes. e.g. The AppBar, Footer, SearchBar.
 1. footerPages: This module contains the routes which are present in the footer. e.g about, competitions, contact, developers, feedback, faq and privacy. 

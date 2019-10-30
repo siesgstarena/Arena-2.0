@@ -14,14 +14,14 @@ const DeveloperCard = (props) => {
     imageUrl,
     githubUrl,
     facebookUrl,
-    linkdinUrl,
+    linkedinUrl,
     instagramUrl,
     twitterUrl,
   } = props;
 
   return (
-
-    <Card className="" style={{ height: '305px' }}>
+  /* card h-100 class makes the card height 100% of available row height */
+    <Card className="card h-100">
       { /*
             pl3 -> PaddingLeft3
             pr3 -> PaddingRight3
@@ -84,12 +84,12 @@ const DeveloperCard = (props) => {
             )
             : <span />
           }
-          { linkdinUrl
+          { linkedinUrl
             ? (
               <SocialIcon
                 className="ma1 dim"
                 target="_blank"
-                url={linkdinUrl}
+                url={linkedinUrl}
                 style={{ height: 25, width: 25 }}
               />
             )
@@ -106,7 +106,7 @@ DeveloperCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   githubUrl: PropTypes.string.isRequired,
   facebookUrl: PropTypes.string.isRequired,
-  linkdinUrl: PropTypes.string.isRequired,
+  linkedinUrl: PropTypes.string.isRequired,
   instagramUrl: PropTypes.string.isRequired,
   twitterUrl: PropTypes.string.isRequired,
 };

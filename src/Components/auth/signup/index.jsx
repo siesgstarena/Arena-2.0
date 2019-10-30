@@ -41,7 +41,7 @@ const SignUp = (props) => {
             Your details
           </Headline4>
           <Body1 className="mid-gray">
-            Your name and username will be made avaiable publicly so that
+            Your name and username will be made available publicly so that
               other users can communicate with you.
           </Body1>
         </Cell>
@@ -94,8 +94,7 @@ const SignUp = (props) => {
               />
             </TextField>
             <Body2 className="mid-gray ma3 ml0">
-              By Signing up, you agree with our
-              &nbsp;
+              By Signing up, you agree with our&nbsp;
               <span className="dim pointer" onClick={() => history.push('/privacy')}>
                 privacy policy
               </span>

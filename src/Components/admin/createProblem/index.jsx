@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body2 } from '@material/react-typography';
+import FileUpload from '../../common/FileUpload/index';
 
 const CreateProblem = () => {
   const intialFormDetails = {
@@ -15,12 +16,11 @@ const CreateProblem = () => {
     constraints: '',
     examples: '',
     explanation: '',
-    inputFile: '',
-    outputFile: '',
+    inputFile: {},
+    outputFile: {},
     tags: '',
   };
   const [formDetails, setFormDetails] = useState(intialFormDetails);
-  console.log(formDetails);
 
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
@@ -30,7 +30,7 @@ const CreateProblem = () => {
     }));
   };
 
-  const onFileChange = (event, keyToBeUpdated) => {
+  const onFileChange = keyToBeUpdated => (event) => {
     const file = event.target.files[0];
     return (setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = file;
@@ -90,7 +90,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Description"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -104,7 +104,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Input"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -118,7 +118,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Output"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -132,7 +132,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Constraints"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -146,7 +146,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Examples"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -160,7 +160,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Explanation"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input
@@ -172,33 +172,27 @@ const CreateProblem = () => {
       </Row>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <label className="custom-file-upload" htmlFor="input-file-upload">
-            <span className="ma2">Input File</span>
-            <input
-              className="ma2 noselect"
-              id="input-file-upload"
-              type="file"
-              onChange={e => onFileChange(e, 'inputFile')}
-            />
-          </label>
+          <FileUpload
+            id="input-file-upload"
+            label="Upload input file"
+            onChangeFunction={onFileChange('inputFile')}
+            file={formDetails.inputFile}
+          />
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <label className="custom-file-upload" htmlFor="output-file-upload">
-            <span className="ma2">Output File</span>
-            <input
-              className="ma2"
-              id="output-file-upload"
-              type="file"
-              onChange={e => onFileChange(e, 'outputFile')}
-            />
-          </label>
+          <FileUpload
+            id="output-file-upload"
+            label="Upload output file"
+            onChangeFunction={onFileChange('outputFile')}
+            file={formDetails.outputFile}
+          />
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Tags"
-            className="mb4"
+            className="mb4 text-area-border"
             textarea
           >
             <Input

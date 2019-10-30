@@ -91,7 +91,7 @@ const AppBar = (props) => {
     'Logout',
   ];
 
-  const onUserMenuItemClick = (index, item) => {
+  const onUserMenuItemClick = (index) => {
     if (index === 0) {
       history.push('/blog/create');
     } else if (index === 1) {

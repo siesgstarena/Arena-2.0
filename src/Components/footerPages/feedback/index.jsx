@@ -19,7 +19,7 @@ const Feedback = () => {
             Feedback time
           </Headline4>
           <Body1 className="mid-gray">
-            Your Valuable feedback matters us a lot.
+            Your valuable feedback matters us a lot.
             It helps us to constantly improve our platform
             to make it a better place for the community.
           </Body1>

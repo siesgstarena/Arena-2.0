@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 const FileUpload = ({
-  id, label, onChangeFunction, file,
+  id, label, onChangeFunction, file = { name: '' },
 }) => (
   <label className="custom-file-upload" htmlFor={id}>
     <span className="ma2">{label}</span>

@@ -25,7 +25,7 @@ const Info = () => (
       <Cell>
         <Button
           outlined
-          onClick={() => console.log('clicked!')}
+          // onClick={() => console.log('clicked!')}
         >
           Edit
         </Button>

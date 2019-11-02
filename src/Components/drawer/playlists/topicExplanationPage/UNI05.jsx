@@ -108,10 +108,8 @@ const UNI05 = () => {
                 </span>
               </div>
               <div className="ml3">
-                <div className="mb4">
-                  <span className="gray">
-                    {'// Notice the input and set up the cin to take input for coordinates'}
-                  </span>
+                <div className="mb4 gray">
+                  &nbsp;// Notice the input and set up the cin to take input for coordinates
                 </div>
                 <div className="mb4">
                   <span className="green">cin </span>
@@ -148,9 +146,9 @@ const UNI05 = () => {
                   <span className="red">2</span>
                   {') << dist <<'}
                   <span className="red">&quot;/n&quot;</span>
-                  {';'}
+                  ;
                   <span className="gray">
-                    {'// Printing the distance upto 2 digits after decimal'}
+                  &nbsp;  // Printing the distance upto 2 digits after decimal
                   </span>
                 </div>
               </div>

@@ -14,7 +14,7 @@ import ContestStatus from './Components/drawer/contests/status/index';
 import ContestMySubmissions from './Components/drawer/contests/mySubmissions/index';
 import Ratings from './Components/drawer/ratings/index';
 import BlogsList from './Components/drawer/blogs/blogsList/index';
-import Editor from './Components/drawer/blogs/create/editor';
+// import Editor from './Components/drawer/blogs/create/editor';
 import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
@@ -39,6 +39,7 @@ import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
 import AdminContestDashboard from './Components/admin/contestDashboard/index';
 import AdminPlagiarism from './Components/admin/plagiarism/index';
 import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus/index';
+import AdminCreateProblem from './Components/admin/createProblem/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -67,7 +68,7 @@ const App = () => {
         <Route path="/contests" exact component={ContestsSchedule} />
         <Route path="/ratings" exact component={Ratings} />
         <Route path="/blog" exact component={BlogsList} />
-        <Route path="/blog/create" exact component={Editor} />
+        {/* <Route path="/blog/create" exact component={Editor} /> */}
         <Route path="/problem-set" exact component={ProblemSet} />
         <Route path="/playlists" exact component={PlaylistsWelcomePage} />
         <Route path="/playlists/home" exact component={PlaylistsHomePage} />
@@ -92,6 +93,7 @@ const App = () => {
         <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
         <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
         <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
+        <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

@@ -8,16 +8,18 @@ import Dialog, {
   DialogFooter,
   DialogButton,
 } from '@material/react-dialog';
+import { Snackbar } from '@material/react-snackbar';
 import '@material/react-dialog/dist/dialog.css';
 
 const ProblemCard = ({
   name, id, points, history, location,
 }) => {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const alertTitle = 'Delete Confirmation';
-  const alertContent = `Are you sure you want to delete the problem = "${name}"`;
+  const alertContent = `Are you sure you want to delete the problem - "${name}"`;
   const onAlertAccept = () => {
-    console.log('The problem got successfully deleted.');
+    setSnackbarMessage('The problem is successfully deleted');
   };
   const onProblemNameClick = () => {
     history.push(`${location.pathname}/${id}`);
@@ -73,6 +75,11 @@ const ProblemCard = ({
           <DialogButton action="discard" onClick={onAlertAccept} isDefault>Accept</DialogButton>
         </DialogFooter>
       </Dialog>
+      {
+        snackbarMessage
+          ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
+          : null
+      }
     </div>
   );
 };

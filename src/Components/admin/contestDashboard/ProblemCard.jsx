@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
+import Dialog, {
+  DialogTitle,
+  DialogContent,
+  DialogFooter,
+  DialogButton,
+} from '@material/react-dialog';
+import '@material/react-dialog/dist/dialog.css';
 
 const ProblemCard = ({
   name, id, points, history, location,
 }) => {
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const alertTitle = 'Delete Confirmation';
+  const alertContent = `Are you sure you want to delete the problem = "${name}"`;
+  const onAlertAccept = () => {
+    console.log('The problem got successfully deleted.');
+  };
   const onProblemNameClick = () => {
     history.push(`${location.pathname}/${id}`);
   };
@@ -16,11 +29,12 @@ const ProblemCard = ({
     history.push(`${location.pathname}/${id}/edit`);
   };
   const onDeleteClick = () => {
-    history.push(`${location.pathname}/${id}/delete`);
+    setIsAlertOpen(true);
   };
   const onResetStatusClick = () => {
     history.push(`${location.pathname}/reset/${id}`);
   };
+
   return (
     <div className="ba br4 b--black-20 pa3 mt2">
       <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>{name}</Headline6>
@@ -44,6 +58,21 @@ const ProblemCard = ({
       <Button style={{ color: '#555555' }} onClick={onResetStatusClick}>
         Reset Submission Status
       </Button>
+      <Dialog
+        onClose={() => {
+          setIsAlertOpen(false);
+        }}
+        open={isAlertOpen}
+      >
+        <DialogTitle>{alertTitle}</DialogTitle>
+        <DialogContent>
+          <p>{alertContent}</p>
+        </DialogContent>
+        <DialogFooter>
+          <DialogButton action="dismiss">Cancel</DialogButton>
+          <DialogButton action="discard" onClick={onAlertAccept} isDefault>Accept</DialogButton>
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 };

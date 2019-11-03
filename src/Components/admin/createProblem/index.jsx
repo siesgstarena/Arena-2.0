@@ -27,6 +27,8 @@ const CreateProblem = () => {
     const { value } = event.target;
     return (setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = value;
+      // we are making use of ... operator to return a completely new object
+      // and thus making the component re-render since the state has changed.
       return { ...previousFormDetails };
     }));
   };

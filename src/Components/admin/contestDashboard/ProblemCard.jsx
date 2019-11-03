@@ -14,10 +14,13 @@ import '@material/react-dialog/dist/dialog.css';
 const ProblemCard = ({
   name, id, points, history, location,
 }) => {
+  // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  // snackbarMessage is the message which is to displayed on the snackbar
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
+  // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
     setSnackbarMessage('The problem is successfully deleted');
   };
@@ -76,6 +79,7 @@ const ProblemCard = ({
         </DialogFooter>
       </Dialog>
       {
+        // timeoutMS is the time in milliseconds after which the snackbar is automatically closed
         snackbarMessage
           ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
           : null

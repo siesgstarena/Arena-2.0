@@ -14,7 +14,6 @@ const AlertBox = ({
   content = 'No content entered',
   onAccept = () => { console.log('No accept function passed.'); },
 }) => {
-  console.log('called');
   const [isAlertOpen, setIsAlertOpen] = useState(isOpen);
   return (
     <Dialog

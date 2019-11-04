@@ -5,12 +5,12 @@ const problems = [
     points: 200,
   },
   {
-    name: 'Scooby Doo Is In Danger',
+    name: 'Scooby Doo Is again In Danger',
     id: 'SRM01A',
     points: 200,
   },
   {
-    name: 'Scooby Doo Is In Danger',
+    name: 'Scooby Doo Is back again In Danger',
     id: 'SRM01C',
     points: 200,
   },

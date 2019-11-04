@@ -6,6 +6,13 @@ const FileUpload = ({
   id, label, onChangeFunction, file = { name: '' },
 }) => (
   <label className="custom-file-upload" htmlFor={id}>
+    {/*
+        onChangeFunction is of form:
+        onChangeFunction = (otherParams) => (event) => {
+        }
+        event is passed through the FileUpload's onChange event
+        otherParams can be passed in the file where we are writing the onChangeFunction
+    */}
     <span className="ma2">{label}</span>
     <input
       className="ma2"

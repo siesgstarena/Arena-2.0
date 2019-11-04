@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body2 } from '@material/react-typography';
+import Button from '@material/react-button';
 import FileUpload from '../../common/FileUpload/index';
 
 const CreateProblem = () => {
@@ -26,6 +27,8 @@ const CreateProblem = () => {
     const { value } = event.target;
     return (setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = value;
+      // we are making use of ... operator to return a completely new object
+      // and thus making the component re-render since the state has changed.
       return { ...previousFormDetails };
     }));
   };
@@ -50,7 +53,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
           <TextField
             label="Problem Code"
-            className="pa2 mb4 w-100"
+            className="mb3 w-100"
             outlined
           >
             <Input
@@ -62,7 +65,7 @@ const CreateProblem = () => {
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
           <TextField
             label="Problem Points"
-            className="pa2 mb4 w-100"
+            className="mt0 mb4 w-100"
             outlined
           >
             <Input
@@ -200,6 +203,13 @@ const CreateProblem = () => {
               onChange={e => onTextFieldChange(e, 'tags')}
             />
           </TextField>
+        </Cell>
+      </Row>
+      <Row>
+        <Cell>
+          <Button raised>
+            Create Problem
+          </Button>
         </Cell>
       </Row>
     </Grid>

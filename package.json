@@ -52,12 +52,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
-    "lint": "npx eslint . --ext .jsx --ext .js; exit 0",
-    "lint-fix": "npx eslint . --fix --ext .jsx --ext .js; exit 0"
+    "lint": "npx eslint . --ext .jsx --ext .js",
+    "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"
   },
   "husky": {
     "hooks": {

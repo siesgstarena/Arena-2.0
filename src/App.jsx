@@ -15,8 +15,7 @@ import ContestMySubmissions from './Components/drawer/contests/mySubmissions/ind
 import Ratings from './Components/drawer/ratings/index';
 import BlogsList from './Components/drawer/blogs/blogsList/index';
 // import Editor from './Components/drawer/blogs/create/editor';
-import ProblemSet from 
-'./Components/drawer/problemSet/index';
+import ProblemSet from './Components/drawer/problemSet/index';
 import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
 import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
 import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';

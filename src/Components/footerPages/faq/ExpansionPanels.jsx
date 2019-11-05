@@ -93,7 +93,7 @@ const SimpleExpansionPanel = (props) => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Body1 className="mid-gray mt0">
-            You can mail us a request at &nbsp;
+            You can mail us a request at&nbsp;
             <a className="no-underline mid-gray i dim" href="mailto:codechef@siesgst.ac.in">
               codechef@siesgst.ac.in
             </a>

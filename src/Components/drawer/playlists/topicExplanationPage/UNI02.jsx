@@ -6,7 +6,7 @@ const UNI02 = () => {
   const gettingStartedContent = (
     <div>
       <Headline3 className="purple">Getting Started</Headline3>
-      <Body1 className="ma1">So here we are! If you ready to start the playlist let&apos;s get started!</Body1>
+      <Body1 className="ma1">So here we are! If you&apos;re ready to start the playlist let&apos;s get started!</Body1>
       <Body1 className="ma1">
         If you are a beginner and this is your first playlist,
         don&apos;t worry you are at the right place!
@@ -45,11 +45,11 @@ const UNI02 = () => {
       <Body1 className="ma0">
         We know how to create a pseudo code!
         It&apos;s just a bunch of arrows and block which do the processing.
-        To know more about pseudo code visit here.
+        To know more about pseudo code visit <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>.
       </Body1>
       <Headline6 className="mt3 ma0">Let&apos;s write our pseudo code!</Headline6>
       <Body1 className="ma0">
-        This is simple set of steps written for our understanding.
+        This is a simple set of steps written for our understanding.
         <br />
         Now you need to think about it and maybe even write it down,
         with enough practice you will be able to map all these instructions at once and

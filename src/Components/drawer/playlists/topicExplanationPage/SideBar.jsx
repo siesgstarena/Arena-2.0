@@ -29,7 +29,7 @@ const SideBar = ({
     <div className="center">
       <div className="sidebar">
         <Headline5 className="tc">
-          Topic:
+          Topic:&nbsp;
           {topic}
         </Headline5>
         <div role="presentation" onClick={() => handleItemClick(setIsGettingStarted)} className={gettingStartedClass}>

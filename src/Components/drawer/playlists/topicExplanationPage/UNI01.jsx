@@ -6,7 +6,7 @@ const UNI01 = () => {
   const gettingStartedContent = (
     <div>
       <Headline3 className="purple">Getting Started</Headline3>
-      <Body1 className="ma1">So here we are! If you ready to start the playlist let&apos;s get started!</Body1>
+      <Body1 className="ma1">So here we are! If you&apos;re ready to start the playlist let&apos;s get started!</Body1>
       <Body1 className="ma1">
         If you are a beginner and this is your first playlist,
         don&apos;t worry you are at the right place!
@@ -53,13 +53,13 @@ const UNI01 = () => {
       <Body1 className="ma0">
         We know how to create a pseudo code!
         It&apos;s just a bunch of arrows and block which do the processing.
-        To know more about pseudo code visit here.
+        To know more about pseudo code visit <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>.
       </Body1>
       <Body1>Let&apos;s start with it!</Body1>
       <Body1>
         We know that Rahul is at the centre block and can go at only 4 positions.
       </Body1>
-      <Body1>Lets take the input first.</Body1>
+      <Body1>Let&apos;s take the input first.</Body1>
       <Body1>We&apos;ll take the weight of Rahul</Body1>
       <Body1>We&apos;ll take the weight each stone can handle.</Body1>
       <Body1>We&apos;ll check which stone has the weight more than Rahul&apos;s weight.</Body1>

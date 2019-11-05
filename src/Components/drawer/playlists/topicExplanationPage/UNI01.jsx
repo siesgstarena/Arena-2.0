@@ -53,7 +53,10 @@ const UNI01 = () => {
       <Body1 className="ma0">
         We know how to create a pseudo code!
         It&apos;s just a bunch of arrows and block which do the processing.
-        To know more about pseudo code visit <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>.
+        To know more about pseudo code visit
+        {' '}
+        <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
+.
       </Body1>
       <Body1>Let&apos;s start with it!</Body1>
       <Body1>

@@ -8,7 +8,7 @@ import { SocialIcon } from 'react-social-icons';
 import 'tachyons';
 
 // SocialIcon is imported from an npm package to use social media icons
-const DeveloperCard = (props) => {
+const MemberCard = (props) => {
   const {
     name,
     imageUrl,
@@ -101,7 +101,7 @@ const DeveloperCard = (props) => {
   );
 };
 
-DeveloperCard.propTypes = {
+MemberCard.propTypes = {
   name: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   githubUrl: PropTypes.string.isRequired,
@@ -111,4 +111,4 @@ DeveloperCard.propTypes = {
   twitterUrl: PropTypes.string.isRequired,
 };
 
-export default DeveloperCard;
+export default MemberCard;

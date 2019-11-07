@@ -16,8 +16,8 @@ const footerRoutes = [
   },
   {
     id: 4,
-    changeRouteTo: '/developers',
-    routeName: 'Developers',
+    changeRouteTo: '/our-team',
+    routeName: 'Our Team',
   },
   {
     id: 5,

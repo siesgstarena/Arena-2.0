@@ -35,6 +35,24 @@ const resetSubmissionTableData = [
     verdict: 'Accepted',
     language: 'Python3',
   },
+  {
+    id: 'e72c3623214',
+    submissionId: 'e72c36e72c36',
+    when: 'Aug 12, 2018 3:28:00 AM',
+    who: 'Mukesh Choudhary',
+    profileId: 'abcd',
+    verdict: 'Accepted',
+    language: 'Python3',
+  },
+  {
+    id: 'e72c3622149',
+    submissionId: 'e72c36e72c36',
+    when: 'Aug 12, 2018 3:28:00 AM',
+    who: 'Mukesh Choudhary',
+    profileId: 'abcd',
+    verdict: 'Accepted',
+    language: 'Python3',
+  },
 ];
 
 export default resetSubmissionTableData;

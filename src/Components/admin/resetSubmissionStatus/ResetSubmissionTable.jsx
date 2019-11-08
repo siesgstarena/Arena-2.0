@@ -70,7 +70,7 @@ const ResetSubmissionStatus = ({ match }) => {
             <Option value="accepted">Accepted</Option>
             <Option value="wrongAnswer">Wrong Answer</Option>
           </Select>
-          <Button className="mt1-m ml1-l mt1 mt0-l" outlined onClick={() => onUpdateClick(data)}>
+          <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={() => onUpdateClick(data)}>
             Update
           </Button>
         </td>

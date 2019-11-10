@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Select, { Option } from '@material/react-select';
+import Button from '@material/react-button';
 import Table from '../../common/Table/index';
 import resetSubmissionTableData from './resetSubmissionTableData';
 
 const ResetSubmissionStatus = ({ match }) => {
   const tableHeadings = ['#', 'When', 'Who', 'Verdict', 'Language', 'Action'];
   const { params } = match;
+  const [problemStatus, setProblemStatus] = useState({});
+  const problemStatusRef = useRef({});
+
+  // The following effect is used to set the problemStatus variable
+  // with problemStatusRef.current once all the entire table is mounted.
+  useEffect(() => {
+    setProblemStatus(problemStatusRef.current);
+  }, []);
+
+  const onUpdateClick = (data) => {
+    console.log(`${data.id} => ${problemStatus[data.id]}`);
+  };
+
   const tableData = resetSubmissionTableData.map((data) => {
     let verdictColor = '';
     if (data.verdict === 'Time Limit Exceeded') {
@@ -16,6 +31,9 @@ const ResetSubmissionStatus = ({ match }) => {
     } else if (data.verdict === 'Accepted') {
       verdictColor = '#28a745';
     }
+    // The following line updates the problemStatusRef object with
+    // id of the data as key and accepted as value.
+    problemStatusRef.current[data.id] = 'accepted';
     return (
       <tr className="tc" key={data.id}>
         <td className="pa3 tc">
@@ -36,7 +54,26 @@ const ResetSubmissionStatus = ({ match }) => {
           {data.verdict}
         </td>
         <td className="pa3 tc">{data.language}</td>
-        <td className="pa3 tc" />
+        <td className="pa3 tc">
+          <Select
+            className=""
+            label="Status"
+            value={problemStatus[data.id]}
+            onChange={evt => setProblemStatus((prevProblemStatus) => {
+              // here we update the state problemStatus to reflect the changes
+              const prevProblemStatusCopy = { ...prevProblemStatus };
+              prevProblemStatusCopy[data.id] = evt.target.value;
+              return { ...prevProblemStatusCopy };
+            })
+            }
+          >
+            <Option value="accepted">Accepted</Option>
+            <Option value="wrongAnswer">Wrong Answer</Option>
+          </Select>
+          <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={() => onUpdateClick(data)}>
+            Update
+          </Button>
+        </td>
       </tr>
     );
   });

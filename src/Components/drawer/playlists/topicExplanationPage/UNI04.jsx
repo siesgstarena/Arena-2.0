@@ -45,7 +45,7 @@ const UNI04 = () => {
         arrows and block which do the processing.
         To know more about pseudo code visit
         {' '}
-        <a href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
+        <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
 .
       </Body1>
       <Headline5 className="black mb3 mt3">Let&apos;s write our pseudo code!</Headline5>

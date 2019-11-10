@@ -30,7 +30,7 @@ import Settings from './Components/user/settings/index';
 import About from './Components/footerPages/about/index';
 import Competitions from './Components/footerPages/competitions/index';
 import Contact from './Components/footerPages/contact/index';
-import Developers from './Components/footerPages/developers/index';
+import OurTeam from './Components/footerPages/ourTeam/index';
 import Feedback from './Components/footerPages/feedback/index';
 import FAQ from './Components/footerPages/faq/index';
 import Privacy from './Components/footerPages/privacy/index';
@@ -84,7 +84,7 @@ const App = () => {
         <Route path="/about" exact component={About} />
         <Route path="/competitions" exact component={Competitions} />
         <Route path="/contact" exact component={Contact} />
-        <Route path="/developers" exact component={Developers} />
+        <Route path="/our-team" exact component={OurTeam} />
         <Route path="/feedback" exact component={Feedback} />
         <Route path="/faq" exact component={FAQ} />
         <Route path="/privacy" exact component={Privacy} />

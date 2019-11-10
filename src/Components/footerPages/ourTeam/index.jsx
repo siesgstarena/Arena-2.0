@@ -1,11 +1,11 @@
 import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline6, Body1 } from '@material/react-typography';
-import { alumni, developers,operationalManagers } from './developers';
-import DeveloperCard from './DeveloperCard';
+import { alumni, developers, operationalManagers } from './ourTeam';
+import DeveloperCard from './MemberCard';
 import 'tachyons';
 
-const Developers = () => {
+const OurTeam = () => {
   const alumniCardsArray = alumni.map(developer => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard
@@ -48,37 +48,49 @@ const Developers = () => {
 
   return (
     <div className="mw8-ns pa2 center">
-      <Headline6>
-        <span className="purple">
-          SIESGSTarena Alumni
-        </span>
-        <Body1 className="mid-gray"> People behind the chapter</Body1>
-      </Headline6>
       <Grid>
+        <Row>
+          <Cell>
+            <Headline6>
+              <span className="purple">
+                SIESGSTarena Alumni
+              </span>
+              <Body1 className="mid-gray"> People behind the chapter</Body1>
+            </Headline6>
+          </Cell>
+        </Row>
         <Row>
           {alumniCardsArray}
         </Row>
       </Grid>
 
-      <Headline6>
-        <span className="purple">
-          SIESGSTarena developers
-        </span>
-        <Body1 className="mid-gray"> People behind this platform</Body1>
-      </Headline6>
       <Grid>
+        <Row>
+          <Cell>
+            <Headline6>
+              <span className="purple">
+                SIESGSTarena developers
+              </span>
+              <Body1 className="mid-gray"> People behind this platform</Body1>
+            </Headline6>
+          </Cell>
+        </Row>
         <Row>
           {developerCardsArray}
         </Row>
       </Grid>
 
-      <Headline6>
-        <span className="purple">
-          SIESGSTarena operation managers
-        </span>
-        <Body1 className="mid-gray"> People behind building the operations</Body1>
-      </Headline6>
       <Grid>
+        <Row>
+          <Cell columns={12}>
+            <Headline6>
+              <span className="purple">
+                SIESGSTarena operation managers
+              </span>
+              <Body1 className="mid-gray"> People behind building the operations</Body1>
+            </Headline6>
+          </Cell>
+        </Row>
         <Row>
           {operationManagersCardsArray}
         </Row>
@@ -88,4 +100,4 @@ const Developers = () => {
   );
 };
 
-export default Developers;
+export default OurTeam;

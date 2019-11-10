@@ -11,7 +11,7 @@ The project is focused on providing a good UI and performance to our end users i
 The project structure is based on the idea of keeping all the components and assets required by a route in its own separate folder.
 The entire project is divided into 5 modules:
 1. common: This module contains the components which are common across all the routes. e.g. The AppBar, Footer, SearchBar.
-1. footerPages: This module contains the routes which are present in the footer. e.g about, competitions, contact, developers, feedback, faq and privacy. 
+1. footerPages: This module contains the routes which are present in the footer. e.g about, competitions, contact, our-team, feedback, faq and privacy. 
 1. drawer: This module contains the routes which are present in the (side) drawer. e.g contests, ratings, blog, problemSet, playlists, goodies and turingCup.
 1. user: This module contains all the user specific routes. e.g newPost, myPosts, profile and settings.
 1. auth: This module contains all the authentication related routes. e.g signin, signup, forgotPassword and resetPassword.

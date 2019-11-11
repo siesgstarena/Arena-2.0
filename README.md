@@ -4,7 +4,7 @@ Arena 2.0 is the second version of [SIESGSTarena](http://arena.siesgst.ac.in/). 
 
 ## About The Project
 
-You can have a look at our [Arena 2.0](https://siesgstarena.github.io/Arena-2.0/)
+You can have a look at our [Arena 2.0](https://arena-2.herokuapp.com/)
 The project is focused on providing a good UI and performance to our end users in order to provide them a good coding experience. We are making use of material UI components (provided by Google) and material design guidelines to redesign our website.
 
 ### Project Structure

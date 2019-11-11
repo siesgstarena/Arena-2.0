@@ -15,6 +15,9 @@ The entire project is divided into 5 modules:
 1. drawer: This module contains the routes which are present in the (side) drawer. e.g contests, ratings, blog, problemSet, playlists, goodies and turingCup.
 1. user: This module contains all the user specific routes. e.g newPost, myPosts, profile and settings.
 1. auth: This module contains all the authentication related routes. e.g signin, signup, forgotPassword and resetPassword.
+1. search: This module contains all the search related components.
+1. admin: This module contains all the routes and components related to the admin.
+1. superuser: This module contains all the routes and components related to the superuser.
 
 ### Project Status
 * Completed the footerPages module. 

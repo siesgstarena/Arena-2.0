@@ -57,8 +57,7 @@
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .jsx --ext .js",
-    "lint-fix": "npx eslint . --fix --ext .jsx --ext .js",
-    "heroku-postbuild": "npm install && npm run build"
+    "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"
   },
   "husky": {
     "hooks": {

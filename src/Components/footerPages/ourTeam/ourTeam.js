@@ -120,6 +120,36 @@ const operationalManagers = [{
   facebookUrl: 'https://www.facebook.com/barathsnadar',
   instagramUrl: 'https://www.instagram.com/nadarbarath/',
 },
+{
+  id: 7,
+  name: 'Shabarish Ramaswamy',
+  imageUrl: 'https://avatars3.githubusercontent.com/u/46536070?s=460&v=4',
+  githubUrl: 'http://github.com/ShabarishRamaswamy',
+  linkedinUrl: 'https://www.linkedin.com/in/shabarish-ramaswamy-063198181',
+  twitterUrl: '',
+  facebookUrl: '',
+  instagramUrl: '',
+},
+{
+  id: 8,
+  name: 'Devin Raina',
+  imageUrl: 'https://instagram.fbom2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/75551294_458642474772365_2537649296191258624_n.jpg?_nc_ht=instagram.fbom2-1.fna.fbcdn.net&_nc_ohc=TGvd3ZMYgh4AX8B1WUn&oh=6dabe0b4651afc52967535d36f689e8e&oe=5E9A127F',
+  githubUrl: '',
+  linkedinUrl: '',
+  twitterUrl: '',
+  facebookUrl: '',
+  instagramUrl: 'https://www.instagram.com/devinraina/',
+},
+{
+  id: 9,
+  name: 'Surya Madhavan',
+  imageUrl: 'https://avatars1.githubusercontent.com/u/32214378?s=400&u=65a8219be164a0347b1b44abe029d86fd104510e&v=4',
+  githubUrl: 'https://github.com/greykoalacode',
+  linkedinUrl: 'https://www.linkedin.com/in/surya-m-312b05148/',
+  twitterUrl: '',
+  facebookUrl: '',
+  instagramUrl: ''
+},
 ];
 
 export { alumni, developers, operationalManagers };

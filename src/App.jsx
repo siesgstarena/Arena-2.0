@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import React, { useState } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import AppBar from './Components/common/AppBar/index';
 import SignIn from './Components/auth/signin/index';
@@ -40,6 +40,8 @@ import AdminContestDashboard from './Components/admin/contestDashboard/index';
 import AdminPlagiarism from './Components/admin/plagiarism/index';
 import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus/index';
 import AdminCreateProblem from './Components/admin/createProblem/index';
+import AdminEditProblem from './Components/admin/editProblem/index';
+import AdminProblemPage from './Components/admin/problemPage/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -57,43 +59,47 @@ const App = () => {
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
         <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
-        <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
-        <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
-        <Route path="/auth/forgot" exact component={Forgot} />
-        <Route path="/auth/reset" exact component={Reset} />
-        <Route path="/contests/:id" component={ContestTabBar} />
-        <Route path="/contests/:id" exact component={ContestDashboard} />
-        <Route path="/contests/:id/status" exact component={ContestStatus} />
-        <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
-        <Route path="/contests" exact component={ContestsSchedule} />
-        <Route path="/ratings" exact component={Ratings} />
-        <Route path="/blog" exact component={BlogsList} />
-        {/* <Route path="/blog/create" exact component={Editor} /> */}
-        <Route path="/problem-set" exact component={ProblemSet} />
-        <Route path="/playlists" exact component={PlaylistsWelcomePage} />
-        <Route path="/playlists/home" exact component={PlaylistsHomePage} />
-        <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
-        <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
-        <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
-        <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
-        <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
-        <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
-        <Route path="/goodies" exact component={Goodies} />
-        <Route path="/profile/:id/settings" exact component={Settings} />
-        <Route path="/profile/:id" exact component={Profile} />
-        <Route path="/about" exact component={About} />
-        <Route path="/competitions" exact component={Competitions} />
-        <Route path="/contact" exact component={Contact} />
-        <Route path="/our-team" exact component={OurTeam} />
-        <Route path="/feedback" exact component={Feedback} />
-        <Route path="/faq" exact component={FAQ} />
-        <Route path="/privacy" exact component={Privacy} />
-        <Route path="/search" exact component={Search} />
-        <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
-        <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
-        <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
-        <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
-        <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
+        <Switch>
+          <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
+          <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
+          <Route path="/auth/forgot" exact component={Forgot} />
+          <Route path="/auth/reset" exact component={Reset} />
+          <Route path="/contests/:id" component={ContestTabBar} />
+          <Route path="/contests/:id" exact component={ContestDashboard} />
+          <Route path="/contests/:id/status" exact component={ContestStatus} />
+          <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
+          <Route path="/contests" exact component={ContestsSchedule} />
+          <Route path="/ratings" exact component={Ratings} />
+          <Route path="/blog" exact component={BlogsList} />
+          {/* <Route path="/blog/create" exact component={Editor} /> */}
+          <Route path="/problem-set" exact component={ProblemSet} />
+          <Route path="/playlists" exact component={PlaylistsWelcomePage} />
+          <Route path="/playlists/home" exact component={PlaylistsHomePage} />
+          <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
+          <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
+          <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
+          <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
+          <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
+          <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
+          <Route path="/goodies" exact component={Goodies} />
+          <Route path="/profile/:id/settings" exact component={Settings} />
+          <Route path="/profile/:id" exact component={Profile} />
+          <Route path="/about" exact component={About} />
+          <Route path="/competitions" exact component={Competitions} />
+          <Route path="/contact" exact component={Contact} />
+          <Route path="/our-team" exact component={OurTeam} />
+          <Route path="/feedback" exact component={Feedback} />
+          <Route path="/faq" exact component={FAQ} />
+          <Route path="/privacy" exact component={Privacy} />
+          <Route path="/search" exact component={Search} />
+          <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+          <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
+          <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
+          <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
+          <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
+          <Route path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
+          <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
+        </Switch>
         <Route path="/" component={Footer} />
       </ScrollToTop>
     </BrowserRouter>

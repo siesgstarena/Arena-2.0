@@ -43,6 +43,7 @@ import AdminCreateProblem from './Components/admin/createProblem/index';
 import AdminEditProblem from './Components/admin/editProblem/index';
 import AdminProblemPage from './Components/admin/problemPage/index';
 import AdminTestProblem from './Components/admin/testProblem/index';
+import SuperuserRatings from './Components/superuser/ratings/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -101,6 +102,7 @@ const App = () => {
           <Route path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
           <Route path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
           <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
+          <Route path="/superuser/ratings" exact component={SuperuserRatings} />
         </Switch>
         <Route path="/" component={Footer} />
       </ScrollToTop>

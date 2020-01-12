@@ -59,15 +59,15 @@ const App = () => {
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
         <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
+        <Route path="/contests/:id" component={ContestTabBar} />
+        <Route path="/contests/:id" exact component={ContestDashboard} />
+        <Route path="/contests/:id/status" exact component={ContestStatus} />
+        <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
         <Switch>
           <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
           <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />
           <Route path="/auth/forgot" exact component={Forgot} />
           <Route path="/auth/reset" exact component={Reset} />
-          <Route path="/contests/:id" component={ContestTabBar} />
-          <Route path="/contests/:id" exact component={ContestDashboard} />
-          <Route path="/contests/:id/status" exact component={ContestStatus} />
-          <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
           <Route path="/contests" exact component={ContestsSchedule} />
           <Route path="/ratings" exact component={Ratings} />
           <Route path="/blog" exact component={BlogsList} />

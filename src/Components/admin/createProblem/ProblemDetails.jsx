@@ -50,6 +50,7 @@ const ProblemDetails = () => {
           >
             <Input
               value={formDetails.code}
+              id="problemCode"
               onChange={e => onTextFieldChange(e, 'code')}
             />
           </TextField>
@@ -62,6 +63,7 @@ const ProblemDetails = () => {
           >
             <Input
               value={formDetails.points}
+              id="problemPoints"
               onChange={e => onTextFieldChange(e, 'points')}
             />
           </TextField>
@@ -76,6 +78,7 @@ const ProblemDetails = () => {
           >
             <Input
               value={formDetails.name}
+              id="problemName"
               onChange={e => onTextFieldChange(e, 'name')}
             />
           </TextField>

@@ -46,6 +46,7 @@ import AdminProblemPage from './Components/admin/problemPage/index';
 import AdminTestProblem from './Components/admin/testProblem/index';
 import SuperuserRatings from './Components/superuser/ratings/index';
 import SuperuserUpdateRatings from './Components/superuser/updateRatings/index';
+import SuperuserContests from './Components/superuser/contests/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -107,6 +108,7 @@ const App = () => {
           <Route path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
           <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
           <Route path="/superuser/ratings" exact component={SuperuserRatings} />
+          <Route path="/superuser/contests" exact render={props => <SuperuserContests setSnackbarMessage={setSnackbarMessage} {...props} />} />
           <Route path="/superuser/ratings/:contestId/update" exact render={props => <SuperuserUpdateRatings setSnackbarMessage={setSnackbarMessage} {...props} />} />
         </Switch>
         <Route path="/" component={Footer} />

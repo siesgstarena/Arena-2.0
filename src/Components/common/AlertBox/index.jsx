@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Dialog, {
   DialogTitle,
   DialogContent,
@@ -10,35 +10,34 @@ import '@material/react-dialog/dist/dialog.css';
 
 const AlertBox = ({
   isOpen = false,
+  setIsOpen = () => { console.log('No set function passed.'); },
   title = 'No title entered',
   content = 'No content entered',
   onAccept = () => { console.log('No accept function passed.'); },
-}) => {
-  const [isAlertOpen, setIsAlertOpen] = useState(isOpen);
-  return (
-    <Dialog
-      onClose={() => {
-        setIsAlertOpen(false);
-      }}
-      open={isAlertOpen}
-    >
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        <p>{content}</p>
-      </DialogContent>
-      <DialogFooter>
-        <DialogButton action="dismiss">Cancel</DialogButton>
-        <DialogButton action="discard" onClick={onAccept} isDefault>Accept</DialogButton>
-      </DialogFooter>
-    </Dialog>
-  );
-};
+}) => (
+  <Dialog
+    onClose={() => {
+      setIsOpen(false);
+    }}
+    open={isOpen}
+  >
+    <DialogTitle>{title}</DialogTitle>
+    <DialogContent>
+      <p>{content}</p>
+    </DialogContent>
+    <DialogFooter>
+      <DialogButton action="dismiss">Cancel</DialogButton>
+      <DialogButton action="discard" onClick={onAccept} isDefault>Accept</DialogButton>
+    </DialogFooter>
+  </Dialog>
+);
 
 AlertBox.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onAccept: PropTypes.func.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
 };
 
 export default AlertBox;

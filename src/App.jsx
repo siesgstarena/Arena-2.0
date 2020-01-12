@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
 import AppBar from './Components/common/AppBar/index';
+import CustomSnackbar from './Components/common/Snackbar/index';
 import SignIn from './Components/auth/signin/index';
 import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
@@ -44,11 +45,13 @@ import AdminEditProblem from './Components/admin/editProblem/index';
 import AdminProblemPage from './Components/admin/problemPage/index';
 import AdminTestProblem from './Components/admin/testProblem/index';
 import SuperuserRatings from './Components/superuser/ratings/index';
+import SuperuserUpdateRatings from './Components/superuser/updateRatings/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (
@@ -61,6 +64,7 @@ const App = () => {
             on all the pages which has REACT_APP_BASE_ADDRESS in their URL
         */}
         <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
+        <Route path="/" render={props => <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} {...props} />} />
         <Route path="/contests/:id" component={ContestTabBar} />
         <Route path="/contests/:id" exact component={ContestDashboard} />
         <Route path="/contests/:id/status" exact component={ContestStatus} />
@@ -95,7 +99,7 @@ const App = () => {
           <Route path="/privacy" exact component={Privacy} />
           <Route path="/search" exact component={Search} />
           <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
-          <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
+          <Route path="/admin/:contestId" exact render={props => <AdminContestDashboard setSnackbarMessage={setSnackbarMessage} {...props} />} />
           <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
           <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
           <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
@@ -103,6 +107,7 @@ const App = () => {
           <Route path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
           <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
           <Route path="/superuser/ratings" exact component={SuperuserRatings} />
+          <Route path="/superuser/ratings/:contestId/update" exact render={props => <SuperuserUpdateRatings setSnackbarMessage={setSnackbarMessage} {...props} />} />
         </Switch>
         <Route path="/" component={Footer} />
       </ScrollToTop>

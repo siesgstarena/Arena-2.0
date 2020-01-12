@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Select from '@material/react-select';
+import PropTypes from 'prop-types';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 
-const TestProblem = () => {
+const SuperuserRatings = (props) => {
+  const { history } = props;
   const [contest, setContest] = useState('SRM01');
   const onContestChange = (index, item) => (
     setContest(item.getAttribute('data-value'))
@@ -37,11 +39,19 @@ const TestProblem = () => {
         options={contests}
         onEnhancedChange={onContestChange}
       />
-      <Button className="ma1 mt3 mb5" raised>
+      <Button
+        className="ma1 mt3 mb5"
+        raised
+        onClick={() => history.push(`/superuser/ratings/${contest}/update`)}
+      >
         Update
       </Button>
     </div>
   );
 };
 
-export default TestProblem;
+SuperuserRatings.propTypes = {
+  history: PropTypes.object.isRequired,
+};
+
+export default SuperuserRatings;

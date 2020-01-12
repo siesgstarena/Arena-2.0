@@ -42,6 +42,7 @@ import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus
 import AdminCreateProblem from './Components/admin/createProblem/index';
 import AdminEditProblem from './Components/admin/editProblem/index';
 import AdminProblemPage from './Components/admin/problemPage/index';
+import AdminTestProblem from './Components/admin/testProblem/index';
 import Footer from './Components/common/Footer/index';
 import './App.scss';
 
@@ -98,6 +99,7 @@ const App = () => {
           <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
           <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
           <Route path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
+          <Route path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
           <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
         </Switch>
         <Route path="/" component={Footer} />

@@ -148,7 +148,7 @@ const operationalManagers = [{
   linkedinUrl: 'https://www.linkedin.com/in/surya-m-312b05148/',
   twitterUrl: '',
   facebookUrl: '',
-  instagramUrl: ''
+  instagramUrl: '',
 },
 ];
 

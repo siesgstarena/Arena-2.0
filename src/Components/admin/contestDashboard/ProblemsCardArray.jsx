@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import ProblemCard from './ProblemCard';
 import problems from './problems';
 
-const ProblemsCardArray = ({ history, location }) => {
+const ProblemsCardArray = ({ history, location, setSnackbarMessage }) => {
   const problemsArray = problems.map(problem => (
     <ProblemCard
       location={location}
+      setSnackbarMessage={setSnackbarMessage}
       history={history}
       key={problem.id}
       name={problem.name}
@@ -37,6 +38,7 @@ const ProblemsCardArray = ({ history, location }) => {
 ProblemsCardArray.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default ProblemsCardArray;

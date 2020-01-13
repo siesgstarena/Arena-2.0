@@ -7,9 +7,9 @@ const ratings = [
   },
   {
     rank: 2,
-    name: 'Vipul Singh Raghuvanshi',
-    profileId: '5b5d756b37392f89933e7515',
-    rating: 1566,
+    name: 'Ashok Choudhary',
+    profileId: '5b5d756b37392f89933e23124124',
+    rating: 1000,
   },
   {
     rank: 3,

@@ -32,6 +32,7 @@ const Feedback = () => {
             >
               <Input
                 value={name}
+                id="name"
                 onChange={e => setName(e.currentTarget.value)}
               />
             </TextField>
@@ -42,6 +43,7 @@ const Feedback = () => {
             >
               <Input
                 value={email}
+                id="email"
                 onChange={e => setEmail(e.currentTarget.value)}
               />
             </TextField>

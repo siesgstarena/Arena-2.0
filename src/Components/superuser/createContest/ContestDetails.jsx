@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
+import DatePicker from '../../common/DatePicker/index';
+import TimePicker from '../../common/TimePicker/index';
 
 const ContestDetails = () => {
   const intialFormDetails = {
@@ -10,8 +12,9 @@ const ContestDetails = () => {
     type: 'round',
     name: '',
     description: '',
-    start: '',
-    end: '',
+    start: new Date(),
+    end: new Date(),
+    solutionVisibility: 'after',
   };
   const [formDetails, setFormDetails] = useState(intialFormDetails);
 
@@ -25,12 +28,19 @@ const ContestDetails = () => {
     }));
   };
 
-  const onTypeChange = (index, item) => (
+  const onSelectChange = (index, item, keyToBeUpdated) => (
     setFormDetails((previousFormDetails) => {
-      previousFormDetails.type = item.getAttribute('data-value');
+      previousFormDetails[keyToBeUpdated] = item.getAttribute('data-value');
       return { ...previousFormDetails };
     })
   );
+
+  const handleDateTimeChange = (date, keyToBeUpdated) => {
+    setFormDetails((previousFormDetails) => {
+      previousFormDetails[keyToBeUpdated] = date;
+      return { ...previousFormDetails };
+    });
+  };
   console.log(formDetails);
 
   return (
@@ -52,12 +62,12 @@ const ContestDetails = () => {
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
           <Select
             className="mb3 w-100"
-            notchedOutlineClassName="pa1"
+            notchedOutlineClassName="pt1"
             enhanced
             outlined
             label="Type *"
             value={formDetails.type}
-            onEnhancedChange={onTypeChange}
+            onEnhancedChange={(item, index) => onSelectChange(item, index, 'type')}
           >
             <Option value="round">ROUND</Option>
             <Option value="queue">QUEUE</Option>
@@ -83,7 +93,7 @@ const ContestDetails = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Description"
-            className="mb4 text-area-border"
+            className="mb2 text-area-border"
             textarea
           >
             <Input
@@ -95,30 +105,35 @@ const ContestDetails = () => {
       </Row>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <TextField
-            label="Contest Code *"
-            className="mb3 w-100"
-            outlined
-          >
-            <Input
-              value={formDetails.code}
-              id="contestCode"
-              onChange={e => onTextFieldChange(e, 'code')}
-            />
-          </TextField>
+          <DatePicker value={formDetails.start} id="start-date" label="Contest Start Date" onChangeFunction={date => handleDateTimeChange(date, 'start')} />
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <TextField
-            label="Contest Code *"
-            className="mb3 w-100"
+          <TimePicker value={formDetails.start} id="start-time" label="Contest Start Time" onChangeFunction={date => handleDateTimeChange(date, 'start')} />
+        </Cell>
+      </Row>
+      <Row>
+        <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
+          <DatePicker value={formDetails.end} id="end-date" label="Contest End Date" onChangeFunction={date => handleDateTimeChange(date, 'end')} />
+        </Cell>
+        <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
+          <TimePicker value={formDetails.end} id="end-time" label="Contest End Time" onChangeFunction={date => handleDateTimeChange(date, 'end')} />
+        </Cell>
+      </Row>
+      <Row>
+        <Cell desktopColumns={6} tabletColumns={8} phoneColumns={4}>
+          <Select
+            className="mt4 mb3 w-100"
+            notchedOutlineClassName="pt1"
+            enhanced
             outlined
+            label="Solution Visibility *"
+            value={formDetails.solutionVisibility}
+            onEnhancedChange={(index, item) => onSelectChange(index, item, 'solutionVisibility')}
           >
-            <Input
-              value={formDetails.code}
-              id="contestCode"
-              onChange={e => onTextFieldChange(e, 'code')}
-            />
-          </TextField>
+            <Option value="after">AFTER</Option>
+            <Option value="during">DURING</Option>
+            <Option value="never">NEVER</Option>
+          </Select>
         </Cell>
       </Row>
     </Grid>

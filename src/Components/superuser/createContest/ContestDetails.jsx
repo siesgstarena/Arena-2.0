@@ -5,6 +5,7 @@ import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import DatePicker from '../../common/DatePicker/index';
 import TimePicker from '../../common/TimePicker/index';
+import MultiSelect from '../../common/MultiSelect/index';
 
 const ContestDetails = () => {
   const intialFormDetails = {
@@ -12,6 +13,7 @@ const ContestDetails = () => {
     type: 'round',
     name: '',
     description: '',
+    admins: [],
     start: new Date(),
     end: new Date(),
     solutionVisibility: 'after',
@@ -101,6 +103,11 @@ const ContestDetails = () => {
               onChange={e => onTextFieldChange(e, 'description')}
             />
           </TextField>
+        </Cell>
+      </Row>
+      <Row>
+        <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
+          <MultiSelect />
         </Cell>
       </Row>
       <Row>

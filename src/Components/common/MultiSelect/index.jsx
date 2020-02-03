@@ -1,42 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import TextField, { Input } from '@material/react-text-field';
+import Container from './Container';
+import SelectedItemBoxArray from './SelectedItemBoxArray';
 
 const MultiSelect = () => {
   const [search, setSearch] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [mappedSearchResults, setMappedSearchResults] = useState([]);
-  const emails = ['a', 'b', 'c', 'd'];
+  const options = ['a', 'b', 'c', 'd'];
+  let searchResults = [];
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
-  const onSearchChange = (e) => {
-    const searchValue = e.target.value;
-    setSearch(searchValue);
-    const results = emails.filter(email => email.toLowerCase().includes(searchValue));
-    setSearchResults(results);
+  const addOption = (option) => {
+    if (!selectedOptions.includes(option)) {
+      setSelectedOptions((previousSelectedOptions) => {
+        previousSelectedOptions.push(option);
+        return [...previousSelectedOptions];
+      });
+      // setMappedSearchResults(mapResults(searchResults));
+      // console.log(selectedOptions, "in addOption");
+    }
   };
 
-  const mapEmails = (mails) => {
-    const updatedEmails = mails.map((email, index) => {
+  const mapResults = (optionsRecieved) => {
+    const mappedOptions = optionsRecieved.map((option, index) => {
       if ((index + 1) % 2 === 0) {
         return (
-          <div key={email} className="bg-washed-green pa2 pointer">
-            {email}
+          <div role="presentation" key={option} className="bg-washed-green pa2 pointer" onClick={() => addOption(option)}>
+            {option}
           </div>
         );
       }
       return (
-        <div key={email} className="bg-lightest-blue pa2 pointer">
-          {email}
+        <div role="presentation" key={option} className="bg-lightest-blue pa2 pointer" onClick={() => addOption(option)}>
+          {option}
         </div>
       );
     });
-    return updatedEmails;
+    return mappedOptions;
   };
 
-  useEffect(() => {
-    setMappedSearchResults(mapEmails(searchResults));
-  }, [searchResults]);
+  const [mappedSearchResults, setMappedSearchResults] = useState(mapResults(options));
+
+  // search and setSearch will be handle internally
+  const onSearchChange = (e) => {
+    const searchValue = e.target.value;
+    setSearch(searchValue);
+    searchResults = options.filter(email => email.toLowerCase().includes(searchValue));
+    setMappedSearchResults(mapResults(searchResults));
+  };
+
+
+  const removeOption = (option) => {
+    let updatedSelectedOptions = selectedOptions;
+    updatedSelectedOptions = updatedSelectedOptions.filter(
+      optionPresent => optionPresent !== option,
+    );
+    setSelectedOptions(updatedSelectedOptions);
+  };
+
   return (
-    <div className="b--gray ba br2 pa2">
+    <Container>
+      <SelectedItemBoxArray selectedOptions={selectedOptions} removeOption={removeOption} />
       <TextField
         label="Select the admin for the contest"
         className="w-100"
@@ -51,7 +74,7 @@ const MultiSelect = () => {
       <div style={{ maxHeight: '100px', overflow: 'scroll' }}>
         {mappedSearchResults}
       </div>
-    </div>
+    </Container>
   );
 };
 

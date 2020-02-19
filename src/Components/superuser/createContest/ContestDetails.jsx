@@ -18,8 +18,9 @@ const ContestDetails = () => {
     end: new Date(),
     solutionVisibility: 'after',
   };
+  const options = ['ac030540@gmail.com', 'ninadc32@gmail.com', 'test@gmail.com', 'test2@gmail.com'];
   const [formDetails, setFormDetails] = useState(intialFormDetails);
-
+  // console.log(formDetails.admins);
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
     return (setFormDetails((previousFormDetails) => {
@@ -29,6 +30,11 @@ const ContestDetails = () => {
       return { ...previousFormDetails };
     }));
   };
+
+  const onAdminsChange = updatedOptions => setFormDetails((previousFormDetails) => {
+    previousFormDetails.admins = updatedOptions;
+    return { ...previousFormDetails };
+  });
 
   const onSelectChange = (index, item, keyToBeUpdated) => (
     setFormDetails((previousFormDetails) => {
@@ -43,7 +49,7 @@ const ContestDetails = () => {
       return { ...previousFormDetails };
     });
   };
-  console.log(formDetails);
+  // console.log(formDetails);
 
   return (
     <Grid style={{ padding: '0px' }}>
@@ -107,7 +113,11 @@ const ContestDetails = () => {
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <MultiSelect />
+          <MultiSelect
+            options={options}
+            selectedOptions={formDetails.admins}
+            updateSelectedOptions={onAdminsChange}
+          />
         </Cell>
       </Row>
       <Row>

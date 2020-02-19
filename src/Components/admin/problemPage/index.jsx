@@ -4,7 +4,7 @@ import Button from '@material/react-button';
 import ProblemPage from './ProblemPage';
 
 const AdminProblemPage = (props) => {
-  const { history, match } = props;
+  const { history, match, location } = props;
   const { params } = match;
   const { contestId } = params;
 
@@ -13,7 +13,7 @@ const AdminProblemPage = (props) => {
       <Button outlined className="mt3 mb3" onClick={() => history.push(`/admin/${contestId}`)}>
         Go back
       </Button>
-      <Button outlined className="fr mt3 mb3">
+      <Button outlined className="fr mt3 mb3" onClick={() => history.push(`${location.pathname}/test`)}>
         Submit Test Solution
       </Button>
       <ProblemPage />
@@ -24,6 +24,7 @@ const AdminProblemPage = (props) => {
 AdminProblemPage.propTypes = {
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default AdminProblemPage;

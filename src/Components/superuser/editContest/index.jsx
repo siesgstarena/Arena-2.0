@@ -10,7 +10,6 @@ const EditContest = () => (
     <ContestDetails />
     <Button
       className="ma1 mt3"
-      style={{ marginLeft: 'auto', marginRight: 0, display: 'block' }}
       raised
     >
       Edit Contest

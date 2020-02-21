@@ -6,6 +6,7 @@ import TextField, { Input, HelperText } from '@material/react-text-field';
 import {
   Headline3, Headline4, Body1, Body2,
 } from '@material/react-typography';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import 'tachyons';
@@ -15,7 +16,8 @@ const SignUp = (props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { history, setIsLoggedIn } = props;
+  const { setIsLoggedIn } = props;
+  const history = useHistory();
 
   const handleSignUp = () => {
     setIsLoggedIn(true);
@@ -110,7 +112,6 @@ const SignUp = (props) => {
 };
 
 SignUp.propTypes = {
-  history: PropTypes.object.isRequired,
   setIsLoggedIn: PropTypes.func.isRequired,
 };
 

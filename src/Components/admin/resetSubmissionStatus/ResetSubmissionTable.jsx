@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import Button from '@material/react-button';
 import Table from '../../common/Table/index';
 import resetSubmissionTableData from './resetSubmissionTableData';
 
-const ResetSubmissionStatus = ({ match }) => {
+const ResetSubmissionStatus = () => {
   const tableHeadings = ['#', 'When', 'Who', 'Verdict', 'Language', 'Action'];
-  const { params } = match;
+  const params = useParams();
+  const { contestId } = params;
 
   const onUpdateClick = (data, problemStatus) => {
     console.log(`${data.id} => ${problemStatus}`);
@@ -28,7 +28,7 @@ const ResetSubmissionStatus = ({ match }) => {
     return (
       <tr className="tc" key={data.id}>
         <td className="pa3 tc">
-          <Link className="no-underline blue" to={`/contest/${params.contestId}/submission/${data.submissionId}`}>
+          <Link className="no-underline blue" to={`/contest/${contestId}/submission/${data.submissionId}`}>
             {data.id}
           </Link>
         </td>
@@ -67,10 +67,6 @@ const ResetSubmissionStatus = ({ match }) => {
       <Table tableHeadings={tableHeadings} tableData={tableData} tableHeadingClassName="tc" />
     </div>
   );
-};
-
-ResetSubmissionStatus.propTypes = {
-  match: PropTypes.object.isRequired,
 };
 
 export default ResetSubmissionStatus;

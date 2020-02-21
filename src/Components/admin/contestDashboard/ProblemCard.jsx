@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Headline6, Body1 } from '@material/react-typography';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 
 const ProblemCard = ({
-  name, id, points, history, location, setSnackbarMessage,
+  name, id, points, setSnackbarMessage,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
+  const history = useHistory();
+  const location = useLocation();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
     setSnackbarMessage('The problem is successfully deleted');
@@ -70,8 +73,6 @@ ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 

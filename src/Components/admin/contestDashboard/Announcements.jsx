@@ -1,9 +1,11 @@
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
-import PropTypes from 'prop-types';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Button } from '@material/react-button';
 
-const Announcements = ({ history, location }) => {
+const Announcements = () => {
+  const history = useHistory();
+  const location = useLocation();
   const onEditClick = () => {
     history.push(`${location.pathname}/announcements`);
   };
@@ -40,11 +42,6 @@ const Announcements = ({ history, location }) => {
       </Button>
     </div>
   );
-};
-
-Announcements.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
 };
 
 export default Announcements;

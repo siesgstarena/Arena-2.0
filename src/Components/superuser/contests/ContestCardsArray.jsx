@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import ContestCard from './ContestCard';
 import { pastContests as contests } from '../../drawer/contests/schedule/contests';
 
-const ContestCardsArray = ({ history, location, setSnackbarMessage }) => {
+const ContestCardsArray = ({ setSnackbarMessage }) => {
   const contestsArray = contests.map(contest => (
     <ContestCard
-      location={location}
       setSnackbarMessage={setSnackbarMessage}
-      history={history}
       key={contest.id}
       name={contest.contestName}
       id={contest.id}
@@ -25,8 +23,6 @@ const ContestCardsArray = ({ history, location, setSnackbarMessage }) => {
 };
 
 ContestCardsArray.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 

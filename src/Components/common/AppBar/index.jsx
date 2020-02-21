@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import {
+  NavLink, Link, useLocation, useHistory,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TopAppBar, {
   TopAppBarFixedAdjust,
@@ -33,9 +35,10 @@ const AppBar = (props) => {
   const mobileDevice = window.innerWidth < 480;
   // mobileDevice turns out to be true when the device width is less than 480px
 
-  const { location } = props;
+  const location = useLocation();
   const { pathname: currentPathname } = location;
-  const { history, isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn } = props;
+  const history = useHistory();
 
   useEffect(() => {
     if (currentPathname === '/') {
@@ -246,8 +249,6 @@ const AppBar = (props) => {
 };
 
 AppBar.propTypes = {
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   setIsLoggedIn: PropTypes.func.isRequired,
 };

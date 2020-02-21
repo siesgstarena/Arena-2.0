@@ -1,16 +1,17 @@
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
+import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import ProblemCard from './ProblemCard';
 import problems from './problems';
 
-const ProblemsCardArray = ({ history, location, setSnackbarMessage }) => {
+const ProblemsCardArray = ({ setSnackbarMessage }) => {
+  const history = useHistory();
+
   const problemsArray = problems.map(problem => (
     <ProblemCard
-      location={location}
       setSnackbarMessage={setSnackbarMessage}
-      history={history}
       key={problem.id}
       name={problem.name}
       id={problem.id}
@@ -36,8 +37,6 @@ const ProblemsCardArray = ({ history, location, setSnackbarMessage }) => {
 };
 
 ProblemsCardArray.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 

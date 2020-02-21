@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ProblemsTable from './ProblemsTable';
 import SubmissionDetails from './SubmissionDetails';
@@ -7,37 +6,27 @@ import ContestDetails from '../common/ContestDetails';
 import Announcements from '../common/Announcements';
 import 'tachyons';
 
-const ContestStatusPage = (props) => {
-  const { location } = props;
-  const { pathname } = location;
-
-  return (
-    <Grid className="mw9 center">
-      <Row>
-        <Cell desktopColumns={9} tabletColumns={8}>
-          <Cell className="">
-            <ProblemsTable pathname={pathname} />
-          </Cell>
-          <Cell>
-            <SubmissionDetails />
-          </Cell>
+const ContestDashboard = () => (
+  <Grid className="mw9 center">
+    <Row>
+      <Cell desktopColumns={9} tabletColumns={8}>
+        <Cell className="">
+          <ProblemsTable />
         </Cell>
-        <Cell desktopColumns={3} tabletColumns={8}>
-          <Cell>
-            <ContestDetails />
-          </Cell>
-          <Cell>
-            <Announcements />
-          </Cell>
+        <Cell>
+          <SubmissionDetails />
         </Cell>
-      </Row>
-    </Grid>
-  );
-};
+      </Cell>
+      <Cell desktopColumns={3} tabletColumns={8}>
+        <Cell>
+          <ContestDetails />
+        </Cell>
+        <Cell>
+          <Announcements />
+        </Cell>
+      </Cell>
+    </Row>
+  </Grid>
+);
 
-ContestStatusPage.propTypes = {
-  location: PropTypes.object.isRequired,
-};
-
-
-export default ContestStatusPage;
+export default ContestDashboard;

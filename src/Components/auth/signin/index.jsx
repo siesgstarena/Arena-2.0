@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
+import { useHistory } from 'react-router-dom';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
@@ -11,7 +12,8 @@ import 'tachyons';
 const SignIn = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { history, setIsLoggedIn } = props;
+  const { setIsLoggedIn } = props;
+  const history = useHistory();
 
   const handleSignIn = () => {
     setIsLoggedIn(true);
@@ -74,7 +76,6 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
-  history: PropTypes.object.isRequired,
   setIsLoggedIn: PropTypes.func.isRequired,
 };
 

@@ -68,10 +68,10 @@ const App = () => {
         */}
         <Route path="/" render={props => <AppBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} {...props} />} />
         <Route path="/" render={props => <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} {...props} />} />
-        <Route path="/contests/:id" component={ContestTabBar} />
-        <Route path="/contests/:id" exact component={ContestDashboard} />
-        <Route path="/contests/:id/status" exact component={ContestStatus} />
-        <Route path="/contests/:id/my" exact component={ContestMySubmissions} />
+        <Route path="/contests/:contestId" component={ContestTabBar} />
+        <Route path="/contests/:contestId" exact component={ContestDashboard} />
+        <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+        <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
         <Switch>
           <Route path="/auth/signin" exact render={props => <SignIn setIsLoggedIn={setIsLoggedIn} {...props} />} />
           <Route path="/auth/signup" exact render={props => <SignUp setIsLoggedIn={setIsLoggedIn} {...props} />} />

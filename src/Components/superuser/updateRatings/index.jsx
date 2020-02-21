@@ -40,8 +40,4 @@ const UpdateRatings = () => {
   );
 };
 
-UpdateRatings.propTypes = {
-  setSnackbarMessage: PropTypes.func.isRequired,
-};
-
 export default UpdateRatings;

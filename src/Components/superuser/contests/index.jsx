@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestCardsArray from './ContestCardsArray';
 
-const Contests = (props) => {
-  const { setSnackbarMessage } = props;
+const Contests = () => {
   const history = useHistory();
   return (
     <div className="mw7 center pa2">
@@ -15,16 +13,9 @@ const Contests = (props) => {
         &nbsp;
         <span className="dim pointer" role="presentation" onClick={() => history.push('/superuser/contests/create')}>Create a new contest</span>
       </Body2>
-      <ContestCardsArray
-        setSnackbarMessage={setSnackbarMessage}
-      />
+      <ContestCardsArray />
     </div>
   );
 };
-
-Contests.propTypes = {
-  setSnackbarMessage: PropTypes.func.isRequired,
-};
-
 
 export default Contests;

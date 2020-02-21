@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input, HelperText } from '@material/react-text-field';
 import {
   Headline3, Headline4, Body1, Body2,
 } from '@material/react-typography';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import 'tachyons';
+import UserContext from '../../../Contexts/UserContext';
 
-const SignUp = (props) => {
+const SignUp = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsLoggedIn } = props;
+  const { setIsLoggedIn } = useContext(UserContext);
   const history = useHistory();
 
   const handleSignUp = () => {
@@ -109,10 +109,6 @@ const SignUp = (props) => {
       </Row>
     </Grid>
   );
-};
-
-SignUp.propTypes = {
-  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default SignUp;

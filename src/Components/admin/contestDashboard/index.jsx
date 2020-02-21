@@ -1,13 +1,12 @@
 import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
-import PropTypes from 'prop-types';
 import ContestDetails from './ContestDetails';
 import Statistics from './Statistics';
 import Announcements from './Announcements';
 import ProblemsCardArray from './ProblemsCardArray';
 
-const ContestDashboard = ({ setSnackbarMessage }) => (
+const ContestDashboard = () => (
   <Grid className="mw7 center pa2">
     <Row>
       <Cell columns={12}>
@@ -29,16 +28,10 @@ const ContestDashboard = ({ setSnackbarMessage }) => (
     </Row>
     <Row>
       <Cell columns={12}>
-        <ProblemsCardArray
-          setSnackbarMessage={setSnackbarMessage}
-        />
+        <ProblemsCardArray />
       </Cell>
     </Row>
   </Grid>
 );
-
-ContestDashboard.propTypes = {
-  setSnackbarMessage: PropTypes.func.isRequired,
-};
 
 export default ContestDashboard;

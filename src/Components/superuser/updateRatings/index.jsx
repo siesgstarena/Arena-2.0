@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Headline4 } from '@material/react-typography';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import UpdateRatingsTable from './UpdateRatingsTable';

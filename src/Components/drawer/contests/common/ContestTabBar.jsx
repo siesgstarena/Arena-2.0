@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Tab from '@material/react-tab';
-import PropTypes from 'prop-types';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TabBar from '@material/react-tab-bar';
 
-const ContestTabBar = (props) => {
+const ContestTabBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const handleActiveIndexUpdate = (updatedActiveIndex) => {
     setActiveIndex(updatedActiveIndex);
   };
 
-  const { history } = props;
-  const { location } = props;
+  const history = useHistory();
+  const location = useLocation();
   const { pathname: currentPathname } = location;
-  const { match } = props;
+  const match = useRouteMatch();
   const { url } = match;
 
   // This useEffect checks on which url we currently are and accordingly
@@ -72,12 +72,6 @@ const ContestTabBar = (props) => {
       </Row>
     </Grid>
   );
-};
-
-ContestTabBar.propTypes = {
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
 };
 
 export default ContestTabBar;

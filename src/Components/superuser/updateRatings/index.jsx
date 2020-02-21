@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Headline4 } from '@material/react-typography';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import UpdateRatingsTable from './UpdateRatingsTable';
 import AlertBox from '../../common/AlertBox/index';
+import SnackbarContext from '../../../Contexts/SnackbarContext';
 
-const UpdateRatings = (props) => {
-  const { history, setSnackbarMessage } = props;
+const UpdateRatings = () => {
+  const { setSnackbarMessage } = useContext(SnackbarContext);
+  const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -35,11 +37,6 @@ const UpdateRatings = (props) => {
       />
     </div>
   );
-};
-
-UpdateRatings.propTypes = {
-  history: PropTypes.object.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default UpdateRatings;

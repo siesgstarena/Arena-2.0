@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import submissionStatus from './submissionStatus';
 import Table from '../../../common/Table';
 
-const ProblemStatusTable = () => {
+const SubmissionStatusTable = () => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   const submissionStatusArray = submissionStatus.map((status) => {
     // This portion checks which color is to be assigned to the verdict
@@ -57,4 +57,4 @@ const ProblemStatusTable = () => {
   );
 };
 
-export default ProblemStatusTable;
+export default SubmissionStatusTable;

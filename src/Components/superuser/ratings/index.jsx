@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Select from '@material/react-select';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 
-const SuperuserRatings = (props) => {
-  const { history } = props;
+const SuperuserRatings = () => {
+  const history = useHistory();
   const [contest, setContest] = useState('SRM01');
   const onContestChange = (index, item) => (
     setContest(item.getAttribute('data-value'))
@@ -48,10 +48,6 @@ const SuperuserRatings = (props) => {
       </Button>
     </div>
   );
-};
-
-SuperuserRatings.propTypes = {
-  history: PropTypes.object.isRequired,
 };
 
 export default SuperuserRatings;

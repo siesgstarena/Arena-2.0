@@ -1,42 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import SubmissionStatusTable from './SubmissionStatusTable';
 import ContestDetails from '../common/ContestDetails';
 import Announcements from '../common/Announcements';
 import 'tachyons';
 
-const ContestPage = (props) => {
-  const { location } = props;
-  const { pathname } = location;
-  const { match } = props;
-  const { params } = match;
-  const { id: contestId } = params;
-  return (
-    <Grid className="mw9 center">
-      <Row>
-        <Cell desktopColumns={9} tabletColumns={8}>
-          <Cell className="">
-            <SubmissionStatusTable pathname={pathname} contestId={contestId} />
-          </Cell>
+const SubmissionStatus = () => (
+  <Grid className="mw9 center">
+    <Row>
+      <Cell desktopColumns={9} tabletColumns={8}>
+        <Cell className="">
+          <SubmissionStatusTable />
         </Cell>
-        <Cell desktopColumns={3} tabletColumns={8}>
-          <Cell>
-            <ContestDetails />
-          </Cell>
-          <Cell>
-            <Announcements />
-          </Cell>
+      </Cell>
+      <Cell desktopColumns={3} tabletColumns={8}>
+        <Cell>
+          <ContestDetails />
         </Cell>
-      </Row>
-    </Grid>
-  );
-};
+        <Cell>
+          <Announcements />
+        </Cell>
+      </Cell>
+    </Row>
+  </Grid>
+);
 
-ContestPage.propTypes = {
-  location: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-};
-
-
-export default ContestPage;
+export default SubmissionStatus;

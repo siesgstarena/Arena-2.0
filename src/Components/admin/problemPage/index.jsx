@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemPage from './ProblemPage';
 
-const AdminProblemPage = (props) => {
-  const { history, match, location } = props;
-  const { params } = match;
+const AdminProblemPage = () => {
+  const location = useLocation();
+  const history = useHistory();
+  const params = useParams();
   const { contestId } = params;
 
   return (
@@ -19,12 +20,6 @@ const AdminProblemPage = (props) => {
       <ProblemPage />
     </div>
   );
-};
-
-AdminProblemPage.propTypes = {
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
 };
 
 export default AdminProblemPage;

@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
+import SnackbarContext from '../../../Contexts/SnackbarContext';
 import '@material/react-dialog/dist/dialog.css';
 
 const ProblemCard = ({
-  name, id, startTime, duration, history, location, setSnackbarMessage,
+  name, id, startTime, duration,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the contest - "${name}"`;
+  const { setSnackbarMessage } = useContext(SnackbarContext);
+  const history = useHistory();
+  const location = useLocation();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
     setSnackbarMessage('The contest is successfully deleted');
@@ -66,9 +71,6 @@ const ProblemCard = ({
 ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
   startTime: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
 };

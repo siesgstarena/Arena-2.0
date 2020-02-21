@@ -4,7 +4,7 @@ import ContestDetails from '../common/ContestDetails';
 import Announcements from '../common/Announcements';
 import 'tachyons';
 
-const ContestPage = () => (
+const Scoreboard = () => (
   <Grid className="mw9 center">
     <Row>
       <Cell desktopColumns={9} tabletColumns={8}>
@@ -23,4 +23,4 @@ const ContestPage = () => (
 );
 
 
-export default ContestPage;
+export default Scoreboard;

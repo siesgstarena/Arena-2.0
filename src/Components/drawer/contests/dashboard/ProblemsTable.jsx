@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Link, useRouteMatch } from 'react-router-dom';
 import problems from './problems';
 import Table from '../../../common/Table/index';
 
-const ProblemsTable = ({ pathname }) => {
+const ProblemsTable = () => {
   const tableHeadings = ['#', 'Points', 'Problem Name'];
+  const match = useRouteMatch();
+  const { url } = match;
   const problemsArray = problems.map(problem => (
     <tr key={problem.id}>
       <td>
@@ -15,7 +16,7 @@ const ProblemsTable = ({ pathname }) => {
         {problem.points}
       </td>
       <td>
-        <Link className="no-underline dim blue pointer" to={`${pathname}/problem/${problem.id}`}>
+        <Link className="no-underline dim blue pointer" to={`${url}/problem/${problem.id}`}>
           {problem.name}
         </Link>
       </td>
@@ -24,10 +25,6 @@ const ProblemsTable = ({ pathname }) => {
   return (
     <Table tableHeadings={tableHeadings} tableData={problemsArray} />
   );
-};
-
-ProblemsTable.propTypes = {
-  pathname: PropTypes.string.isRequired,
 };
 
 export default ProblemsTable;

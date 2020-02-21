@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { Snackbar } from '@material/react-snackbar';
+import SnackbarContext from '../../../Contexts/SnackbarContext';
 
-const CustomSnackbar = (props) => {
-  const { snackbarMessage, setSnackbarMessage } = props;
+const CustomSnackbar = () => {
+  const { snackbarMessage, setSnackbarMessage } = useContext(SnackbarContext);
   return (
     <div>
       {
@@ -14,11 +14,6 @@ const CustomSnackbar = (props) => {
       }
     </div>
   );
-};
-
-CustomSnackbar.propTypes = {
-  snackbarMessage: PropTypes.string.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default CustomSnackbar;

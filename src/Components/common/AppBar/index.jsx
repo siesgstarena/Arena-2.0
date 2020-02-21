@@ -1,7 +1,8 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState, useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  NavLink, Link, useLocation, useHistory,
+} from 'react-router-dom';
 import TopAppBar, {
   TopAppBarFixedAdjust,
   TopAppBarIcon,
@@ -19,12 +20,13 @@ import List, {
 } from '@material/react-list';
 import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import drawerItems from './drawerItems';
+import UserContext from '../../../Contexts/UserContext';
 import '@material/react-menu-surface/dist/menu-surface.css';
 import '@material/react-menu/dist/menu.css';
 import './AppBar.scss';
 import 'tachyons';
 
-const AppBar = (props) => {
+const AppBar = () => {
   // selectedIndex is the state variable which decides which option is selected
   const [open, setOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -33,9 +35,10 @@ const AppBar = (props) => {
   const mobileDevice = window.innerWidth < 480;
   // mobileDevice turns out to be true when the device width is less than 480px
 
-  const { location } = props;
+  const location = useLocation();
   const { pathname: currentPathname } = location;
-  const { history, isLoggedIn, setIsLoggedIn } = props;
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const history = useHistory();
 
   useEffect(() => {
     if (currentPathname === '/') {
@@ -243,13 +246,6 @@ const AppBar = (props) => {
 
     </div>
   );
-};
-
-AppBar.propTypes = {
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-  setIsLoggedIn: PropTypes.func.isRequired,
 };
 
 export default AppBar;

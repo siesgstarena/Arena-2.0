@@ -1,13 +1,12 @@
 import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
-import PropTypes from 'prop-types';
 import ContestDetails from './ContestDetails';
 import Statistics from './Statistics';
 import Announcements from './Announcements';
 import ProblemsCardArray from './ProblemsCardArray';
 
-const ContestDashboard = ({ history, location, setSnackbarMessage }) => (
+const ContestDashboard = () => (
   <Grid className="mw7 center pa2">
     <Row>
       <Cell columns={12}>
@@ -24,25 +23,15 @@ const ContestDashboard = ({ history, location, setSnackbarMessage }) => (
         <Statistics />
       </Cell>
       <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-        <Announcements history={history} location={location} />
+        <Announcements />
       </Cell>
     </Row>
     <Row>
       <Cell columns={12}>
-        <ProblemsCardArray
-          history={history}
-          location={location}
-          setSnackbarMessage={setSnackbarMessage}
-        />
+        <ProblemsCardArray />
       </Cell>
     </Row>
   </Grid>
 );
-
-ContestDashboard.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
-};
 
 export default ContestDashboard;

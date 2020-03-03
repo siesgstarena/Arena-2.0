@@ -1,11 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext, useEffect } from 'react';
+import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
+import { GET_USER_ID } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
@@ -22,6 +25,7 @@ const SignIn = () => {
 
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
+  // This is done because when the user logouts we need to display successfully logged out message
   useEffect(() => {
     if (state) {
       if (state.message && state.messageType) {
@@ -31,8 +35,25 @@ const SignIn = () => {
     }
   }, []);
 
-  const handleSignIn = () => {
-    setIsLoggedIn(true);
+
+  const client = useApolloClient();
+
+  const handleSignIn = async () => {
+    setMessageType('info');
+    setMessage('Logging In, Please Wait');
+    const { data } = await client.query({
+      query: GET_USER_ID,
+      variables: { email, password },
+    });
+    console.log(data);
+    if (data.login.userId) {
+      setMessageType('success');
+      setIsLoggedIn(true);
+      setMessage('Successfully Logged in');
+    } else {
+      setMessageType('error');
+      setMessage('Invalid Credentials');
+    }
   };
 
   return (

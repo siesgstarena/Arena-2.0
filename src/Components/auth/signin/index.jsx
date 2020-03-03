@@ -1,19 +1,35 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
+import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
   const { setIsLoggedIn } = useContext(UserContext);
   const history = useHistory();
+  const location = useLocation();
+  const { state } = location;
+
+  // Here set the messageType and message of the message component on mount
+  // We set these variables using the state which is passed using history.push of react router
+  useEffect(() => {
+    if (state) {
+      if (state.message && state.messageType) {
+        setMessageType(state.messageType);
+        setMessage(state.message);
+      }
+    }
+  }, []);
 
   const handleSignIn = () => {
     setIsLoggedIn(true);
@@ -55,6 +71,7 @@ const SignIn = () => {
                 onChange={e => setPassword(e.currentTarget.value)}
               />
             </TextField>
+            <MessageCard messageType={messageType} message={message} />
             {/* When Forgot Password is clicked, we are redirected to forgot route */}
             <Body2 className="mid-gray dim pointer" onClick={() => history.push('/auth/forgot')}>
               Forgot Password?

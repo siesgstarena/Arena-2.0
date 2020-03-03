@@ -18,6 +18,7 @@ import Drawer, {
 import List, {
   ListItem, ListItemGraphic, ListItemText,
 } from '@material/react-list';
+// import { Redirect } from 'react-router-dom';
 import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import drawerItems from './drawerItems';
 import UserContext from '../../../Contexts/UserContext';
@@ -106,6 +107,13 @@ const AppBar = () => {
     } else if (index === 4) {
       setIsLoggedIn(false);
       setIsUserMenuOpen(false);
+      history.push({
+        pathname: '/auth/signin',
+        state: {
+          messageType: 'success',
+          message: 'Sucessfully logged out',
+        },
+      });
     }
   };
 

@@ -10,9 +10,9 @@ import { GET_CONTEST_ADMIN_EMAIL_USER_EMAIL } from '../../graphql/queries';
 const AdminContainer = (props) => {
   const { contestId } = useParams();
   const { children } = props;
-  console.log(useParams());
   const { user } = useContext(UserContext);
   const history = useHistory();
+
   // To check if the user is logged in or not
   if (!user) {
     history.push({
@@ -24,18 +24,33 @@ const AdminContainer = (props) => {
     });
     return null;
   }
-  console.log(contestId, 'contestID');
-  console.log(user.userId, 'userID');
-  const { loading, data } = useQuery(GET_CONTEST_ADMIN_EMAIL_USER_EMAIL, {
-    variables: { contestId, userId: user.userId },
+
+  const { userId } = user;
+  const { loading, error, data } = useQuery(GET_CONTEST_ADMIN_EMAIL_USER_EMAIL, {
+    variables: { code: contestId, _id: userId },
   });
-  console.log(data);
+
   if (loading) return <Spinner />;
-  return (
-    <div>
-      {children}
-    </div>
-  );
+  if (error) return <p>Error</p>;
+  if (data) {
+    const userEmail = data.userById.email;
+    let authorizedUser = false;
+    data.contestCode.contestAdmin.forEach((element) => {
+      if (element.email === userEmail) {
+        authorizedUser = true;
+      }
+    });
+    if (!authorizedUser) {
+      history.goBack();
+    } else {
+      return (
+        <div>
+          {children}
+        </div>
+      );
+    }
+  }
+  return <Spinner />;
 };
 
 export default AdminContainer;

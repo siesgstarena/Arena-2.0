@@ -38,7 +38,7 @@ const AppBar = () => {
 
   const location = useLocation();
   const { pathname: currentPathname } = location;
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const AppBar = () => {
     } else if (index === 3) {
       history.push('/profile/id/settings');
     } else if (index === 4) {
-      setIsLoggedIn(false);
+      setUser(null);
       setIsUserMenuOpen(false);
       history.push({
         pathname: '/auth/signin',
@@ -194,7 +194,7 @@ const AppBar = () => {
               more responsive
             */}
             {
-              !mobileDevice && !isLoggedIn
+              !mobileDevice && !user
                 ? (
                   <div>
                     <Button
@@ -215,7 +215,7 @@ const AppBar = () => {
                 ) : null
             }
             {
-              !mobileDevice && isLoggedIn
+              !mobileDevice && user
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
@@ -225,7 +225,7 @@ const AppBar = () => {
                 : null
             }
             {
-              mobileDevice && isLoggedIn
+              mobileDevice && user
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
@@ -235,7 +235,7 @@ const AppBar = () => {
                 : null
             }
             {
-              mobileDevice && !isLoggedIn
+              mobileDevice && !user
                 ? (
                   <Button
                     className="mr2"

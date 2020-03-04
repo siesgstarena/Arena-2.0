@@ -15,3 +15,16 @@ query Login($email: String!, $password: String!) {
   }
 }  
 `;
+
+export const GET_CONTEST_ADMIN_EMAIL_USER_EMAIL = gql`
+query ContestAdminEmailUserEmail($contestId: String!, $userId: String!) {
+  contestCode(code: $contestId) {
+    contestAdmin {
+      email
+    }   
+  }
+  userById(_id: $userId) {
+    email
+  }
+}
+`;

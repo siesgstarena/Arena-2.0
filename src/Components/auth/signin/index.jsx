@@ -18,20 +18,24 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
 
+  useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
   // This is done because when the user logouts we need to display successfully logged out message
-  useEffect(() => {
     if (state) {
       if (state.message && state.messageType) {
         setMessageType(state.messageType);
         setMessage(state.message);
       }
+    }
+    // Not allowing the user to visit login page when the user is logged in
+    if (user) {
+      history.push(`/profile/${user.userId}`);
     }
   }, []);
 
@@ -41,19 +45,28 @@ const SignIn = () => {
   const handleSignIn = async () => {
     setMessageType('info');
     setMessage('Logging In, Please Wait');
-    const { data } = await client.query({
+    const { data, error } = await client.query({
       query: GET_USER_ID,
       variables: { email, password },
     });
-    console.log(data);
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
     if (data.login.userId) {
-      setMessageType('success');
-      setIsLoggedIn(true);
-      setMessage('Successfully Logged in');
+      setUser({ userId: data.login.userId });
+      history.push(`/profile/${data.login.userId}`);
     } else {
       setMessageType('error');
       setMessage('Invalid Credentials');
     }
+  };
+
+  const onInputChange = (setFunction, value) => {
+    setFunction(value);
+    setMessage('');
+    setMessageType('');
   };
 
   return (
@@ -77,7 +90,7 @@ const SignIn = () => {
               <Input
                 id="1"
                 value={email}
-                onChange={e => setEmail(e.currentTarget.value)}
+                onChange={e => onInputChange(setEmail, e.target.value)}
               />
             </TextField>
             <TextField
@@ -89,7 +102,7 @@ const SignIn = () => {
                 id="2"
                 type="password"
                 value={password}
-                onChange={e => setPassword(e.currentTarget.value)}
+                onChange={e => onInputChange(setPassword, e.target.value)}
               />
             </TextField>
             <MessageCard messageType={messageType} message={message} />

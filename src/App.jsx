@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prefer-stateless-function */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
@@ -15,6 +15,7 @@ import SignIn from './Components/auth/signin/index';
 import SignUp from './Components/auth/signup/index';
 import Forgot from './Components/auth/forgot/index';
 import Reset from './Components/auth/reset/index';
+import ConfirmEmail from './Components/auth/confirmEmail/index';
 import ContestsSchedule from './Components/drawer/contests/schedule/index';
 import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
 import ContestDashboard from './Components/drawer/contests/dashboard/index';
@@ -60,7 +61,6 @@ import Footer from './Components/common/Footer/index';
 import './App.scss';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const httpLink = createHttpLink({
@@ -75,6 +75,22 @@ const App = () => {
     cache,
   });
 
+  // Custom hook to update local storage when the state changes
+  const useStateWithLocalStroage = (localStorageKey, defaultValue) => {
+    const [value, setValue] = useState(
+      () => (
+        JSON.parse(localStorage.getItem(localStorageKey))
+          ? JSON.parse(localStorage.getItem(localStorageKey)) : defaultValue
+      ),
+    );
+    useEffect(() => {
+      localStorage.setItem(localStorageKey, JSON.stringify(value));
+    }, [value]);
+    return [value, setValue];
+  };
+
+  const [user, setUser] = useStateWithLocalStroage('user', null);
+
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (
@@ -87,7 +103,7 @@ const App = () => {
               some part of the URL. Hence in our case, AppBar and Footer will be rendered
               on all the pages which has REACT_APP_BASE_ADDRESS in their URL
           */}
-          <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+          <UserContext.Provider value={{ user, setUser }}>
             <SnackbarContext.Provider value={{ snackbarMessage, setSnackbarMessage }}>
               <Route path="/" component={AppBar} />
               <Route path="/" component={CustomSnackbar} />
@@ -100,6 +116,7 @@ const App = () => {
                 <Route path="/auth/signup" component={SignUp} />
                 <Route path="/auth/forgot" exact component={Forgot} />
                 <Route path="/auth/reset" exact component={Reset} />
+                <Route path="/auth/confirm/:id" exact component={ConfirmEmail} />
                 <Route path="/contests" exact component={ContestsSchedule} />
                 <Route path="/ratings" exact component={Ratings} />
                 <Route path="/blog" exact component={BlogsList} />

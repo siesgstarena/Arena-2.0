@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
+import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import 'tachyons';
+import UserContext from '../../../Contexts/UserContext';
 
 const Forgot = () => {
   const [email, setEmail] = useState('');
+  const { user } = useContext(UserContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    // Not allowing the user to visit login page when the user is logged in
+    if (user) {
+      history.push(`/profile/${user.userId}`);
+    }
+  }, []);
+
   return (
     <Grid className="mw8 center">
       <Row className="">

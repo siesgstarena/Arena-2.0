@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import 'tachyons';
 import MessageCard from '../../common/MessageCard/index';
+import UserContext from '../../../Contexts/UserContext';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const { user } = useContext(UserContext);
+  const history = useHistory();
 
-  // isError is used to check whether error has encountered or not
-  // If an error is encountered then we generate the errorMessage
+  useEffect(() => {
+    // Not allowing the user to visit login page when the user is logged in
+    if (user) {
+      history.push(`/profile/${user.userId}`);
+    }
+  }, []);
 
   const errorDetector = () => {
     if (password.length < 8 || confirmPassword.length < 8) {

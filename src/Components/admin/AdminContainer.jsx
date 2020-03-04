@@ -7,6 +7,8 @@ import UserContext from '../../Contexts/UserContext';
 import Spinner from '../common/Spinner/index';
 import { GET_CONTEST_ADMIN_EMAIL_USER_EMAIL } from '../../graphql/queries';
 
+// This component checks whether the user is a valid admin or not
+
 const AdminContainer = (props) => {
   const { contestId } = useParams();
   const { children } = props;
@@ -33,6 +35,7 @@ const AdminContainer = (props) => {
   if (loading) return <Spinner />;
   if (error) return <p>Error</p>;
   if (data) {
+    // Checking if the user is admin or not
     const userEmail = data.userById.email;
     let authorizedUser = false;
     data.contestCode.contestAdmin.forEach((element) => {
@@ -41,7 +44,7 @@ const AdminContainer = (props) => {
       }
     });
     if (!authorizedUser) {
-      history.goBack();
+      history.push(`/profile/${userId}`);
     } else {
       return (
         <div>

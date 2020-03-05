@@ -1,26 +1,68 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input, HelperText } from '@material/react-text-field';
 import {
   Headline3, Headline4, Body1, Body2,
 } from '@material/react-typography';
+import { useApolloClient } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
+import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
+import { SIGN_UP } from '../../../graphql/mutations';
+import PasswordField from '../../common/PasswordField/index';
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsLoggedIn } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
 
-  const handleSignUp = () => {
-    setIsLoggedIn(true);
+  const client = useApolloClient();
+
+  useEffect(() => {
+    // Not allowing the user to visit login page when the user is logged in
+    if (user) {
+      history.push(`/profile/${user.userId}`);
+    }
+  }, []);
+
+  const onInputChange = (setFunction, value) => {
+    setFunction(value);
+    setMessage('');
+    setMessageType('');
+  };
+
+  const handleSignUp = async () => {
+    setMessageType('info');
+    setMessage('Registering user, Please Wait');
+    const { data, error } = await client.mutate({
+      mutation: SIGN_UP,
+      variables: {
+        email, username, password, name,
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (data.signup.success) {
+      history.push(`/auth/confirm/${data.signup.userId}`);
+    } else {
+      setMessageType('error');
+      setMessage(data.signup.message);
+    }
+    // console.log(data);
+    // setUser(true);
   };
 
   return (
@@ -57,7 +99,7 @@ const SignUp = () => {
               <Input
                 id="1"
                 value={name}
-                onChange={e => setName(e.currentTarget.value)}
+                onChange={e => onInputChange(setName, e.target.value)}
               />
             </TextField>
             <TextField
@@ -68,7 +110,7 @@ const SignUp = () => {
               <Input
                 id="2"
                 value={username}
-                onChange={e => setUsername(e.currentTarget.value)}
+                onChange={e => onInputChange(setUsername, e.target.value)}
               />
             </TextField>
             <TextField
@@ -80,21 +122,17 @@ const SignUp = () => {
               <Input
                 id="3"
                 value={email}
-                onChange={e => setEmail(e.currentTarget.value)}
+                onChange={e => onInputChange(setEmail, e.target.value)}
               />
             </TextField>
-            <TextField
+            <div className="ma2" />
+            <PasswordField
+              id="4"
+              password={password}
               label="Password"
-              className="pa2 mt3 mb3 w-100"
-              outlined
-            >
-              <Input
-                id="4"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.currentTarget.value)}
-              />
-            </TextField>
+              setPassword={setPassword}
+            />
+            <MessageCard messageType={messageType} message={message} />
             <Body2 className="mid-gray ma3 ml0">
               By Signing up, you agree with our&nbsp;
               <span className="dim pointer" onClick={() => history.push('/privacy')}>

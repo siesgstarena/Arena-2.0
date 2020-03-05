@@ -1,32 +1,58 @@
-import React, { useState } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
-import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import 'tachyons';
-import ErrorCard from '../../common/ErrorCard/index';
+import { useApolloClient } from '@apollo/react-hooks';
+import MessageCard from '../../common/MessageCard/index';
+import UserContext from '../../../Contexts/UserContext';
+import PasswordField from '../../common/PasswordField/index';
+import { RESET_PASSWORD } from '../../../graphql/mutations';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
+  const { user } = useContext(UserContext);
+  const history = useHistory();
 
-  // isError is used to check whether error has encountered or not
-  // If an error is encountered then we generate the errorMessage
+  const client = useApolloClient();
 
-  const errorDetector = () => {
-    if (password.length < 8 || confirmPassword.length < 8) {
-      // If password length is less than 8
-      setIsError(true);
-      setErrorMessage('Password length should be of 8 characters');
-    } else if (password !== confirmPassword) {
-      // If passwords don't match
-      setIsError(true);
-      setErrorMessage('Passwords don\'t match');
+  useEffect(() => {
+    // Not allowing the user to visit login page when the user is logged in
+    if (user) {
+      history.push(`/profile/${user.userId}`);
+    }
+  }, []);
+
+  const { key } = useParams();
+
+  const reset = async () => {
+    setMessageType('info');
+    setMessage('Updating Password, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: RESET_PASSWORD,
+      variables: { newPassword: password, newRePassword: confirmPassword, key },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (data.forgotPassword.success) {
+      history.push({
+        pathname: '/auth/signin',
+        state: {
+          messageType: 'success',
+          message: 'Password Updated Successfully',
+        },
+      });
     } else {
-      // If no error is encountered
-      setIsError(false);
+      setMessageType('error');
+      setMessage(data.forgotPassword.message);
     }
   };
 
@@ -45,36 +71,22 @@ const Reset = () => {
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <div className="pa3">
-              { isError ? (
-                <ErrorCard errorMessage={errorMessage} />
-              )
-                : <div />
-              }
-              <TextField
+              <MessageCard messageType={messageType} message={message} />
+              <PasswordField
+                id="1"
+                password={password}
                 label="New Password"
-                className="pa2 mb4 w-100"
-                outlined
-              >
-                <Input
-                  id="1"
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.currentTarget.value)}
-                />
-              </TextField>
-              <TextField
+                setPassword={setPassword}
+              />
+              <div className="ma3" />
+              <PasswordField
+                id="2"
+                password={confirmPassword}
                 label="Re-enter New Password"
-                className="pa2 mb4 w-100"
-                outlined
-              >
-                <Input
-                  id="2"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.currentTarget.value)}
-                />
-              </TextField>
-              <Button raised onClick={errorDetector}>
+                setPassword={setConfirmPassword}
+              />
+              <div className="ma3" />
+              <Button raised onClick={reset}>
                 Submit
               </Button>
             </div>

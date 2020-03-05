@@ -18,6 +18,7 @@ import Drawer, {
 import List, {
   ListItem, ListItemGraphic, ListItemText,
 } from '@material/react-list';
+// import { Redirect } from 'react-router-dom';
 import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import drawerItems from './drawerItems';
 import UserContext from '../../../Contexts/UserContext';
@@ -37,7 +38,7 @@ const AppBar = () => {
 
   const location = useLocation();
   const { pathname: currentPathname } = location;
-  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -100,12 +101,19 @@ const AppBar = () => {
     } else if (index === 1) {
       history.push('/blog/my');
     } else if (index === 2) {
-      history.push('/profile/id');
+      history.push(`/profile/${user.userId}`);
     } else if (index === 3) {
-      history.push('/profile/id/settings');
+      history.push(`/profile/${user.userId}/settings`);
     } else if (index === 4) {
-      setIsLoggedIn(false);
+      setUser(null);
       setIsUserMenuOpen(false);
+      history.push({
+        pathname: '/auth/signin',
+        state: {
+          messageType: 'success',
+          message: 'Sucessfully logged out',
+        },
+      });
     }
   };
 
@@ -186,7 +194,7 @@ const AppBar = () => {
               more responsive
             */}
             {
-              !mobileDevice && !isLoggedIn
+              !mobileDevice && !user
                 ? (
                   <div>
                     <Button
@@ -207,7 +215,7 @@ const AppBar = () => {
                 ) : null
             }
             {
-              !mobileDevice && isLoggedIn
+              !mobileDevice && user
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
@@ -217,7 +225,7 @@ const AppBar = () => {
                 : null
             }
             {
-              mobileDevice && isLoggedIn
+              mobileDevice && user
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
@@ -227,7 +235,7 @@ const AppBar = () => {
                 : null
             }
             {
-              mobileDevice && !isLoggedIn
+              mobileDevice && !user
                 ? (
                   <Button
                     className="mr2"

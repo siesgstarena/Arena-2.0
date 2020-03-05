@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
-import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import 'tachyons';
 import MessageCard from '../../common/MessageCard/index';
 import UserContext from '../../../Contexts/UserContext';
+import PasswordField from '../../common/PasswordField/index';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
@@ -51,30 +51,20 @@ const Reset = () => {
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <div className="pa3">
               <MessageCard messageType={messageType} message={message} />
-              <TextField
+              <PasswordField
+                id="1"
+                password={password}
                 label="New Password"
-                className="pa2 mb4 w-100"
-                outlined
-              >
-                <Input
-                  id="1"
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.currentTarget.value)}
-                />
-              </TextField>
-              <TextField
+                setPassword={setPassword}
+              />
+              <div className="ma3" />
+              <PasswordField
+                id="2"
+                password={confirmPassword}
                 label="Re-enter New Password"
-                className="pa2 mb4 w-100"
-                outlined
-              >
-                <Input
-                  id="2"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={e => setConfirmPassword(e.currentTarget.value)}
-                />
-              </TextField>
+                setPassword={setConfirmPassword}
+              />
+              <div className="ma3" />
               <Button raised onClick={errorDetector}>
                 Submit
               </Button>

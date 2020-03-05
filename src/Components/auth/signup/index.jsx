@@ -14,6 +14,7 @@ import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
 import SIGN_UP from '../../../graphql/mutations';
+import PasswordField from '../../common/PasswordField/index';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -124,18 +125,13 @@ const SignUp = () => {
                 onChange={e => onInputChange(setEmail, e.target.value)}
               />
             </TextField>
-            <TextField
+            <div className="ma2" />
+            <PasswordField
+              id="4"
+              password={password}
               label="Password"
-              className="pa2 mt3 mb3 w-100"
-              outlined
-            >
-              <Input
-                id="4"
-                type="password"
-                value={password}
-                onChange={e => onInputChange(setPassword, e.target.value)}
-              />
-            </TextField>
+              setPassword={setPassword}
+            />
             <MessageCard messageType={messageType} message={message} />
             <Body2 className="mid-gray ma3 ml0">
               By Signing up, you agree with our&nbsp;

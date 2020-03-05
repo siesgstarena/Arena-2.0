@@ -12,6 +12,7 @@ import { GET_USER_ID } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
+import PasswordField from '../../common/PasswordField/index';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -93,18 +94,12 @@ const SignIn = () => {
                 onChange={e => onInputChange(setEmail, e.target.value)}
               />
             </TextField>
-            <TextField
+            <PasswordField
+              id="2"
+              password={password}
               label="Password"
-              className="pa2 w-100"
-              outlined
-            >
-              <Input
-                id="2"
-                type="password"
-                value={password}
-                onChange={e => onInputChange(setPassword, e.target.value)}
-              />
-            </TextField>
+              setPassword={setPassword}
+            />
             <MessageCard messageType={messageType} message={message} />
             {/* When Forgot Password is clicked, we are redirected to forgot route */}
             <Body2 className="mid-gray dim pointer" onClick={() => history.push('/auth/forgot')}>

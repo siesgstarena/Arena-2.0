@@ -1,12 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import { Headline4, Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import 'tachyons';
+import { useApolloClient } from '@apollo/react-hooks';
 import MessageCard from '../../common/MessageCard/index';
 import UserContext from '../../../Contexts/UserContext';
 import PasswordField from '../../common/PasswordField/index';
+import { RESET_PASSWORD } from '../../../graphql/mutations';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
@@ -16,6 +19,8 @@ const Reset = () => {
   const { user } = useContext(UserContext);
   const history = useHistory();
 
+  const client = useApolloClient();
+
   useEffect(() => {
     // Not allowing the user to visit login page when the user is logged in
     if (user) {
@@ -23,15 +28,31 @@ const Reset = () => {
     }
   }, []);
 
-  const errorDetector = () => {
-    if (password.length < 8 || confirmPassword.length < 8) {
-      // If password length is less than 8
+  const { key } = useParams();
+
+  const reset = async () => {
+    setMessageType('info');
+    setMessage('Updating Password, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: RESET_PASSWORD,
+      variables: { newPassword: password, newRePassword: confirmPassword, key },
+    });
+    if (error) {
       setMessageType('error');
-      setMessage('Password length should be of 8 characters');
-    } else if (password !== confirmPassword) {
-      // If passwords don't match
+      setMessage('Database error encountered');
+      return;
+    }
+    if (data.forgotPassword.success) {
+      history.push({
+        pathname: '/auth/signin',
+        state: {
+          messageType: 'success',
+          message: 'Password Updated Successfully',
+        },
+      });
+    } else {
       setMessageType('error');
-      setMessage('Passwords don\'t match');
+      setMessage(data.forgotPassword.message);
     }
   };
 
@@ -65,7 +86,7 @@ const Reset = () => {
                 setPassword={setConfirmPassword}
               />
               <div className="ma3" />
-              <Button raised onClick={errorDetector}>
+              <Button raised onClick={reset}>
                 Submit
               </Button>
             </div>

@@ -28,3 +28,22 @@ query UserById($_id: ID!) {
   }
 }
 `;
+
+export const RESEND_OTP = gql`
+query ResendOtp($userId: ID!) {
+  resendOtp(userId: $userId) {
+    code
+    success
+    message
+  }
+}
+`;
+export const FORGOT_PASSWORD_MAIL = gql`
+query ForgotPasswordMail($email: String!) {
+  forgotPasswordMail(email: $email){
+    code
+    success
+    message
+  }
+}
+`;

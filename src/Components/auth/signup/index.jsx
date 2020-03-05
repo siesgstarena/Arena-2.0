@@ -13,7 +13,7 @@ import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
-import SIGN_UP from '../../../graphql/mutations';
+import { SIGN_UP } from '../../../graphql/mutations';
 import PasswordField from '../../common/PasswordField/index';
 
 const SignUp = () => {
@@ -43,7 +43,7 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     setMessageType('info');
-    setMessage('Logging In, Please Wait');
+    setMessage('Registering user, Please Wait');
     const { data, error } = await client.mutate({
       mutation: SIGN_UP,
       variables: {
@@ -56,7 +56,7 @@ const SignUp = () => {
       return;
     }
     if (data.signup.success) {
-      history.push('auth/confirm/id');
+      history.push(`/auth/confirm/${data.signup.userId}`);
     } else {
       setMessageType('error');
       setMessage(data.signup.message);

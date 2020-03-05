@@ -116,8 +116,8 @@ const App = () => {
                 <Route path="/auth/signin" component={SignIn} />
                 <Route path="/auth/signup" component={SignUp} />
                 <Route path="/auth/forgot" exact component={Forgot} />
-                <Route path="/auth/reset" exact component={Reset} />
-                <Route path="/auth/confirm/:id" exact component={ConfirmEmail} />
+                <Route path="/auth/reset/:key" exact component={Reset} />
+                <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                 <Route path="/contests" exact component={ContestsSchedule} />
                 <Route path="/ratings" exact component={Ratings} />
                 <Route path="/blog" exact component={BlogsList} />

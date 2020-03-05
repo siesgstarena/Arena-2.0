@@ -101,9 +101,9 @@ const AppBar = () => {
     } else if (index === 1) {
       history.push('/blog/my');
     } else if (index === 2) {
-      history.push('/profile/id');
+      history.push(`/profile/${user.userId}`);
     } else if (index === 3) {
-      history.push('/profile/id/settings');
+      history.push(`/profile/${user.userId}/settings`);
     } else if (index === 4) {
       setUser(null);
       setIsUserMenuOpen(false);

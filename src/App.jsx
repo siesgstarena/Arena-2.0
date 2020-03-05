@@ -58,6 +58,7 @@ import SuperuserContests from './Components/superuser/contests/index';
 import SuperuserCreateContest from './Components/superuser/createContest/index';
 import SuperuserEditContest from './Components/superuser/editContest/index';
 import Footer from './Components/common/Footer/index';
+// import PageNotFound from './Components/common/PageNotFound/index';
 import './App.scss';
 
 const App = () => {
@@ -156,6 +157,7 @@ const App = () => {
                 <Route path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
               </Switch>
               <Route path="/" component={Footer} />
+              {/* <Route path="*" component={PageNotFound} /> */}
             </SnackbarContext.Provider>
           </UserContext.Provider>
         </ScrollToTop>

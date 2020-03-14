@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { useParams, useHistory } from 'react-router-dom';
 import UserContext from '../../Contexts/UserContext';
 import Spinner from '../common/Spinner/index';
+import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import { GET_CONTEST_ADMIN_EMAIL_USER_EMAIL } from '../../graphql/queries';
 
 // This component checks whether the user is a valid admin or not
@@ -33,7 +34,7 @@ const AdminContainer = (props) => {
   });
 
   if (loading) return <Spinner />;
-  if (error) return <p>Error</p>;
+  if (error) return <SomethingWentWrong message="Selected Contest Doesn't exist" />;
   if (data) {
     // Checking if the user is admin or not
     const userEmail = data.userById.email;
@@ -44,14 +45,13 @@ const AdminContainer = (props) => {
       }
     });
     if (!authorizedUser) {
-      history.push(`/profile/${userId}`);
-    } else {
-      return (
-        <div>
-          {children}
-        </div>
-      );
+      return <SomethingWentWrong message="You are not authorized to view this page as you are not an admin of the contest" />;
     }
+    return (
+      <div>
+        {children}
+      </div>
+    );
   }
   return <Spinner />;
 };

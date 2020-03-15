@@ -8,7 +8,7 @@ import TextField, { Input } from '@material/react-text-field';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
-import { GET_USER_ID } from '../../../graphql/queries';
+import { GET_USER_DETAILS_ON_LOGIN } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
@@ -47,7 +47,7 @@ const SignIn = () => {
     setMessageType('loading');
     setMessage('Logging In, Please Wait');
     const { data, error } = await client.query({
-      query: GET_USER_ID,
+      query: GET_USER_DETAILS_ON_LOGIN,
       variables: { email, password },
     });
     if (error) {
@@ -56,7 +56,11 @@ const SignIn = () => {
       return;
     }
     if (data.login.userId) {
-      setUser({ userId: data.login.userId });
+      setUser({
+        userId: data.login.userId,
+        email: data.login.email,
+        name: data.login.name,
+      });
       history.push(`/profile/${data.login.userId}`);
     } else {
       setMessageType('error');

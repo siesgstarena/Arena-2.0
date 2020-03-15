@@ -58,7 +58,7 @@ import SuperuserContests from './Components/superuser/contests/index';
 import SuperuserCreateContest from './Components/superuser/createContest/index';
 import SuperuserEditContest from './Components/superuser/editContest/index';
 import Footer from './Components/common/Footer/index';
-// import PageNotFound from './Components/common/PageNotFound/index';
+import PageNotFound from './Components/common/PageNotFound/index';
 import './App.scss';
 
 const App = () => {
@@ -109,16 +109,17 @@ const App = () => {
               <Route path="/" component={AppBar} />
               <Route path="/" component={CustomSnackbar} />
               <Route path="/contests/:contestId" component={ContestTabBar} />
-              <Route path="/contests/:contestId" exact component={ContestDashboard} />
-              <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-              <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
               <Switch>
-                <Route path="/auth/signin" component={SignIn} />
-                <Route path="/auth/signup" component={SignUp} />
+                <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
+                <Route path="/auth/signin" exact component={SignIn} />
+                <Route path="/auth/signup" exact component={SignUp} />
                 <Route path="/auth/forgot" exact component={Forgot} />
                 <Route path="/auth/reset/:key" exact component={Reset} />
                 <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                 <Route path="/contests" exact component={ContestsSchedule} />
+                <Route path="/contests/:contestId" exact component={ContestDashboard} />
+                <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+                <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
                 <Route path="/ratings" exact component={Ratings} />
                 <Route path="/blog" exact component={BlogsList} />
                 {/* <Route path="/blog/create" exact component={Editor} /> */}
@@ -155,9 +156,9 @@ const App = () => {
                 <Route path="/superuser/contests/create" exact component={SuperuserCreateContest} />
                 <Route path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
                 <Route path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
+                <Route path="*" component={PageNotFound} />
               </Switch>
               <Route path="/" component={Footer} />
-              {/* <Route path="*" component={PageNotFound} /> */}
             </SnackbarContext.Provider>
           </UserContext.Provider>
         </ScrollToTop>

@@ -8,15 +8,10 @@ query Login($email: String!, $password: String!) {
 }  
 `;
 
-export const GET_CONTEST_ADMIN_EMAIL_USER_EMAIL = gql`
-query ContestAdminEmailUserEmail($code: String!, $_id: ID!) {
-  contestCode(code: $code) {
-    contestAdmin {
-      email
-    }   
-  }
-  userById(_id: $_id) {
-    email
+export const GET_IS_USER_ADMIN = gql`
+query IsAdmin($code: String!) {
+  isAdmin(code: $code) {
+    isAdmin
   }
 }
 `;

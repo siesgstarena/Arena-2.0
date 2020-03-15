@@ -6,7 +6,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import UserContext from '../../Contexts/UserContext';
 import Spinner from '../common/Spinner/index';
 import SomethingWentWrong from '../common/SomethingWentWrong/index';
-import { GET_CONTEST_ADMIN_EMAIL_USER_EMAIL } from '../../graphql/queries';
+import { GET_IS_USER_ADMIN } from '../../graphql/queries';
 
 // This component checks whether the user is a valid admin or not
 
@@ -28,25 +28,19 @@ const AdminContainer = (props) => {
     return null;
   }
 
-  const { userId } = user;
-  const { loading, error, data } = useQuery(GET_CONTEST_ADMIN_EMAIL_USER_EMAIL, {
-    variables: { code: contestId, _id: userId },
+  // const { userId } = user;
+  const { loading, error, data } = useQuery(GET_IS_USER_ADMIN, {
+    variables: { code: contestId },
   });
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="Selected Contest Doesn't exist" />;
   if (data) {
     // Checking if the user is admin or not
-    const userEmail = data.userById.email;
-    let authorizedUser = false;
-    data.contestCode.contestAdmin.forEach((element) => {
-      if (element.email === userEmail) {
-        authorizedUser = true;
-      }
-    });
-    if (!authorizedUser) {
+    if (!data.isAdmin.isAdmin) {
       return <SomethingWentWrong message="You are not authorized to view this page as you are not an admin of the contest" />;
     }
+
     return (
       <div>
         {children}

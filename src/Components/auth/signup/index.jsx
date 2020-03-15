@@ -42,7 +42,7 @@ const SignUp = () => {
   };
 
   const handleSignUp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Registering user, Please Wait');
     const { data, error } = await client.mutate({
       mutation: SIGN_UP,

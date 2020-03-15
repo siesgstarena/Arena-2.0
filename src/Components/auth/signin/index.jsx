@@ -44,7 +44,7 @@ const SignIn = () => {
   const client = useApolloClient();
 
   const handleSignIn = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Logging In, Please Wait');
     const { data, error } = await client.query({
       query: GET_USER_ID,

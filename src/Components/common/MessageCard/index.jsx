@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Body1,
 } from '@material/react-typography';
+import './index.css';
 import 'tachyons';
 
 // This component displays the message on screen
@@ -54,6 +55,24 @@ const MessageCard = ({ message, messageType }) => {
         }}
       >
         <Body1 className="tc">
+          {message}
+        </Body1>
+      </Card>
+    );
+  }
+  if (messageType === 'loading') {
+    return (
+      <Card
+        className="mt3 mb3"
+        style={{
+          color: '#004085',
+          backgroundColor: '#cce5ff',
+          borderColor: '#b8daff',
+          boxShadow: '0px 0px 0px 0px',
+        }}
+      >
+        <Body1 className="pl2 pr2 flex justify-center items-center">
+          <span className="loading-spinner-container mr3" />
           {message}
         </Body1>
       </Card>

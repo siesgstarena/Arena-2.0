@@ -30,7 +30,7 @@ const ConfirmEmail = () => {
   const client = useApolloClient();
 
   const verifyOtp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Verifying OTP, Please Wait');
     const { data, error } = await client.mutate({
       mutation: VERIFY_USER,
@@ -56,7 +56,7 @@ const ConfirmEmail = () => {
   };
 
   const resendOtp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Sending OTP, Please Wait');
     const { data, error } = await client.query({
       query: RESEND_OTP,

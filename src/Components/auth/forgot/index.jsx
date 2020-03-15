@@ -28,7 +28,7 @@ const Forgot = () => {
   }, []);
 
   const sendResetLink = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Sending Email, Please Wait');
     const { data, error } = await client.query({
       query: FORGOT_PASSWORD_MAIL,

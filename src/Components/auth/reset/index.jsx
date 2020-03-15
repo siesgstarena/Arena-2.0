@@ -31,7 +31,7 @@ const Reset = () => {
   const { key } = useParams();
 
   const reset = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Updating Password, Please wait');
     const { data, error } = await client.mutate({
       mutation: RESET_PASSWORD,

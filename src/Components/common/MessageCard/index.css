@@ -1,0 +1,21 @@
+.loading-spinner-container {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #66c1eb;
+  border-radius: 50%;
+  border-top-color: #0a63c2;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+
+  @keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+}

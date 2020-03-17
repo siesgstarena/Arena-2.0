@@ -30,12 +30,16 @@ const SignIn = () => {
   // This is done because when the user logouts we need to display successfully logged out message
     if (state) {
       if (state.message && state.messageType) {
+        // Resetting the state of user when the session expires
+        if (state.sessionExpired) {
+          setUser(null);
+        }
         setMessageType(state.messageType);
         setMessage(state.message);
       }
     }
     // Not allowing the user to visit login page when the user is logged in
-    if (user) {
+    if (user && !(state ? state.sessionExpired : false)) {
       history.push(`/profile/${user.userId}`);
     }
   }, []);
@@ -49,13 +53,21 @@ const SignIn = () => {
     const { data, error } = await client.query({
       query: GET_USER_DETAILS_ON_LOGIN,
       variables: { email, password },
+      // errorPolicy: "all",
+      // onError: ({ networkError, graphqlError }) => {
+      //   console.log(networkError, graphqlError);
+      //   setMessageType('error');
+      //   setMessage('Database error encountered');
+      // },
     });
     if (error) {
+      // console.log(error.graphQLErrors);
       setMessageType('error');
       setMessage('Database error encountered');
       return;
     }
     if (data.login.userId) {
+      // console.log(data.error);
       setUser({
         userId: data.login.userId,
         email: data.login.email,

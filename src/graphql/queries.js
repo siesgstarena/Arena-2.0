@@ -22,6 +22,9 @@ export const GET_IS_USER_ADMIN = gql`
 query IsAdmin($code: String!) {
   isAdmin(code: $code) {
     isAdmin
+    message
+    success
+    code
   }
 }
 `;

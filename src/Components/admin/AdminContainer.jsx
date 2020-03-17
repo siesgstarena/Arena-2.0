@@ -7,6 +7,7 @@ import UserContext from '../../Contexts/UserContext';
 import Spinner from '../common/Spinner/index';
 import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import { GET_IS_USER_ADMIN } from '../../graphql/queries';
+import redirectUnauthorisedUser from '../../utils/redirectUnauthorisedUser';
 
 // This component checks whether the user is a valid admin or not
 
@@ -36,8 +37,9 @@ const AdminContainer = (props) => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="Selected Contest Doesn't exist" />;
   if (data) {
-    // Checking if the user is admin or not
-    if (!data.isAdmin.isAdmin) {
+    const response = data.isAdmin;
+    redirectUnauthorisedUser(history, response);
+    if (!response.isAdmin) {
       return <SomethingWentWrong message="You are not authorized to view this page as you are not an admin of the contest" />;
     }
 

@@ -10,7 +10,9 @@ const redirectUnauthorisedUser = (history, response) => {
         sessionExpired: true,
       },
     });
+    return true;
   }
+  return false;
 };
 
 export default redirectUnauthorisedUser;

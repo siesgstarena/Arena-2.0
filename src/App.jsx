@@ -7,6 +7,7 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
 import ScrollToTop from './ScrollToTop';
+import PrivateRoute from './PrivateRoute';
 import UserContext from './Contexts/UserContext';
 import SnackbarContext from './Contexts/SnackbarContext';
 import AppBar from './Components/common/AppBar/index';
@@ -144,18 +145,18 @@ const App = () => {
                 <Route path="/privacy" exact component={Privacy} />
                 <Route path="/search" exact component={Search} />
                 <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
-                <Route path="/admin/:contestId" exact component={AdminContestDashboard} />
-                <Route path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
-                <Route path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
-                <Route path="/admin/:contestId/create" exact component={AdminCreateProblem} />
-                <Route path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
-                <Route path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
-                <Route path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
-                <Route path="/superuser/ratings" exact component={SuperuserRatings} />
-                <Route path="/superuser/contests" exact component={SuperuserContests} />
-                <Route path="/superuser/contests/create" exact component={SuperuserCreateContest} />
-                <Route path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
-                <Route path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
+                <PrivateRoute path="/admin/:contestId" exact component={AdminContestDashboard} />
+                <PrivateRoute path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
+                <PrivateRoute path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
+                <PrivateRoute path="/admin/:contestId/create" exact component={AdminCreateProblem} />
+                <PrivateRoute path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
+                <PrivateRoute path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
+                <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
+                <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
+                <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
+                <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
+                <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
+                <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
                 <Route path="*" component={PageNotFound} />
               </Switch>
               <Route path="/" component={Footer} />

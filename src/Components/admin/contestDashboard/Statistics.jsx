@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Headline6, Body2 } from '@material/react-typography';
 
-const Statistics = ({stats}) => (
+const Statistics = ({ stats }) => (
   <div className="ba br4 b--black-20 pa2 mt4">
     <Headline6 className="mid-gray ma0 tc">
       Statistics
@@ -30,5 +31,9 @@ const Statistics = ({stats}) => (
     </div>
   </div>
 );
+
+Statistics.propTypes = {
+  stats: PropTypes.object.isRequired,
+};
 
 export default Statistics;

@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext, useEffect } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
@@ -123,7 +120,7 @@ const SignIn = () => {
             </Body2>
             <Body1 className="mid-gray">
               Don&apos;t have an account?
-              <span className="dim pointer" onClick={() => history.push('/auth/signup')}>
+              <span className="dim pointer" role="presentation" onClick={() => history.push('/auth/signup')}>
               &nbsp;Let&apos;s create one
               </span>
             </Body1>

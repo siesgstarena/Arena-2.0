@@ -2,7 +2,7 @@ module.exports = {
     "extends": "airbnb",
     "parser": "babel-eslint",
     "plugins": [
-      "react"
+      "react",
     ],
     "rules": {
       "react/prop-types": [2],
@@ -10,6 +10,8 @@ module.exports = {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/no-did-update-set-state": "off",
       "react/require-default-props": [0, { forbidDefaultForRequired: false }],
+      "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+      "import/no-extraneous-dependencies": "off",
     },
     "env": {
       "browser": true,

@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';

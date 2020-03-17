@@ -55,3 +55,28 @@ query ForgotPasswordMail($email: String!) {
   }
 }
 `;
+
+export const GET_ADMIN_DASHBOARD_DETAILS = gql`
+query AdminDashboard($code: String!) {
+  adminDashboard(code:$code) {
+    code
+    success
+    message
+    contest {
+      startsAt
+      endsAt
+      name
+      announcement
+    }
+    problems{
+      _id
+      name
+      points
+      code
+    }
+    totalCount
+    acceptedCount
+    usersCount
+  }
+}
+`;

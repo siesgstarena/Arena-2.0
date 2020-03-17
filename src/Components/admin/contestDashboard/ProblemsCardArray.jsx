@@ -3,16 +3,16 @@ import { Headline6 } from '@material/react-typography';
 import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemCard from './ProblemCard';
-import problems from './problems';
+// import problems from './problems';
 
-const ProblemsCardArray = () => {
+const ProblemsCardArray = ({problems}) => {
   const history = useHistory();
 
   const problemsArray = problems.map(problem => (
     <ProblemCard
-      key={problem.id}
+      key={problem["_id"]}
       name={problem.name}
-      id={problem.id}
+      id={problem.code}
       points={problem.points}
     />
   ));

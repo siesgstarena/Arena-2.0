@@ -1,7 +1,7 @@
 import React from 'react';
 import { Headline6, Body2 } from '@material/react-typography';
 
-const Statistics = () => (
+const Statistics = ({stats}) => (
   <div className="ba br4 b--black-20 pa2 mt4">
     <Headline6 className="mid-gray ma0 tc">
       Statistics
@@ -16,15 +16,15 @@ const Statistics = () => (
       }}
     >
       <div>
-        <div style={{ fontSize: '35px' }}>45</div>
+        <div style={{ fontSize: '35px' }}>{stats.usersCount}</div>
         <Body2 className="red">Users</Body2>
       </div>
       <div>
-        <span style={{ fontSize: '35px' }}>161</span>
+        <span style={{ fontSize: '35px' }}>{stats.acceptedCount}</span>
         <Body2 className="green">Accepted</Body2>
       </div>
       <div className="">
-        <span style={{ fontSize: '35px' }}>65</span>
+        <span style={{ fontSize: '35px' }}>{stats.totalCount}</span>
         <Body2 className="blue">Submissions</Body2>
       </div>
     </div>

@@ -1,9 +1,10 @@
 import React from 'react';
-import { Headline6 } from '@material/react-typography';
+import { Headline6 , Body2} from '@material/react-typography';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Button } from '@material/react-button';
+import ReactHtmlParser from 'react-html-parser'; 
 
-const Announcements = () => {
+const Announcements = ({announcement}) => {
   const history = useHistory();
   const location = useLocation();
   const onEditClick = () => {
@@ -17,24 +18,9 @@ const Announcements = () => {
       </Headline6>
       <hr className="" />
       <div style={{ height: '80px', overflow: 'auto' }}>
-        <Headline6 className="mid-gray ma0">
-          AnnouncementsAnnouncements
-          Announcements
-          AnnouncementsAnnouncements
-          AnnouncementsAnnouncementsAnnouncements
-        </Headline6>
-        <Headline6 className="mid-gray ma0">
-          Announcements
-        </Headline6>
-        <Headline6 className="mid-gray ma0">
-          Announcements
-        </Headline6>
-        <Headline6 className="mid-gray ma0">
-          Announcements
-        </Headline6>
-        <Headline6 className="mid-gray ma0">
-          Announcements
-        </Headline6>
+        <Body2 className="mid-gray ma0">
+          {announcement.trim() ? ReactHtmlParser(announcement) : 'No Annoucments Posted'}
+        </Body2>
       </div>
       <hr />
       <Button className="mt1" onClick={onEditClick}>

@@ -10,16 +10,19 @@ import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
 import PasswordField from '../../common/PasswordField/index';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
+  const redirectLoggedInUser = useRedirectLoggedInUser();
+  redirectLoggedInUser();
 
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
@@ -27,17 +30,9 @@ const SignIn = () => {
   // This is done because when the user logouts we need to display successfully logged out message
     if (state) {
       if (state.message && state.messageType) {
-        // Resetting the state of user when the session expires
-        if (state.sessionExpired) {
-          setUser(null);
-        }
         setMessageType(state.messageType);
         setMessage(state.message);
       }
-    }
-    // Not allowing the user to visit login page when the user is logged in
-    if (user && !(state ? state.sessionExpired : false)) {
-      history.push(`/profile/${user.userId}`);
     }
   }, []);
 

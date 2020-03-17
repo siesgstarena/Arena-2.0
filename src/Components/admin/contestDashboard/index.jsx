@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
 import { useQuery } from '@apollo/react-hooks';
@@ -11,19 +11,18 @@ import ProblemsCardArray from './ProblemsCardArray';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-// import redirectUnautorisedUser from '../../../utils/redirectUnauthorisedUser';
+import UserContext from '../../../Contexts/UserContext';
 
 const ContestDashboard = () => {
   const { contestId } = useParams();
-  // const history = useHistory();
+  const { setUser } = useContext(UserContext);
   const { loading, error, data } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
 
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="Selected Contest Doesn't exist" />;
+  if (error) return <SomethingWentWrong message="Selected Contest doesn't exist." />;
   if (data.adminDashboard.contest) {
-    // console.log(data);
     const response = data.adminDashboard;
     const { contest } = response;
     const { problems } = response;
@@ -61,10 +60,9 @@ const ContestDashboard = () => {
       </Grid>
     );
   }
-  // if (redirectUnautorisedUser(history, data.adminDashboard)) {
-  //   console.log('Executed');
-  //   return null;
-  // }
+  if (data.adminDashboard.code === '403') {
+    setUser(null);
+  }
   return <SomethingWentWrong message={data.adminDashboard.message} />;
 };
 

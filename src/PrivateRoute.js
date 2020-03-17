@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         user ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: '/auth/signin', state: { message: 'Please login to continue', messageType: 'error' } }} />
+          <Redirect to={{ pathname: '/auth/signin', state: { message: 'Your session has expired. Please login to continue.', messageType: 'error' } }} />
         ))}
     />
   );

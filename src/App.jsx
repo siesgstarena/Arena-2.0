@@ -1,11 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prefer-stateless-function */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
+import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
 import ScrollToTop from './ScrollToTop';
 import PrivateRoute from './PrivateRoute';
 import UserContext from './Contexts/UserContext';
@@ -76,20 +77,6 @@ const App = () => {
     link: httpLink,
     cache,
   });
-
-  // Custom hook to update local storage when the state changes
-  const useStateWithLocalStroage = (localStorageKey, defaultValue) => {
-    const [value, setValue] = useState(
-      () => (
-        JSON.parse(localStorage.getItem(localStorageKey))
-          ? JSON.parse(localStorage.getItem(localStorageKey)) : defaultValue
-      ),
-    );
-    useEffect(() => {
-      localStorage.setItem(localStorageKey, JSON.stringify(value));
-    }, [value]);
-    return [value, setValue];
-  };
 
   const [user, setUser] = useStateWithLocalStroage('user', null);
 

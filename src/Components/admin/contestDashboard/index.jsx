@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
@@ -21,7 +20,7 @@ const ContestDashboard = () => {
   });
 
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="Selected Contest doesn't exist." />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.adminDashboard.contest) {
     const response = data.adminDashboard;
     const { contest } = response;

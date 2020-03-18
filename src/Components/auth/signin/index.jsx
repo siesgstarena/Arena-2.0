@@ -65,6 +65,10 @@ const SignIn = () => {
         email: data.login.email,
         name: data.login.name,
       });
+      if (state && state.from) {
+        history.push(state.from.pathname);
+        return;
+      }
       history.push(`/profile/${data.login.userId}`);
     } else {
       setMessageType('error');

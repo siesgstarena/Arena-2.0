@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
 import { useQuery } from '@apollo/react-hooks';
@@ -11,11 +11,11 @@ import ProblemsCardArray from './ProblemsCardArray';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import UserContext from '../../../Contexts/UserContext';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const ContestDashboard = () => {
   const { contestId } = useParams();
-  const { setUser } = useContext(UserContext);
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { loading, error, data } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
@@ -60,9 +60,12 @@ const ContestDashboard = () => {
       </Grid>
     );
   }
-  if (data.adminDashboard.code === '403') {
-    setUser(null);
+  if (isSessionExpired(data.adminDashboard)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
   }
+  // case for the user not being admin or superuser
   return <SomethingWentWrong message={data.adminDashboard.message} />;
 };
 

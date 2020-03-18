@@ -4,12 +4,13 @@
 // If they are: they proceed to the page
 // If not: they are redirected to the login page.
 import React, { useContext } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import UserContext from './Contexts/UserContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { user } = useContext(UserContext);
+  const location = useLocation();
 
   return (
     <Route
@@ -19,7 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         user ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: '/auth/signin', state: { message: 'Your session has expired. Please login to continue.', messageType: 'error' } }} />
+          <Redirect to={{ pathname: '/auth/signin', state: { message: 'You are not logged in. Please login to continue.', messageType: 'error', from: location } }} />
         ))}
     />
   );

@@ -2,13 +2,15 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Body1, Headline5 } from '@material/react-typography';
-import useConvertDateAndTime from '../../../customHooks/useConvertDate';
+import useConvertDateAndTime from '../../../customHooks/useConvertDateAndTime';
 
 const ContestDetails = ({ contest }) => {
   const { contestId } = useParams();
-  const convertDateAndTime = useConvertDateAndTime();
-  const { date: startsAtDate, time: startsAtTime } = convertDateAndTime(contest.startsAt);
-  const { date: endsAtDate, time: endsAtTime } = convertDateAndTime(contest.endsAt);
+  const { convertDate, convertTime } = useConvertDateAndTime();
+  const startsAtDate = convertDate(contest.startsAt);
+  const startsAtTime = convertTime(contest.startsAt);
+  const endsAtDate = convertDate(contest.endsAt);
+  const endsAtTime = convertTime(contest.endsAt);
 
   return (
     <div className="">

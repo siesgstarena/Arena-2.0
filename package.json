@@ -58,7 +58,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test": "set CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .jsx --ext .js",
     "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"

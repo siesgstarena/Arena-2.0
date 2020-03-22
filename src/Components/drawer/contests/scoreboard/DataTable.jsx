@@ -5,9 +5,9 @@ import Data from './Data';
 
 const DataTable = () => {
   const tableHeadings = ['#', 'Who', '=', 'Time'];
-  Data[0].problem.map((prob) => {
-    return tableHeadings.push(prob.name);
-  });
+  Data[0].problem.map(prob => (
+    tableHeadings.push(prob.name)
+  ));
 
   const DataArray = Data.map(entry => (
     <tr key={entry.id} style={{ fontSize: '.9em' }}>

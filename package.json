@@ -58,7 +58,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "set CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test": "run-script-os",
+    "test:win32:msys": "set CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test:darwin:linux": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .jsx --ext .js",
     "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"
@@ -78,6 +80,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "husky": "^3.0.9"
+    "husky": "^3.0.9",
+    "run-script-os": "^1.1.1"
   }
 }

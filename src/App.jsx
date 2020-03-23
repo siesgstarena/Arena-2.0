@@ -60,7 +60,7 @@ import SuperuserEditContest from './Components/superuser/editContest/index';
 import Footer from './Components/common/Footer/index';
 // import PageNotFound from './Components/common/PageNotFound/index';
 import './App.scss';
-import scoreboard from './Components/drawer/contests/scoreboard/index';
+import Scoreboard from './Components/drawer/contests/scoreboard/index';
 
 const App = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -113,7 +113,7 @@ const App = () => {
               <Route path="/contests/:contestId" exact component={ContestDashboard} />
               <Route path="/contests/:contestId/status" exact component={ContestStatus} />
               <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-              <Route path="/contests/:contestId/scoreboard" exact component={scoreboard} />
+              <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
               <Switch>
                 <Route path="/auth/signin" component={SignIn} />
                 <Route path="/auth/signup" component={SignUp} />

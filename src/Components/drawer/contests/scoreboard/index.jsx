@@ -5,7 +5,8 @@ import Announcements from '../common/Announcements';
 import DataTable from './DataTable';
 import 'tachyons';
 
-
+// Layout of Scoreboard page: DataTable , ContestDetails and Announcements
+// referred the status page
 const Scoreboard = () => (
   <Grid className="mw9 center">
     <Row>

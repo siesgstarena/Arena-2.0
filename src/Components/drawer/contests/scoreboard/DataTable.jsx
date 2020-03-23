@@ -5,10 +5,11 @@ import Data from './Data';
 
 const DataTable = () => {
   const tableHeadings = ['#', 'Who', '=', 'Time'];
-  Data[0].problem.map(prob => (
-    tableHeadings.push(prob.name)
-  ));
-
+  Data[0].problem.forEach((prob) => {
+    tableHeadings.push(prob.name);
+  });
+  // tableHeadings is an array to get the Headings of Each Table
+  // DataArray is a function that fetches from Data.js and displays the details with links wherever necessary
   const DataArray = Data.map(entry => (
     <tr key={entry.id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
@@ -34,7 +35,7 @@ const DataTable = () => {
       ))}
     </tr>
   ));
-
+// return part of DataTable, Table made in common files, is used here and sent to index,jsx for export
   return (
     <Table
       tableHeadings={tableHeadings}

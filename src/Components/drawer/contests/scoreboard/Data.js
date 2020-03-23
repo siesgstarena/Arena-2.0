@@ -1,3 +1,6 @@
+// A JS array of objects , made to be fetched by the DataTable and displayed.
+
+
 const Data = [
   {
     id: 1,

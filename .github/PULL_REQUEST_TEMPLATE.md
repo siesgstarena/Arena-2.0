@@ -12,7 +12,7 @@
 > Fix [#<ISSUE_NUMBER>](<ISSUE_LINK>) 
 
 ## Development & Code Review 
-
+- [ ] Fixed all the Eslint errors (run `npm run lint-fix`)
 - [ ] All ESLint rules passes locally (run `npm run lint`)
 - [ ] The code changed/added has been covered with tests
 - [ ] All the test cases added/changed are passing

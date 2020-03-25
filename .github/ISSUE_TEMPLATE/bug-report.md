@@ -11,7 +11,7 @@ assignees: ''
 Description of the bug.
 
 **Environment information**
-* Device: <Mobile|Desktop|Tablet>
+* Device: [Mobile|Desktop|Tablet]
 * Operating System: <os>
 
 **How to reproduce this bug?**

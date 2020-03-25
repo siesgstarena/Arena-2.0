@@ -38,8 +38,26 @@ const SignIn = () => {
 
 
   const client = useApolloClient();
+  // const [getDog, { loading, data, error, called }] = useLazyQuery(GET_USER_DETAILS_ON_LOGIN,
+  // { variables: { email, password } });
+  // if (loading) {
+  //   console.log(loading);
+  // }
+  // if (error) {
+  //   console.log(error);
+  // }
+
+  // if (data && data.login && called) {
+  //   console.log(data);
+  // }
+  // if ((!data || !data.login) && called) {
+  //   console.log('invalid data');
+  // }
+
+  //  console.log(loading, error, data);
 
   const handleSignIn = async () => {
+    // getDog();
     setMessageType('loading');
     setMessage('Logging In, Please Wait');
     const { data, error } = await client.query({
@@ -59,7 +77,7 @@ const SignIn = () => {
       return;
     }
     if (data.login.userId) {
-      console.log(data);
+      // console.log(data);
       // console.log(data.error);
       setUser({
         userId: data.login.userId,

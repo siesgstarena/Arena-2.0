@@ -64,9 +64,22 @@ import './App.scss';
 const App = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
+  // const customFetch = (uri, options) => (fetch(uri, options)
+  //   .then((response) => {
+  //     console.log("response0", response);
+  //     if (response.status >= 300) {
+  //       // or handle 400 errors
+  //       console.log('Response1', response);
+  //       return Promise.reject(response.status);
+  //     }
+  //     console.log('Response2', response);
+  //     return response;
+  //   }));
+
   const httpLink = createHttpLink({
     uri: process.env.REACT_APP_SERVER_URL,
     credentials: 'include',
+    // fetch: customFetch,
   });
 
   const cache = new InMemoryCache();

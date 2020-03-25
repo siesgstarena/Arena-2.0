@@ -1,7 +1,7 @@
 // A JS array of objects , made to be fetched by the DataTable and displayed.
 
 
-const Data = [
+const data = [
   {
     id: 1,
     who: {
@@ -65,4 +65,4 @@ const Data = [
 
 ];
 
-export default Data;
+export default data;

@@ -32,7 +32,7 @@ const DataTable = () => {
       </td>
       <td className="tc pa3">{entry.score}</td>
       <td className="tc pa3">{entry.time}</td>
-      { 
+      {
         entry.problem.map(prob => (
           <td key={prob.id} className="tc pa3">{prob.score}</td>
         ))

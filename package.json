@@ -41,7 +41,7 @@
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "html-to-draftjs": "^1.4.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-apollo": "^3.1.3",
@@ -58,7 +58,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test": "run-script-os",
+    "test:win32:msys": "set CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test:darwin:linux": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test:default":"CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .jsx --ext .js",
     "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"
@@ -78,6 +81,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "husky": "^3.0.9"
+    "husky": "^3.0.9",
+    "run-script-os": "^1.1.1"
   }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Headline6, Body1 } from '@material/react-typography';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
@@ -16,25 +16,25 @@ const ProblemCard = ({
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
   const { setSnackbarMessage } = useContext(SnackbarContext);
   const history = useHistory();
-  const location = useLocation();
+  const { contestId } = useParams();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
     setSnackbarMessage('The problem is successfully deleted');
   };
   const onProblemNameClick = () => {
-    history.push(`${location.pathname}/${id}`);
+    history.push(`/admin/${contestId}/${id}`);
   };
   const onTestClick = () => {
-    history.push(`${location.pathname}/${id}/test`);
+    history.push(`/admin/${contestId}/${id}/test`);
   };
   const onEditClick = () => {
-    history.push(`${location.pathname}/${id}/edit`);
+    history.push(`/admin/${contestId}/${id}/edit`);
   };
   const onDeleteClick = () => {
     setIsAlertOpen(true);
   };
   const onResetStatusClick = () => {
-    history.push(`${location.pathname}/reset/${id}`);
+    history.push(`/admin/${contestId}/reset/${id}`);
   };
 
   return (

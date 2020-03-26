@@ -1,13 +1,14 @@
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemCard from './ProblemCard';
 // import problems from './problems';
 
 const ProblemsCardArray = ({ problems }) => {
   const history = useHistory();
+  const { contestId } = useParams();
 
   const problemsArray = problems.map(problem => (
     <ProblemCard
@@ -19,7 +20,7 @@ const ProblemsCardArray = ({ problems }) => {
   ));
 
   const onCreateProblemClick = () => {
-    history.push(`${history.location.pathname}/create`);
+    history.push(`/admin/${contestId}/create`);
   };
 
   return (

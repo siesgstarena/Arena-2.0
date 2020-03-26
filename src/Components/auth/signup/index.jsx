@@ -123,7 +123,11 @@ const SignUp = () => {
               label="Password"
               setPassword={setPassword}
             />
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             <Body2 className="mid-gray ma3 ml0">
               By Signing up, you agree with our&nbsp;
               <span className="dim pointer" role="presentation" onClick={() => history.push('/privacy')}>

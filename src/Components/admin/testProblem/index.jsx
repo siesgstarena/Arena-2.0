@@ -77,7 +77,7 @@ const TestProblem = () => {
           file={solutionFile}
         />
       </div>
-      <MessageCard messageType={messageType} message={message} />
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button className="ma1 mb5" onClick={handleTestProblem} raised>
         Test Problem
       </Button>

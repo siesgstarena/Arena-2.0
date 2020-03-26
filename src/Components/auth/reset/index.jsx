@@ -73,7 +73,11 @@ const Reset = () => {
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <div className="pa3">
-              <MessageCard messageType={messageType} message={message} />
+              <MessageCard
+                messageType={messageType}
+                message={message}
+                setMessageType={setMessageType}
+              />
               <PasswordField
                 id="1"
                 password={password}

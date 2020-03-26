@@ -65,7 +65,11 @@ const Forgot = () => {
                 onChange={e => setEmail(e.currentTarget.value)}
               />
             </TextField>
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             <Button className="mt4" onClick={sendResetLink} raised>
               Send Reset link
             </Button>

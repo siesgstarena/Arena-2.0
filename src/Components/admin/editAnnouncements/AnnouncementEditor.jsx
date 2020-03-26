@@ -57,7 +57,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
           onChange={e => setAnnouncement(e.currentTarget.value)}
         />
       </TextField>
-      <MessageCard messageType={messageType} message={message} />
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button outlined className="" onClick={handleAnnoucementSubmit}>
           Submit
       </Button>

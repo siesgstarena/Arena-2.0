@@ -131,7 +131,11 @@ const SignIn = () => {
               label="Password"
               setPassword={setPassword}
             />
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             {/* When Forgot Password is clicked, we are redirected to forgot route */}
             <Body2 className="mid-gray dim pointer" onClick={() => history.push('/auth/forgot')}>
               Forgot Password?

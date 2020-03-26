@@ -96,7 +96,11 @@ const ConfirmEmail = () => {
                   onChange={e => setOtp(e.currentTarget.value)}
                 />
               </TextField>
-              <MessageCard messageType={messageType} message={message} />
+              <MessageCard
+                messageType={messageType}
+                message={message}
+                setMessageType={setMessageType}
+              />
               <Body2 className="mid-gray ma0 mb3 pa0">
                Haven&apos;t Recieved OTP yet?
                &nbsp;

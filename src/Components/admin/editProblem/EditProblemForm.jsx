@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
+import PropTypes from 'prop-types';
 import ProblemDetails from '../createProblem/ProblemDetails';
 
 const EditProblemForm = ({ intialFormDetails }) => {
@@ -21,6 +22,10 @@ const EditProblemForm = ({ intialFormDetails }) => {
       </Button>
     </div>
   );
+};
+
+EditProblemForm.propTypes = {
+  intialFormDetails: PropTypes.object.isRequired,
 };
 
 export default EditProblemForm;

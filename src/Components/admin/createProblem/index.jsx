@@ -73,7 +73,11 @@ const CreateProblem = () => {
   return (
     <div className="mw7 center pa2">
       <Headline4 className="ma0 mt3 purple mb1">Create Problem</Headline4>
-      <Body2 className="ma0 ml1  mid-gray mb4">Create Problem for Single Round Match #01</Body2>
+      <Body2 className="ma0 ml1  mid-gray mb4">
+        Create Problem for
+        &nbsp;
+        {contestId}
+      </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <MessageCard messageType={messageType} message={message} />
       <Button raised onClick={handleCreateProblem}>

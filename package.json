@@ -61,7 +61,7 @@
     "test": "run-script-os",
     "test:win32:msys": "set CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "test:darwin:linux": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
-    "test:default":"CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
+    "test:default": "CI=true react-scripts test --transformIgnorePatterns \"node_modules/(?!(react))/\"",
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .jsx --ext .js",
     "lint-fix": "npx eslint . --fix --ext .jsx --ext .js"

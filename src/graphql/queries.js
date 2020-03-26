@@ -80,3 +80,16 @@ query AdminDashboard($code: String!) {
   }
 }
 `;
+
+export const GET_CONTEST_ANNOUNCEMENT = gql`
+query AdminDashboard($code: String!) {
+  adminDashboard(code: $code){
+    contest {
+      announcement
+    }
+    code
+    success
+    message
+  }
+}
+`;

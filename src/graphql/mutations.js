@@ -30,3 +30,13 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
+
+export const UPDATE_ANNOUNCEMENT = gql`
+mutation UpdateAnnouncement($code: String!, $announcement: String!) {
+  updateAnnouncement(code: $code,announcement: $announcement){
+    code
+    success
+    message
+  }
+}
+`;

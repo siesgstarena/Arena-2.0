@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import { Headline4, Body1 } from '@material/react-typography';
-import TextField, { Input } from '@material/react-text-field';
-import Button from '@material/react-button';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import AnnouncementEditor from './AnnouncementEditor';
+import { GET_CONTEST_ANNOUNCEMENT } from '../../../graphql/queries';
+import Spinner from '../../common/Spinner/index';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const EditAnnouncements = () => {
-  const [message, setMessage] = useState('');
-  return (
-    <div className="mw7 center pa3">
-      <Headline4 className="purple mb0 mt2">Announcements</Headline4>
-      <Body1 className="mid-gray">Edit announcements for Single Round Match #1</Body1>
-      <Body1>Type your message in the box below</Body1>
-      <TextField
-        label="Message"
-        className="mb2 text-area-border"
-        style={{ height: '300px' }}
-        textarea
-      >
-        <Input
-          value={message}
-          onChange={e => setMessage(e.currentTarget.value)}
-        />
-      </TextField>
-      <Button outlined className="">
-          Submit
-      </Button>
-    </div>
-  );
+  const { contestId } = useParams();
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const { loading, error, data } = useQuery(GET_CONTEST_ANNOUNCEMENT, {
+    variables: { code: contestId },
+  });
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.adminDashboard
+    && data.adminDashboard.contest
+    && data.adminDashboard.contest.announcement) {
+    return <AnnouncementEditor announcement={data.adminDashboard.contest.announcement} />;
+  }
+  if (isSessionExpired(data.adminDashboard)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message={data.adminDashboard.message} />;
 };
 
 export default EditAnnouncements;

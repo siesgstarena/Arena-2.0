@@ -1,26 +1,11 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
+import PropTypes from 'prop-types';
 import FileUpload from '../../common/FileUpload/index';
 
-const ProblemDetails = () => {
-  const intialFormDetails = {
-    code: '',
-    points: '',
-    name: '',
-    description: '',
-    input: '',
-    output: '',
-    constraints: '',
-    examples: '',
-    explanation: '',
-    inputFile: {},
-    outputFile: {},
-    tags: '',
-  };
-  const [formDetails, setFormDetails] = useState(intialFormDetails);
-
+const ProblemDetails = ({ formDetails, setFormDetails }) => {
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
     return (setFormDetails((previousFormDetails) => {
@@ -190,7 +175,7 @@ const ProblemDetails = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Tags"
-            className="mb4 text-area-border"
+            className="mb2 text-area-border"
             textarea
           >
             <Input
@@ -202,6 +187,12 @@ const ProblemDetails = () => {
       </Row>
     </Grid>
   );
+};
+
+
+ProblemDetails.propTypes = {
+  formDetails: PropTypes.object.isRequired,
+  setFormDetails: PropTypes.func.isRequired,
 };
 
 export default ProblemDetails;

@@ -78,7 +78,7 @@ const App = () => {
   //   }));
 
   const httpLink = createHttpLink({
-    uri: process.env.REACT_APP_SERVER_URL,
+    uri: `${process.env.REACT_APP_SERVER_BASE_URL}/graphql`,
     credentials: 'include',
     // fetch: customFetch,
   });

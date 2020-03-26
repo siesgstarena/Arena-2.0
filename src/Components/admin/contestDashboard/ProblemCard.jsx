@@ -6,6 +6,7 @@ import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import SnackbarContext from '../../../Contexts/SnackbarContext';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const ProblemCard = ({
   name, id, points,
@@ -15,11 +16,29 @@ const ProblemCard = ({
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
   const { setSnackbarMessage } = useContext(SnackbarContext);
+  const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const history = useHistory();
   const { contestId } = useParams();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
-    setSnackbarMessage('The problem is successfully deleted');
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${id}/delete`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then(response => response.json())
+      .then((jsonResponse) => {
+        // console.log(jsonResponse);
+        if (isSessionExpired(jsonResponse.data.restAPI)) {
+          redirectOnSessionExpiredAfterRender();
+        }
+        if (jsonResponse.data.restAPI.success === true) {
+          setSnackbarMessage('The problem is successfully deleted.');
+        } else {
+          setSnackbarMessage('Unable to delete the problem.');
+        }
+      }).catch(() => {
+        setSnackbarMessage('An unexpected error has been encountered');
+      });
   };
   const onProblemNameClick = () => {
     history.push(`/admin/${contestId}/${id}`);

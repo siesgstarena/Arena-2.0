@@ -20,7 +20,7 @@ const Announcements = ({ announcement }) => {
       <hr className="" />
       <div style={{ height: '80px', overflow: 'auto' }}>
         <Body2 className="mid-gray ma0">
-          {announcement.trim() ? ReactHtmlParser(announcement) : 'No Annoucments Posted'}
+          {announcement ? ReactHtmlParser(announcement.trim()) : 'No Annoucments Posted'}
         </Body2>
       </div>
       <hr />
@@ -32,7 +32,7 @@ const Announcements = ({ announcement }) => {
 };
 
 Announcements.propTypes = {
-  announcement: PropTypes.string.isRequired,
+  announcement: PropTypes.string,
 };
 
 export default Announcements;

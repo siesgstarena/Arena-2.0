@@ -1,14 +1,19 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import { Headline4, Body2 } from '@material/react-typography';
 import ProblemDetails from './ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import SnackbarContext from '../../../Contexts/SnackbarContext';
 
 const CreateProblem = () => {
   const { contestId } = useParams();
+  const history = useHistory();
   const [message, setMessage] = useState('');
+  const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
+  const { setSnackbarMessage } = useContext(SnackbarContext);
   const [messageType, setMessageType] = useState('');
   const intialFormDetails = {
     code: '',
@@ -49,8 +54,19 @@ const CreateProblem = () => {
       .then(response => response.json())
       .then((jsonResponse) => {
         console.log(jsonResponse);
-      }).catch((err) => {
-        console.log(err);
+        if (isSessionExpired(jsonResponse.data.restAPI)) {
+          redirectOnSessionExpiredAfterRender();
+        }
+        if (jsonResponse.data.restAPI.success === true) {
+          setSnackbarMessage('Problem successfully created.');
+          history.push(`/admin/${contestId}`);
+        } else {
+          setMessageType('error');
+          setMessage(jsonResponse.data.restAPI.message);
+        }
+      }).catch(() => {
+        setMessageType('error');
+        setMessage('An unexpected error has been encountered');
       });
   };
 

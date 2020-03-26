@@ -93,3 +93,21 @@ query AdminDashboard($code: String!) {
   }
 }
 `;
+
+export const GET_PROBLEM_DETAILS = gql`
+query ProblemByCode($code: ID!) {
+  problemByCode(code: $code){
+    _id
+    name
+    points
+    description
+    explainInput
+    explainOutput
+    constraints
+    example
+    explanation
+    inputFile
+    outputFile
+  }
+}
+`;

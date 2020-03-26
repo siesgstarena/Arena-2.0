@@ -108,6 +108,7 @@ query ProblemByCode($code: ID!) {
     explanation
     inputFile
     outputFile
+    tags
   }
 }
 `;

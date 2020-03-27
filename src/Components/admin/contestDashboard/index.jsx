@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4 } from '@material/react-typography';
 import { useQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import ContestDetails from './ContestDetails';
 import Statistics from './Statistics';
 import Announcements from './Announcements';
@@ -11,11 +11,22 @@ import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import CustomSnackbar from '../../common/Snackbar';
 
 const ContestDashboard = () => {
   const { contestId } = useParams();
+  const location = useLocation();
+  const { state } = location;
+  const history = useHistory();
+  const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
+  if (state && state.snackbarMessage) {
+    delete state.snackbarMessage;
+    history.replace(state);
+  }
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const { loading, error, data } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
+  const {
+    loading, error, data, refetch,
+  } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
 
@@ -53,7 +64,19 @@ const ContestDashboard = () => {
         </Row>
         <Row>
           <Cell columns={12}>
-            <ProblemsCardArray problems={problems} />
+            <CustomSnackbar
+              setSnackbarMessage={setSnackbarMessage}
+              snackbarMessage={snackbarMessage}
+            />
+          </Cell>
+        </Row>
+        <Row>
+          <Cell columns={12}>
+            <ProblemsCardArray
+              problems={problems}
+              setSnackbarMessage={setSnackbarMessage}
+              refetch={refetch}
+            />
           </Cell>
         </Row>
       </Grid>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
@@ -7,7 +7,7 @@ import Button from '@material/react-button';
 import { useApolloClient } from '@apollo/react-hooks';
 import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_ANNOUNCEMENT } from '../../../graphql/mutations';
-import SnackbarContext from '../../../Contexts/SnackbarContext';
+import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const { contestId } = useParams();
@@ -16,7 +16,6 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const history = useHistory();
-  const { setSnackbarMessage } = useContext(SnackbarContext);
 
   const handleAnnoucementSubmit = async () => {
     setMessageType('loading');
@@ -26,6 +25,12 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       variables: {
         code: contestId, announcement,
       },
+      refetchQueries: [
+        {
+          query: GET_ADMIN_DASHBOARD_DETAILS,
+          variables: { code: contestId },
+        },
+      ],
     });
     if (error) {
       setMessageType('error');
@@ -33,8 +38,12 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       return;
     }
     if (data.updateAnnouncement.success) {
-      setSnackbarMessage('Annoucement Updated Successfully');
-      history.push(`/admin/${contestId}`);
+      history.push({
+        pathname: `/admin/${contestId}`,
+        state: {
+          snackbarMessage: 'Annoucement updated successfully',
+        },
+      });
     } else {
       setMessageType('error');
       setMessage(data.updateAnnouncement.message);

@@ -144,7 +144,7 @@ const App = () => {
                 <Route path="/faq" exact component={FAQ} />
                 <Route path="/privacy" exact component={Privacy} />
                 <Route path="/search" exact component={Search} />
-                <Route path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+                <PrivateRoute path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
                 <PrivateRoute path="/admin/:contestId" exact component={AdminContestDashboard} />
                 <PrivateRoute path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
                 <PrivateRoute path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />

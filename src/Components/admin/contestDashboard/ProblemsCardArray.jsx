@@ -6,15 +6,17 @@ import Button from '@material/react-button';
 import ProblemCard from './ProblemCard';
 // import problems from './problems';
 
-const ProblemsCardArray = ({ problems }) => {
+const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
   const history = useHistory();
   const { contestId } = useParams();
 
   const problemsArray = problems.map(problem => (
     <ProblemCard
+      setSnackbarMessage={setSnackbarMessage}
       key={problem._id}
       name={problem.name}
       id={problem.code}
+      refetch={refetch}
       points={problem.points}
     />
   ));
@@ -38,6 +40,8 @@ const ProblemsCardArray = ({ problems }) => {
 
 ProblemsCardArray.propTypes = {
   problems: PropTypes.array.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
+  refetch: PropTypes.func.isRequired,
 };
 
 export default ProblemsCardArray;

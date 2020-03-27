@@ -50,3 +50,13 @@ mutation CreateContest($code: String!,$type: String!, $name: String!,$descriptio
   }
 }
 `;
+
+export const RESET_SUBMISSION = gql`
+mutation ResetSubmission($id: String!, $status:String!) {
+  resetSubmission(_id:$id, status:$status) {
+    code
+    success
+    message
+  }
+}
+`;

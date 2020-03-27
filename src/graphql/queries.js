@@ -112,3 +112,24 @@ query ProblemByCode($code: ID!) {
   }
 }
 `;
+
+export const GET_RESET_SUBMISSION_DETAILS = gql`
+query SubmssionsByContestCode($contestCode: String!, $problemCode: String!) {
+  submissionsByContestCode(contestCode:$contestCode, where:{problemCode:$problemCode}){
+    userId{
+      name
+      _id
+    }
+    contestId {
+      name
+    }
+    problemId {
+      _id
+      name
+    }
+    status
+    language
+    createdAt
+  }
+}
+`;

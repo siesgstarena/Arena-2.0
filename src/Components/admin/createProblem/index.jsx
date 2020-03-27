@@ -8,7 +8,7 @@ import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const CreateProblem = () => {
-  const { contestId } = useParams();
+  const { contestId, problemId } = useParams();
   const history = useHistory();
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
@@ -44,7 +44,7 @@ const CreateProblem = () => {
     formData.append('tags', formDetails.tags);
     formData.append('inputFile', formDetails.inputFile);
     formData.append('outputFile', formDetails.outputFile);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${problemId}`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -81,7 +81,7 @@ const CreateProblem = () => {
         {contestId}
       </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
-      <MessageCard messageType={messageType} message={message} />
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button raised onClick={handleCreateProblem}>
           Create Problem
       </Button>

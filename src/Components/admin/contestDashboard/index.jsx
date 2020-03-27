@@ -19,9 +19,10 @@ const ContestDashboard = () => {
   const { state } = location;
   const history = useHistory();
   const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
+  // Deleting the snackbarMessage so that it is not displayed on every refresh
   if (state && state.snackbarMessage) {
     delete state.snackbarMessage;
-    history.replace(state);
+    history.replace({ location, state });
   }
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {

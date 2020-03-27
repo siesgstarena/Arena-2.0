@@ -16,9 +16,8 @@ const EditAnnouncements = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.adminDashboard
-    && data.adminDashboard.contest
-    && data.adminDashboard.contest.announcement) {
-    return <AnnouncementEditor announcement={data.adminDashboard.contest.announcement} />;
+    && data.adminDashboard.contest) {
+    return <AnnouncementEditor announcement={data.adminDashboard.contest.announcement ? data.adminDashboard.contest.announcement : ''} />;
   }
   if (isSessionExpired(data.adminDashboard)) {
     // since the component hasn't rendered or returned anything,

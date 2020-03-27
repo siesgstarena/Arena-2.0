@@ -23,16 +23,16 @@ const SignIn = () => {
   const { state } = location;
   const redirectLoggedInUser = useRedirectLoggedInUser();
   redirectLoggedInUser();
-
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
   // This is done because when the user logouts we need to display successfully logged out message
-    if (state) {
-      if (state.message && state.messageType) {
-        setMessageType(state.messageType);
-        setMessage(state.message);
-      }
+    if (state && state.message && state.messageType) {
+      setMessageType(state.messageType);
+      setMessage(state.message);
+      delete state.message;
+      delete state.messageType;
+      history.replace({ location, state });
     }
   }, []);
 
@@ -85,7 +85,10 @@ const SignIn = () => {
         name: data.login.name,
       });
       if (state && state.from) {
-        history.push(state.from.pathname);
+        const previousPathname = state.from.pathname;
+        delete state.from;
+        history.replace({ location, state });
+        history.push(previousPathname);
         return;
       }
       history.push(`/profile/${data.login.userId}`);

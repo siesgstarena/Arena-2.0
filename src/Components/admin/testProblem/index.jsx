@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
-import { Headline4 } from '@material/react-typography';
+import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import FileUpload from '../../common/FileUpload/index';
@@ -33,7 +33,7 @@ const TestProblem = () => {
     })
       .then(response => response.json())
       .then((jsonResponse) => {
-        console.log(jsonResponse);
+        // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
         }
@@ -51,7 +51,14 @@ const TestProblem = () => {
   };
   return (
     <div className="mw7 center">
-      <Headline4 className="purple mt4 mb4"> Test Problem</Headline4>
+      <Headline4 className="purple mt4 ma0 mb1"> Test Problem</Headline4>
+      <Body2 className="ma0 ml1  mid-gray mb4">
+        Upload solution file to test the problem
+        &nbsp;
+        -
+        &nbsp;
+        {problemId}
+      </Body2>
       <Select
         className="w-100"
         notchedOutlineClassName="pa1"

@@ -3,9 +3,11 @@ import { Headline6, Body1 } from '@material/react-typography';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
+// import { useApolloClient } from '@apollo/react-hooks';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+// import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const ProblemCard = ({
   name, id, points, setSnackbarMessage, refetch,
@@ -16,6 +18,7 @@ const ProblemCard = ({
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const history = useHistory();
+  // const client = useApolloClient();
   const { contestId } = useParams();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
@@ -30,6 +33,20 @@ const ProblemCard = ({
           redirectOnSessionExpiredAfterRender();
         }
         if (jsonResponse.data.restAPI.success === true) {
+          // const { adminDashboard } = client.readQuery({
+          //   query: GET_ADMIN_DASHBOARD_DETAILS,
+          //   variables: { code: contestId },
+          // });
+          // console.log(adminDashboard);
+          // adminDashboard.problems = [];
+          // // console.log(updatedData, adminDashboard);
+          // client.writeQuery({
+          //   query: GET_ADMIN_DASHBOARD_DETAILS,
+          //   variables: { code: contestId },
+          //   data: {
+          //     adminDashboard,
+          //   },
+          // });
           setSnackbarMessage('Problem successfully deleted');
           refetch();
         } else {

@@ -26,7 +26,7 @@ const ResetSubmissionStatus = () => {
         <Body1 className="mt2">
           Problem:
           &nbsp;
-          {response[0].problemId._id}
+          {problemId}
           &nbsp;
           -
           &nbsp;

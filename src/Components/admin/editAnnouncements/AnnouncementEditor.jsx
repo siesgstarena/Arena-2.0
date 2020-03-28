@@ -25,12 +25,33 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       variables: {
         code: contestId, announcement,
       },
-      refetchQueries: [
-        {
-          query: GET_ADMIN_DASHBOARD_DETAILS,
-          variables: { code: contestId },
-        },
-      ],
+      update: (cache, { data: updatedData }) => {
+        try {
+          const { adminDashboard } = cache.readQuery({
+            query: GET_ADMIN_DASHBOARD_DETAILS,
+            variables: { code: contestId },
+          });
+          console.log(updatedData, adminDashboard);
+          adminDashboard.contest.announcement = announcement;
+          cache.writeQuery({
+            query: GET_ADMIN_DASHBOARD_DETAILS,
+            variables: { code: contestId },
+            data: {
+              adminDashboard,
+            },
+          });
+        } catch (e) {
+          console.log(e);
+          // We should always catch here,
+          // as the cache may be empty or the query may fail
+        }
+      },
+      // refetchQueries: [
+      //   {
+      //     query: GET_ADMIN_DASHBOARD_DETAILS,
+      //     variables: { code: contestId },
+      //   },
+      // ],
     });
     if (error) {
       setMessageType('error');

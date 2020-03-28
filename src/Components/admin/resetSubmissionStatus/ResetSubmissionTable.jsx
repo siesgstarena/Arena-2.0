@@ -11,20 +11,30 @@ import { RESET_SUBMISSION } from '../../../graphql/mutations';
 
 const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
   const { convertDate, convertTime } = useConvertDateAndTime();
-  const tableHeadings = ['#', 'When', 'Who', 'Verdict', 'Language', 'Action'];
+  const tableHeadings = ['#', 'When', 'Who', 'Status', 'Language', 'Action'];
   const { contestId } = useParams();
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const client = useApolloClient();
 
-  // const onUpdateClick = (data, problemStatus) => {
-  //   console.log(`${data.problemId._id} => ${problemStatus}`);
-  // };
-  const onUpdateClick = async (data, problemStatus) => {
+  const updateStatusColor = (status) => {
+    if (status === 'Time Limit Exceeded' || status === 'Compilation Error') {
+      return '#ffc107';
+    }
+    if (status === 'Wrong Answer' || status === 'Runtime Error') {
+      return '#dc3545';
+    }
+    if (status === 'Accepted') {
+      return '#28a745';
+    }
+    return '#dc3545';
+  };
+
+  const onUpdateClick = async (data, problemStatus, setStatus, setStatuscolor) => {
     setSnackbarMessage('Updating status, Please wait.');
     const { data: updationResponse, error } = await client.mutate({
       mutation: RESET_SUBMISSION,
       variables: {
-        id: data.problemId._id, status: problemStatus,
+        id: data._id, status: problemStatus,
       },
     });
     if (error) {
@@ -34,6 +44,8 @@ const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
     console.log(updationResponse);
     if (updationResponse.resetSubmission.success) {
       setSnackbarMessage('Successfully updated the submission status.');
+      setStatus(problemStatus);
+      setStatuscolor(updateStatusColor(problemStatus));
     } else {
       setSnackbarMessage(updationResponse.resetSubmission.message);
     }
@@ -43,37 +55,32 @@ const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
     const createdAtDate = convertDate(data.createdAt);
     const createdAtTime = convertTime(data.createdAt);
     const [problemStatus, setProblemStatus] = useState(data.status);
-    let verdictColor = '';
-    if (data.status === 'Time Limit Exceeded' || data.status === 'Compilation Error') {
-      verdictColor = '#ffc107';
-    } else if (data.status === 'Wrong Answer' || data.status === 'Runtime Error') {
-      verdictColor = '#dc3545';
-    } else if (data.status === 'Accepted') {
-      verdictColor = '#28a745';
-    }
+    const [status, setStatus] = useState(data.status);
+    const [statusColor, setStatuscolor] = useState(updateStatusColor(data.status));
+
 
     return (
       <tr className="tc" key={data.createdAt}>
         <td className="pa3 tc">
-          <Link className="no-underline blue" to={`/contest/${contestId}/submission/${data.problemId._id}`}>
-            {data.problemId._id}
+          <Link className="no-underline blue" to={`/contest/${contestId}/submission/${data._id}`}>
+            {data._id.slice(-6)}
           </Link>
         </td>
-        <td>
+        <td className="tc">
           {createdAtDate}
-          ,&nbsp;
+          <br />
           {createdAtTime}
         </td>
         <td className="pa3 tc">
           <Link className="no-underline blue" to={`/profile/${data.userId._id}`}>
-            {data.userId.name}
+            {data.userId.username}
           </Link>
         </td>
         <td
-          style={{ color: `${verdictColor}` }}
+          style={{ color: `${statusColor}` }}
           className="pa3 tc"
         >
-          {data.status}
+          {status}
         </td>
         <td className="pa3 tc">{data.language}</td>
         <td className="pa3 tc">
@@ -89,7 +96,7 @@ const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
             <Option value="Compilation Error">Compilation Error</Option>
             <Option value="Runtime Error">Runtime Error</Option>
           </Select>
-          <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={() => onUpdateClick(data, problemStatus)}>
+          <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={() => onUpdateClick(data, problemStatus, setStatus, setStatuscolor)}>
             Update
           </Button>
         </td>

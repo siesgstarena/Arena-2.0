@@ -19,7 +19,7 @@ const ResetSubmissionStatus = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
     const response = data.submissionsByContestCode;
-    console.log(response);
+    // console.log(response);
     return (
       <div className="pl5-ns pr5-ns pl2 pr2">
         <Headline4 className="purple mb0">Update Submission Status</Headline4>

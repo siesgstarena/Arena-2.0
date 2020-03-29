@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 const PageBlock = ({
-  activePageNumber, pageNumber, setActivePageNumber, onLoadMore,
+  activePageNumber, pageNumber, setActivePageNumber, onLoadMore, limit,
 }) => {
   const updateActivePageNumberAndData = () => {
     setActivePageNumber(pageNumber);
-    onLoadMore((pageNumber - 1) * 15);
+    onLoadMore((pageNumber - 1) * limit);
   };
   if (activePageNumber === pageNumber) {
     return (
@@ -40,6 +40,7 @@ PageBlock.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   setActivePageNumber: PropTypes.func.isRequired,
   onLoadMore: PropTypes.func.isRequired,
+  limit: PropTypes.number.isRequired,
 };
 
 export default PageBlock;

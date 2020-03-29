@@ -11,24 +11,22 @@ import PageCountDisplayer from '../../common/PageCountDisplayer';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
+  const limit = 15;
   const [activePageNumber, setActivePageNumber] = useState(1);
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data, fetchMore, networkStatus,
   } = useQuery(GET_RESET_SUBMISSION_DETAILS, {
-    variables: { contestCode: contestId, problemCode: problemId, limit: 15 },
+    variables: { contestCode: contestId, problemCode: problemId, limit },
     notifyOnNetworkStatusChange: true,
   });
   const onLoadMore = (amountOfEntiresToBeSkipped) => {
-    // console.log(amountOfEntiresToBeSkipped);
     fetchMore({
       variables: {
         skip: amountOfEntiresToBeSkipped,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        // console.log(prev, fetchMoreResult);
         if (!fetchMoreResult) return prev;
-        // return { submissionsByContestCode: prev };
         return Object.assign({}, prev, fetchMoreResult);
       },
     });
@@ -52,12 +50,15 @@ const ResetSubmissionStatus = () => {
           {response[0].problemId.name}
         </Body1>
         <ResetSubmissionTable resetSubmissionTableData={response} />
-        <PageCountDisplayer
-          pageCount={data.submissionsByContestCode.pages}
-          onLoadMore={onLoadMore}
-          activePageNumber={activePageNumber}
-          setActivePageNumber={setActivePageNumber}
-        />
+        <div className="mt3">
+          <PageCountDisplayer
+            pageCount={data.submissionsByContestCode.pages}
+            onLoadMore={onLoadMore}
+            activePageNumber={activePageNumber}
+            setActivePageNumber={setActivePageNumber}
+            limit={limit}
+          />
+        </div>
       </div>
     );
   }

@@ -1,35 +1,21 @@
-/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import Button from '@material/react-button';
 import { Headline4, Body2 } from '@material/react-typography';
-import ProblemDetails from './ProblemDetails';
+import Button from '@material/react-button';
+import PropTypes from 'prop-types';
+import ProblemDetails from '../createProblem/ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
-const CreateProblem = () => {
+const EditProblemForm = ({ intialFormDetails }) => {
   const { contestId, problemId } = useParams();
   const history = useHistory();
+  const [formDetails, setFormDetails] = useState(intialFormDetails);
+  const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
-  const [messageType, setMessageType] = useState('');
-  const intialFormDetails = {
-    code: '',
-    points: '',
-    name: '',
-    description: '',
-    input: '',
-    output: '',
-    constraints: '',
-    examples: '',
-    explanation: '',
-    inputFile: {},
-    outputFile: {},
-    tags: '',
-  };
-  const [formDetails, setFormDetails] = useState(intialFormDetails);
-  const handleCreateProblem = () => {
-    setMessage('Creating Problem, Please wait');
+  const handleEditProblem = () => {
+    setMessage('Editing Problem, Please wait');
     setMessageType('loading');
     const formData = new FormData();
     formData.append('code', formDetails.code);
@@ -44,7 +30,7 @@ const CreateProblem = () => {
     formData.append('tags', formDetails.tags);
     formData.append('inputFile', formDetails.inputFile);
     formData.append('outputFile', formDetails.outputFile);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${problemId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -59,7 +45,7 @@ const CreateProblem = () => {
           history.push({
             pathname: `/admin/${contestId}`,
             state: {
-              snackbarMessage: 'Problem created successfully',
+              snackbarMessage: 'Problem Edited successfully',
             },
           });
         } else {
@@ -71,22 +57,25 @@ const CreateProblem = () => {
         setMessage('An unexpected error has been encountered');
       });
   };
-
   return (
     <div className="mw7 center pa2">
-      <Headline4 className="ma0 mt3 purple mb1">Create Problem</Headline4>
+      <Headline4 className="ma0 mt3 purple mb1">Edit Problem</Headline4>
       <Body2 className="ma0 ml1  mid-gray mb4">
-        Create Problem for
+        Edit Problem -
         &nbsp;
-        {contestId}
+        {problemId}
       </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
-      <Button raised onClick={handleCreateProblem}>
-          Create Problem
+      <Button raised onClick={handleEditProblem}>
+          Edit Problem
       </Button>
     </div>
   );
 };
 
-export default CreateProblem;
+EditProblemForm.propTypes = {
+  intialFormDetails: PropTypes.object.isRequired,
+};
+
+export default EditProblemForm;

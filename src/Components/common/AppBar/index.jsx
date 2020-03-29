@@ -11,6 +11,7 @@ import TopAppBar, {
   TopAppBarTitle,
 } from '@material/react-top-app-bar';
 import MaterialIcon from '@material/react-material-icon';
+import { Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 import Drawer, {
   DrawerContent, DrawerHeader, DrawerTitle, DrawerSubtitle,
@@ -151,9 +152,9 @@ const AppBar = () => {
                 {/* defaults to h3 */}
                 Explore Arena
               </DrawerTitle>
-              <DrawerSubtitle>
+              <DrawerSubtitle style={{ wordWrap: 'break-word' }}>
                 {/* defaults to h6 */}
-                matt@email.com
+                {user ? user.email : ''}
               </DrawerSubtitle>
             </DrawerHeader>
 
@@ -217,10 +218,11 @@ const AppBar = () => {
             {
               !mobileDevice && user
                 ? (
-                  <div>
+                  <Body1 className="flex items-center">
+                    <span className="mr2 pointer" role="presentation" onClick={() => history.push(`/profile/${user.userId}`)}>{user.name}</span>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     {userMenu}
-                  </div>
+                  </Body1>
                 )
                 : null
             }

@@ -1,24 +1,28 @@
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { useHistory, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemCard from './ProblemCard';
-import problems from './problems';
+// import problems from './problems';
 
-const ProblemsCardArray = () => {
+const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
   const history = useHistory();
+  const { contestId } = useParams();
 
   const problemsArray = problems.map(problem => (
     <ProblemCard
-      key={problem.id}
+      setSnackbarMessage={setSnackbarMessage}
+      key={problem._id}
       name={problem.name}
-      id={problem.id}
+      id={problem.code}
+      refetch={refetch}
       points={problem.points}
     />
   ));
 
   const onCreateProblemClick = () => {
-    history.push(`${history.location.pathname}/create`);
+    history.push(`/admin/${contestId}/create`);
   };
 
   return (
@@ -32,6 +36,12 @@ const ProblemsCardArray = () => {
       {problemsArray}
     </div>
   );
+};
+
+ProblemsCardArray.propTypes = {
+  problems: PropTypes.array.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
+  refetch: PropTypes.func.isRequired,
 };
 
 export default ProblemsCardArray;

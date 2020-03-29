@@ -1,5 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
@@ -10,27 +9,21 @@ import 'tachyons';
 import MessageCard from '../../common/MessageCard/index';
 import { VERIFY_USER } from '../../../graphql/mutations';
 import { RESEND_OTP } from '../../../graphql/queries';
-import UserContext from '../../../Contexts/UserContext';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const ConfirmEmail = () => {
   const [otp, setOtp] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { user } = useContext(UserContext);
   const history = useHistory();
   const { userId } = useParams();
-
-  useEffect(() => {
-    // Not allowing the user to visit login related page when the user is logged in
-    if (user) {
-      history.push(`/profile/${user.userId}`);
-    }
-  }, []);
+  const redirectLoggedInUser = useRedirectLoggedInUser();
+  redirectLoggedInUser();
 
   const client = useApolloClient();
 
   const verifyOtp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Verifying OTP, Please Wait');
     const { data, error } = await client.mutate({
       mutation: VERIFY_USER,
@@ -56,7 +49,7 @@ const ConfirmEmail = () => {
   };
 
   const resendOtp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Sending OTP, Please Wait');
     const { data, error } = await client.query({
       query: RESEND_OTP,
@@ -103,7 +96,11 @@ const ConfirmEmail = () => {
                   onChange={e => setOtp(e.currentTarget.value)}
                 />
               </TextField>
-              <MessageCard messageType={messageType} message={message} />
+              <MessageCard
+                messageType={messageType}
+                message={message}
+                setMessageType={setMessageType}
+              />
               <Body2 className="mid-gray ma0 mb3 pa0">
                Haven&apos;t Recieved OTP yet?
                &nbsp;

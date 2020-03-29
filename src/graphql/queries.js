@@ -1,22 +1,30 @@
 import { gql } from 'apollo-boost';
 
-export const GET_USER_ID = gql`
+export const GET_USER_DETAILS_ON_LOGIN = gql`
 query Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
     userId
+    name
+    email
   }
 }  
 `;
 
-export const GET_CONTEST_ADMIN_EMAIL_USER_EMAIL = gql`
-query ContestAdminEmailUserEmail($code: String!, $_id: ID!) {
-  contestCode(code: $code) {
-    contestAdmin {
-      email
-    }   
-  }
-  userById(_id: $_id) {
-    email
+// export const GET_ALL_USER_DETAILS = gql`
+// query GetAllUserDetails($email: String!, $password: String!) {
+//   login(email: $email, password: $password) {
+//     userId
+//   }
+// }
+// `;
+
+export const GET_IS_USER_ADMIN = gql`
+query IsAdmin($code: String!) {
+  isAdmin(code: $code) {
+    isAdmin
+    message
+    success
+    code
   }
 }
 `;
@@ -44,6 +52,91 @@ query ForgotPasswordMail($email: String!) {
     code
     success
     message
+  }
+}
+`;
+
+export const GET_ADMIN_DASHBOARD_DETAILS = gql`
+query AdminDashboard($code: String!) {
+  adminDashboard(code:$code) {
+    code
+    success
+    message
+    contest {
+      startsAt
+      endsAt
+      name
+      announcement
+    }
+    problems{
+      _id
+      name
+      points
+      code
+    }
+    totalCount
+    acceptedCount
+    usersCount
+  }
+}
+`;
+
+export const GET_CONTEST_ANNOUNCEMENT = gql`
+query AdminDashboard($code: String!) {
+  adminDashboard(code: $code){
+    contest {
+      announcement
+    }
+    code
+    success
+    message
+  }
+}
+`;
+
+export const GET_PROBLEM_DETAILS = gql`
+query ProblemByCode($code: ID!) {
+  problemByCode(code: $code){
+    _id
+    name
+    points
+    description
+    explainInput
+    explainOutput
+    constraints
+    example
+    explanation
+    inputFile
+    outputFile
+    tags
+  }
+}
+`;
+
+export const GET_RESET_SUBMISSION_DETAILS = gql`
+query SubmssionsByContestCode($contestCode: String!, $problemCode: String, $limit: Int, $skip: Int) {
+  submissionsByContestCode(contestCode:$contestCode, where:{problemCode:$problemCode}, limit: $limit, skip: $skip){
+    submissions {
+      userId{
+        username
+        _id
+      }
+      contestId {
+        name
+      }
+      problemId {
+        _id
+        name
+      }
+      status
+      language
+      createdAt
+      _id
+    }
+    code
+    message
+    success
+    pages
   }
 }
 `;

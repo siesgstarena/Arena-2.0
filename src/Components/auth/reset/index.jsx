@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
@@ -10,6 +9,7 @@ import MessageCard from '../../common/MessageCard/index';
 import UserContext from '../../../Contexts/UserContext';
 import PasswordField from '../../common/PasswordField/index';
 import { RESET_PASSWORD } from '../../../graphql/mutations';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const Reset = () => {
   const [password, setPassword] = useState('');
@@ -18,6 +18,8 @@ const Reset = () => {
   const [message, setMessage] = useState('');
   const { user } = useContext(UserContext);
   const history = useHistory();
+  const redirectLoggedInUser = useRedirectLoggedInUser();
+  redirectLoggedInUser();
 
   const client = useApolloClient();
 
@@ -31,7 +33,7 @@ const Reset = () => {
   const { key } = useParams();
 
   const reset = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Updating Password, Please wait');
     const { data, error } = await client.mutate({
       mutation: RESET_PASSWORD,
@@ -71,7 +73,11 @@ const Reset = () => {
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
             <div className="pa3">
-              <MessageCard messageType={messageType} message={message} />
+              <MessageCard
+                messageType={messageType}
+                message={message}
+                setMessageType={setMessageType}
+              />
               <PasswordField
                 id="1"
                 password={password}

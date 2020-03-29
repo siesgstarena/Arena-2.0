@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import PageBlock from './PageBlock';
 
-const PageCountDisplayer = () => {
-  const pageCount = 20;
-  const [activePageNumber, setActivePageNumber] = useState(5);
+const PageCountDisplayer = ({
+  pageCount, onLoadMore, setActivePageNumber, activePageNumber,
+}) => {
   const pageCountDisplayerArray = [];
   let i = 0;
   for (i = 0; i < pageCount; i += 1) {
@@ -11,6 +12,7 @@ const PageCountDisplayer = () => {
       <PageBlock
         key={i + 1}
         pageNumber={i + 1}
+        onLoadMore={onLoadMore}
         setActivePageNumber={setActivePageNumber}
         activePageNumber={activePageNumber}
       />,
@@ -21,6 +23,13 @@ const PageCountDisplayer = () => {
       {pageCountDisplayerArray}
     </div>
   );
+};
+
+PageCountDisplayer.propTypes = {
+  pageCount: PropTypes.number.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+  activePageNumber: PropTypes.number.isRequired,
+  setActivePageNumber: PropTypes.func.isRequired,
 };
 
 export default PageCountDisplayer;

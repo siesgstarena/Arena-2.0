@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import { Headline4, Body1 } from '@material/react-typography';
@@ -6,7 +6,6 @@ import Button from '@material/react-button';
 import 'tachyons';
 import { useApolloClient } from '@apollo/react-hooks';
 import MessageCard from '../../common/MessageCard/index';
-import UserContext from '../../../Contexts/UserContext';
 import PasswordField from '../../common/PasswordField/index';
 import { RESET_PASSWORD } from '../../../graphql/mutations';
 import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
@@ -16,19 +15,10 @@ const Reset = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { user } = useContext(UserContext);
   const history = useHistory();
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
-
-  useEffect(() => {
-    // Not allowing the user to visit login page when the user is logged in
-    if (user) {
-      history.push(`/profile/${user.userId}`);
-    }
-  }, []);
 
   const { key } = useParams();
 

@@ -9,7 +9,7 @@ const CreateContest = () => (
     <Body2 className="mt0 mid-gray mb4">Create a Single Round Match or Long Queue Contest</Body2>
     <ContestDetails />
     <Button
-      className="ma1 mt3"
+      className="ma1 ml0 mt3"
       raised
     >
       Create Contest

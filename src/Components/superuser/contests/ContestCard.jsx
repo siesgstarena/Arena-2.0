@@ -1,20 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
-import SnackbarContext from '../../../Contexts/SnackbarContext';
 import '@material/react-dialog/dist/dialog.css';
+import CustomSnackbar from '../../common/Snackbar';
 
 const ProblemCard = ({
   name, id, startTime, duration,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the contest - "${name}"`;
-  const { setSnackbarMessage } = useContext(SnackbarContext);
   const history = useHistory();
   const location = useLocation();
   // onAlertAccept runs when the user clicks on the accept button on the alert box
@@ -63,6 +63,10 @@ const ProblemCard = ({
         title={alertTitle}
         content={alertContent}
         onAccept={onAlertAccept}
+      />
+      <CustomSnackbar
+        setSnackbarMessage={setSnackbarMessage}
+        snackbarMessage={snackbarMessage}
       />
     </div>
   );

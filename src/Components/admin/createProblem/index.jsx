@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import { Headline4, Body2 } from '@material/react-typography';
+// import { useApolloClient } from '@apollo/react-hooks';
 import ProblemDetails from './ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+// import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const CreateProblem = () => {
-  const { contestId, problemId } = useParams();
+  const { contestId } = useParams();
   const history = useHistory();
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [messageType, setMessageType] = useState('');
+  // const client = useApolloClient();
   const intialFormDetails = {
     code: '',
     points: '',
@@ -44,7 +47,7 @@ const CreateProblem = () => {
     formData.append('tags', formDetails.tags);
     formData.append('inputFile', formDetails.inputFile);
     formData.append('outputFile', formDetails.outputFile);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${problemId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -56,6 +59,35 @@ const CreateProblem = () => {
           redirectOnSessionExpiredAfterRender();
         }
         if (jsonResponse.data.restAPI.success === true) {
+          // const { adminDashboard } = client.readQuery({
+          //   query: GET_ADMIN_DASHBOARD_DETAILS,
+          //   variables: { code: contestId },
+          // });
+          // console.log(adminDashboard);
+          // const newObject = {
+          //   code: formDetails.code,
+          //   points: formDetails.points,
+          //   name: formDetails.name,
+          //   description: formDetails.description,
+          //   input: formDetails.input,
+          //   output: formDetails.output,
+          //   constraints: formDetails.constraints,
+          //   examples: formDetails.examples,
+          //   explanation: formDetails.explanation,
+          //   inputFile: formDetails.inputFile,
+          //   outputFile: formDetails.outputFile,
+          //   tags: formDetails.tags,
+          //   __typename: 'Problem',
+          //   _id: '1',
+          // };
+          // adminDashboard.problems = [...adminDashboard.problems, newObject];
+          // client.writeQuery({
+          //   query: GET_ADMIN_DASHBOARD_DETAILS,
+          //   variables: { code: contestId },
+          //   data: {
+          //     adminDashboard,
+          //   },
+          // });
           history.push({
             pathname: `/admin/${contestId}`,
             state: {

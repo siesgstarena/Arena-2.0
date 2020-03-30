@@ -78,7 +78,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       <Body1>Type your message in the box below</Body1>
       <TextField
         label="Announcement"
-        className="mb2 text-area-border"
+        className="mb2 text-area-width-100"
         style={{ height: '300px' }}
         textarea
       >

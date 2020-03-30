@@ -12,7 +12,7 @@ const useStateWithLocalStroage = (localStorageKey, initialValue) => {
   // This hook helps to update the local storage everytime the state updates
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(value));
-  }, [value]);
+  }, [value, localStorageKey]);
   return [value, setValue];
 };
 

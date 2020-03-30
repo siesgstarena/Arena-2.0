@@ -27,7 +27,7 @@ const Feedback = () => {
           <div className="pa3">
             <TextField
               label="Full Name"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -38,7 +38,7 @@ const Feedback = () => {
             </TextField>
             <TextField
               label="Email address"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -49,7 +49,7 @@ const Feedback = () => {
             </TextField>
             <TextField
               label="Message"
-              className="mb4 text-area-border"
+              className="mb4 text-area-width-100"
               textarea
             >
               <Input
@@ -57,6 +57,7 @@ const Feedback = () => {
                 onChange={e => setMessage(e.currentTarget.value)}
               />
             </TextField>
+            <br />
             <Button raised>
               Submit
             </Button>

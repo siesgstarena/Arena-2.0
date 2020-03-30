@@ -21,8 +21,7 @@ const SignUp = () => {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const history = useHistory();
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 
@@ -84,7 +83,7 @@ const SignUp = () => {
           <div className="pa3">
             <TextField
               label="Full Name"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -95,7 +94,7 @@ const SignUp = () => {
             </TextField>
             <TextField
               label="Username"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -107,7 +106,7 @@ const SignUp = () => {
             <TextField
               label="Email address"
               helperText={<HelperText>Use your SIESGST student email account</HelperText>}
-              className="pa2 w-100"
+              className="w-100"
               outlined
             >
               <Input

@@ -58,7 +58,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Problem Name"
-            className="pa2 mb4 w-100"
+            className="mb4 w-100"
             outlined
           >
             <Input
@@ -73,7 +73,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Description"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -87,7 +87,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Input"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -101,7 +101,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Output"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -115,7 +115,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Constraints"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -129,7 +129,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Examples"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -143,7 +143,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Explanation"
-            className="mb4 text-area-border"
+            className="mb4 text-area-width-100"
             textarea
           >
             <Input
@@ -175,7 +175,7 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Tags"
-            className="mb2 text-area-border"
+            className="mb2 text-area-width-100"
             textarea
           >
             <Input

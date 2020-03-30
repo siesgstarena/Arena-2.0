@@ -13,8 +13,7 @@ const Forgot = () => {
   const [email, setEmail] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 
@@ -56,7 +55,7 @@ const Forgot = () => {
           <div className="pa3">
             <TextField
               label="Email address"
-              className="pa2 mb2 w-100"
+              className="mb2 w-100"
               outlined
             >
               <Input

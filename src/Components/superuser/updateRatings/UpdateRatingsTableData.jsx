@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TextField, { Input } from '@material/react-text-field';
+import PropTypes from 'prop-types';
 
 const UpdateRatingsTableData = ({ user }) => {
   const [rating, setRating] = useState(user.rating);
@@ -29,6 +30,10 @@ const UpdateRatingsTableData = ({ user }) => {
       </td>
     </tr>
   );
-}
+};
+
+UpdateRatingsTableData.propTypes = {
+  user: PropTypes.object.isRequired,
+};
 
 export default UpdateRatingsTableData;

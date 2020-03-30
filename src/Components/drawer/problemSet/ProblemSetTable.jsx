@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, useCallback,
+} from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
 import Table from '../../common/Table/index';
@@ -26,7 +28,7 @@ const ProblemsSetTable = () => {
   };
 
   // createProblemsArray maps all the problems to jsx in the form of table rows
-  const createProblemsArray = (problemsToMap) => {
+  const createProblemsArray = useCallback((problemsToMap) => {
     setProblemsArray(problemsToMap.map((problem) => {
       const tagsArray = problem.tags.map((tag, index) => {
         if (index !== problem.tags.length - 1) {
@@ -73,17 +75,12 @@ const ProblemsSetTable = () => {
         </tr>
       );
     }));
-  };
-
-  // The following effect is triggered when the component in mounted
-  useEffect(() => {
-    createProblemsArray(problems);
   }, []);
 
   // The following effecet is triggered when the problems state is changed
   useEffect(() => {
     createProblemsArray(problems);
-  }, [problems]);
+  }, [problems, createProblemsArray]);
 
   return (
     <div>

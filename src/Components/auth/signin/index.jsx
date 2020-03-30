@@ -21,8 +21,7 @@ const SignIn = () => {
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
@@ -34,7 +33,7 @@ const SignIn = () => {
       delete state.messageType;
       history.replace({ location, state });
     }
-  }, []);
+  }, [state, history, location]);
 
 
   const client = useApolloClient();

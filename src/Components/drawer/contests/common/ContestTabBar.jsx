@@ -31,7 +31,7 @@ const ContestTabBar = () => {
     } else if (currentPathname === `${url}/submit`) {
       setActiveIndex(4);
     }
-  }, [currentPathname]);
+  }, [currentPathname, url]);
 
   const onTabClick = (path) => {
     history.push(path);

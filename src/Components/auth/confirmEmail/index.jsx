@@ -17,8 +17,7 @@ const ConfirmEmail = () => {
   const [message, setMessage] = useState('');
   const history = useHistory();
   const { userId } = useParams();
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 

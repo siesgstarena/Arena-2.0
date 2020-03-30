@@ -13,8 +13,7 @@ const Forgot = () => {
   const [email, setEmail] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 

@@ -85,7 +85,7 @@ const ConfirmEmail = () => {
               {/* <MessageCard messageType={messageType} message={message} /> */}
               <TextField
                 label="Enter OTP"
-                className="pa2 mb3 w-100"
+                className="mb3 w-100"
                 outlined
               >
                 <Input

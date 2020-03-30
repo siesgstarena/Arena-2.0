@@ -86,7 +86,7 @@ const ContestDetails = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Contest Name *"
-            className="pa2 mb4 w-100"
+            className="mb3 w-100"
             outlined
           >
             <Input
@@ -101,7 +101,7 @@ const ContestDetails = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <TextField
             label="Description"
-            className="mb2 text-area-border"
+            className="mb3 text-area-width-100"
             textarea
           >
             <Input
@@ -139,7 +139,7 @@ const ContestDetails = () => {
       <Row>
         <Cell desktopColumns={6} tabletColumns={8} phoneColumns={4}>
           <Select
-            className="mt4 mb3 w-100"
+            className="mt3 mb3 w-100"
             notchedOutlineClassName="pt1"
             enhanced
             outlined

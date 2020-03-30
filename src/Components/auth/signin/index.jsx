@@ -118,7 +118,7 @@ const SignIn = () => {
           <div className="pa3">
             <TextField
               label="Email address"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input

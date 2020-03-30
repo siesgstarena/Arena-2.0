@@ -16,8 +16,7 @@ const Reset = () => {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const history = useHistory();
-  const redirectLoggedInUser = useRedirectLoggedInUser();
-  redirectLoggedInUser();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 

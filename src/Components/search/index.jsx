@@ -14,7 +14,7 @@ const Search = () => {
           <Headline3 className="purple">Search</Headline3>
           <TextField
             label="Search SIESGSTarena"
-            className="pa2 mb4 w-100"
+            className="mb4 w-100"
             outlined
           >
             <Input

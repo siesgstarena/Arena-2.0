@@ -55,7 +55,7 @@ const Forgot = () => {
           <div className="pa3">
             <TextField
               label="Email address"
-              className="pa2 mb2 w-100"
+              className="mb2 w-100"
               outlined
             >
               <Input

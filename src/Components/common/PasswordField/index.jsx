@@ -43,7 +43,7 @@ const PasswordField = ({
   return (
     <TextField
       label={label}
-      className="pa2 w-100 noselect"
+      className="w-100 noselect"
       outlined
       onTrailingIconSelect={togglePasswordVisibilityState}
       trailingIcon={<MaterialIcon className="outline-0" role="presentation" icon={passwordFieldIcon} />}

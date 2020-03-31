@@ -48,7 +48,7 @@ const UNI02 = () => {
         To know more about pseudo code visit
         {' '}
         <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
-.
+        .
       </Body1>
       <Headline6 className="mt3 ma0">Let&apos;s write our pseudo code!</Headline6>
       <Body1 className="ma0">
@@ -108,11 +108,11 @@ const UNI02 = () => {
                   , &t);
                 </div>
                 <div>
-                for (i =
+                  for (i =
                   <span className="red"> 0</span>
-                ; i &lt;
+                  ; i &lt;
                   <span> t</span>
-                ; i++) &#123;
+                  ; i++) &#123;
                 </div>
                 <div className="ml3">
                   <div className="gray">&#47;&#47; input the number of integers to be taken next</div>
@@ -123,11 +123,11 @@ const UNI02 = () => {
                 </div>
                 <div className="ml3">
                   {' '}
-if (g%
+                  if (g%
                   <span className="red">2</span>
-==
+                  ==
                   <span className="red">0</span>
-) &#123;
+                  ) &#123;
                   {' '}
                 </div>
                 <div className="ml4">
@@ -153,7 +153,7 @@ if (g%
                 return
                 {' '}
                 <span className="red">0</span>
-;
+                ;
               </div>
             </div>
             &#125;

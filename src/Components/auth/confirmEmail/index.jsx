@@ -77,7 +77,7 @@ const ConfirmEmail = () => {
               Confirm your account
             </Headline4>
             <Body1 className="mid-gray">
-            We have sent a 6 digit OTP to your entered email address.
+              We have sent a 6 digit OTP to your entered email address.
             </Body1>
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
@@ -101,18 +101,19 @@ const ConfirmEmail = () => {
                 setMessageType={setMessageType}
               />
               <Body2 className="mid-gray ma0 mb3 pa0">
-               Haven&apos;t Recieved OTP yet?
-               &nbsp;
+                Haven&apos;t Recieved OTP yet?
+                &nbsp;
                 <span role="presentation" onClick={resendOtp} className="i pointer">
-                 Click to resend OTP
+                  Click to resend OTP
                 </span>
               </Body2>
               <Button onClick={verifyOtp} raised>
                 Verify OTP
               </Button>
               <Body2 className="mid-gray mt4 ma0 mb4 pa0">
-              In case, when OTP sent to your email address is not received, check your spam folder.
-              If the issue persists, contact&nbsp;
+                In case, when OTP sent to your email address
+                &nbsp;is not received, check your spam folder.
+                If the issue persists, contact&nbsp;
                 <a href="mailto:codechef@siesgst.ac.in" className="i mid-gray no-underline">codechef@siesgst.ac.in</a>
               </Body2>
             </div>

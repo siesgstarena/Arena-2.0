@@ -12,7 +12,7 @@ const Announcements = () => (
       Announcements
     </Body1>
     <Body2 className="mid-gray">
-    Contest open for 1 year with playlists problems
+      Contest open for 1 year with playlists problems
     </Body2>
   </Card>
 );

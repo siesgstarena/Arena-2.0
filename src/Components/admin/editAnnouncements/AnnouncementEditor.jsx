@@ -89,7 +89,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       </TextField>
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button outlined className="" onClick={handleAnnoucementSubmit}>
-          Submit
+        Submit
       </Button>
     </div>
   );

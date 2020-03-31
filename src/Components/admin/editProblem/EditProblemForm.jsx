@@ -68,7 +68,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button raised onClick={handleEditProblem}>
-          Edit Problem
+        Edit Problem
       </Button>
     </div>
   );

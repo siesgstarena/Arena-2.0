@@ -23,10 +23,10 @@ const AdminProblemPage = () => {
     return (
       <div className="mw7 center pa2">
         <Button outlined className="mt3 mb3" onClick={() => history.push(`/admin/${contestId}`)}>
-            Go back
+          Go back
         </Button>
         <Button outlined className="fr mt3 mb3" onClick={() => history.push(`${location.pathname}/test`)}>
-            Submit Test Solution
+          Submit Test Solution
         </Button>
         <ProblemPage problemDetails={data.problemByCode} />
       </div>

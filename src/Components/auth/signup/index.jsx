@@ -76,7 +76,7 @@ const SignUp = () => {
           </Headline4>
           <Body1 className="mid-gray">
             Your name and username will be made available publicly so that
-              other users can communicate with you.
+            other users can communicate with you.
           </Body1>
         </Cell>
         <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>

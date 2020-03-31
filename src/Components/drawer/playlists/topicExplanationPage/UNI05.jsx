@@ -45,7 +45,7 @@ const UNI05 = () => {
         and block which do the processing. To know more about pseudo code visit
         {' '}
         <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
-.
+        .
       </Body1>
       <Headline6 className="mt3 ma0">Let’s write our pseudo code!</Headline6>
       <Body1>This is a simple set of steps written for our understanding.</Body1>
@@ -82,7 +82,7 @@ const UNI05 = () => {
               <br />
               <span className="black">using namespace </span>
               <span className="green">std</span>
-;
+              ;
             </div>
             <div className="dark-blue mb4">int main() &#123;</div>
             <div className="ml3">
@@ -121,7 +121,7 @@ const UNI05 = () => {
                 <div className="mb4">
                   int tot=
                   <span className="red">0</span>
-;
+                  ;
                   <span className="gray">
                     &nbsp; &nbsp; // intializing tot as 0
                   </span>
@@ -139,7 +139,7 @@ const UNI05 = () => {
                   <br />
                   dist =
                   <span className="green">sqrt</span>
-(x + y);
+                  (x + y);
                   <span className="gray">
                     &nbsp; &nbsp; &nbsp; &nbsp; // Taking square root
                   </span>

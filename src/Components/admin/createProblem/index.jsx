@@ -115,7 +115,7 @@ const CreateProblem = () => {
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button raised onClick={handleCreateProblem}>
-          Create Problem
+        Create Problem
       </Button>
     </div>
   );

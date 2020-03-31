@@ -94,7 +94,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Suspense fallback={<Spinner/>}>
+        <Suspense fallback={<Spinner />}>
           <ScrollToTop>
             {/*
                 Here we are not using exact prop for components like AppBar and Footer,
@@ -157,7 +157,7 @@ const App = () => {
               </Switch>
               <Route path="/" component={Footer} />
             </UserContext.Provider>
-          </ScrollToTop>       
+          </ScrollToTop>
         </Suspense>
       </BrowserRouter>
     </ApolloProvider>

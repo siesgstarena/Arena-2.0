@@ -244,7 +244,7 @@ const AppBar = () => {
                     raised
                     onClick={() => history.push('/auth/signin')}
                   >
-                  Sign In
+                    Sign In
                   </Button>
                 )
                 : <span />

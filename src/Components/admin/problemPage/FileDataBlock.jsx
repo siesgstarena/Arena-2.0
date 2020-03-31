@@ -19,7 +19,7 @@ const DataBlock = ({ title, fileLink }) => (
     </div>
     <Body1 className="pa2 ma2">
       <a href={`${fileLink}`} className="no-underline gray">
-      Click to download the file
+        Click to download the file
       </a>
     </Body1>
   </div>

@@ -46,7 +46,7 @@ const UNI04 = () => {
         To know more about pseudo code visit
         {' '}
         <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
-.
+        .
       </Body1>
       <Headline5 className="black mb3 mt3">Let&apos;s write our pseudo code!</Headline5>
       <Body1 className="ma0 mb2">

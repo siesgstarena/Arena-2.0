@@ -46,9 +46,9 @@ const Forgot = () => {
             Reset Password
           </Headline4>
           <Body1 className="mid-gray">
-          To reset your password, you need to provide us your email address.
-          We will send you an email with a link for resetting your password.
-          You may need to check your spam folder or unblock codechef@siesgst.ac.in
+            To reset your password, you need to provide us your email address.
+            We will send you an email with a link for resetting your password.
+            You may need to check your spam folder or unblock codechef@siesgst.ac.in
           </Body1>
         </Cell>
         <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>

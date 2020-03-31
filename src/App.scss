@@ -10,6 +10,9 @@
 @import '@material/react-notched-outline/index.scss';
 @import '@material/react-list/index.scss';
 @import '@material/react-snackbar/index.scss';
+@import '../node_modules/@material/react-menu-surface/dist/menu-surface.css';
+@import '../node_modules/@material/react-menu/dist/menu.css';
+@import '../node_modules/@material/react-select/dist/select.css';
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */

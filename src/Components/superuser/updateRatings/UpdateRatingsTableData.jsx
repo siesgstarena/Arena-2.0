@@ -23,7 +23,7 @@ const UpdateRatingsTableData = ({ user }) => {
         >
           <Input
             value={rating}
-            id={user.profileId}
+            id={user.rank}
             onChange={e => setRating(e.target.value)}
           />
         </TextField>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Headline6, Headline4 } from '@material/react-typography';
 import { currentContestsArray, pastContestsArray } from './contestsArray';
 import ContestsTable from './ContestsTable';
+import '../../../common/Table/index.scss';
 import 'tachyons';
 
 const ContestsScehdule = () => (

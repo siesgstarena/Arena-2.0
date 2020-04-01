@@ -5,63 +5,64 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
 import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
+import AppBar from './Components/common/AppBar/index';
+import ScrollToTop from './ScrollToTop';
+import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import UserContext from './Contexts/UserContext';
 import './App.scss';
+
+const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const SignIn = lazy(() => import('./Components/auth/signin/index'));
+const SignUp = lazy(() => import('./Components/auth/signup/index'));
+const Forgot = lazy(() => import('./Components/auth/forgot/index'));
+const Reset = lazy(() => import('./Components/auth/reset/index'));
+const ConfirmEmail = lazy(() => import('./Components/auth/confirmEmail/index'));
+const ContestsSchedule = lazy(() => import('./Components/drawer/contests/schedule/index'));
+const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboard/index'));
+const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
+const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
+const Scoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
+const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
+const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
+const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
+const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
+const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
+const PlaylistsUNI01 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI01'));
+const PlaylistsUNI02 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI02'));
+const PlaylistsUNI03 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI03'));
+const PlaylistsUNI04 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI04'));
+const PlaylistsUNI05 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI05'));
+const PlaylistsUNI06 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI06'));
+const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
+const Profile = lazy(() => import('./Components/user/profile/index'));
+const Settings = lazy(() => import('./Components/user/settings/index'));
+const About = lazy(() => import('./Components/footerPages/about/index'));
+const Competitions = lazy(() => import('./Components/footerPages/competitions/index'));
+const Contact = lazy(() => import('./Components/footerPages/contact/index'));
+const OurTeam = lazy(() => import('./Components/footerPages/ourTeam/index'));
+const Feedback = lazy(() => import('./Components/footerPages/feedback/index'));
+const FAQ = lazy(() => import('./Components/footerPages/faq/index'));
+const Privacy = lazy(() => import('./Components/footerPages/privacy/index'));
+const Search = lazy(() => import('./Components/search/index'));
+const AdminEditAnnoucements = lazy(() => import('./Components/admin/editAnnouncements/index'));
+const AdminContestDashboard = lazy(() => import('./Components/admin/contestDashboard/index'));
+const AdminPlagiarism = lazy(() => import('./Components/admin/plagiarism/index'));
+const AdminResetSubmissionStatus = lazy(() => import('./Components/admin/resetSubmissionStatus/index'));
+const AdminCreateProblem = lazy(() => import('./Components/admin/createProblem/index'));
+const AdminEditProblem = lazy(() => import('./Components/admin/editProblem/index'));
+const AdminProblemPage = lazy(() => import('./Components/admin/problemPage/index'));
+const AdminTestProblem = lazy(() => import('./Components/admin/testProblem/index'));
+const SuperuserRatings = lazy(() => import('./Components/superuser/ratings/index'));
+const SuperuserUpdateRatings = lazy(() => import('./Components/superuser/updateRatings/index'));
+const SuperuserContests = lazy(() => import('./Components/superuser/contests/index'));
+const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
+const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
+const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 // import Editor from './Components/drawer/blogs/create/editor';
 
 const App = () => {
-  const ScrollToTop = lazy(() => import('./ScrollToTop'));
-  const PrivateRoute = lazy(() => import('./PrivateRoute'));
-  const AppBar = lazy(() => import('./Components/common/AppBar/index'));
-  const SignIn = lazy(() => import('./Components/auth/signin/index'));
-  const SignUp = lazy(() => import('./Components/auth/signup/index'));
-  const Forgot = lazy(() => import('./Components/auth/forgot/index'));
-  const Reset = lazy(() => import('./Components/auth/reset/index'));
-  const ConfirmEmail = lazy(() => import('./Components/auth/confirmEmail/index'));
-  const ContestsSchedule = lazy(() => import('./Components/drawer/contests/schedule/index'));
-  const ContestTabBar = lazy(() => import('./Components/drawer/contests/common/ContestTabBar'));
-  const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboard/index'));
-  const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
-  const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
-  const Scoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
-  const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
-  const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
-  const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
-  const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
-  const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
-  const PlaylistsUNI01 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI01'));
-  const PlaylistsUNI02 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI02'));
-  const PlaylistsUNI03 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI03'));
-  const PlaylistsUNI04 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI04'));
-  const PlaylistsUNI05 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI05'));
-  const PlaylistsUNI06 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI06'));
-  const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
-  const Profile = lazy(() => import('./Components/user/profile/index'));
-  const Settings = lazy(() => import('./Components/user/settings/index'));
-  const About = lazy(() => import('./Components/footerPages/about/index'));
-  const Competitions = lazy(() => import('./Components/footerPages/competitions/index'));
-  const Contact = lazy(() => import('./Components/footerPages/contact/index'));
-  const OurTeam = lazy(() => import('./Components/footerPages/ourTeam/index'));
-  const Feedback = lazy(() => import('./Components/footerPages/feedback/index'));
-  const FAQ = lazy(() => import('./Components/footerPages/faq/index'));
-  const Privacy = lazy(() => import('./Components/footerPages/privacy/index'));
-  const Search = lazy(() => import('./Components/search/index'));
-  const AdminEditAnnoucements = lazy(() => import('./Components/admin/editAnnouncements/index'));
-  const AdminContestDashboard = lazy(() => import('./Components/admin/contestDashboard/index'));
-  const AdminPlagiarism = lazy(() => import('./Components/admin/plagiarism/index'));
-  const AdminResetSubmissionStatus = lazy(() => import('./Components/admin/resetSubmissionStatus/index'));
-  const AdminCreateProblem = lazy(() => import('./Components/admin/createProblem/index'));
-  const AdminEditProblem = lazy(() => import('./Components/admin/editProblem/index'));
-  const AdminProblemPage = lazy(() => import('./Components/admin/problemPage/index'));
-  const AdminTestProblem = lazy(() => import('./Components/admin/testProblem/index'));
-  const SuperuserRatings = lazy(() => import('./Components/superuser/ratings/index'));
-  const SuperuserUpdateRatings = lazy(() => import('./Components/superuser/updateRatings/index'));
-  const SuperuserContests = lazy(() => import('./Components/superuser/contests/index'));
-  const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
-  const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
-  const Footer = lazy(() => import('./Components/common/Footer/index'));
-  const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
   // const customFetch = (uri, options) => (fetch(uri, options)
   //   .then((response) => {
   //     console.log("response0", response);
@@ -94,17 +95,17 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Suspense fallback={<Spinner />}>
-          <ScrollToTop>
-            {/*
-                Here we are not using exact prop for components like AppBar and Footer,
-                meaning they will be rendered whenever their paths are matched with
-                some part of the URL. Hence in our case, AppBar and Footer will be rendered
-                on all the pages which has REACT_APP_BASE_ADDRESS in their URL
-            */}
-            <UserContext.Provider value={{ user, setUser }}>
-              <Route path="/" component={AppBar} />
-              <Route path="/contests/:contestId" component={ContestTabBar} />
+        <ScrollToTop>
+          {/*
+              Here we are not using exact prop for components like AppBar and Footer,
+              meaning they will be rendered whenever their paths are matched with
+              some part of the URL. Hence in our case, AppBar and Footer will be rendered
+              on all the pages which has REACT_APP_BASE_ADDRESS in their URL
+          */}
+          <UserContext.Provider value={{ user, setUser }}>
+            <Route path="/" component={AppBar} />
+            <Route path="/contests/:contestId" component={ContestTabBar} />
+            <Suspense fallback={<Spinner />}>
               <Switch>
                 <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
                 <Route path="/auth/signin" exact component={SignIn} />
@@ -155,10 +156,10 @@ const App = () => {
                 <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
                 <Route path="*" component={PageNotFound} />
               </Switch>
-              <Route path="/" component={Footer} />
-            </UserContext.Provider>
-          </ScrollToTop>
-        </Suspense>
+            </Suspense>
+            <Route path="/" component={Footer} />
+          </UserContext.Provider>
+        </ScrollToTop>
       </BrowserRouter>
     </ApolloProvider>
   );

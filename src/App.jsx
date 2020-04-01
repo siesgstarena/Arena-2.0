@@ -8,6 +8,7 @@ import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
 import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import UserContext from './Contexts/UserContext';
@@ -93,75 +94,77 @@ const App = () => {
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (
-    <ApolloProvider client={client}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <ScrollToTop>
-          {/*
-              Here we are not using exact prop for components like AppBar and Footer,
-              meaning they will be rendered whenever their paths are matched with
-              some part of the URL. Hence in our case, AppBar and Footer will be rendered
-              on all the pages which has REACT_APP_BASE_ADDRESS in their URL
-          */}
-          <UserContext.Provider value={{ user, setUser }}>
-            <Route path="/" component={AppBar} />
-            <Route path="/contests/:contestId" component={ContestTabBar} />
-            <Suspense fallback={<Spinner />}>
-              <Switch>
-                <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
-                <Route path="/auth/signin" exact component={SignIn} />
-                <Route path="/auth/signup" exact component={SignUp} />
-                <Route path="/auth/forgot" exact component={Forgot} />
-                <Route path="/auth/reset/:key" exact component={Reset} />
-                <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
-                <Route path="/contests" exact component={ContestsSchedule} />
-                <Route path="/contests/:contestId" exact component={ContestDashboard} />
-                <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-                <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
-                <Route path="/ratings" exact component={Ratings} />
-                <Route path="/blog" exact component={BlogsList} />
-                {/* <Route path="/blog/create" exact component={Editor} /> */}
-                <Route path="/problem-set" exact component={ProblemSet} />
-                <Route path="/playlists" exact component={PlaylistsWelcomePage} />
-                <Route path="/playlists/home" exact component={PlaylistsHomePage} />
-                <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
-                <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
-                <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
-                <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
-                <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
-                <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
-                <Route path="/goodies" exact component={Goodies} />
-                <Route path="/profile/:id/settings" exact component={Settings} />
-                <Route path="/profile/:id" exact component={Profile} />
-                <Route path="/about" exact component={About} />
-                <Route path="/competitions" exact component={Competitions} />
-                <Route path="/contact" exact component={Contact} />
-                <Route path="/our-team" exact component={OurTeam} />
-                <Route path="/feedback" exact component={Feedback} />
-                <Route path="/faq" exact component={FAQ} />
-                <Route path="/privacy" exact component={Privacy} />
-                <Route path="/search" exact component={Search} />
-                <PrivateRoute path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
-                <PrivateRoute path="/admin/:contestId" exact component={AdminContestDashboard} />
-                <PrivateRoute path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
-                <PrivateRoute path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
-                <PrivateRoute path="/admin/:contestId/create" exact component={AdminCreateProblem} />
-                <PrivateRoute path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
-                <PrivateRoute path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
-                <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
-                <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
-                <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
-                <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
-                <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
-                <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
-                <Route path="*" component={PageNotFound} />
-              </Switch>
-            </Suspense>
-            <Route path="/" component={Footer} />
-          </UserContext.Provider>
-        </ScrollToTop>
-      </BrowserRouter>
-    </ApolloProvider>
+    <ErrorBoundary>
+      <ApolloProvider client={client}>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <ScrollToTop>
+            {/*
+                Here we are not using exact prop for components like AppBar and Footer,
+                meaning they will be rendered whenever their paths are matched with
+                some part of the URL. Hence in our case, AppBar and Footer will be rendered
+                on all the pages which has REACT_APP_BASE_ADDRESS in their URL
+            */}
+            <UserContext.Provider value={{ user, setUser }}>
+              <Route path="/" component={AppBar} />
+              <Route path="/contests/:contestId" component={ContestTabBar} />
+              <Suspense fallback={<Spinner />}>
+                <Switch>
+                  <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
+                  <Route path="/auth/signin" exact component={SignIn} />
+                  <Route path="/auth/signup" exact component={SignUp} />
+                  <Route path="/auth/forgot" exact component={Forgot} />
+                  <Route path="/auth/reset/:key" exact component={Reset} />
+                  <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
+                  <Route path="/contests" exact component={ContestsSchedule} />
+                  <Route path="/contests/:contestId" exact component={ContestDashboard} />
+                  <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+                  <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+                  <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
+                  <Route path="/ratings" exact component={Ratings} />
+                  <Route path="/blog" exact component={BlogsList} />
+                  {/* <Route path="/blog/create" exact component={Editor} /> */}
+                  <Route path="/problem-set" exact component={ProblemSet} />
+                  <Route path="/playlists" exact component={PlaylistsWelcomePage} />
+                  <Route path="/playlists/home" exact component={PlaylistsHomePage} />
+                  <Route path="/playlists/topic/UNI01" exact component={PlaylistsUNI01} />
+                  <Route path="/playlists/topic/UNI02" exact component={PlaylistsUNI02} />
+                  <Route path="/playlists/topic/UNI03" exact component={PlaylistsUNI03} />
+                  <Route path="/playlists/topic/UNI06" exact component={PlaylistsUNI06} />
+                  <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
+                  <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
+                  <Route path="/goodies" exact component={Goodies} />
+                  <Route path="/profile/:id/settings" exact component={Settings} />
+                  <Route path="/profile/:id" exact component={Profile} />
+                  <Route path="/about" exact component={About} />
+                  <Route path="/competitions" exact component={Competitions} />
+                  <Route path="/contact" exact component={Contact} />
+                  <Route path="/our-team" exact component={OurTeam} />
+                  <Route path="/feedback" exact component={Feedback} />
+                  <Route path="/faq" exact component={FAQ} />
+                  <Route path="/privacy" exact component={Privacy} />
+                  <Route path="/search" exact component={Search} />
+                  <PrivateRoute path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+                  <PrivateRoute path="/admin/:contestId" exact component={AdminContestDashboard} />
+                  <PrivateRoute path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
+                  <PrivateRoute path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
+                  <PrivateRoute path="/admin/:contestId/create" exact component={AdminCreateProblem} />
+                  <PrivateRoute path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
+                  <PrivateRoute path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
+                  <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
+                  <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
+                  <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
+                  <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
+                  <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
+                  <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
+                  <Route path="*" component={PageNotFound} />
+                </Switch>
+              </Suspense>
+              <Route path="/" component={Footer} />
+            </UserContext.Provider>
+          </ScrollToTop>
+        </BrowserRouter>
+      </ApolloProvider>
+    </ErrorBoundary>
   );
 };
 

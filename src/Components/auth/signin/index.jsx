@@ -20,8 +20,27 @@ const SignIn = () => {
   const { setUser } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
+  // const isMountedRef = useRef(true);
   const { state } = location;
   useRedirectLoggedInUser();
+
+  // useEffect(() => {
+  //   isMountedRef.current = true;
+  //   return () => {
+  //     isMountedRef.current = false;
+  //     console.log("unmounted", isMountedRef.current);
+  //   }
+  // }, []);
+  // console.log(isMountedRef.current);
+
+  useEffect(() => {
+    if (state && state.isSessionExpired) {
+      setUser(null);
+      delete state.isSessionExpired;
+      history.replace({ location, state });
+    }
+  }, [setUser, state, history, location]);
+
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
@@ -37,23 +56,6 @@ const SignIn = () => {
 
 
   const client = useApolloClient();
-  // const [getDog, { loading, data, error, called }] = useLazyQuery(GET_USER_DETAILS_ON_LOGIN,
-  // { variables: { email, password } });
-  // if (loading) {
-  //   console.log(loading);
-  // }
-  // if (error) {
-  //   console.log(error);
-  // }
-
-  // if (data && data.login && called) {
-  //   console.log(data);
-  // }
-  // if ((!data || !data.login) && called) {
-  //   console.log('invalid data');
-  // }
-
-  //  console.log(loading, error, data);
 
   const handleSignIn = async () => {
     // getDog();
@@ -96,6 +98,7 @@ const SignIn = () => {
       setMessage('Invalid Credentials');
     }
   };
+
 
   const onInputChange = (setFunction, value) => {
     setFunction(value);

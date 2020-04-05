@@ -58,6 +58,7 @@ import SuperuserContests from './Components/superuser/contests/index';
 import SuperuserCreateContest from './Components/superuser/createContest/index';
 import SuperuserEditContest from './Components/superuser/editContest/index';
 import Footer from './Components/common/Footer/index';
+import Submission from './Components/drawer/contests/submit/index';
 // import PageNotFound from './Components/common/PageNotFound/index';
 import './App.scss';
 import Scoreboard from './Components/drawer/contests/scoreboard/index';
@@ -112,6 +113,7 @@ const App = () => {
               <Route path="/contests/:contestId" component={ContestTabBar} />
               <Route path="/contests/:contestId" exact component={ContestDashboard} />
               <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+              <Route path="/contests/:contestId/submit" exact component={Submission} />
               <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
               <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
               <Switch>

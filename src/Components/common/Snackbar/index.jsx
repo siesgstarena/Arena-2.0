@@ -1,19 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Snackbar } from '@material/react-snackbar';
-import SnackbarContext from '../../../Contexts/SnackbarContext';
 
-const CustomSnackbar = () => {
-  const { snackbarMessage, setSnackbarMessage } = useContext(SnackbarContext);
-  return (
-    <div>
-      {
-        // timeoutMS is the time in milliseconds after which the snackbar is automatically closed
-        snackbarMessage
-          ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
-          : null
-      }
-    </div>
-  );
+const CustomSnackbar = ({ snackbarMessage, setSnackbarMessage }) => (
+  <div>
+    {
+      // timeoutMS is the time in milliseconds after which the snackbar is automatically closed
+      snackbarMessage
+        ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
+        : null
+    }
+  </div>
+);
+
+CustomSnackbar.propTypes = {
+  setSnackbarMessage: PropTypes.func.isRequired,
+  snackbarMessage: PropTypes.string.isRequired,
 };
 
 export default CustomSnackbar;

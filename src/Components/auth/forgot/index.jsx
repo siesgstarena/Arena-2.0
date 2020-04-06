@@ -1,34 +1,24 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
-import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
-import UserContext from '../../../Contexts/UserContext';
 import { FORGOT_PASSWORD_MAIL } from '../../../graphql/queries';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const Forgot = () => {
   const [email, setEmail] = useState('');
-  const { user } = useContext(UserContext);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const history = useHistory();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
 
-  useEffect(() => {
-    // Not allowing the user to visit login page when the user is logged in
-    if (user) {
-      history.push(`/profile/${user.userId}`);
-    }
-  }, []);
-
   const sendResetLink = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Sending Email, Please Wait');
     const { data, error } = await client.query({
       query: FORGOT_PASSWORD_MAIL,
@@ -56,16 +46,16 @@ const Forgot = () => {
             Reset Password
           </Headline4>
           <Body1 className="mid-gray">
-          To reset your password, you need to provide us your email address.
-          We will send you an email with a link for resetting your password.
-          You may need to check your spam folder or unblock codechef@siesgst.ac.in
+            To reset your password, you need to provide us your email address.
+            We will send you an email with a link for resetting your password.
+            You may need to check your spam folder or unblock codechef@siesgst.ac.in
           </Body1>
         </Cell>
         <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
           <div className="pa3">
             <TextField
               label="Email address"
-              className="pa2 mb2 w-100"
+              className="mb2 w-100"
               outlined
             >
               <Input
@@ -74,7 +64,11 @@ const Forgot = () => {
                 onChange={e => setEmail(e.currentTarget.value)}
               />
             </TextField>
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             <Button className="mt4" onClick={sendResetLink} raised>
               Send Reset link
             </Button>

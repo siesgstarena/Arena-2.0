@@ -20,7 +20,7 @@ const ContestDetails = () => (
       Universe
     </Body1>
     <Body2 className="mid-gray">
-    Contest open for 1 year with playlists problems
+      Contest open for 1 year with playlists problems
     </Body2>
     <hr className="ml3 mr3" />
     {/* <Headline3 className="ma0">

@@ -1,7 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input, HelperText } from '@material/react-text-field';
 import {
@@ -12,28 +9,21 @@ import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
-import UserContext from '../../../Contexts/UserContext';
 import { SIGN_UP } from '../../../graphql/mutations';
 import PasswordField from '../../common/PasswordField/index';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const SignUp = () => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user } = useContext(UserContext);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const history = useHistory();
+  useRedirectLoggedInUser();
 
   const client = useApolloClient();
-
-  useEffect(() => {
-    // Not allowing the user to visit login page when the user is logged in
-    if (user) {
-      history.push(`/profile/${user.userId}`);
-    }
-  }, []);
 
   const onInputChange = (setFunction, value) => {
     setFunction(value);
@@ -42,7 +32,7 @@ const SignUp = () => {
   };
 
   const handleSignUp = async () => {
-    setMessageType('info');
+    setMessageType('loading');
     setMessage('Registering user, Please Wait');
     const { data, error } = await client.mutate({
       mutation: SIGN_UP,
@@ -86,14 +76,14 @@ const SignUp = () => {
           </Headline4>
           <Body1 className="mid-gray">
             Your name and username will be made available publicly so that
-              other users can communicate with you.
+            other users can communicate with you.
           </Body1>
         </Cell>
         <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
           <div className="pa3">
             <TextField
               label="Full Name"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -104,7 +94,7 @@ const SignUp = () => {
             </TextField>
             <TextField
               label="Username"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -116,7 +106,7 @@ const SignUp = () => {
             <TextField
               label="Email address"
               helperText={<HelperText>Use your SIESGST student email account</HelperText>}
-              className="pa2 w-100"
+              className="w-100"
               outlined
             >
               <Input
@@ -132,10 +122,14 @@ const SignUp = () => {
               label="Password"
               setPassword={setPassword}
             />
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             <Body2 className="mid-gray ma3 ml0">
               By Signing up, you agree with our&nbsp;
-              <span className="dim pointer" onClick={() => history.push('/privacy')}>
+              <span className="dim pointer" role="presentation" onClick={() => history.push('/privacy')}>
                 privacy policy
               </span>
             </Body2>

@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, useCallback,
+} from 'react';
 import TextField, { Input } from '@material/react-text-field';
 import PropTypes from 'prop-types';
 import Container from './Container';
@@ -15,7 +17,7 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
 
 
   // The following function is used to remove an option from selectedOptions
-  const removeOption = (option) => {
+  const removeOption = useCallback((option) => {
     // Removing the option in consideration from selectedOptions
     selectedOptionsInternal.current = selectedOptionsInternal.current.filter(
       optionPresent => optionPresent !== option,
@@ -26,10 +28,10 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
     )));
     // Updating the options in the parent component
     updateSelectedOptions(selectedOptionsInternal.current);
-  };
+  }, [updateSelectedOptions]);
 
   // To add a new option to selectedOptions
-  const addOption = (option) => {
+  const addOption = useCallback((option) => {
     if (!selectedOptionsInternal.current.includes(option)) {
       selectedOptionsInternal.current = [...selectedOptionsInternal.current, option];
       // Updating the mappedResults to display the changes on the frontend
@@ -39,10 +41,10 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
     }
     // Updating the options in the parent component
     updateSelectedOptions(selectedOptionsInternal.current);
-  };
+  }, [removeOption, updateSelectedOptions]);
 
   // The following function is used to map the options to be displayed to the user
-  const mapResults = (optionsRecieved) => {
+  const mapResults = useCallback((optionsRecieved) => {
     const mappedOptions = optionsRecieved.map((option, index) => {
       if ((index + 1) % 2 === 0) {
         return (
@@ -58,7 +60,7 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
       );
     });
     return mappedOptions;
-  };
+  }, [addOption]);
 
 
   // The following effect is used to map the options when the component is mounted
@@ -67,7 +69,7 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
     setMappedSelectedOptions(selectedOptionsInternal.current.map(value => (
       <SelectedItemBox option={value} removeOption={removeOption} key={value} />
     )));
-  }, []);
+  }, [options, removeOption, mapResults]);
 
   const onSearchChange = (e) => {
     const searchValue = e.target.value;

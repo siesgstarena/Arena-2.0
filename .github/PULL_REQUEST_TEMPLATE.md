@@ -1,7 +1,18 @@
-Thank you for contributing to Arena-2.0. Before pressing the "Create Pull Request" button, please provide the following:
+## Description of the change
 
-- [ ] A description about what and why you are contributing, even if it's trivial.
+> Description here
 
-- [ ] The issue number(s) or PR number(s) in the description if you are contributing in response to those.
+## Type Of Change
+- [ ] Bug Fix (non-breaking change that fixes an issue)
+- [ ] New Feature (non-breaking change that adds functionality)
+- [ ] Breaking Change (fix or feature that would cause existing functionality to not work as expected)
 
-- [ ] If applicable, unit tests.
+## Related Issues
+
+> Fix [#<ISSUE_NUMBER>](<ISSUE_LINK>) 
+
+## Development & Code Review 
+- [ ] Fixed all the Eslint errors (run `npm run lint-fix`)
+- [ ] All ESLint rules passes locally (run `npm run lint`)
+- [ ] The code changed/added has been covered with tests
+- [ ] All the test cases added/changed are passing

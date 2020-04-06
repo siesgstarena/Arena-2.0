@@ -10,6 +10,9 @@
 @import '@material/react-notched-outline/index.scss';
 @import '@material/react-list/index.scss';
 @import '@material/react-snackbar/index.scss';
+@import '../node_modules/@material/react-menu-surface/dist/menu-surface.css';
+@import '../node_modules/@material/react-menu/dist/menu.css';
+@import '../node_modules/@material/react-select/dist/select.css';
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
@@ -21,30 +24,29 @@
                                   supported by Chrome, Opera and Firefox */
 }
 
-.text-area-border {
-  // It gives a gray border color to textarea
-  border-color: rgba(0, 0, 0, 0.24) !important;
+.text-area-width-100 {
+  width: 100%;
 }
 
-.text-area-border:hover:not(.mdc-text-field--focused) {
-  // It makes the color of the textarea border color to black when we hover on it
-  border-color: black !important;
-}
+// .text-area-border:hover:not(.mdc-text-field--focused) {
+//   // It makes the color of the textarea border color to black when we hover on it
+//   border-color: black !important;
+// }
 
-.mdc-text-field--focused {
-  // It makes the border color to 6200EE when we click on the textarea
-  border-color: #6200EE !important;
-}
+// .mdc-text-field--focused {
+//   // It makes the border color to 6200EE when we click on the textarea
+//   border-color: #6200EE !important;
+// }
 
-.mdc-text-field--textarea {
-  // To set the outer border radius of textarea
-  border-radius: 4px !important;
-}
+// .mdc-text-field--textarea {
+//   // To set the outer border radius of textarea
+//   border-radius: 4px !important;
+// }
 
-.mdc-text-field--textarea .mdc-text-field__input {
-  // To set the inner border radius of textarea(input tag)
-  border-radius: 4px !important;
-}
+// .mdc-text-field--textarea .mdc-text-field__input {
+//   // To set the inner border radius of textarea(input tag)
+//   border-radius: 4px !important;
+// }
 
 .button-right {
   margin-left: 'auto';

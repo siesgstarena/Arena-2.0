@@ -1,0 +1,14 @@
+.page-block {
+  width: 2.5em;
+  height: 2.5em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid purple;
+  cursor: pointer;
+}
+
+.page-block:hover {
+  background: #f0e8ff;
+  color: purple;
+}

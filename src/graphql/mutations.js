@@ -30,3 +30,33 @@ export const RESET_PASSWORD = gql`
     }
   }
 `;
+
+export const UPDATE_ANNOUNCEMENT = gql`
+mutation UpdateAnnouncement($code: String!, $announcement: String!) {
+  updateAnnouncement(code: $code,announcement: $announcement){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const CREATE_CONTEST = gql`
+mutation CreateContest($code: String!,$type: String!, $name: String!,$description: String!, $startsAt: String!, $endsAt:String!, $contestAdmin:[String!]!, $solutionVisibility:String!) {
+  createContest(code: $code, type: $type, name: $name, description:$description, startsAt: $startsAt,endsAt: $endsAt,contestAdmin: $contestAdmin,solutionVisibility: $solutionVisibility){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const RESET_SUBMISSION = gql`
+mutation ResetSubmission($id: String!, $status:String!) {
+  resetSubmission(_id:$id, status:$status) {
+    code
+    success
+    message
+  }
+}
+`;

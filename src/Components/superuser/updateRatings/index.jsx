@@ -1,13 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Headline4 } from '@material/react-typography';
 import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import UpdateRatingsTable from './UpdateRatingsTable';
 import AlertBox from '../../common/AlertBox/index';
-import SnackbarContext from '../../../Contexts/SnackbarContext';
 
 const UpdateRatings = () => {
-  const { setSnackbarMessage } = useContext(SnackbarContext);
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,7 +30,6 @@ const UpdateRatings = () => {
         content="Are you sure you want to update the ratings?"
         onAccept={() => {
           history.push('/superuser/ratings/');
-          setSnackbarMessage('Ratings successfully updated');
         }}
       />
     </div>

@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useContext, useEffect } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
@@ -8,55 +5,91 @@ import TextField, { Input } from '@material/react-text-field';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
-import { GET_USER_ID } from '../../../graphql/queries';
+import { GET_USER_DETAILS_ON_LOGIN } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
 import UserContext from '../../../Contexts/UserContext';
 import PasswordField from '../../common/PasswordField/index';
+import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
-
+  useRedirectLoggedInUser();
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
   // This is done because when the user logouts we need to display successfully logged out message
-    if (state) {
-      if (state.message && state.messageType) {
-        setMessageType(state.messageType);
-        setMessage(state.message);
-      }
+    if (state && state.message && state.messageType) {
+      setMessageType(state.messageType);
+      setMessage(state.message);
+      delete state.message;
+      delete state.messageType;
+      history.replace({ location, state });
     }
-    // Not allowing the user to visit login page when the user is logged in
-    if (user) {
-      history.push(`/profile/${user.userId}`);
-    }
-  }, []);
+  }, [state, history, location]);
 
 
   const client = useApolloClient();
+  // const [getDog, { loading, data, error, called }] = useLazyQuery(GET_USER_DETAILS_ON_LOGIN,
+  // { variables: { email, password } });
+  // if (loading) {
+  //   console.log(loading);
+  // }
+  // if (error) {
+  //   console.log(error);
+  // }
+
+  // if (data && data.login && called) {
+  //   console.log(data);
+  // }
+  // if ((!data || !data.login) && called) {
+  //   console.log('invalid data');
+  // }
+
+  //  console.log(loading, error, data);
 
   const handleSignIn = async () => {
-    setMessageType('info');
+    // getDog();
+    setMessageType('loading');
     setMessage('Logging In, Please Wait');
     const { data, error } = await client.query({
-      query: GET_USER_ID,
+      query: GET_USER_DETAILS_ON_LOGIN,
       variables: { email, password },
+      // errorPolicy: 'none',
+      // onError: ({ networkError, graphqlError }) => {
+      //   console.log(networkError, graphqlError);
+      //   setMessageType('error');
+      //   setMessage('Database error encountered');
+      // },
     });
     if (error) {
+      // console.log(error.graphQLErrors);
       setMessageType('error');
       setMessage('Database error encountered');
       return;
     }
     if (data.login.userId) {
-      setUser({ userId: data.login.userId });
+      // console.log(data);
+      // console.log(data.error);
+      setUser({
+        userId: data.login.userId,
+        email: data.login.email,
+        name: data.login.name,
+      });
+      if (state && state.from) {
+        const previousPathname = state.from.pathname;
+        delete state.from;
+        history.replace({ location, state });
+        history.push(previousPathname);
+        return;
+      }
       history.push(`/profile/${data.login.userId}`);
     } else {
       setMessageType('error');
@@ -85,7 +118,7 @@ const SignIn = () => {
           <div className="pa3">
             <TextField
               label="Email address"
-              className="pa2 mb4 w-100"
+              className="mb4 w-100"
               outlined
             >
               <Input
@@ -100,14 +133,18 @@ const SignIn = () => {
               label="Password"
               setPassword={setPassword}
             />
-            <MessageCard messageType={messageType} message={message} />
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
             {/* When Forgot Password is clicked, we are redirected to forgot route */}
             <Body2 className="mid-gray dim pointer" onClick={() => history.push('/auth/forgot')}>
               Forgot Password?
             </Body2>
             <Body1 className="mid-gray">
               Don&apos;t have an account?
-              <span className="dim pointer" onClick={() => history.push('/auth/signup')}>
+              <span className="dim pointer" role="presentation" onClick={() => history.push('/auth/signup')}>
               &nbsp;Let&apos;s create one
               </span>
             </Body1>

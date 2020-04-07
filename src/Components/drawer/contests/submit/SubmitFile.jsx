@@ -133,16 +133,16 @@ export default function SubmitFile() {
         <Row>
           {/* </Row>
         <Row> */}
-          <Cell desktopColumns="12" tabletColumns="9" phoneColumns="5">
+          <Cell className="pa2" desktopColumns="12" tabletColumns="9" phoneColumns="5">
             {
             (uploadMethod === 'file')
               ? (
-                <div className="pa2 mt2 w-100">
+                <div className="mt2">
                   <FileUpload id="file" label="Upload Solution" file={file} onChangeFunction={e => setFile(e.currentTarget.files[0])} />
                 </div>
-              )
+              ) // pa2 mt2 w-100
               : (
-                <div className="pt2 pb2 br2 ma2">
+                <div className="mb1">
                   <TextField
                     label="Enter your code here"
                     className="text-area-width-100"
@@ -157,7 +157,7 @@ export default function SubmitFile() {
                     />
                   </TextField>
                 </div>
-              )
+              ) // pt2 pb2 br2 ma2
           }
           </Cell>
         </Row>

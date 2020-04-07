@@ -24,7 +24,6 @@ export default function SubmitFile() {
   const [isUploading, setIsUploading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
-  // const [hasError, handleErrors] = useState(false);
 
   // const fileDetails = {
   //   'problem name': value,

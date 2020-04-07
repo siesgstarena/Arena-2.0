@@ -150,7 +150,7 @@ const App = () => {
         <Suspense fallback={<Spinner />}>
           <ScrollToTop>
             {/*
-                Here we are not using exact prop for components like AppBar and Footer,
+                Here we are not using exact pnprop for components like AppBar and Footer,
                 meaning they will be rendered whenever their paths are matched with
                 some part of the URL. Hence in our case, AppBar and Footer will be rendered
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL

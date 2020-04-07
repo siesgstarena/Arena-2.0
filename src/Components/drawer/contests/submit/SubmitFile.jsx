@@ -17,12 +17,14 @@ const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript
 export default function SubmitFile() {
 // initial State declaration
   const [value, setValue] = useState('default');
-  const [uploadMethod, setMethod] = useState('file');
+  const [uploadMethod, setUploadMethod] = useState('file');
   const [lang, setLang] = useState('default');
   const [file, setFile] = useState({});
   const [code, setCode] = useState('');
-  const [isUploading, setUpload] = useState(false);
-  const [hasError, handleErrors] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  // const [hasError, handleErrors] = useState(false);
 
   // const fileDetails = {
   //   'problem name': value,
@@ -33,27 +35,28 @@ export default function SubmitFile() {
   // };
 
   // functions to update state
-  const onSubmitTrigger = (loadValue) => { setUpload(loadValue); };
+  const onSubmitTrigger = (loadValue) => { setIsUploading(loadValue); };
 
   const onEnhancedChange = (_, item) => (setValue(item.getAttribute('data-value')));
 
   const onLangChange = (_, item) => (setLang(item.getAttribute('data-value')));
 
-  const onMethodChange = (_, item) => (setMethod(item.getAttribute('data-value')));
+  const onMethodChange = (_, item) => (setUploadMethod(item.getAttribute('data-value')));
   // function to check validation
   const validationCheck = () => {
     if (value !== 'default' && lang !== 'default' && (file.length !== 0 || code.length !== 0)) {
       onSubmitTrigger(true);
       // console.log(fileDetails);
     } else {
-      handleErrors(true);
+      setMessageType('error');
+      setMessage('Please select appropriate Problem/Language/Upload method and Upload valid file');
     }
   };
 
   // function to render loading page / the submit page
   if (isUploading) {
     return (
-      <div className="container">
+      <div className="">
         <h3>Hang in there, this may take some time... do not reload or close this page!</h3>
         <Spinner />
       </div>
@@ -61,18 +64,13 @@ export default function SubmitFile() {
   }
   return (
     <div className="">
-      {/* hasError value being checked to bring alert when it is true */}
-      {/* Alert is a mini component used here ,
-      we pass message and type of alert
-      and it sets it accordingly */}
-      {hasError
-        ? <MessageCard message="Select appropriate Problem/Language/Upload Method" messageType="error" />
-        // <Alert message="Select appropriate Problem/Language/Upload Method" type="error" />
-        : null }
+      <div className="w-100 ml4 mr2 pr5">
+        <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
+      </div>
       {/* form to get details of problem id, language, upload option and answer */}
       <Grid>
         <Row>
-          <Cell>
+          <Cell tabletColumns="2">
             <div className="">
               <Select
                 required
@@ -80,7 +78,7 @@ export default function SubmitFile() {
                 enhanced
                 outlined
                 label="Problem"
-                className="sel w-100"
+                className="w-100"
                 value={value}
                 onEnhancedChange={onEnhancedChange}
               >
@@ -93,7 +91,7 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell>
+          <Cell tabletColumns="3">
             <div className="">
               <Select
                 notchedOutlineClassName="pa2"
@@ -114,7 +112,7 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell>
+          <Cell tabletColumns="3">
             <div className="">
               <Select
                 required
@@ -135,16 +133,16 @@ export default function SubmitFile() {
         <Row>
           {/* </Row>
         <Row> */}
-          <Cell>
+          <Cell desktopColumns="12" tabletColumns="9" phoneColumns="5">
             {
             (uploadMethod === 'file')
               ? (
-                <div className="pa2 mt1 w-100">
+                <div className="pa2 mt2 w-100">
                   <FileUpload id="file" label="Upload Solution" file={file} onChangeFunction={e => setFile(e.currentTarget.files[0])} />
                 </div>
               )
               : (
-                <div className="codebox w-100 pt2 pl1 br2 ma2 w-100">
+                <div className="pt2 pb2 br2 ma2">
                   <TextField
                     label="Enter your code here"
                     className="text-area-width-100"
@@ -166,7 +164,7 @@ export default function SubmitFile() {
         <Row>
           <Cell>
             <button
-              className=" ml2 mdc-button btn mdc-ripple-upgraded mdc-button--raised"
+              className="ml2 mdc-button mdc-ripple-upgraded mdc-button--raised"
               type="submit"
               onClick={() => { validationCheck(); }}
             >

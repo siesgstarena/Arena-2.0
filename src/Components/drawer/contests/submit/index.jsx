@@ -3,7 +3,6 @@ import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ContestDetails from '../common/ContestDetails';
 import Announcements from '../common/Announcements';
 import SubmitFile from './SubmitFile';
-import './SubmitFile.css';
 import 'tachyons';
 
 // Layout of Scoreboard page: DataTable , ContestDetails and Announcements

@@ -7,6 +7,7 @@ import CustomDrawer from './CustomDrawer';
 
 const AppBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <div>
       {
@@ -19,4 +20,4 @@ const AppBar = () => {
   );
 };
 
-export default AppBar;
+export default React.memo(AppBar);

@@ -105,7 +105,7 @@ const App = () => {
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL
             */}
             <UserContext.Provider value={{ user, setUser }}>
-              <Route path="/" component={AppBar} />
+              <Route path="/" render={() => <AppBar />} />
               <Route path="/contests/:contestId" component={ContestTabBar} />
               <Suspense fallback={<Spinner />}>
                 <Switch>

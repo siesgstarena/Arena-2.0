@@ -18,7 +18,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
   const mobileDevice = window.innerWidth < 480;
   const { user } = useContext(UserContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [coordinatesOfUserMenu, setCoordinatesOfUserMenu] = useState(null);
+  const [coordinatesOfUserMenu, setCoordinatesOfUserMenu] = useState({});
   const onUserIconClick = (event) => {
     setIsUserMenuOpen(true);
     setCoordinatesOfUserMenu({ x: event.clientX, y: event.clientY });

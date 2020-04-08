@@ -159,7 +159,7 @@ const App = () => {
                   <Route path="*" component={PageNotFound} />
                 </Switch>
               </Suspense>
-              <Route path="/" component={Footer} />
+              <Route path="/" render={() => <Footer />} />
             </UserContext.Provider>
           </ScrollToTop>
         </BrowserRouter>

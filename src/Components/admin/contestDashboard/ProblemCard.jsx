@@ -115,4 +115,4 @@ ProblemCard.propTypes = {
   refetch: PropTypes.func.isRequired,
 };
 
-export default ProblemCard;
+export default React.memo(ProblemCard);

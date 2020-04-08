@@ -44,4 +44,4 @@ ProblemsCardArray.propTypes = {
   refetch: PropTypes.func.isRequired,
 };
 
-export default ProblemsCardArray;
+export default React.memo(ProblemsCardArray);

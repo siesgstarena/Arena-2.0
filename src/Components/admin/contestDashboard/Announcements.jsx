@@ -35,4 +35,4 @@ Announcements.propTypes = {
   announcement: PropTypes.string,
 };
 
-export default Announcements;
+export default React.memo(Announcements);

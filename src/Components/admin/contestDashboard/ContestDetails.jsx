@@ -43,4 +43,4 @@ ContestDetails.propTypes = {
   contest: PropTypes.object.isRequired,
 };
 
-export default ContestDetails;
+export default React.memo(ContestDetails);

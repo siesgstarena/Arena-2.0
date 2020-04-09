@@ -7,7 +7,7 @@ const contestDetails = [
         id: 1,
         points: 100,
         title: 'UNI01',
-        name: 'Swedish Mafia',
+        name: 'Swedish Mafia Swedish',
       },
       {
         id: 2,

@@ -12,7 +12,7 @@ import Spinner from '../../../common/Spinner';
 const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript'];
 
 
-export default function SubmitFile() {
+const SubmitFile = () => {
 // initial State declaration
   const [value, setValue] = useState('default');
   const [uploadMethod, setUploadMethod] = useState('file');
@@ -74,11 +74,11 @@ export default function SubmitFile() {
           </Cell>
         </Row>
         <Row>
-          <Cell tabletColumns="4">
-            <div className="">
+          <Cell tabletColumns="5">
+            <div className="" style={{ overflow: 'hidden' }}>
               <Select
                 required
-                notchedOutlineClassName="pa2"
+                notchedOutlineClassName="pt2 pb2"
                 enhanced
                 outlined
                 label="Problem"
@@ -95,10 +95,10 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell tabletColumns="4">
-            <div className="">
+          <Cell tabletColumns="3">
+            <div className="" style={{ overflow: 'hidden' }}>
               <Select
-                notchedOutlineClassName="pa2"
+                notchedOutlineClassName="pt2 pb2"
                 required
                 label="Language"
                 enhanced
@@ -116,11 +116,11 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell tabletColumns="8">
-            <div className="">
+          <Cell tabletColumns="9">
+            <div className="" style={{ overflow: 'hidden' }}>
               <Select
                 required
-                notchedOutlineClassName="pa2"
+                notchedOutlineClassName="pt2 pb2"
                 label="Upload Type"
                 enhanced
                 outlined
@@ -135,18 +135,16 @@ export default function SubmitFile() {
           </Cell>
         </Row>
         <Row>
-          {/* </Row>
-        <Row> */}
-          <Cell className="pa2" desktopColumns="12" tabletColumns="9" phoneColumns="5">
+          <Cell desktopColumns="12" tabletColumns="9" phoneColumns="5">
             {
             (uploadMethod === 'file')
               ? (
-                <div className="mt2">
+                <div className="mt3">
                   <FileUpload id="file" label="Upload Solution" file={file} onChangeFunction={e => setFile(e.currentTarget.files[0])} />
                 </div>
-              ) // pa2 mt2 w-100
+              )
               : (
-                <div className="mb1">
+                <div className=" mt3 mb1">
                   <TextField
                     label="Enter your code here"
                     className="text-area-width-100"
@@ -161,7 +159,7 @@ export default function SubmitFile() {
                     />
                   </TextField>
                 </div>
-              ) // pt2 pb2 br2 ma2
+              )
           }
           </Cell>
         </Row>
@@ -169,7 +167,7 @@ export default function SubmitFile() {
           <Cell>
             <Button
               raised
-              className="ml2"
+              className="mt2"
               onClick={() => { validationCheck(); }}
             >
               Submit
@@ -190,4 +188,6 @@ export default function SubmitFile() {
 
     </div>
   );
-}
+};
+
+export default SubmitFile;

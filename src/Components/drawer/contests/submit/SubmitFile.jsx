@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
+import { Button } from '@material/react-button';
 import contestDetails from './contestDetails';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import Spinner from '../../../common/Spinner';
-import { Button } from '@material/react-button';
 
 // array to fetch the list of languages
 const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript'];

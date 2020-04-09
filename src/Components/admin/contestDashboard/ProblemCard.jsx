@@ -7,6 +7,7 @@ import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import loadingData from './loadingData';
 // import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const ProblemCard = ({
@@ -14,6 +15,7 @@ const ProblemCard = ({
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const problemNameOnLoading = loadingData.problems[0].name;
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the problem - "${name}"`;
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
@@ -83,17 +85,17 @@ const ProblemCard = ({
         &nbsp;
         {points}
       </Body1>
-      <Button style={{ color: '#555555' }} onClick={onTestClick}>
+      <Button style={{ color: '#555555' }} disabled={name === problemNameOnLoading} onClick={onTestClick}>
         Test Problem
       </Button>
-      <Button style={{ color: '#555555' }} onClick={onEditClick}>
+      <Button style={{ color: '#555555' }} disabled={name === problemNameOnLoading} onClick={onEditClick}>
         Edit Problem
       </Button>
-      <Button style={{ color: '#555555' }} onClick={onDeleteClick}>
+      <Button style={{ color: '#555555' }} disabled={name === problemNameOnLoading} onClick={onDeleteClick}>
         Delete Problem
       </Button>
       <br />
-      <Button style={{ color: '#555555' }} onClick={onResetStatusClick}>
+      <Button style={{ color: '#555555' }} disabled={name === problemNameOnLoading} onClick={onResetStatusClick}>
         Reset Submission Status
       </Button>
       <AlertBox
@@ -111,8 +113,8 @@ ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
-  refetch: PropTypes.func.isRequired,
+  setSnackbarMessage: PropTypes.func,
+  refetch: PropTypes.func,
 };
 
 export default React.memo(ProblemCard);

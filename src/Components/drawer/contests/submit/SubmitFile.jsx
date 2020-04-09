@@ -3,13 +3,11 @@ import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import contestDetails from './contestDetails';
-import '@material/react-menu-surface/dist/menu-surface.css';
-import '@material/react-menu/dist/menu.css';
-import '@material/react-select/dist/select.css';
-// import Alert from './Alert/Alert';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import Spinner from '../../../common/Spinner';
+import { Button } from '@material/react-button';
+
 // array to fetch the list of languages
 const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript'];
 
@@ -34,7 +32,6 @@ export default function SubmitFile() {
   // };
 
   // functions to update state
-  const onSubmitTrigger = (loadValue) => { setIsUploading(loadValue); };
 
   const onEnhancedChange = (_, item) => (setValue(item.getAttribute('data-value')));
 
@@ -44,7 +41,7 @@ export default function SubmitFile() {
   // function to check validation
   const validationCheck = () => {
     if (value !== 'default' && lang !== 'default' && (file.length !== 0 || code.length !== 0)) {
-      onSubmitTrigger(true);
+      setIsUploading(true);
       // console.log(fileDetails);
     } else {
       setMessageType('error');
@@ -63,13 +60,21 @@ export default function SubmitFile() {
   }
   return (
     <div className="">
-      <div className="w-100 ml4 mr2 pr5">
-        <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
-      </div>
       {/* form to get details of problem id, language, upload option and answer */}
       <Grid>
         <Row>
-          <Cell tabletColumns="2">
+          <Cell tabletColumns="8" desktopColumns="12">
+            <div className="w-100 pl2 pr2">
+              <MessageCard
+                message={message}
+                messageType={messageType}
+                setMessageType={setMessageType}
+              />
+            </div>
+          </Cell>
+        </Row>
+        <Row>
+          <Cell tabletColumns="4">
             <div className="">
               <Select
                 required
@@ -90,7 +95,7 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell tabletColumns="3">
+          <Cell tabletColumns="4">
             <div className="">
               <Select
                 notchedOutlineClassName="pa2"
@@ -111,7 +116,7 @@ export default function SubmitFile() {
               </Select>
             </div>
           </Cell>
-          <Cell tabletColumns="3">
+          <Cell tabletColumns="8">
             <div className="">
               <Select
                 required
@@ -162,13 +167,13 @@ export default function SubmitFile() {
         </Row>
         <Row>
           <Cell>
-            <button
-              className="ml2 mdc-button mdc-ripple-upgraded mdc-button--raised"
-              type="submit"
+            <Button
+              raised
+              className="ml2"
               onClick={() => { validationCheck(); }}
             >
               Submit
-            </button>
+            </Button>
           </Cell>
         </Row>
       </Grid>

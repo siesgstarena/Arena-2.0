@@ -64,7 +64,7 @@ const SubmitFile = () => {
       <Grid>
         <Row>
           <Cell tabletColumns="8" desktopColumns="12">
-            <div className="w-100 pl2 pr2">
+            <div className="w-100">
               <MessageCard
                 message={message}
                 messageType={messageType}

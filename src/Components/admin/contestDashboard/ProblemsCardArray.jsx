@@ -40,8 +40,8 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
 
 ProblemsCardArray.propTypes = {
   problems: PropTypes.array.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
-  refetch: PropTypes.func.isRequired,
+  setSnackbarMessage: PropTypes.func,
+  refetch: PropTypes.func,
 };
 
-export default ProblemsCardArray;
+export default React.memo(ProblemsCardArray);

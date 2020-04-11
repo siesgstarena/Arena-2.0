@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Card from '@material/react-card';
 import MaterialIcon from '@material/react-material-icon';
 import PropTypes from 'prop-types';
@@ -91,4 +91,4 @@ MessageCard.propTypes = {
   setMessageType: PropTypes.func.isRequired,
 };
 
-export default MessageCard;
+export default memo(MessageCard);

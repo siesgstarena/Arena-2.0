@@ -36,4 +36,4 @@ Statistics.propTypes = {
   stats: PropTypes.object.isRequired,
 };
 
-export default Statistics;
+export default React.memo(Statistics);

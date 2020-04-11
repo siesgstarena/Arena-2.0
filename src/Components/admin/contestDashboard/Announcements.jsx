@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
 import ReactHtmlParser from 'react-html-parser';
+import loadingData from './loadingData';
 
 const Announcements = ({ announcement }) => {
   const history = useHistory();
@@ -24,7 +25,7 @@ const Announcements = ({ announcement }) => {
         </Body2>
       </div>
       <hr />
-      <Button className="mt1" onClick={onEditClick}>
+      <Button className="mt1" onClick={onEditClick} disabled={announcement === loadingData.announcement}>
         Edit
       </Button>
     </div>
@@ -35,4 +36,4 @@ Announcements.propTypes = {
   announcement: PropTypes.string,
 };
 
-export default Announcements;
+export default React.memo(Announcements);

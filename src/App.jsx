@@ -24,7 +24,8 @@ const ContestsSchedule = lazy(() => import('./Components/drawer/contests/schedul
 const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboard/index'));
 const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
 const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
-const Scoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
+const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/index'));
+const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
@@ -64,22 +65,9 @@ const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index')
 // import Editor from './Components/drawer/blogs/create/editor';
 
 const App = () => {
-  // const customFetch = (uri, options) => (fetch(uri, options)
-  //   .then((response) => {
-  //     console.log("response0", response);
-  //     if (response.status >= 300) {
-  //       // or handle 400 errors
-  //       console.log('Response1', response);
-  //       return Promise.reject(response.status);
-  //     }
-  //     console.log('Response2', response);
-  //     return response;
-  //   }));
-
   const httpLink = createHttpLink({
     uri: `${process.env.REACT_APP_SERVER_BASE_URL}/graphql`,
     credentials: 'include',
-    // fetch: customFetch,
   });
 
   const cache = new InMemoryCache();
@@ -99,7 +87,7 @@ const App = () => {
         <BrowserRouter basename={process.env.PUBLIC_URL}>
           <ScrollToTop>
             {/*
-                Here we are not using exact prop for components like AppBar and Footer,
+                Here we are not using exact pnprop for components like AppBar and Footer,
                 meaning they will be rendered whenever their paths are matched with
                 some part of the URL. Hence in our case, AppBar and Footer will be rendered
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL
@@ -119,7 +107,8 @@ const App = () => {
                   <Route path="/contests/:contestId" exact component={ContestDashboard} />
                   <Route path="/contests/:contestId/status" exact component={ContestStatus} />
                   <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-                  <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
+                  <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
+                  <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blog" exact component={BlogsList} />
                   {/* <Route path="/blog/create" exact component={Editor} /> */}

@@ -61,7 +61,7 @@ const SubmitFile = () => {
   return (
     <div className="">
       {/* form to get details of problem id, language, upload option and answer */}
-      <Grid>
+      <Grid className="pa0">
         <Row>
           <Cell tabletColumns="8" desktopColumns="12">
             <div className="w-100">

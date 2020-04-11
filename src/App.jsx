@@ -7,6 +7,58 @@ import { ApolloClient } from 'apollo-boost';
 import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
 import Spinner from './Components/common/Spinner/index';
 import UserContext from './Contexts/UserContext';
+// import SnackbarContext from './Contexts/SnackbarContext';
+// import AppBar from './Components/common/AppBar/index';
+// import CustomSnackbar from './Components/common/Snackbar/index';
+// import SignIn from './Components/auth/signin/index';
+// import SignUp from './Components/auth/signup/index';
+// import Forgot from './Components/auth/forgot/index';
+// import Reset from './Components/auth/reset/index';
+// import ConfirmEmail from './Components/auth/confirmEmail/index';
+// import ContestsSchedule from './Components/drawer/contests/schedule/index';
+// import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+// import ContestDashboard from './Components/drawer/contests/dashboard/index';
+// import ContestStatus from './Components/drawer/contests/status/index';
+// import ContestMySubmissions from './Components/drawer/contests/mySubmissions/index';
+// import Ratings from './Components/drawer/ratings/index';
+// import BlogsList from './Components/drawer/blogs/blogsList/index';
+// // import Editor from './Components/drawer/blogs/create/editor';
+// import ProblemSet from './Components/drawer/problemSet/index';
+// import PlaylistsWelcomePage from './Components/drawer/playlists/welcomePage/index';
+// import PlaylistsHomePage from './Components/drawer/playlists/homePage/index';
+// import PlaylistsUNI01 from './Components/drawer/playlists/topicExplanationPage/UNI01';
+// import PlaylistsUNI02 from './Components/drawer/playlists/topicExplanationPage/UNI02';
+// import PlaylistsUNI03 from './Components/drawer/playlists/topicExplanationPage/UNI03';
+// import PlaylistsUNI06 from './Components/drawer/playlists/topicExplanationPage/UNI06';
+// import PlaylistsUNI04 from './Components/drawer/playlists/topicExplanationPage/UNI04';
+// import PlaylistsUNI05 from './Components/drawer/playlists/topicExplanationPage/UNI05';
+// import Goodies from './Components/drawer/goodies/index';
+// import Profile from './Components/user/profile/index';
+// import Settings from './Components/user/settings/index';
+// import About from './Components/footerPages/about/index';
+// import Competitions from './Components/footerPages/competitions/index';
+// import Contact from './Components/footerPages/contact/index';
+// import OurTeam from './Components/footerPages/ourTeam/index';
+// import Feedback from './Components/footerPages/feedback/index';
+// import FAQ from './Components/footerPages/faq/index';
+// import Privacy from './Components/footerPages/privacy/index';
+// import Search from './Components/search/index';
+// import AdminEditAnnoucements from './Components/admin/editAnnouncements/index';
+// import AdminContestDashboard from './Components/admin/contestDashboard/index';
+// import AdminPlagiarism from './Components/admin/plagiarism/index';
+// import AdminResetSubmissionStatus from './Components/admin/resetSubmissionStatus/index';
+// import AdminCreateProblem from './Components/admin/createProblem/index';
+// import AdminEditProblem from './Components/admin/editProblem/index';
+// import AdminProblemPage from './Components/admin/problemPage/index';
+// import AdminTestProblem from './Components/admin/testProblem/index';
+// import SuperuserRatings from './Components/superuser/ratings/index';
+// import SuperuserUpdateRatings from './Components/superuser/updateRatings/index';
+// import SuperuserContests from './Components/superuser/contests/index';
+// import SuperuserCreateContest from './Components/superuser/createContest/index';
+// import SuperuserEditContest from './Components/superuser/editContest/index';
+// import Footer from './Components/common/Footer/index';
+// import Submission from './Components/drawer/contests/submit/index';
+// import PageNotFound from './Components/common/PageNotFound/index';
 import './App.scss';
 // import Editor from './Components/drawer/blogs/create/editor';
 
@@ -62,6 +114,7 @@ const App = () => {
   const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
   const Footer = lazy(() => import('./Components/common/Footer/index'));
   const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
+  const Submission = lazy(() => import('./Components/drawer/contests/submit/index'));
   // const customFetch = (uri, options) => (fetch(uri, options)
   //   .then((response) => {
   //     console.log("response0", response);
@@ -97,7 +150,7 @@ const App = () => {
         <Suspense fallback={<Spinner />}>
           <ScrollToTop>
             {/*
-                Here we are not using exact prop for components like AppBar and Footer,
+                Here we are not using exact pnprop for components like AppBar and Footer,
                 meaning they will be rendered whenever their paths are matched with
                 some part of the URL. Hence in our case, AppBar and Footer will be rendered
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL
@@ -105,6 +158,11 @@ const App = () => {
             <UserContext.Provider value={{ user, setUser }}>
               <Route path="/" component={AppBar} />
               <Route path="/contests/:contestId" component={ContestTabBar} />
+              {/* <Route path="/contests/:contestId" exact component={ContestDashboard} />
+              <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+              <Route path="/contests/:contestId/submit" exact component={Submission} />
+              <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+              <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} /> */}
               <Switch>
                 <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
                 <Route path="/auth/signin" exact component={SignIn} />
@@ -117,6 +175,7 @@ const App = () => {
                 <Route path="/contests/:contestId/status" exact component={ContestStatus} />
                 <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
                 <Route path="/contests/:contestId/scoreboard" exact component={Scoreboard} />
+                <Route path="/contests/:contestId/submit" exact component={Submission} />
                 <Route path="/ratings" exact component={Ratings} />
                 <Route path="/blog" exact component={BlogsList} />
                 {/* <Route path="/blog/create" exact component={Editor} /> */}

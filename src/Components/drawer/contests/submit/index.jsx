@@ -11,9 +11,7 @@ const Submission = () => (
   <Grid className="mw9 center">
     <Row>
       <Cell desktopColumns={9} tabletColumns={8}>
-        <Cell className="button">
-          <SubmitFile />
-        </Cell>
+        <SubmitFile />
       </Cell>
       <Cell desktopColumns={3} tabletColumns={8}>
         <Cell>

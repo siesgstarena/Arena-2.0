@@ -8,7 +8,7 @@ import Button from '@material/react-button';
 import { GET_USER_DETAILS_ON_LOGIN } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
-import UserContext from '../../../Contexts/UserContext';
+import AuthContext from '../../../Contexts/AuthContext';
 import PasswordField from '../../common/PasswordField/index';
 import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
@@ -17,29 +17,25 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { setUser } = useContext(UserContext);
+  const { authDispatch } = useContext(AuthContext);
   const history = useHistory();
   const location = useLocation();
   // const isMountedRef = useRef(true);
   const { state } = location;
+  // useRedirectLoggenInUser is used to redirect the user to
+  // profile page if they are already signed in.
   useRedirectLoggedInUser();
 
-  // useEffect(() => {
-  //   isMountedRef.current = true;
-  //   return () => {
-  //     isMountedRef.current = false;
-  //     console.log("unmounted", isMountedRef.current);
-  //   }
-  // }, []);
-  // console.log(isMountedRef.current);
-
   useEffect(() => {
+    // This effect is used to LOGOUT the user if the session of the user is expired
     if (state && state.isSessionExpired) {
-      setUser(null);
+      authDispatch({
+        type: 'LOGOUT',
+      });
       delete state.isSessionExpired;
       history.replace({ location, state });
     }
-  }, [setUser, state, history, location]);
+  }, [state, history, authDispatch, location]);
 
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
@@ -80,10 +76,11 @@ const SignIn = () => {
     if (data.login.userId) {
       // console.log(data);
       // console.log(data.error);
-      setUser({
-        userId: data.login.userId,
-        email: data.login.email,
-        name: data.login.name,
+      authDispatch({
+        type: 'LOGIN',
+        payload: {
+          user: data.login,
+        },
       });
       if (state && state.from) {
         const previousPathname = state.from.pathname;

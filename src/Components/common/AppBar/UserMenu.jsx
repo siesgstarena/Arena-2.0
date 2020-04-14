@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import UserContext from '../../../Contexts/UserContext';
+import AuthContext from '../../../Contexts/AuthContext';
 
 const UserMenu = ({ setIsUserMenuOpen, isUserMenuOpen, coordinatesOfUserMenu }) => {
-  const { user, setUser } = useContext(UserContext);
+  const { authState, authDispatch } = useContext(AuthContext);
   const userMenuOptions = [
     {
       name: 'New Post',
@@ -17,15 +17,17 @@ const UserMenu = ({ setIsUserMenuOpen, isUserMenuOpen, coordinatesOfUserMenu }) 
     },
     {
       name: 'My Profile',
-      path: `/profile/${user.userId}`,
+      path: `/profile/${authState.user.userId}`,
     },
     {
       name: 'Settings',
-      path: `/profile/${user.userId}/settings`,
+      path: `/profile/${authState.user.userId}/settings`,
     },
   ];
   const handleLogoutClick = () => {
-    setUser(null);
+    authDispatch({
+      type: 'LOGOUT',
+    });
   };
 
   return (

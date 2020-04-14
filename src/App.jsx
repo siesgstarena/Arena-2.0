@@ -1,17 +1,17 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useReducer } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
-import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
 import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
-import UserContext from './Contexts/UserContext';
+import AuthContext from './Contexts/AuthContext';
+import authReducer from './reducers/authReducer';
 import './App.scss';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
@@ -77,7 +77,15 @@ const App = () => {
     cache,
   });
 
-  const [user, setUser] = useStateWithLocalStroage('user', null);
+  let initialState = {
+    user: null,
+  };
+
+  if (localStorage.getItem('user')) {
+    initialState = { ...initialState, user: JSON.parse(localStorage.getItem('user')) };
+  }
+
+  const [authState, authDispatch] = useReducer(authReducer, initialState);
 
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
@@ -92,7 +100,7 @@ const App = () => {
                 some part of the URL. Hence in our case, AppBar and Footer will be rendered
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL
             */}
-            <UserContext.Provider value={{ user, setUser }}>
+            <AuthContext.Provider value={{ authState, authDispatch }}>
               <Route path="/" render={() => <AppBar />} />
               <Route path="/contests/:contestId" component={ContestTabBar} />
               <Suspense fallback={<Spinner />}>
@@ -149,7 +157,7 @@ const App = () => {
                 </Switch>
               </Suspense>
               <Route path="/" render={() => <Footer />} />
-            </UserContext.Provider>
+            </AuthContext.Provider>
           </ScrollToTop>
         </BrowserRouter>
       </ApolloProvider>

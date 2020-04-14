@@ -6,10 +6,10 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import UserContext from './Contexts/UserContext';
+import AuthContext from './Contexts/AuthContext';
 
 const PrivateRoute = ({ component: Component, data, ...rest }) => {
-  const { user } = useContext(UserContext);
+  const { authState } = useContext(AuthContext);
   const location = useLocation();
 
   return (
@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, data, ...rest }) => {
       {...rest}
       render={props => (
         // Check if the user exists
-        user ? (
+        authState.user ? (
           <Component {...props} {...data} />
         ) : (
           <Redirect to={{ pathname: '/auth/signin', state: { message: 'You are not logged in. Please login to continue.', messageType: 'error', from: location } }} />

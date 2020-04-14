@@ -10,10 +10,10 @@ import PropTypes from 'prop-types';
 import MaterialIcon from '@material/react-material-icon';
 // import { Redirect } from 'react-router-dom';
 import drawerItems from './drawerItems';
-import UserContext from '../../../Contexts/UserContext';
+import AuthContext from '../../../Contexts/AuthContext';
 
 const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
-  const { user } = useContext(UserContext);
+  const { authState } = useContext(AuthContext);
   const location = useLocation();
   const { pathname: currentPathname } = location;
   // The default value is set to 100 which will not highlight any option from
@@ -56,7 +56,7 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
         </DrawerTitle>
         <DrawerSubtitle style={{ wordWrap: 'break-word' }}>
           {/* defaults to h6 */}
-          {user ? user.email : ''}
+          {authState && authState.user && authState.user.email ? authState.user.email : ''}
         </DrawerSubtitle>
       </DrawerHeader>
 

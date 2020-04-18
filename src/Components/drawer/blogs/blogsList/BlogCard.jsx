@@ -48,7 +48,7 @@ const BlogCard = ({
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row>
           <Cell className="ma0 pa0" desktopColumns={6} tabletColumns={4} phoneColumns={2}>
-            <Link to={`/profile/${authorId}`} className="no-underline" style={{ color: userColor(ratings) }}>
+            <Link to={`/profile/${authorId}`} className="no-underline" style={{ color: userColor(ratings, authorId) }}>
               <Body1 className="mb1">
                 {author}
               </Body1>
@@ -87,7 +87,7 @@ const BlogCard = ({
 
 BlogCard.propTypes = {
   tags: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   createdAt: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   timeToRead: PropTypes.number.isRequired,

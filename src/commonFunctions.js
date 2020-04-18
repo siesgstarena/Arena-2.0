@@ -1,6 +1,9 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-param-reassign */
-export const userColor = (ratings) => {
+export const userColor = (ratings, userId) => {
+  if (userId === '5b5c89298114180020d4bcb0') {
+    return 'black';
+  }
   if (ratings >= 2000) {
     return 'red';
   }
@@ -22,7 +25,10 @@ export const userColor = (ratings) => {
   return 'gray';
 };
 
-export const userStatus = (ratings) => {
+export const userStatus = (ratings, userId) => {
+  if (userId === '5b5c89298114180020d4bcb0') {
+    return 'Headquarters';
+  }
   if (ratings >= 2000) {
     return 'Legend';
   }

@@ -12,7 +12,11 @@ const ContestsTable = ({ contests }) => {
   const rows = contests.map((contest) => {
     const startsAtDate = convertDate(contest.startsAt);
     const startsAtTime = convertTime(contest.startsAt);
+    const currentDateObject = new Date();
+    let currentDateInMilliseconds = currentDateObject.getTime();
+    currentDateInMilliseconds += (330000 * 60);
     const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt, 1);
+    const [endsIn, endsInType] = differenceInTwoDates(currentDateInMilliseconds, contest.endsAt);
     return (
       <tr key={contest.code}>
         <td>
@@ -33,7 +37,7 @@ const ContestsTable = ({ contests }) => {
                     <Link
                       className="no-underline pointer"
                       to={`/profile/${setter._id}`}
-                      style={{ color: userColor(setter.ratings) }}
+                      style={{ color: userColor(setter.ratings, setter._id) }}
                       key={setter._id}
                     >
                       <div className="ma1 dim">
@@ -56,7 +60,19 @@ const ContestsTable = ({ contests }) => {
           &nbsp;
           {lengthType}
         </td>
-        <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
+        {
+          currentDateInMilliseconds > contest.endsAt
+            ? <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
+            : (
+              <td>
+                Ends in
+                &nbsp;
+                {endsIn}
+                &nbsp;
+                {endsInType}
+              </td>
+            )
+        }
       </tr>
     );
   });

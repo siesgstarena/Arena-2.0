@@ -7,7 +7,7 @@ import { userColor } from '../../../commonFunctions';
 const RatingsTable = ({ users, activePageNumber, limit }) => {
   const tableHeadings = ['#', 'Name', 'Ratings'];
   const ratingsArray = users.map((user, index) => {
-    const colorOfTheUser = userColor(user.ratings);
+    const colorOfTheUser = userColor(user.ratings, user._id);
     return (
       <tr key={user._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">

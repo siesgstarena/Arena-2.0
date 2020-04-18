@@ -150,6 +150,7 @@ query Ratings($limit: Int, $skip: Int) {
       ratings
       _id
     }
+    ratingsUpdatedTill
   }
 }
 `;

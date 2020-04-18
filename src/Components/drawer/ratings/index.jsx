@@ -33,9 +33,15 @@ const RatingsContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.ratings) {
     const { users } = data.ratings;
+    const { ratingsUpdatedTill } = data.ratings;
     return (
       <div className="mw7 center pa3">
-        <Ratings users={users} activePageNumber={activePageNumber} limit={limit} />
+        <Ratings
+          users={users}
+          activePageNumber={activePageNumber}
+          limit={limit}
+          ratingsUpdatedTill={ratingsUpdatedTill}
+        />
         <div className="pt3">
           <PageCountDisplayer
             pageCount={data.ratings.pages}

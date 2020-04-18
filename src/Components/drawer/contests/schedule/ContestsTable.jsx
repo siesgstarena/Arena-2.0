@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { userColor, convertDate, convertTime } from '../../../../commonFunctions';
+import {
+  userColor, convertDate, convertTime, differenceInTwoDates,
+} from '../../../../commonFunctions';
 
 const ContestsTable = ({ contests }) => {
   // hidden variable is used to hide the licontestAdmin when the width
@@ -10,8 +12,7 @@ const ContestsTable = ({ contests }) => {
   const rows = contests.map((contest) => {
     const startsAtDate = convertDate(contest.startsAt);
     const startsAtTime = convertTime(contest.startsAt);
-    const endsAtDate = convertDate(contest.endsAt);
-    const endsAtTime = convertTime(contest.endsAt);
+    const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt, 1);
     return (
       <tr key={contest.code}>
         <td>
@@ -51,12 +52,11 @@ const ContestsTable = ({ contests }) => {
           {startsAtTime}
         </td>
         <td>
-          {endsAtDate}
-          ,
+          {length}
           &nbsp;
-          {endsAtTime}
+          {lengthType}
         </td>
-        <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>{contest.moreDetails}</Link></td>
+        <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
       </tr>
     );
   });

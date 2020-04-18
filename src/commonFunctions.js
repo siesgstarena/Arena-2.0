@@ -70,25 +70,29 @@ export const convertTime = (milliSeconds) => {
   return time;
 };
 
-export const differenceInCurrentAndInputDate = (givenDateInMilliseconds) => {
-  if (typeof givenDateInMilliseconds === 'string') {
-    givenDateInMilliseconds = Number(givenDateInMilliseconds);
+export const differenceInTwoDates = (
+  givenDate1InMilliseconds, givenDate2InMilliseconds, digitsAfterDecimal = 0,
+) => {
+  if (typeof givenDate1InMilliseconds === 'string') {
+    givenDate1InMilliseconds = Number(givenDate1InMilliseconds);
   }
-  givenDateInMilliseconds -= (330000 * 60);
-  const currentDateObject = new Date();
-  const currentDateInMilliseconds = currentDateObject.getTime();
-  let seconds = (currentDateInMilliseconds - givenDateInMilliseconds) / 1000;
+  if (typeof givenDate2InMilliseconds === 'string') {
+    givenDate2InMilliseconds = Number(givenDate2InMilliseconds);
+  }
+  givenDate1InMilliseconds -= (330000 * 60);
+  givenDate2InMilliseconds -= (330000 * 60);
+  let seconds = Math.abs((givenDate1InMilliseconds - givenDate2InMilliseconds) / 1000);
   let minutes = seconds / 60;
   let hours = minutes / 60;
   let days = hours / 24;
   let months = days / 30;
   let years = days / 365;
-  seconds = Math.floor(seconds);
-  minutes = Math.floor(minutes);
-  hours = Math.floor(hours);
-  days = Math.floor(days);
-  months = Math.floor(months);
-  years = Math.floor(years);
+  seconds = parseFloat(seconds.toFixed(digitsAfterDecimal));
+  minutes = parseFloat(minutes.toFixed(digitsAfterDecimal));
+  hours = parseFloat(hours.toFixed(digitsAfterDecimal));
+  days = parseFloat(days.toFixed(digitsAfterDecimal));
+  months = parseFloat(months.toFixed(digitsAfterDecimal));
+  years = parseFloat(years.toFixed(digitsAfterDecimal));
   if (seconds >= 0 && seconds <= 59) {
     if (seconds === 1) {
       return [seconds, 'second'];

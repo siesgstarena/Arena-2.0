@@ -5,7 +5,7 @@ import Card from '@material/react-card';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
 import { Link } from 'react-router-dom';
 import {
-  convertDate, convertTime, userColor, differenceInCurrentAndInputDate,
+  convertDate, convertTime, userColor, differenceInTwoDates,
 } from '../../../../commonFunctions';
 import './BlogCard.scss';
 
@@ -22,7 +22,12 @@ const BlogCard = ({
 
   const createdAtDate = convertDate(createdAt);
   const createdAtTime = convertTime(createdAt);
-  const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInCurrentAndInputDate(updatedAt);
+  const currentDateObject = new Date();
+  let currentDateInMilliseconds = currentDateObject.getTime();
+  currentDateInMilliseconds += (330000 * 60);
+  const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInTwoDates(
+    currentDateInMilliseconds, updatedAt,
+  );
 
   return (
     <Card className="ma0 mb4" style={{ borderRadius: '20px' }} key={id}>

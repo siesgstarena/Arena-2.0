@@ -140,3 +140,16 @@ query SubmssionsByContestCode($contestCode: String!, $problemCode: String, $limi
   }
 }
 `;
+
+export const GET_ALL_RATINGS = gql`
+query Ratings($limit: Int, $skip: Int) {
+  ratings(limit: $limit, skip: $skip) {
+    pages
+    users {
+      name
+      ratings
+      _id
+    }
+  }
+}
+`;

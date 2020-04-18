@@ -69,3 +69,58 @@ export const convertTime = (milliSeconds) => {
   const time = `${hour}:${min} ${ampm}`;
   return time;
 };
+
+export const differenceInCurrentAndInputDate = (givenDateInMilliseconds) => {
+  if (typeof givenDateInMilliseconds === 'string') {
+    givenDateInMilliseconds = Number(givenDateInMilliseconds);
+  }
+  givenDateInMilliseconds -= (330000 * 60);
+  const currentDateObject = new Date();
+  const currentDateInMilliseconds = currentDateObject.getTime();
+  let seconds = (currentDateInMilliseconds - givenDateInMilliseconds) / 1000;
+  let minutes = seconds / 60;
+  let hours = minutes / 60;
+  let days = hours / 24;
+  let months = days / 30;
+  let years = days / 365;
+  seconds = Math.floor(seconds);
+  minutes = Math.floor(minutes);
+  hours = Math.floor(hours);
+  days = Math.floor(days);
+  months = Math.floor(months);
+  years = Math.floor(years);
+  if (seconds >= 0 && seconds <= 59) {
+    if (seconds === 1) {
+      return [seconds, 'second'];
+    }
+    return [seconds, 'seconds'];
+  }
+  if (minutes >= 0 && minutes <= 59) {
+    if (minutes === 1) {
+      return [minutes, 'minute'];
+    }
+    return [minutes, 'minutes'];
+  }
+  if (hours >= 0 && hours <= 24) {
+    if (hours === 1) {
+      return [hours, 'hour'];
+    }
+    return [hours, 'hours'];
+  }
+  if (days >= 0 && days <= 30) {
+    if (days === 1) {
+      return [days, 'day'];
+    }
+    return [days, 'days'];
+  }
+  if (months >= 0 && months <= 12) {
+    if (months === 1) {
+      return [months, 'month'];
+    }
+    return [months, 'months'];
+  }
+  if (years === 1) {
+    return [years, 'year'];
+  }
+  return [years, 'years'];
+};

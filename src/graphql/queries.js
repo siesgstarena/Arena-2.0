@@ -185,20 +185,23 @@ query {
 `;
 
 export const GET_ALL_BLOGS = gql`
-query {
-  blogs {
-    _id
-    userId {
-      name
-      username
-      ratings
+query Blogs($limit: Int, $skip: Int) {
+  blogs(limit: $limit, skip: $skip) {
+    blogs {
       _id
+      userId {
+        name
+        username
+        ratings
+        _id
+      }
+      title
+      tags
+      createdAt
+      updatedAt
+      timeToRead
     }
-    title
-    tags
-    createdAt
-    updatedAt
-    timeToRead
+    pages
   }
 }
 `;

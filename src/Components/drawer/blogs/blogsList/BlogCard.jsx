@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import Card from '@material/react-card';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
 import { Link } from 'react-router-dom';
-import { convertDate, convertTime, userColor } from '../../../../commonFunctions';
+import {
+  convertDate, convertTime, userColor, differenceInCurrentAndInputDate,
+} from '../../../../commonFunctions';
 import './BlogCard.scss';
 
 const BlogCard = ({
@@ -20,8 +22,7 @@ const BlogCard = ({
 
   const createdAtDate = convertDate(createdAt);
   const createdAtTime = convertTime(createdAt);
-  const updatedAtDate = convertDate(updatedAt);
-  const updatedAtTime = convertTime(updatedAt);
+  const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInCurrentAndInputDate(updatedAt);
 
   return (
     <Card className="ma0 mb4" style={{ borderRadius: '20px' }} key={id}>
@@ -60,12 +61,13 @@ const BlogCard = ({
               &nbsp;
               {createdAtTime}
               <br />
-              Updated on:
+              Recent Activity:
               &nbsp;
-              {updatedAtDate}
-              ,
+              {convertedUpdatedAt}
               &nbsp;
-              {updatedAtTime}
+              {convertedUpdatedAtType}
+              &nbsp;
+              ago
               <br />
               {timeToRead}
               &nbsp;

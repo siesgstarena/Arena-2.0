@@ -19,7 +19,7 @@ const AllBlogsPage = ({ blogs }) => {
     />
   ));
   return (
-    <div className="mw7 ma3 pa2 center">
+    <div>
       <Headline4 className="purple">SIESGSTarena&apos;s Blogs</Headline4>
       {BlogsArray}
     </div>

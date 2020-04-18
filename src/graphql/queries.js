@@ -153,3 +153,32 @@ query Ratings($limit: Int, $skip: Int) {
   }
 }
 `;
+
+export const GET_CONTEST_HOMEPAGE_DETAILS = gql`
+query {
+  contests{
+    contests{
+      name
+      code
+      startsAt
+      endsAt
+      contestAdmin {
+        _id
+        name
+        ratings
+      }
+    }
+    finishedContests{
+      name
+      code
+      startsAt
+      endsAt
+      contestAdmin {
+        _id
+        name
+        ratings
+      }
+    }
+  }
+}
+`;

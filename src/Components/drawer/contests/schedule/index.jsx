@@ -1,18 +1,34 @@
 import React from 'react';
-import { Headline6, Headline4 } from '@material/react-typography';
-import { currentContestsArray, pastContestsArray } from './contestsArray';
-import ContestsTable from './ContestsTable';
-import '../../../common/Table/index.scss';
-import 'tachyons';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_CONTEST_HOMEPAGE_DETAILS } from '../../../../graphql/queries';
+import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
+import ContestsSchedule from './ContestsSchedule';
+import Spinner from '../../../common/Spinner/index';
 
-const ContestsScehdule = () => (
-  <div className="pa2 mw8-ns center">
-    <Headline4 className="purple mt2">Contests</Headline4>
-    <Headline6 className="purple mb2 mt1">Ongoing Contests</Headline6>
-    <ContestsTable rows={currentContestsArray} />
-    <Headline6 className="purple mb2">Past Contests</Headline6>
-    <ContestsTable rows={pastContestsArray} />
-  </div>
-);
+const ContestScheduleContainer = () => {
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const {
+    loading, error, data,
+  } = useQuery(GET_CONTEST_HOMEPAGE_DETAILS);
 
-export default ContestsScehdule;
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.contests) {
+    const { contests } = data;
+    return (
+      <ContestsSchedule
+        contests={contests}
+      />
+    );
+  }
+  if (isSessionExpired(data.contests)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
+};
+
+export default ContestScheduleContainer;

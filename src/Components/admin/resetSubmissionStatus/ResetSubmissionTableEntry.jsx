@@ -5,11 +5,10 @@ import { Link, useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { RESET_SUBMISSION } from '../../../graphql/mutations';
-import useConvertDateAndTime from '../../../customHooks/useConvertDateAndTime';
+import { convertDate, convertTime } from '../../../commonFunctions';
 
 const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   const { contestId } = useParams();
-  const { convertDate, convertTime } = useConvertDateAndTime();
   const createdAtDate = convertDate(data.createdAt);
   const createdAtTime = convertTime(data.createdAt);
   const [problemStatus, setProblemStatus] = useState(data.status);

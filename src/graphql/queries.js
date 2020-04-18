@@ -183,3 +183,22 @@ query {
   }
 }
 `;
+
+export const GET_ALL_BLOGS = gql`
+query {
+  blogs {
+    _id
+    userId {
+      name
+      username
+      ratings
+      _id
+    }
+    title
+    tags
+    createdAt
+    updatedAt
+    timeToRead
+  }
+}
+`;

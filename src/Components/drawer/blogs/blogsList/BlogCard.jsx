@@ -1,12 +1,14 @@
 import React from 'react';
 import { Body1, Body2, Headline5 } from '@material/react-typography';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import './BlogCard.scss';
+import Card from '@material/react-card';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
+import { Link } from 'react-router-dom';
+import { convertDate, convertTime, userColor } from '../../../../commonFunctions';
+import './BlogCard.scss';
 
 const BlogCard = ({
-  tags, id, date, name, timeToRead, author, updated,
+  tags, id, createdAt, title, timeToRead, authorId, author, updatedAt, ratings,
 }) => {
   const tagsArray = tags.map(tag => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">
@@ -16,12 +18,16 @@ const BlogCard = ({
     </Link>
   ));
 
+  const createdAtDate = convertDate(createdAt);
+  const createdAtTime = convertTime(createdAt);
+  const updatedAtDate = convertDate(updatedAt);
+  const updatedAtTime = convertTime(updatedAt);
+
   return (
-    <div className="ma0 mb4" style={{ border: '1px solid purple', borderRadius: '20px' }} key={id}>
+    <Card className="ma0 mb4" style={{ borderRadius: '20px' }} key={id}>
       <div
         className="pa1"
         style={{
-          borderBottom: '1px solid purple',
           background: '#F0E8FF',
           borderTopLeftRadius: '20px',
           borderTopRightRadius: '20px',
@@ -29,15 +35,15 @@ const BlogCard = ({
       >
         <Link to={`/blog/${id}`} className="no-underline black">
           <Headline5 style={{ color: 'purple' }} className="ma0 tc ma2">
-            {name}
+            {title}
           </Headline5>
         </Link>
       </div>
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row>
           <Cell className="ma0 pa0" desktopColumns={6} tabletColumns={4} phoneColumns={2}>
-            <Link to={`/profile/${id}`} className="no-underline black">
-              <Body1 className="black mb1">
+            <Link to={`/profile/${authorId}`} className="no-underline" style={{ color: userColor(ratings) }}>
+              <Body1 className="mb1">
                 {author}
               </Body1>
             </Link>
@@ -49,31 +55,39 @@ const BlogCard = ({
             <Body2 className="gray text-alignment">
               Posted on:
               &nbsp;
-              {date}
+              {createdAtDate}
+              ,
+              &nbsp;
+              {createdAtTime}
               <br />
-              {updated}
+              Updated on:
+              &nbsp;
+              {updatedAtDate}
+              ,
+              &nbsp;
+              {updatedAtTime}
               <br />
               {timeToRead}
+              &nbsp;
+              min read
             </Body2>
           </Cell>
         </Row>
       </Grid>
-    </div>
+    </Card>
   );
 };
 
 BlogCard.propTypes = {
   tags: PropTypes.array.isRequired,
-  id: PropTypes.number.isRequired,
-  date: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  timeToRead: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  timeToRead: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
-  updated: PropTypes.string,
-};
-
-BlogCard.defaultProps = {
-  updated: '',
+  updatedAt: PropTypes.string.isRequired,
+  authorId: PropTypes.string.isRequired,
+  ratings: PropTypes.number.isRequired,
 };
 
 export default BlogCard;

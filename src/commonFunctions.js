@@ -49,7 +49,7 @@ export const convertDate = (milliSeconds) => {
   if (typeof milliSeconds === 'string') {
     milliSeconds = Number(milliSeconds);
   }
-  const dateObject = new Date(milliSeconds);
+  const dateObject = new Date(milliSeconds - (330000 * 60));
   const date = dateObject.toDateString();
   return date;
 };

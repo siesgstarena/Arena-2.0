@@ -47,11 +47,13 @@ const ContestsTable = ({ contests }) => {
         <td>
           {startsAtDate}
           ,
+          &nbsp;
           {startsAtTime}
         </td>
         <td>
           {endsAtDate}
           ,
+          &nbsp;
           {endsAtTime}
         </td>
         <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>{contest.moreDetails}</Link></td>
@@ -71,7 +73,7 @@ const ContestsTable = ({ contests }) => {
                 : <th>Setter</th>
             }
             <th>Start</th>
-            <th>Duration</th>
+            <th>Length</th>
             <th>More details</th>
           </tr>
           {rows}

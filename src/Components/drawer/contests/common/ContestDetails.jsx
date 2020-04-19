@@ -4,6 +4,7 @@ import {
   Body1,
   Body2,
 } from '@material/react-typography';
+import PropTypes from 'prop-types';
 import 'tachyons';
 
 // const [timeStamp, setTimeStamp] = useState(new Date());
@@ -14,20 +15,24 @@ import 'tachyons';
 //   setExtractedDate(timeStamp.toLocaleTimeString());
 // }, [timeStamp]);
 
-const ContestDetails = () => (
+const ContestDetails = ({ name, description, endsAt }) => (
   <Card className="pa2 tc">
     <Body1 className="mb0">
-      Universe
+      {name}
     </Body1>
     <Body2 className="mid-gray">
-      Contest open for 1 year with playlists problems
+      {description}
     </Body2>
     <hr className="ml3 mr3" />
-    {/* <Headline3 className="ma0">
-      {extractedDate}
-    </Headline3> */}
+    {endsAt}
   </Card>
 );
+
+ContestDetails.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  endsAt: PropTypes.string.isRequired,
+};
 
 
 export default ContestDetails;

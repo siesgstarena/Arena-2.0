@@ -5,31 +5,37 @@ import ContestTabBar from './ContestTabBar';
 import ContestDetails from './ContestDetails';
 import Announcements from './Announcements';
 
-const SubmissionStatus = ({ children }) => (
-  <Grid className="mw9 center">
-    <Row>
-      <Cell desktopColumns={9} tabletColumns={8}>
-        <Cell style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
+const ContestPageSkeleton = ({ children, contestDetails }) => {
+  const {
+    name, description, endsAt, announcement,
+  } = contestDetails;
+  return (
+    <Grid className="mw9 center">
+      <Row>
+        <Cell desktopColumns={9} tabletColumns={8}>
+          <Cell style={{ marginBottom: '10px' }}>
+            <ContestTabBar />
+          </Cell>
+          <Cell className="">
+            {children}
+          </Cell>
         </Cell>
-        <Cell className="">
-          {children}
+        <Cell desktopColumns={3} tabletColumns={8}>
+          <Cell>
+            <ContestDetails name={name} description={description} endsAt={endsAt} />
+          </Cell>
+          <Cell>
+            <Announcements announcement={announcement} />
+          </Cell>
         </Cell>
-      </Cell>
-      <Cell desktopColumns={3} tabletColumns={8}>
-        <Cell>
-          <ContestDetails />
-        </Cell>
-        <Cell>
-          <Announcements />
-        </Cell>
-      </Cell>
-    </Row>
-  </Grid>
-);
-
-SubmissionStatus.propTypes = {
-  children: PropTypes.any.isRequired,
+      </Row>
+    </Grid>
+  );
 };
 
-export default SubmissionStatus;
+ContestPageSkeleton.propTypes = {
+  children: PropTypes.any.isRequired,
+  contestDetails: PropTypes.object.isRequired,
+};
+
+export default ContestPageSkeleton;

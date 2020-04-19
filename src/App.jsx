@@ -6,7 +6,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
-import ContestSkeleton from './Components/drawer/contests/common/ContestPageSkeleton';
+import ContestSkeletonContainer from './Components/drawer/contests/common/ContestPageSkeletonContainer';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
@@ -107,7 +107,7 @@ const App = () => {
                   <Route
                     path="/contests/:contestId"
                     render={() => (
-                      <ContestSkeleton>
+                      <ContestSkeletonContainer>
                         <Suspense fallback={<Spinner />}>
                           <Route path="/contests/:contestId" exact component={ContestDashboard} />
                           <Route path="/contests/:contestId/status" exact component={ContestStatus} />
@@ -115,7 +115,7 @@ const App = () => {
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
                           <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                         </Suspense>
-                      </ContestSkeleton>
+                      </ContestSkeletonContainer>
                     )}
                   />
                   <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />

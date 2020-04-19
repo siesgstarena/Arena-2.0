@@ -249,3 +249,14 @@ query Scoreboard($code: String!) {
   }
 }
 `;
+
+export const GET_CONTEST_DETAILS = gql`
+query ContestCode($code: String!) {
+  contestCode(code:$code){
+    name
+    description
+    endsAt
+    announcement
+  }
+}
+`;

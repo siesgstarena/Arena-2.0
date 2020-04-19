@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Tab from '@material/react-tab';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
-import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TabBar from '@material/react-tab-bar';
 
 const ContestTabBar = () => {
@@ -42,35 +41,29 @@ const ContestTabBar = () => {
   // When the user clicks on a tab, the url is passed
   // and then we update the site according to it.
   return (
-    <Grid className="mw9 center">
-      <Row>
-        <Cell desktopColumns={9} tabletColumns={8}>
-          <div className="">
-            <TabBar
-              className=""
-              activeIndex={activeIndex}
-              handleActiveIndexUpdate={handleActiveIndexUpdate}
-            >
-              <Tab onClick={() => onTabClick(`${url}`)}>
-                <span className="mdc-tab__text-label">Dashboard</span>
-              </Tab>
-              <Tab onClick={() => onTabClick(`${url}/status`)}>
-                <span className="mdc-tab__text-label">Status</span>
-              </Tab>
-              <Tab onClick={() => onTabClick(`${url}/my`)}>
-                <span className="mdc-tab__text-label">My Submissions</span>
-              </Tab>
-              <Tab onClick={() => onTabClick(`${url}/scoreboard`)}>
-                <span className="mdc-tab__text-label">Scoreboard</span>
-              </Tab>
-              <Tab onClick={() => onTabClick(`${url}/submit`)}>
-                <span className="mdc-tab__text-label">Submit</span>
-              </Tab>
-            </TabBar>
-          </div>
-        </Cell>
-      </Row>
-    </Grid>
+    <TabBar
+      indexInView={activeIndex}
+      className=""
+      activeIndex={activeIndex}
+      handleActiveIndexUpdate={handleActiveIndexUpdate}
+    >
+      <Tab onClick={() => onTabClick(`${url}`)}>
+        <span className="mdc-tab__text-label">Dashboard</span>
+      </Tab>
+      <Tab onClick={() => onTabClick(`${url}/status`)}>
+        <span className="mdc-tab__text-label">Status</span>
+      </Tab>
+      <Tab onClick={() => onTabClick(`${url}/my`)}>
+        <span className="mdc-tab__text-label">My Submissions</span>
+      </Tab>
+      <Tab onClick={() => onTabClick(`${url}/scoreboard`)}>
+        <span className="mdc-tab__text-label">Scoreboard</span>
+      </Tab>
+      <Tab onClick={() => onTabClick(`${url}/submit`)}>
+        <span className="mdc-tab__text-label">Submit</span>
+      </Tab>
+    </TabBar>
+
   );
 };
 

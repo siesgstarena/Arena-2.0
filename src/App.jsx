@@ -6,7 +6,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
-import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+import ContestSkeleton from './Components/drawer/contests/common/ContestPageSkeleton';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
@@ -102,9 +102,22 @@ const App = () => {
             */}
             <AuthContext.Provider value={{ authState, authDispatch }}>
               <Route path="/" render={() => <AppBar />} />
-              <Route path="/contests/:contestId" component={ContestTabBar} />
               <Suspense fallback={<Spinner />}>
                 <Switch>
+                  <Route
+                    path="/contests/:contestId"
+                    render={() => (
+                      <ContestSkeleton>
+                        <Suspense fallback={<Spinner />}>
+                          <Route path="/contests/:contestId" exact component={ContestDashboard} />
+                          <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+                          <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+                          <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
+                          <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
+                        </Suspense>
+                      </ContestSkeleton>
+                    )}
+                  />
                   <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
                   <Route path="/auth/signin" exact component={SignIn} />
                   <Route path="/auth/signup" exact component={SignUp} />
@@ -112,11 +125,6 @@ const App = () => {
                   <Route path="/auth/reset/:key" exact component={Reset} />
                   <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                   <Route path="/contests" exact component={ContestsSchedule} />
-                  <Route path="/contests/:contestId" exact component={ContestDashboard} />
-                  <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                  <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-                  <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
-                  <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blog" exact component={BlogsList} />
                   {/* <Route path="/blog/create" exact component={Editor} /> */}

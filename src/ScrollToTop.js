@@ -11,7 +11,9 @@ class ScrollToTop extends Component {
     const { location } = this.props;
     const { pathname: currentLocation } = location;
     const { pathname: prevLocation } = prevProps.location;
-    if (currentLocation !== prevLocation) {
+    const currentSearch = location.search;
+    const prevSearch = prevProps.location.search;
+    if (currentLocation !== prevLocation || currentSearch !== prevSearch) {
       window.scrollTo(0, 0);
     }
   }

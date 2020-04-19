@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
@@ -8,29 +8,32 @@ import { GET_RESET_SUBMISSION_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
+import useActivePageState from '../../../customHooks/useAcitvePageState';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
   const limit = 15;
-  const [activePageNumber, setActivePageNumber] = useState(1);
+  const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
-    loading, error, data, fetchMore, networkStatus,
+    loading, error, data, networkStatus,
   } = useQuery(GET_RESET_SUBMISSION_DETAILS, {
-    variables: { contestCode: contestId, problemCode: problemId, limit },
+    variables: {
+      contestCode: contestId, problemCode: problemId, limit, skip: ((activePageNumber - 1) * limit),
+    },
     notifyOnNetworkStatusChange: true,
   });
-  const onLoadMore = (amountOfEntiresToBeSkipped) => {
-    fetchMore({
-      variables: {
-        skip: amountOfEntiresToBeSkipped,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return Object.assign({}, prev, fetchMoreResult);
-      },
-    });
-  };
+  // const onLoadMore = (amountOfEntiresToBeSkipped) => {
+  //   fetchMore({
+  //     variables: {
+  //       skip: amountOfEntiresToBeSkipped,
+  //     },
+  //     updateQuery: (prev, { fetchMoreResult }) => {
+  //       if (!fetchMoreResult) return prev;
+  //       return Object.assign({}, prev, fetchMoreResult);
+  //     },
+  //   });
+  // };
   if (networkStatus === 3) return <Spinner />;
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
@@ -53,10 +56,7 @@ const ResetSubmissionStatus = () => {
         <div className="mt3">
           <PageCountDisplayer
             pageCount={data.submissionsByContestCode.pages}
-            onLoadMore={onLoadMore}
             activePageNumber={activePageNumber}
-            setActivePageNumber={setActivePageNumber}
-            limit={limit}
           />
         </div>
       </div>

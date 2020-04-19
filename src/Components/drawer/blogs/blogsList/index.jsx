@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
@@ -6,28 +6,18 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import AllBlogsPage from './AllBlogsPage';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import Spinner from '../../../common/Spinner/index';
+import useActivePageState from '../../../../customHooks/useAcitvePageState';
 
 const AllBlogsPageContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = 15;
-  const [activePageNumber, setActivePageNumber] = useState(1);
+  const activePageNumber = useActivePageState();
   const {
-    loading, error, data, fetchMore, networkStatus,
+    loading, error, data, networkStatus,
   } = useQuery(GET_ALL_BLOGS, {
-    variables: { limit },
+    variables: { limit, skip: ((activePageNumber - 1) * limit) },
     notifyOnNetworkStatusChange: true,
   });
-  const onLoadMore = (amountOfEntiresToBeSkipped) => {
-    fetchMore({
-      variables: {
-        skip: amountOfEntiresToBeSkipped,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev;
-        return Object.assign({}, prev, fetchMoreResult);
-      },
-    });
-  };
   if (networkStatus === 3) return <Spinner />;
 
   if (loading) return <Spinner />;
@@ -42,10 +32,7 @@ const AllBlogsPageContainer = () => {
         <div>
           <PageCountDisplayer
             pageCount={data.blogs.pages}
-            onLoadMore={onLoadMore}
             activePageNumber={activePageNumber}
-            setActivePageNumber={setActivePageNumber}
-            limit={limit}
           />
         </div>
       </div>

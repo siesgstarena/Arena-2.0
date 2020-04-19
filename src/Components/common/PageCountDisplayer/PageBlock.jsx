@@ -1,13 +1,18 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './index.scss';
 
 const PageBlock = ({
-  activePageNumber, pageNumber, setActivePageNumber, onLoadMore, limit,
+  activePageNumber, pageNumber,
 }) => {
+  const history = useHistory();
+  const location = useLocation();
   const updateActivePageNumberAndData = () => {
-    setActivePageNumber(pageNumber);
-    onLoadMore((pageNumber - 1) * limit);
+    history.push({
+      pathname: location.pathname,
+      search: `?pageNumber=${pageNumber}`,
+    });
   };
   if (activePageNumber === pageNumber) {
     return (
@@ -38,9 +43,6 @@ const PageBlock = ({
 PageBlock.propTypes = {
   activePageNumber: PropTypes.number.isRequired,
   pageNumber: PropTypes.number.isRequired,
-  setActivePageNumber: PropTypes.func.isRequired,
-  onLoadMore: PropTypes.func.isRequired,
-  limit: PropTypes.number.isRequired,
 };
 
 export default PageBlock;

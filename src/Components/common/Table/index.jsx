@@ -4,7 +4,10 @@ import './index.scss';
 
 const Table = ({ tableData, tableHeadings, tableHeadingClassName }) => {
   const tableHeadingsArray = tableHeadings.map(tableHeading => (
-    <th key={tableHeading} className={tableHeadingClassName}>
+    <th
+      key={tableHeading.props ? tableHeading.props.to : tableHeading}
+      className={tableHeadingClassName}
+    >
       {tableHeading}
     </th>
   ));

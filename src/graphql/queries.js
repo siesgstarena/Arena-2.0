@@ -224,3 +224,28 @@ query ProblemSet {
   }
 }
 `;
+
+export const GET_SCOREBOARD_BY_CONTEST_CODE = gql`
+query Scoreboard($code: String!) {
+  scoreboard(code:$code){
+    problems{
+      code
+    }
+    scoreboard{
+      userId
+      user{
+        username
+        ratings
+      }
+      total
+      solved
+      totalTime
+      submissions{
+        code
+        solved
+        attempts
+      }
+    }
+  }
+}
+`;

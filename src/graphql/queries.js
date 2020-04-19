@@ -205,3 +205,22 @@ query Blogs($limit: Int, $skip: Int) {
   }
 }
 `;
+
+export const GET_PROBLEM_SET = gql`
+query ProblemSet {
+  problemSet{
+    problemDetails {
+      _id
+      code
+      points
+      name
+      tags
+      contest{
+        code
+      }
+    }
+    attempts
+    solved
+  }
+}
+`;

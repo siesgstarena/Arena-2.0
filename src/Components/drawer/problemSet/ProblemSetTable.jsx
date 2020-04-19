@@ -1,14 +1,21 @@
 import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
 import Table from '../../common/Table/index';
-import problemsList from './problemsList';
 
-const ProblemsSetTable = () => {
-  const [problems, setProblems] = useState(problemsList);
-  const allProblems = useRef(problemsList);
+const ProblemsSetTable = ({ problemsList }) => {
+  // Trimming tags because of database inconsistency
+  const trimmedTagsProblemsList = problemsList.map((problem) => {
+    const trimmedTagsArray = problem.problemDetails.tags.map(tag => tag.trim());
+    // eslint-disable-next-line no-param-reassign
+    problem.problemDetails.tags = trimmedTagsArray;
+    return (problem);
+  });
+  const [problems, setProblems] = useState(trimmedTagsProblemsList);
+  const allProblems = useRef(trimmedTagsProblemsList);
   const [problemsArray, setProblemsArray] = useState([]);
   const [displayClearFilters, setDisplayClearFilters] = useState(false);
   const tableHeadings = ['#', 'Problem Name', 'Tags', 'Points'];
@@ -23,15 +30,16 @@ const ProblemsSetTable = () => {
   // we also update the problems state with only those problems which have the tag
   // present in them
   const onTagClick = (tag) => {
+    // console.log(tag);
     setDisplayClearFilters(true);
-    setProblems(allProblems.current.filter(problem => problem.tags.includes(tag)));
+    setProblems(allProblems.current.filter(problem => problem.problemDetails.tags.includes(tag)));
   };
 
   // createProblemsArray maps all the problems to jsx in the form of table rows
   const createProblemsArray = useCallback((problemsToMap) => {
     setProblemsArray(problemsToMap.map((problem) => {
-      const tagsArray = problem.tags.map((tag, index) => {
-        if (index !== problem.tags.length - 1) {
+      const tagsArray = problem.problemDetails.tags.map((tag, index) => {
+        if (index !== problem.problemDetails.tags.length - 1) {
           return (
             <span role="presentation" className="i blue pointer dim" onClick={() => onTagClick(tag)} key={tag}>
               {tag}
@@ -46,31 +54,31 @@ const ProblemsSetTable = () => {
         );
       });
       let backgroundColor = '';
-      if (problem.submissionStatus === 'accepted') {
+      if (problem.solved > 0) {
         backgroundColor = '#02b32826';
-      } else if (problem.submissionStatus === 'wrong') {
+      } else if (problem.solved === 0 && problem.attempts > 0) {
         backgroundColor = '#d60b0b1c';
       } else {
         backgroundColor = '#ffffff';
       }
 
       return (
-        <tr style={{ backgroundColor: `${backgroundColor}` }} key={problem.problemId}>
+        <tr style={{ backgroundColor: `${backgroundColor}` }} key={problem.problemDetails._id}>
           <td>
-            <Link className="no-underline blue pointer dim" to={`contests/${problem.contestId}/problem/${problem.problemId}`}>
-              {problem.problemId}
+            <Link className="no-underline blue pointer dim" to={`contests/${problem.problemDetails.contest.code}/problem/${problem.problemDetails.code}`}>
+              {problem.problemDetails.code}
             </Link>
           </td>
           <td>
-            <Link className="no-underline blue pointer dim" to={`contests/${problem.contestId}/problem/${problem.problemId}`}>
-              {problem.problemName}
+            <Link className="no-underline blue pointer dim" to={`contests/${problem.problemDetails.contest.code}/problem/${problem.problemDetails.code}`}>
+              {problem.problemDetails.name}
             </Link>
           </td>
           <td>
             {tagsArray}
           </td>
           <td>
-            {problem.points}
+            {problem.problemDetails.points}
           </td>
         </tr>
       );
@@ -96,6 +104,10 @@ const ProblemsSetTable = () => {
       <Table tableHeadings={tableHeadings} tableData={problemsArray} />
     </div>
   );
+};
+
+ProblemsSetTable.propTypes = {
+  problemsList: PropTypes.array.isRequired,
 };
 
 export default ProblemsSetTable;

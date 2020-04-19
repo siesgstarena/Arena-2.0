@@ -1,13 +1,35 @@
 import React from 'react';
-import { Headline4, Body1 } from '@material/react-typography';
-import ProblemSetTable from './ProblemSetTable';
+import { useQuery } from '@apollo/react-hooks';
+import Spinner from '../../common/Spinner/index';
+import { GET_PROBLEM_SET } from '../../../graphql/queries';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import ProblemSet from './ProblemSet';
 
-const ProblemSet = () => (
-  <div className="mw7 center pa3 pt0">
-    <Headline4 className="purple mb0">Problems</Headline4>
-    <Body1 className="mid-gray">Problems from previous contests</Body1>
-    <ProblemSetTable />
-  </div>
-);
+const ProblemSetContainer = () => {
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const {
+    loading, error, data,
+  } = useQuery(GET_PROBLEM_SET);
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.problemSet) {
+    const problems = data.problemSet;
+    return (
+      <div className="mw7 center pa3">
+        <ProblemSet
+          problems={problems}
+        />
+      </div>
+    );
+  }
+  if (isSessionExpired(data.problemSet)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // Random errors
+  return <SomethingWentWrong message="An unexpected error has occured" />;
+};
 
-export default ProblemSet;
+export default ProblemSetContainer;

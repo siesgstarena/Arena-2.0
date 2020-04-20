@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Body1 } from '@material/react-typography';
-import './editorContainer.scss';
 
 const EditorContainer = ({ children, title }) => (
   <div className="editor-outer-container">

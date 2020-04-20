@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Body1,
 } from '@material/react-typography';
-import './index.css';
+import './index.scss';
 import 'tachyons';
 
 // This component displays the message on screen

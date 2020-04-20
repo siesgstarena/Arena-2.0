@@ -25,9 +25,9 @@ const Editor = ({ value, setValue }) => {
   return (
     <MdEditor
       value={value}
+      name="textarea"
       renderHTML={renderHTML}
       onChange={handleEditorChange}
-      plugins={['header', 'fonts', 'table', 'link', 'clear', 'logger', 'mode-toggle', 'full-screen']}
       config={{
         view: {
           menu: true, md: true, html: true,

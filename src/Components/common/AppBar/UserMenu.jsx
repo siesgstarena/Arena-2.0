@@ -9,11 +9,11 @@ const UserMenu = ({ setIsUserMenuOpen, isUserMenuOpen, coordinatesOfUserMenu }) 
   const userMenuOptions = [
     {
       name: 'New Post',
-      path: '/blog/create',
+      path: '/blogs/create',
     },
     {
       name: 'My Posts',
-      path: '/blog/my',
+      path: '/blogs/my',
     },
     {
       name: 'My Profile',

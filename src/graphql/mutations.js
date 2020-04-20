@@ -60,3 +60,13 @@ mutation ResetSubmission($id: String!, $status:String!) {
   }
 }
 `;
+
+export const CREATE_BLOG = gql`
+mutation CreateBlog($title: String!, $content: String!, $tags: String! ) {
+  createBlog(title:$title,content:$content,tags:$tags){
+    code
+    success
+    message
+  }
+}
+`;

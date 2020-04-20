@@ -13,7 +13,6 @@ import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
 import authReducer from './reducers/authReducer';
 import './App.scss';
-// import Editor from './Components/common/MarkdownEditor/Editor';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
@@ -29,6 +28,7 @@ const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/ind
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
+const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
 const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
@@ -125,8 +125,8 @@ const App = () => {
                   <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                   <Route path="/contests" exact component={ContestsSchedule} />
                   <Route path="/ratings" exact component={Ratings} />
-                  <Route path="/blog" exact component={BlogsList} />
-                  {/* <Route path="/blog/create" exact component={Editor} /> */}
+                  <Route path="/blogs" exact component={BlogsList} />
+                  <Route path="/blogs/create" exact component={CreateBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
                   <Route path="/playlists" exact component={PlaylistsWelcomePage} />
                   <Route path="/playlists/home" exact component={PlaylistsHomePage} />

@@ -29,6 +29,7 @@ const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreb
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
+const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
 const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
@@ -126,7 +127,8 @@ const App = () => {
                   <Route path="/contests" exact component={ContestsSchedule} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
-                  <Route path="/blogs/create" exact component={CreateBlog} />
+                  <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
                   <Route path="/playlists" exact component={PlaylistsWelcomePage} />
                   <Route path="/playlists/home" exact component={PlaylistsHomePage} />
@@ -137,8 +139,8 @@ const App = () => {
                   <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
-                  <Route path="/profile/:id/settings" exact component={Settings} />
-                  <Route path="/profile/:id" exact component={Profile} />
+                  <Route path="/profile/:userId/settings" exact component={Settings} />
+                  <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />
                   <Route path="/contact" exact component={Contact} />

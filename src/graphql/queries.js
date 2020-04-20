@@ -260,3 +260,22 @@ query ContestCode($code: String!) {
   }
 }
 `;
+
+export const GET_BLOG_BY_ID = gql`
+query BlogById($id: ID!) {
+  blogById(_id:$id){
+    blog {
+      userId{
+        _id
+        name
+      }
+      title
+      timeToRead
+      content
+      tags
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;

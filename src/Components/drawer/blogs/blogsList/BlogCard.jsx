@@ -38,7 +38,7 @@ const BlogCard = ({
           borderTopRightRadius: '20px',
         }}
       >
-        <Link to={`/blog/${id}`} className="no-underline black">
+        <Link to={`/blogs/${id}`} className="no-underline black">
           <Headline5 style={{ color: 'purple' }} className="ma0 tc ma2">
             {title}
           </Headline5>

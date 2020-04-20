@@ -70,3 +70,13 @@ mutation CreateBlog($title: String!, $content: String!, $tags: String! ) {
   }
 }
 `;
+
+export const EDIT_BLOG = gql`
+mutation EditBlog($id:ID!, $title:String!, $content:String!, $tags:String!) {
+  editBlog(_id:$id, title:$title, content:$content, tags:$tags){
+    code
+    success
+    message
+  }
+}
+`;

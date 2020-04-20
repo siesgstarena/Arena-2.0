@@ -13,6 +13,7 @@ import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
 import authReducer from './reducers/authReducer';
 import './App.scss';
+// import Editor from './Components/common/MarkdownEditor/Editor';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
@@ -62,7 +63,6 @@ const SuperuserContests = lazy(() => import('./Components/superuser/contests/ind
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-// import Editor from './Components/drawer/blogs/create/editor';
 
 const App = () => {
   const httpLink = createHttpLink({
@@ -86,7 +86,6 @@ const App = () => {
   }
 
   const [authState, authDispatch] = useReducer(authReducer, initialState);
-
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (

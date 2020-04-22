@@ -3,20 +3,23 @@ import Card from '@material/react-card';
 import PropTypes from 'prop-types';
 import {
   Body1,
-  Body2,
 } from '@material/react-typography';
+import Viewer from '../../../common/MarkdownEditor/Viewer';
 import 'tachyons';
 
 const Announcements = ({ announcement }) => {
-  function createMarkup() { return { __html: announcement }; }
+  if (announcement) {
+    // eslint-disable-next-line no-param-reassign
+    announcement = announcement.trim();
+  }
   return (
-    <Card className="pa2 pb0 mt3">
-      <Body1 className="mb0 tc">
+    <Card className="pa2 mt3">
+      <Body1 className="mb3 tc">
         Announcements
       </Body1>
-      <Body2 className="mid-gray" style={{ whiteSpace: 'pre-line' }}>
-        <div className="no-underline" dangerouslySetInnerHTML={createMarkup()} />
-      </Body2>
+      <div className="mid-gray">
+        {announcement ? <Viewer value={announcement.trim()} /> : <div className="tc">No Annoucments Posted</div>}
+      </div>
     </Card>
   );
 };

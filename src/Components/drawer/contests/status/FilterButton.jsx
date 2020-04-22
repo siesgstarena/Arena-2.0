@@ -26,7 +26,7 @@ const FilterButton = () => {
   // Array to be displayed
   const selectedValues = [problem, language, type];
 
-  const onVariableChange = setVariable => ((_, item) =>(
+  const onVariableChange = setVariable => ((_, item) => (
     setVariable(item.getAttribute('data-value')))
   );
   // Functions to update State

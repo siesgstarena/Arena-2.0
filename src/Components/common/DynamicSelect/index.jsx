@@ -3,7 +3,7 @@ import Select, { Option } from '@material/react-select';
 import PropTypes from 'prop-types';
 
 const DynamicSelect = ({
-  label, value, onValueChange, valueList,isValRequired,
+  label, value, onValueChange, valueList, isValRequired,
 }) => (
   <Select
     required={isValRequired}

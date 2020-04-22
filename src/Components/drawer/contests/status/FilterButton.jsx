@@ -1,39 +1,14 @@
 import React, { useState } from 'react';
-import Select, { Option } from '@material/react-select';
 import Dialog, {
   DialogTitle,
   DialogContent,
   DialogButton,
 } from '@material/react-dialog';
-import PropTypes from 'prop-types';
 import MaterialIcon from '@material/react-material-icon';
 import Fab from '@material/react-fab';
-
-
-const DynamicSelect = ({ label, value, onValueChange, valueList, }) =>
-  (
-    <Select
-      required
-      className="w-100"
-      notchedOutlineClassName="pa2"
-      enhanced
-      outlined
-      label={label}
-      value={value}
-      onEnhancedChange={onValueChange}
-    >
-      <Option value="None">{`Choose ${label}`}</Option>
-      {valueList.map(val => (
-        <Option key={val} value={val}>{val}</Option>
-      ))}
-    </Select>
-  );
-DynamicSelect.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onValueChange: PropTypes.func.isRequired,
-  valueList: PropTypes.array.isRequired,
-};
+import DynamicSelect from '../../../common/DynamicSelect';
+// Select Component to display for different values like
+// Problem,language and Type
 
 
 const FilterButton = () => {
@@ -51,31 +26,22 @@ const FilterButton = () => {
   // Array to be displayed
   const selectedValues = [problem, language, type];
 
+  const onVariableChange = setVariable => ((_, item) =>(
+    setVariable(item.getAttribute('data-value')))
+  );
   // Functions to update State
-  const onProblemChange = (_, item) => {
-    let newProb = { ...problem };
-    newProb = item.getAttribute('data-value');
-    setProblem(newProb);
-  };
+  const onProblemChange = onVariableChange(setProblem);
 
-  const onLangChange = (_, item) => {
-    let newLang = { ...language };
-    newLang = item.getAttribute('data-value');
-    setLanguage(newLang);
-  };
+  const onLangChange = onVariableChange(setLanguage);
 
-  const onTypeChange = (_, item) => {
-    let newType = { ...type };
-    newType = item.getAttribute('data-value');
-    setType(newType);
-  };
+  const onTypeChange = onVariableChange(setType);
 
-  const toggleOpen = () => setOpen(isOpen => !isOpen);
-
+  const toggleOpen = () => setOpen(!isOpen);
   // Return
   return (
     <div>
       <Fab
+        autoFocus={false}
         textLabel="Filter"
         style={{
           backgroundColor: '#6200EE', position: 'fixed', right: '2rem', bottom: '2rem',
@@ -86,23 +52,28 @@ const FilterButton = () => {
       <Dialog
         open={isOpen}
         onClose={toggleOpen}
+        autoFocus={false}
       >
         <DialogTitle>Filter</DialogTitle>
-        <DialogContent className="">
+        <DialogContent className="" autoFocus={false}>
           <div className="flex-column">
             <DynamicSelect
+              className=""
               label="Problem"
+              isValRequired
               value={problem}
               valueList={problemList}
               onValueChange={onProblemChange}
             />
             <DynamicSelect
+              isValRequired
               label="Language"
               value={language}
               valueList={langList}
               onValueChange={onLangChange}
             />
             <DynamicSelect
+              isValRequired
               label="Type"
               value={type}
               valueList={typeList}
@@ -110,8 +81,8 @@ const FilterButton = () => {
             />
             <div className="pa2">
               <DialogButton
-                className="pa2 w-100"
                 raised
+                className="pa2 w-100"
                 action="filter"
                 onClick={() => {
                   console.log(selectedValues);

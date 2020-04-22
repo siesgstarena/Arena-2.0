@@ -1,7 +1,7 @@
 import React from 'react';
 import { Headline6 } from '@material/react-typography';
 import myPosts from './myPosts';
-import BlogCard from '../../drawer/blogs/blogsList/BlogCard';
+import BlogCard from '../../drawer/blogs/BlogCard/BlogCard';
 
 const Posts = () => {
   const myPostsArray = myPosts.map(myPost => (

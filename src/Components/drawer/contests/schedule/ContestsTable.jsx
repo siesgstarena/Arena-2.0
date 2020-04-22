@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  userColor, convertDate, convertTime, differenceInTwoDates,
+  userColor, convertDate, convertTime, differenceInTwoDates, adding330Minutes,
 } from '../../../../commonFunctions';
 
 const ContestsTable = ({ contests }) => {
@@ -14,8 +14,8 @@ const ContestsTable = ({ contests }) => {
     const startsAtTime = convertTime(contest.startsAt);
     const currentDateObject = new Date();
     let currentDateInMilliseconds = currentDateObject.getTime();
-    currentDateInMilliseconds += (330000 * 60);
-    const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt, 1);
+    currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
+    const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt);
     const [endsIn, endsInType] = differenceInTwoDates(currentDateInMilliseconds, contest.endsAt);
     return (
       <tr key={contest.code}>

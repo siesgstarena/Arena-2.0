@@ -26,7 +26,7 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
       setSelectedIndex(1);
     } else if (currentPathname === '/ratings') {
       setSelectedIndex(2);
-    } else if (currentPathname === '/blog') {
+    } else if (currentPathname === '/blogs') {
       setSelectedIndex(3);
     } else if (currentPathname === '/problem-set') {
       setSelectedIndex(4);

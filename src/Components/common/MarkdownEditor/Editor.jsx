@@ -35,7 +35,9 @@ const Editor = ({ value, setValue }) => {
         canView: {
           hideMenu: true, menu: true, md: true, html: true, fullScreen: true,
         },
-        // htmlClass: "custom-html-style",
+        // imageAccept: '.jpg,.png,.jpeg',
+        // htmlClass: 'custom-html-style',
+        syncSrollMode: ['rightFollowLeft', 'leftFollowRight'],
         // markdownClass: "ba bw2 ma0 pa0",
       }}
     />

@@ -76,6 +76,18 @@ export const convertTime = (milliSeconds) => {
   return time;
 };
 
+export const adding330Minutes = (milliSeconds) => {
+  let date = milliSeconds;
+  date += (330000 * 60);
+  return date;
+};
+
+export const subtracting330Minutes = (milliSeconds) => {
+  let date = milliSeconds;
+  date -= (330000 * 60);
+  return date;
+};
+
 export const differenceInTwoDates = (
   givenDate1InMilliseconds, givenDate2InMilliseconds, digitsAfterDecimal = 0,
 ) => {
@@ -85,8 +97,8 @@ export const differenceInTwoDates = (
   if (typeof givenDate2InMilliseconds === 'string') {
     givenDate2InMilliseconds = Number(givenDate2InMilliseconds);
   }
-  givenDate1InMilliseconds -= (330000 * 60);
-  givenDate2InMilliseconds -= (330000 * 60);
+  givenDate1InMilliseconds = subtracting330Minutes(givenDate1InMilliseconds);
+  givenDate2InMilliseconds = subtracting330Minutes(givenDate2InMilliseconds);
   let seconds = Math.abs((givenDate1InMilliseconds - givenDate2InMilliseconds) / 1000);
   let minutes = seconds / 60;
   let hours = minutes / 60;

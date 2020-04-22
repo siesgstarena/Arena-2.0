@@ -1,16 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
-import problems from './problems';
 import Table from '../../../common/Table/index';
 
-const ProblemsTable = () => {
+const ProblemsTable = ({ problems }) => {
   const tableHeadings = ['#', 'Points', 'Problem Name'];
   const match = useRouteMatch();
   const { url } = match;
-  const problemsArray = problems.map(problem => (
-    <tr key={problem.id}>
+  const problemsArray = problems.map((problem, index) => (
+    <tr key={problem._id}>
       <td>
-        {problem.id}
+        {index + 1}
       </td>
       <td>
         {problem.points}
@@ -25,6 +25,10 @@ const ProblemsTable = () => {
   return (
     <Table tableHeadings={tableHeadings} tableData={problemsArray} />
   );
+};
+
+ProblemsTable.propTypes = {
+  problems: PropTypes.array.isRequired,
 };
 
 export default ProblemsTable;

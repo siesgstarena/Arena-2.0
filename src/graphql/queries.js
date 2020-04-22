@@ -279,3 +279,14 @@ query BlogById($id: ID!) {
   }
 }
 `;
+
+export const GET_PROBLEMS_BY_CONTEST_CODE = gql`
+query ProblemsByContestCode($contestCode: String!) {
+  problemsByContestCode(contestCode: $contestCode){
+    _id
+    code
+    name
+    points
+  }
+}
+`;

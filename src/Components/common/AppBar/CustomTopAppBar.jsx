@@ -15,7 +15,9 @@ import AuthContext from '../../../Contexts/AuthContext';
 import UserMenu from './UserMenu';
 
 const CustomTopAppBar = ({ setDrawerOpen }) => {
-  const mobileDevice = window.innerWidth < 480;
+  const [width, setWidth] = useState(window.innerWidth);
+  const mobileDevice = width < 480;
+  window.addEventListener('resize', () => { setWidth(window.innerWidth); });
   const { authState } = useContext(AuthContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [coordinatesOfUserMenu, setCoordinatesOfUserMenu] = useState({});

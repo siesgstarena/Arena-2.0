@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -8,7 +8,9 @@ import {
 const ContestsTable = ({ contests }) => {
   // hidden variable is used to hide the licontestAdmin when the width
   // of the page goes below 900
-  const hidden = window.innerWidth < 900;
+  const [width, setWidth] = useState(window.innerWidth);
+  const hidden = width < 900;
+  window.addEventListener('resize', () => { setWidth(window.innerWidth); });
   const rows = contests.map((contest) => {
     const startsAtDate = convertDate(contest.startsAt);
     const startsAtTime = convertTime(contest.startsAt);

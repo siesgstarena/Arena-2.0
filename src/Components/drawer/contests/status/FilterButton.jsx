@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import Dialog, {
-  DialogTitle,
   DialogContent,
   DialogButton,
+  DialogTitle,
 } from '@material/react-dialog';
+import { Button } from '@material/react-button';
+import 'tachyons';
 import MaterialIcon from '@material/react-material-icon';
 import Fab from '@material/react-fab';
 import DynamicSelect from '../../../common/DynamicSelect';
@@ -37,28 +39,39 @@ const FilterButton = () => {
   const onTypeChange = onVariableChange(setType);
 
   const toggleOpen = () => setOpen(!isOpen);
+
   // Return
   return (
     <div>
       <Fab
-        autoFocus={false}
         textLabel="Filter"
+        className="center"
         style={{
-          backgroundColor: '#6200EE', position: 'fixed', right: '2rem', bottom: '2rem',
+          backgroundColor: '#6200EE', position: 'fixed', bottom: '2rem', right: '2rem',
         }}
         icon={(<MaterialIcon icon="filter_list" />)}
         onClick={toggleOpen}
       />
       <Dialog
+        className=""
         open={isOpen}
         onClose={toggleOpen}
-        autoFocus={false}
       >
-        <DialogTitle>Filter</DialogTitle>
-        <DialogContent className="" autoFocus={false}>
+        <DialogTitle style={{ height: '30px' }}>
+          <Button
+            style={{
+              backgroundColor: 'white',
+              color: 'Black',
+              boxShadow: 'none',
+              cursor: 'default',
+            }}
+            raised
+            className=""
+          />
+        </DialogTitle>
+        <DialogContent className="">
           <div className="flex-column">
             <DynamicSelect
-              className=""
               label="Problem"
               isValRequired
               value={problem}

@@ -20,6 +20,7 @@ const DynamicSelect = ({
       <Option key={val} value={val}>{val}</Option>
     ))}
   </Select>
+
 );
 
 DynamicSelect.propTypes = {

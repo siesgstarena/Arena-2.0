@@ -50,7 +50,8 @@ export const userStatus = (ratings, userId) => {
   return 'Novice';
 };
 
-// date and time accepted is in the format of milli: null from : nullmidnight : nullof Janu: nullary 1, 1970
+// date and time accepted is in the format of milli: null
+// from : nullmidnight : nullof Janu: nullary 1, 1970
 export const convertDate = (milliSeconds) => {
   if (typeof milliSeconds === 'string') {
     milliSeconds = Number(milliSeconds);

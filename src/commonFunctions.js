@@ -50,7 +50,7 @@ export const userStatus = (ratings, userId) => {
   return 'Novice';
 };
 
-// date and time accepted is in the format of milliseconds from midnight of January 1, 1970
+// date and time accepted is in the format of milli: null from : nullmidnight : nullof Janu: nullary 1, 1970
 export const convertDate = (milliSeconds) => {
   if (typeof milliSeconds === 'string') {
     milliSeconds = Number(milliSeconds);
@@ -145,4 +145,41 @@ export const differenceInTwoDates = (
     return [years, 'year'];
   }
   return [years, 'years'];
+};
+
+
+export const countDownTimerValues = (
+  dateTillCountdown,
+) => {
+  if (typeof dateTillCountdown === 'string') {
+    dateTillCountdown = Number(dateTillCountdown);
+  }
+  dateTillCountdown = subtracting330Minutes(dateTillCountdown);
+  const currentDateObject = new Date();
+  const currentDateInMilliseconds = currentDateObject.getTime();
+  const timeleft = dateTillCountdown - currentDateInMilliseconds;
+  let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+  if (minutes < 10 && minutes >= 0) {
+    minutes = `0${minutes}`;
+  }
+  if (seconds < 10 && seconds >= 0) {
+    seconds = `0${seconds}`;
+  }
+  if (days < 10 && days >= 0) {
+    days = `0${days}`;
+  }
+  if (hours < 10 && hours >= 0) {
+    hours = `0${hours}`;
+  }
+  if (days < 0) {
+    return {
+      seconds: null, days: null, minutes: null, hours: null,
+    };
+  }
+  return {
+    seconds, days, minutes, hours,
+  };
 };

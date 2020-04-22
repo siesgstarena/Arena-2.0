@@ -3,8 +3,10 @@ import Card from '@material/react-card';
 import {
   Body1,
   Body2,
+  Headline4,
 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import CountDownTimer from './CountDownTimer';
 import 'tachyons';
 
 // const [timeStamp, setTimeStamp] = useState(new Date());
@@ -24,7 +26,9 @@ const ContestDetails = ({ name, description, endsAt }) => (
       {description}
     </Body2>
     <hr className="ml3 mr3" />
-    {endsAt}
+    <Headline4 className="mt2 mb2 mid-gray">
+      <CountDownTimer countDownTill={endsAt} />
+    </Headline4>
   </Card>
 );
 

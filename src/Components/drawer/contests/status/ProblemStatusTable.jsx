@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Table from '../../../common/Table/index';
 import problemStatus from './problemStatus';
+import FilterButton from './FilterButton';
 
 const ProblemStatusTable = () => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
@@ -53,7 +54,10 @@ const ProblemStatusTable = () => {
   });
 
   return (
-    <Table tableHeadings={tableHeadings} tableData={problemStatusArray} tableHeadingClassName="tc" />
+    <div>
+      <Table tableHeadings={tableHeadings} tableData={problemStatusArray} tableHeadingClassName="tc" />
+      <FilterButton />
+    </div>
   );
 };
 

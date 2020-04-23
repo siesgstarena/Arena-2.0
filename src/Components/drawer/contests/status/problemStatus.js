@@ -7,7 +7,7 @@ const problemStatus = [
       id: '123456',
     },
     problem: {
-      name: 'Odd or Even Odd or Even Odd or Even Odd or Even',
+      name: 'Odd or Even or Odd',
       id: '1',
     },
     verdict: 'Compilation Error',

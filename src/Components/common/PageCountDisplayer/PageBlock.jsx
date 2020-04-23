@@ -9,9 +9,19 @@ const PageBlock = ({
   const history = useHistory();
   const location = useLocation();
   const updateActivePageNumberAndData = () => {
+    const splittedSearchString = location.search.split('pageNumber=');
+    let searchString = splittedSearchString[0];
+    // if pageNumber is already present in the search query then
+    // when user clicks on the page block we just update the pageNumber
+    // and keep the original query as it is
+    if (location.search.includes('pageNumber')) {
+      searchString += `pageNumber=${pageNumber}`;
+    } else {
+      searchString += `&pageNumber=${pageNumber}`;
+    }
     history.push({
       pathname: location.pathname,
-      search: `?pageNumber=${pageNumber}`,
+      search: searchString,
     });
   };
   if (activePageNumber === pageNumber) {

@@ -78,12 +78,18 @@ export const convertTime = (milliSeconds) => {
 };
 
 export const adding330Minutes = (milliSeconds) => {
+  if (typeof milliSeconds === 'string') {
+    milliSeconds = Number(milliSeconds);
+  }
   let date = milliSeconds;
   date += (330000 * 60);
   return date;
 };
 
 export const subtracting330Minutes = (milliSeconds) => {
+  if (typeof milliSeconds === 'string') {
+    milliSeconds = Number(milliSeconds);
+  }
   let date = milliSeconds;
   date -= (330000 * 60);
   return date;
@@ -183,4 +189,17 @@ export const countDownTimerValues = (
   return {
     seconds, days, minutes, hours,
   };
+};
+
+export const getSubmissionColor = (submissionStatus) => {
+  if (submissionStatus === 'Time Limit Exceeded' || submissionStatus === 'Compilation Error') {
+    return '#ffc107';
+  }
+  if (submissionStatus === 'Wrong Answer' || submissionStatus === 'Runtime Error') {
+    return '#dc3545';
+  }
+  if (submissionStatus === 'Accepted') {
+    return '#28a745';
+  }
+  return '#dc3545';
 };

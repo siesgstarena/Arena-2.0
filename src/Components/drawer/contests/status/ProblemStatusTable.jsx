@@ -1,53 +1,52 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Table from '../../../common/Table/index';
-import problemStatus from './problemStatus';
-import FilterButton from './FilterButton';
+import {
+  getSubmissionColor, convertDate, convertTime, adding330Minutes,
+} from '../../../../commonFunctions';
 
-const ProblemStatusTable = () => {
+const ProblemsubmissionTable = ({ submissions }) => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
-  const problemStatusArray = problemStatus.map((status) => {
-    // This portion checks which color is to be assigned to the verdict
-    let color = '';
-    if (status.verdict === 'Accepted') {
-      color = 'green';
-    } else if (status.verdict === 'Compilation Error') {
-      color = '#999900';
-    } else {
-      color = 'red';
-    }
-
+  const problemsubmissionArray = submissions.map((submission) => {
+    const color = getSubmissionColor(submission.status);
+    const addedCreatedAt = adding330Minutes(submission.createdAt);
+    const createdAtDate = convertDate(addedCreatedAt);
+    const createdAtTime = convertTime(addedCreatedAt);
     return (
-      <tr key={status.id} style={{ fontSize: '.9em' }}>
+      <tr key={submission._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`submission/${status.id}`}>
-            {status.id}
+          <Link className="no-underline dim blue pointer" to={`submission/${submission._id}`}>
+            {submission._id.slice(-6)}
           </Link>
         </td>
         <td className="tc pa3">
-          {status.when}
+          {createdAtDate}
+          ,
+          &nbsp;
+          {createdAtTime}
         </td>
         <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`/profile/${status.who.id}`}>
-            {status.who.username}
+          <Link className="no-underline dim blue pointer" to={`/profile/${submission.userId._id}`}>
+            {submission.userId.username}
           </Link>
         </td>
         <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`problem/${status.problem.id}`}>
-            {status.problem.name}
+          <Link className="no-underline dim blue pointer" to={`problem/${submission.problemId.code}`}>
+            {submission.problemId.name}
           </Link>
         </td>
         <td className="tc pa3" style={{ color }}>
-          {status.verdict}
+          {submission.status}
         </td>
         <td className="tc pa3">
-          {status.language}
+          {submission.language}
         </td>
         <td className="tc pa3">
-          {status.time}
+          {submission.time}
         </td>
         <td className="tc pa3">
-          {status.memory}
+          {submission.memory}
         </td>
       </tr>
     );
@@ -55,10 +54,14 @@ const ProblemStatusTable = () => {
 
   return (
     <div>
-      <Table tableHeadings={tableHeadings} tableData={problemStatusArray} tableHeadingClassName="tc" />
-      <FilterButton />
+      <Table tableHeadings={tableHeadings} tableData={problemsubmissionArray} tableHeadingClassName="tc" />
     </div>
   );
 };
 
-export default ProblemStatusTable;
+ProblemsubmissionTable.propTypes = {
+  submissions: PropTypes.array.isRequired,
+};
+
+
+export default ProblemsubmissionTable;

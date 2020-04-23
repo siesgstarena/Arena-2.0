@@ -290,3 +290,39 @@ query ProblemsByContestCode($contestCode: String!) {
   }
 }
 `;
+
+export const GET_CONTEST_STATUS = gql`
+query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $userId: String, $problemCode: String, $status: String, $language: String) {
+  submissionsByContestCode(contestCode: $contestCode, limit: $limit, skip: $skip, where: { userId: $userId, problemCode: $problemCode, status: $status, language: $language }){
+    code
+    success
+    message
+    pages
+    submissions {
+      _id
+      userId{
+      username
+      _id
+      }
+      contestId {
+        name
+      }
+      problemId {
+        name
+        code
+      }
+      time
+      createdAt
+      status
+      language
+      time
+      memory
+    }
+  }
+  problemsByContestCode(contestCode: $contestCode) {
+    name
+    _id
+    code
+  }
+}
+`;

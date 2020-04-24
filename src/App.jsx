@@ -27,6 +27,7 @@ const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/myS
 const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/index'));
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const ContestProblemPage = lazy(() => import('./Components/drawer/contests/problemPage/index'));
+const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
@@ -116,6 +117,7 @@ const App = () => {
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
                           <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                           <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
+                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
                         </Suspense>
                       </ContestSkeletonContainer>
                     )}

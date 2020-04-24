@@ -12,7 +12,7 @@ import Spinner from '../../../common/Spinner';
 const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript'];
 
 
-const SubmitFile = () => {
+const SubmitSolution = () => {
 // initial State declaration
   const [value, setValue] = useState('default');
   const [uploadMethod, setUploadMethod] = useState('file');
@@ -190,4 +190,4 @@ const SubmitFile = () => {
   );
 };
 
-export default SubmitFile;
+export default SubmitSolution;

@@ -1,11 +1,11 @@
 import React from 'react';
-import SubmitFile from './SubmitFile';
+import SubmitSolution from './SubmitSolution';
 import 'tachyons';
 
 // Layout of Scoreboard page: DataTable , ContestDetails and Announcements
 // referred the status page
 const Submission = () => (
-  <SubmitFile />
+  <SubmitSolution />
 );
 
 

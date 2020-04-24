@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
-import { Headline4 } from '@material/react-typography';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Select, { Option } from '@material/react-select';
@@ -8,8 +7,8 @@ import TextField, { Input } from '@material/react-text-field';
 import { Button } from '@material/react-button';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
-import Spinner from '../../../common/Spinner';
 import { languageOptions } from '../status/options';
+import Uploading from './Uploading';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const SubmitSolution = ({ problems }) => {
@@ -45,7 +44,6 @@ const SubmitSolution = ({ problems }) => {
     })
       .then(response => response.json())
       .then((jsonResponse) => {
-        // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
         }
@@ -120,12 +118,7 @@ const SubmitSolution = ({ problems }) => {
   // function to render loading page / the submit page
   if (isUploading) {
     return (
-      <div className="">
-        <Headline4>
-          Hang in there, this may take some time... do not reload or close this page!
-        </Headline4>
-        <Spinner />
-      </div>
+      <Uploading />
     );
   }
   return (

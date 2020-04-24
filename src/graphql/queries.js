@@ -99,6 +99,7 @@ query ProblemByCode($code: ID!) {
   problemByCode(code: $code){
     _id
     name
+    code
     points
     description
     explainInput

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Tab from '@material/react-tab';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import TabBar from '@material/react-tab-bar';
+import AuthContext from '../../../../Contexts/AuthContext';
 
 const ContestTabBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const handleActiveIndexUpdate = (updatedActiveIndex) => {
     setActiveIndex(updatedActiveIndex);
   };
+  const { authState } = useContext(AuthContext);
 
   const history = useHistory();
   const location = useLocation();
@@ -23,14 +25,14 @@ const ContestTabBar = () => {
       setActiveIndex(0);
     } else if (currentPathname === `${url}/status`) {
       setActiveIndex(1);
-    } else if (currentPathname === `${url}/my`) {
-      setActiveIndex(2);
     } else if (currentPathname === `${url}/scoreboard`) {
+      setActiveIndex(2);
+    } else if (currentPathname === `${url}/my` && authState.user) {
       setActiveIndex(3);
-    } else if (currentPathname === `${url}/submit`) {
+    } else if (currentPathname === `${url}/submit` && authState.user) {
       setActiveIndex(4);
     }
-  }, [currentPathname, url]);
+  }, [currentPathname, url, authState.user]);
 
   const onTabClick = (path) => {
     history.push(path);
@@ -42,7 +44,6 @@ const ContestTabBar = () => {
   // and then we update the site according to it.
   return (
     <TabBar
-      indexInView={activeIndex}
       className=""
       activeIndex={activeIndex}
       handleActiveIndexUpdate={handleActiveIndexUpdate}
@@ -53,15 +54,29 @@ const ContestTabBar = () => {
       <Tab onClick={() => onTabClick(`${url}/status`)}>
         <span className="mdc-tab__text-label">Status</span>
       </Tab>
-      <Tab onClick={() => onTabClick(`${url}/my`)}>
-        <span className="mdc-tab__text-label">My Submissions</span>
-      </Tab>
       <Tab onClick={() => onTabClick(`${url}/scoreboard`)}>
         <span className="mdc-tab__text-label">Scoreboard</span>
       </Tab>
-      <Tab onClick={() => onTabClick(`${url}/submit`)}>
-        <span className="mdc-tab__text-label">Submit</span>
-      </Tab>
+      {
+        // The reason why I have written separate checks for each test is because
+        // the TabBar don't recognise any component other than the Tab component.
+        // Hence when I am keeing two divs together, I had to enclose them in div/span/<>
+        // which were creating issues with TabBar
+        authState.user ? (
+          <Tab onClick={() => onTabClick(`${url}/my`)}>
+            <span className="mdc-tab__text-label">My Submissions</span>
+          </Tab>
+        )
+          : <></>
+      }
+      {
+        authState.user ? (
+          <Tab onClick={() => onTabClick(`${url}/submit`)}>
+            <span className="mdc-tab__text-label">Submit</span>
+          </Tab>
+        )
+          : <></>
+      }
     </TabBar>
 
   );

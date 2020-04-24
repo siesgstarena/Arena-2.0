@@ -16,7 +16,7 @@ const ProblemsTable = ({ problems }) => {
         {problem.points}
       </td>
       <td>
-        <Link className="no-underline dim blue pointer" to={`${url}/problem/${problem.id}`}>
+        <Link className="no-underline dim blue pointer" to={`${url}/problem/${problem.code}`}>
           {problem.name}
         </Link>
       </td>

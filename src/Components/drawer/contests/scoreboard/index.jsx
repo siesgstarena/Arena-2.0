@@ -5,6 +5,7 @@ import { GET_SCOREBOARD_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import Scoreboard from './Scoreboard';
+import ContestTabBar from '../common/ContestTabBar';
 import Spinner from '../../../common/Spinner/index';
 
 const ScoreboardContainer = () => {
@@ -23,10 +24,15 @@ const ScoreboardContainer = () => {
     const { problems } = data.scoreboard;
     // console.log(data.scoreboard.problems, problems);
     return (
-      <Scoreboard
-        scoreboardDetails={scoreboard}
-        problems={problems}
-      />
+      <div>
+        <div style={{ marginBottom: '10px' }}>
+          <ContestTabBar />
+        </div>
+        <Scoreboard
+          scoreboardDetails={scoreboard}
+          problems={problems}
+        />
+      </div>
     );
   }
   if (isSessionExpired(data.scoreboard)) {

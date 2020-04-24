@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Tab from '@material/react-tab';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import TabBar from '@material/react-tab-bar';
 import AuthContext from '../../../../Contexts/AuthContext';
 
@@ -13,23 +13,23 @@ const ContestTabBar = () => {
 
   const history = useHistory();
   const location = useLocation();
+  const { contestId } = useParams();
   const { pathname: currentPathname } = location;
-  const match = useRouteMatch();
-  const { url } = match;
 
+  const url = `contests/${contestId}`;
   // This useEffect checks on which url we currently are and accordingly
   // updates the value of activeIndex. So that the TabBar displays the
   // particular tab on which we are at the moment.
   useEffect(() => {
-    if (currentPathname === `${url}`) {
+    if (currentPathname === `/${url}`) {
       setActiveIndex(0);
-    } else if (currentPathname === `${url}/status`) {
+    } else if (currentPathname === `/${url}/status`) {
       setActiveIndex(1);
-    } else if (currentPathname === `${url}/scoreboard`) {
+    } else if (currentPathname === `/${url}/scoreboard`) {
       setActiveIndex(2);
-    } else if (currentPathname === `${url}/my` && authState.user) {
+    } else if (currentPathname === `/${url}/my` && authState.user) {
       setActiveIndex(3);
-    } else if (currentPathname === `${url}/submit` && authState.user) {
+    } else if (currentPathname === `/${url}/submit` && authState.user) {
       setActiveIndex(4);
     }
   }, [currentPathname, url, authState.user]);
@@ -44,17 +44,17 @@ const ContestTabBar = () => {
   // and then we update the site according to it.
   return (
     <TabBar
-      className=""
+      className="react-tab-bar-alternate"
       activeIndex={activeIndex}
       handleActiveIndexUpdate={handleActiveIndexUpdate}
     >
-      <Tab onClick={() => onTabClick(`${url}`)}>
+      <Tab onClick={() => onTabClick(`/${url}`)}>
         <span className="mdc-tab__text-label">Dashboard</span>
       </Tab>
-      <Tab onClick={() => onTabClick(`${url}/status`)}>
+      <Tab onClick={() => onTabClick(`/${url}/status`)}>
         <span className="mdc-tab__text-label">Status</span>
       </Tab>
-      <Tab onClick={() => onTabClick(`${url}/scoreboard`)}>
+      <Tab onClick={() => onTabClick(`/${url}/scoreboard`)}>
         <span className="mdc-tab__text-label">Scoreboard</span>
       </Tab>
       {
@@ -63,7 +63,7 @@ const ContestTabBar = () => {
         // Hence when I am keeing two divs together, I had to enclose them in div/span/<>
         // which were creating issues with TabBar
         authState.user ? (
-          <Tab onClick={() => onTabClick(`${url}/my`)}>
+          <Tab onClick={() => onTabClick(`/${url}/my`)}>
             <span className="mdc-tab__text-label">My Submissions</span>
           </Tab>
         )
@@ -71,7 +71,7 @@ const ContestTabBar = () => {
       }
       {
         authState.user ? (
-          <Tab onClick={() => onTabClick(`${url}/submit`)}>
+          <Tab onClick={() => onTabClick(`/${url}/submit`)}>
             <span className="mdc-tab__text-label">Submit</span>
           </Tab>
         )

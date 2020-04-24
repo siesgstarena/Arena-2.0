@@ -10,6 +10,7 @@ import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import ProblemStatusTable from './ProblemStatusTable';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import FilterButton from './FilterButton';
+import ContestTabBar from '../common/ContestTabBar';
 import FilterDisplayer from './FilterDisplayer';
 
 const StatusContainer = () => {
@@ -39,6 +40,9 @@ const StatusContainer = () => {
     const problems = data.problemsByContestCode;
     return (
       <div className="">
+        <div style={{ marginBottom: '10px' }}>
+          <ContestTabBar />
+        </div>
         <FilterDisplayer problemCode={problemCode} type={type} language={language} />
         <ProblemStatusTable
           submissions={submissions}

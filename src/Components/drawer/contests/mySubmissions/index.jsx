@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import Spinner from '../../../common/Spinner/index';
 import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
+import ContestTabBar from '../common/ContestTabBar';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import ProblemStatusTable from '../status/ProblemStatusTable';
@@ -37,6 +38,9 @@ const StatusContainer = () => {
     const problems = data.problemsByContestCode;
     return (
       <div className="">
+        <div style={{ marginBottom: '10px' }}>
+          <ContestTabBar />
+        </div>
         <ProblemStatusTable
           submissions={submissions}
           problems={problems}

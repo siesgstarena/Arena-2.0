@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
-import ContestTabBar from './ContestTabBar';
 import ContestDetails from './ContestDetails';
 import Announcements from './Announcements';
 
@@ -13,10 +12,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
     <Grid className="mw9 center">
       <Row>
         <Cell desktopColumns={9} tabletColumns={8}>
-          <Cell style={{ marginBottom: '10px' }}>
-            <ContestTabBar />
-          </Cell>
-          <Cell className="">
+          <Cell>
             {children}
           </Cell>
         </Cell>

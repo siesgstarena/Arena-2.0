@@ -1,48 +1,116 @@
 import React, { useState } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
+import { Headline4 } from '@material/react-typography';
+import { useHistory, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import { Button } from '@material/react-button';
-import contestDetails from './contestDetails';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import Spinner from '../../../common/Spinner';
+import { languageOptions } from '../status/options';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
-// array to fetch the list of languages
-const languages = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'Go', 'Javascript'];
-
-
-const SubmitSolution = () => {
+const SubmitSolution = ({ problems }) => {
 // initial State declaration
-  const [value, setValue] = useState('default');
+  const [problem, setProblem] = useState('None');
+  const history = useHistory();
+  const { contestId } = useParams();
   const [uploadMethod, setUploadMethod] = useState('file');
-  const [lang, setLang] = useState('default');
+  const [lang, setLang] = useState('None');
   const [file, setFile] = useState({});
   const [code, setCode] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
-  // const fileDetails = {
-  //   'problem name': value,
-  //   'upload method': uploadMethod,
-  //   'language chosen': lang,
-  //   'file chosen': file,
-  //   'code text': code,
-  // };
+  let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
+  const incomingProblemOptions = problems.map(problemOption => ({
+    value: problemOption.code,
+    label: `${problemOption.name} (${problemOption.code})`,
+  }));
+  problemOptions = [...problemOptions, ...incomingProblemOptions];
 
+
+  const submitFile = () => {
+    const formData = new FormData();
+    formData.append('language', lang);
+    formData.append('file', file);
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit/${problem}`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then((jsonResponse) => {
+        // console.log(jsonResponse);
+        if (isSessionExpired(jsonResponse.data.restAPI)) {
+          redirectOnSessionExpiredAfterRender();
+        }
+        if (jsonResponse.data.restAPI.success === true) {
+          history.push({
+            pathname: `/contests/${contestId}/my`,
+          });
+        } else {
+          setIsUploading(false);
+          setMessageType('error');
+          setMessage(jsonResponse.data.restAPI.message);
+        }
+      }).catch(() => {
+        setIsUploading(false);
+        setMessageType('error');
+        setMessage('An unexpected error has been encountered');
+      });
+  };
+
+  const submitCode = () => {
+    const formData = new FormData();
+    formData.append('language', lang);
+    formData.append('code', code);
+    formData.append('problemCode', problem);
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit`, {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then((jsonResponse) => {
+        // console.log(jsonResponse);
+        if (isSessionExpired(jsonResponse.data.restAPI)) {
+          redirectOnSessionExpiredAfterRender();
+        }
+        if (jsonResponse.data.restAPI.success === true) {
+          history.push({
+            pathname: `/contests/${contestId}/my`,
+          });
+        } else {
+          setIsUploading(false);
+          setMessageType('error');
+          setMessage(jsonResponse.data.restAPI.message);
+        }
+      }).catch(() => {
+        setIsUploading(false);
+        setMessageType('error');
+        setMessage('An unexpected error has been encountered');
+      });
+  };
   // functions to update state
-
-  const onEnhancedChange = (_, item) => (setValue(item.getAttribute('data-value')));
+  const onEnhancedChange = (_, item) => (setProblem(item.getAttribute('data-value')));
 
   const onLangChange = (_, item) => (setLang(item.getAttribute('data-value')));
 
   const onMethodChange = (_, item) => (setUploadMethod(item.getAttribute('data-value')));
   // function to check validation
   const validationCheck = () => {
-    if (value !== 'default' && lang !== 'default' && (file.length !== 0 || code.length !== 0)) {
+    if (problem !== 'None' && lang !== 'None' && (file.length !== 0 || code.length !== 0)) {
       setIsUploading(true);
-      // console.log(fileDetails);
+      if (uploadMethod === 'file') {
+        submitFile();
+      } else {
+        submitCode();
+      }
     } else {
       setMessageType('error');
       setMessage('Please select appropriate Problem/Language/Upload method and Upload valid file');
@@ -53,7 +121,9 @@ const SubmitSolution = () => {
   if (isUploading) {
     return (
       <div className="">
-        <h3>Hang in there, this may take some time... do not reload or close this page!</h3>
+        <Headline4>
+          Hang in there, this may take some time... do not reload or close this page!
+        </Headline4>
         <Spinner />
       </div>
     );
@@ -83,16 +153,10 @@ const SubmitSolution = () => {
                 outlined
                 label="Problem"
                 className="w-100"
-                value={value}
+                value={problem}
+                options={problemOptions}
                 onEnhancedChange={onEnhancedChange}
-              >
-                <Option className="opt" value="default">Choose Problem</Option>
-                {
-                  contestDetails[0].Problem.map(prob => (
-                    <Option key={prob.id} className="opt" value={prob.title}>{`${prob.title} - ${prob.name}`}</Option>
-                  ))
-                }
-              </Select>
+              />
             </div>
           </Cell>
           <Cell tabletColumns="3">
@@ -105,15 +169,9 @@ const SubmitSolution = () => {
                 outlined
                 className="w-100"
                 value={lang}
+                options={languageOptions}
                 onEnhancedChange={onLangChange}
-              >
-                <Option className="opt" value="default"> Choose Language</Option>
-                {
-                  languages.map(langu => (
-                    <Option key={langu} className="opt" value={langu}>{`${langu}`}</Option>
-                  ))
-                }
-              </Select>
+              />
             </div>
           </Cell>
           <Cell tabletColumns="9">
@@ -175,19 +233,12 @@ const SubmitSolution = () => {
           </Cell>
         </Row>
       </Grid>
-
-      {/* This Select option is to select between
-          different methods of uploading solution
-           */}
-
-
-      {/* submit button , on clicked
-          goes to ValidationCheck function
-          then based on that it leads to onSubmitTrigger if it is true
-          or leads to handleError if it is false */}
-
     </div>
   );
+};
+
+SubmitSolution.propTypes = {
+  problems: PropTypes.array.isRequired,
 };
 
 export default SubmitSolution;

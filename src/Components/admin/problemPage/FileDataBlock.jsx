@@ -1,8 +1,8 @@
 import React from 'react';
-import { Headline5, Body1 } from '@material/react-typography';
+import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 
-const DataBlock = ({ title, fileLink }) => (
+const FileDataBlock = ({ title, fileLink }) => (
   <div className="ma0 mb4" style={{ border: '1px solid purple', borderRadius: '6px' }}>
     <div
       className="pa2"
@@ -13,9 +13,9 @@ const DataBlock = ({ title, fileLink }) => (
         borderTopRightRadius: '6px',
       }}
     >
-      <Headline5 style={{ color: 'purple' }} className="ma2">
+      <Headline6 style={{ color: 'purple' }} className="ma2">
         {title}
-      </Headline5>
+      </Headline6>
     </div>
     <Body1 className="pa2 ma2">
       <a href={`${fileLink}`} className="no-underline gray">
@@ -25,9 +25,9 @@ const DataBlock = ({ title, fileLink }) => (
   </div>
 );
 
-DataBlock.propTypes = {
+FileDataBlock.propTypes = {
   title: PropTypes.string.isRequired,
   fileLink: PropTypes.string.isRequired,
 };
 
-export default DataBlock;
+export default FileDataBlock;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { Headline6 } from '@material/react-typography';
@@ -8,11 +8,11 @@ import { GET_SUBMISSION_PAGE_DETAILS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import Spinner from '../../../common/Spinner/index';
+import WrongAnswerContent from './WrongAnwerContent';
 
 const SubmitContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { submissionId, contestId } = useParams();
-  const [file, setFile] = useState('');
   const {
     loading, error, data,
   } = useQuery(GET_SUBMISSION_PAGE_DETAILS, {
@@ -22,17 +22,32 @@ const SubmitContainer = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionById) {
-    let { submission } = data.submissionById;
+    const { submission } = data.submissionById;
     const { fileContent } = submission;
-    submission = [submission];
-    fetch(fileContent)
-      .then((response) => { setFile(response); });
-    // console.log(data.submissionById.problems, problems);
+    const { status } = submission;
+    const submissionArray = [submission];
     return (
       <div>
-        <ProblemStatusTable submissions={submission} contestId={contestId} />
+        <ProblemStatusTable submissions={submissionArray} contestId={contestId} />
         <Headline6 className="mt2 mb1 purple">CODE:</Headline6>
-        <Viewer value={file} />
+        <div className="mb3">
+          <Viewer value={fileContent} />
+        </div>
+        {
+          status === 'Wrong Answer'
+            ? <WrongAnswerContent />
+            : null
+        }
+        {
+          status === 'Compilation Error' || status === 'Runtime Error'
+            ? (
+              <div>
+                <Headline6 className="mt2 mb1 purple">OUTPUT:</Headline6>
+                <Viewer value={fileContent} />
+              </div>
+            )
+            : null
+        }
       </div>
     );
   }

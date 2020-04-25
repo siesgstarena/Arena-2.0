@@ -348,6 +348,8 @@ query SubmissionById($id: ID!) {
     problemId {
       code
       name
+      outputFile
+      inputFile
     }
     status
     time

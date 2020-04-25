@@ -16,6 +16,7 @@ const ProblemsubmissionTable = ({ submissions, contestId }) => {
     const addedCreatedAt = adding330Minutes(submission.createdAt);
     const createdAtDate = convertDate(addedCreatedAt);
     const createdAtTime = convertTime(addedCreatedAt);
+    // console.log(submission.duringContest);
     return (
       <tr key={submission._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">

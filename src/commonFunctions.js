@@ -203,3 +203,20 @@ export const getSubmissionColor = (submissionStatus) => {
   }
   return '#dc3545';
 };
+
+export const languageCodeAppender = (code, language) => {
+  if (language === 'C') {
+    code = `\`\`\`c\n${code}`;
+  } else if (language === 'C++' || language === 'C++14') {
+    code = `\`\`\`c++\n${code}`;
+  } else if (language === 'Python' || language === 'Python3') {
+    code = `\`\`\`py\n${code}`;
+  } else if (language === 'Javascript') {
+    code = `\`\`\`js\n${code}`;
+  } else if (language === 'Go') {
+    code = `\`\`\`go\n${code}`;
+  } else if (language === 'Java') {
+    code = `\`\`\`java\n${code}`;
+  }
+  return code;
+};

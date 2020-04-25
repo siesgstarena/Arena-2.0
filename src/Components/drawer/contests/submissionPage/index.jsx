@@ -1,7 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import { Headline6 } from '@material/react-typography';
+import { Button } from '@material/react-button';
 import ProblemStatusTable from '../status/ProblemStatusTable';
 import Viewer from '../../../common/MarkdownEditor/Viewer';
 import { GET_SUBMISSION_PAGE_DETAILS } from '../../../../graphql/queries';
@@ -13,6 +14,9 @@ import WrongAnswerContent from './WrongAnwerContent';
 const SubmitContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { submissionId, contestId } = useParams();
+  const history = useHistory();
+  const location = useLocation();
+  const { state } = location;
   const {
     loading, error, data,
   } = useQuery(GET_SUBMISSION_PAGE_DETAILS, {
@@ -24,17 +28,18 @@ const SubmitContainer = () => {
   if (data.submissionById) {
     const { submission } = data.submissionById;
     const { fileContent } = submission;
-    const { status } = submission;
+    const { status, duringContest } = submission;
     const submissionArray = [submission];
     return (
       <div>
+        <Button className="mb2" onClick={() => history.push(state.from)}>Go Back</Button>
         <ProblemStatusTable submissions={submissionArray} contestId={contestId} />
         <Headline6 className="mt2 mb1 purple">CODE:</Headline6>
         <div className="mb3">
           <Viewer value={fileContent} />
         </div>
         {
-          status === 'Wrong Answer'
+          status === 'Wrong Answer' && !duringContest
             ? <WrongAnswerContent />
             : null
         }

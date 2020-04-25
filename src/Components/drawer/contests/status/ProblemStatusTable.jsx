@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Table from '../../../common/Table/index';
 import {
   getSubmissionColor, convertDate, convertTime, adding330Minutes, userColor,
@@ -10,6 +10,7 @@ import AuthContext from '../../../../Contexts/AuthContext';
 const ProblemsubmissionTable = ({ submissions, contestId }) => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   const { authState } = useContext(AuthContext);
+  const location = useLocation();
   const problemsubmissionArray = submissions.map((submission) => {
     const color = getSubmissionColor(submission.status);
     const addedCreatedAt = adding330Minutes(submission.createdAt);
@@ -22,7 +23,15 @@ const ProblemsubmissionTable = ({ submissions, contestId }) => {
             !submission.duringContest
             || (authState.user && authState.user.userId === submission.userId._id)
               ? (
-                <Link className="no-underline dim blue pointer" to={`/contests/${contestId}/submission/${submission._id}`}>
+                <Link
+                  className="no-underline dim blue pointer"
+                  to={{
+                    pathname: `/contests/${contestId}/submission/${submission._id}`,
+                    state: {
+                      from: location.pathname,
+                    },
+                  }}
+                >
                   {submission._id.slice(-6)}
                 </Link>
               )

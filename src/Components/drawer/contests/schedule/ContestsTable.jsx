@@ -34,7 +34,7 @@ const ContestsTable = ({ contests }) => {
       <tr key={contest.code}>
         <td>
           <Link
-            className="no-underline pointer dim black"
+            className="no-underline pointer dim blue"
             to={`/contests/${contest.code}`}
           >
             {contest.name}
@@ -75,7 +75,7 @@ const ContestsTable = ({ contests }) => {
         </td>
         {
           currentDateInMilliseconds > contest.endsAt
-            ? <td><Link className="no-underline pointer dim black" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
+            ? <td><Link className="no-underline pointer dim blue" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
             : (
               <td>
                 Ends in

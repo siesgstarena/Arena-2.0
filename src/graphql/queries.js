@@ -304,6 +304,7 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
       userId{
       username
       _id
+      ratings
       }
       contestId {
         name
@@ -318,12 +319,47 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
       language
       time
       memory
+      duringContest
     }
   }
   problemsByContestCode(contestCode: $contestCode) {
     name
     _id
     code
+  }
+}
+`;
+
+export const GET_SUBMISSION_PAGE_DETAILS = gql`
+query SubmissionById($id: ID!) {
+  submissionById(_id:$id){
+    success
+    message
+    submission {
+      _id
+      userId {
+      username
+      _id
+      ratings
+    }
+    contestId {
+      name
+    }
+    problemId {
+      code
+      name
+    }
+    status
+    time
+    createdAt
+    status
+    language
+    time
+    memory
+    fileContent
+    output
+    duringContest
+    }
   }
 }
 `;

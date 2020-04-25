@@ -117,7 +117,7 @@ const App = () => {
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
                           <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                           <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
-                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
+                          <PrivateRoute path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
                         </Suspense>
                       </ContestSkeletonContainer>
                     )}

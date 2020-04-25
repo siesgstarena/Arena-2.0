@@ -46,10 +46,7 @@ const StatusContainer = () => {
         <FilterDisplayer problemCode={problemCode} type={type} language={language} />
         <ProblemStatusTable
           submissions={submissions}
-          problems={problems}
-          problemCode={problemCode}
-          language={language}
-          type={type}
+          contestId={contestId}
         />
         <FilterButton
           problems={problems}

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useParams, useLocation } from 'react-router-dom';
-import queryString from 'query-string';
+import { useParams } from 'react-router-dom';
 import Spinner from '../../../common/Spinner/index';
 import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
@@ -12,11 +11,8 @@ import ProblemStatusTable from '../status/ProblemStatusTable';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import AuthContext from '../../../../Contexts/AuthContext';
 
-const StatusContainer = () => {
+const MySubmissionsContainer = () => {
   const limit = 15;
-  const location = useLocation();
-  const searchParams = queryString.parse(location.search);
-  const { problemCode, language, type } = searchParams;
   const { contestId } = useParams();
   const activePageNumber = useActivePageState();
   const { authState } = useContext(AuthContext);
@@ -35,18 +31,14 @@ const StatusContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
     const { submissions } = data.submissionsByContestCode;
-    const problems = data.problemsByContestCode;
     return (
       <div className="">
         <div style={{ marginBottom: '10px' }}>
           <ContestTabBar />
         </div>
         <ProblemStatusTable
+          contestId={contestId}
           submissions={submissions}
-          problems={problems}
-          problemCode={problemCode}
-          language={language}
-          type={type}
         />
         <div className="pt3">
           <PageCountDisplayer
@@ -66,4 +58,4 @@ const StatusContainer = () => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-export default StatusContainer;
+export default MySubmissionsContainer;

@@ -30,6 +30,7 @@ const ContestProblemPage = lazy(() => import('./Components/drawer/contests/probl
 const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
+const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
 const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
@@ -131,6 +132,7 @@ const App = () => {
                   <Route path="/contests" exact component={ContestsSchedule} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
+                  <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
                   <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />

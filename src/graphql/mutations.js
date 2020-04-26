@@ -80,3 +80,13 @@ mutation EditBlog($id:ID!, $title:String!, $content:String!, $tags:String!) {
   }
 }
 `;
+
+export const DELETE_BLOG = gql`
+mutation DeleteBlog($id: ID!){
+  deleteBlog(_id:$id){
+    code
+    success
+    message
+  }
+}
+`;

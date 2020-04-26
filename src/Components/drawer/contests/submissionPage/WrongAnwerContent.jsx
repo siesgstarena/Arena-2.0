@@ -6,15 +6,15 @@ import FileDataBlock from '../../../admin/problemPage/FileDataBlock';
 import Viewer from '../../../common/MarkdownEditor/Viewer';
 
 const WrongAnswerContent = ({
-  inputFile, outputFile, output, showOutput,
+  inputFile, outputFile, output, showOutput, outputFileLink, expectedOutputLink,
 }) => (
   <Grid style={{ padding: 0, margin: 0 }}>
     <Row>
       <Cell desktopColumns={6}>
-        <FileDataBlock title="Sample Input File" fileLink={inputFile} />
+        <FileDataBlock title="Input File" fileLink={inputFile} />
       </Cell>
       <Cell desktopColumns={6}>
-        <FileDataBlock title="Sample Output File" fileLink={outputFile} />
+        <FileDataBlock title="Output File" fileLink={expectedOutputLink} />
       </Cell>
     </Row>
     <Row>
@@ -35,10 +35,10 @@ const WrongAnswerContent = ({
           : (
             <>
               <Cell desktopColumns={6}>
-                <FileDataBlock title="Expected Output" fileLink={inputFile} />
+                <FileDataBlock title="Expected Output" fileLink={expectedOutputLink} />
               </Cell>
               <Cell desktopColumns={6}>
-                <FileDataBlock title="Your Output" fileLink={outputFile} />
+                <FileDataBlock title="Your Output" fileLink={outputFileLink} />
               </Cell>
             </>
           )
@@ -52,6 +52,8 @@ WrongAnswerContent.propTypes = {
   outputFile: PropTypes.string.isRequired,
   output: PropTypes.string.isRequired,
   showOutput: PropTypes.bool,
+  outputFileLink: PropTypes.string.isRequired,
+  expectedOutputLink: PropTypes.string.isRequired,
 };
 
 

@@ -27,7 +27,9 @@ const SubmitContainer = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionById) {
-    const { submission, showOutput } = data.submissionById;
+    const {
+      submission, showOutput, outputLink, expectedOutputLink,
+    } = data.submissionById;
     const {
       fileContent, output, problemId, status, duringContest, language,
     } = submission;
@@ -49,8 +51,8 @@ const SubmitContainer = () => {
                 output={output}
                 outputFile={outputFile}
                 showOutput={showOutput}
-                // outputFileLink={outputFileLink}
-                // inputFileLink={inputFileLink}
+                outputFileLink={outputLink}
+                expectedOutputLink={expectedOutputLink}
               />
             )
             : null

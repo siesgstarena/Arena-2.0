@@ -351,17 +351,19 @@ query SubmissionById($id: ID!) {
       outputFile
       inputFile
     }
-    status
-    time
-    createdAt
-    status
-    language
-    time
-    memory
-    fileContent
-    output
-    duringContest
+      status
+      time
+      createdAt
+      status
+      language
+      time
+      memory
+      fileContent
+      output
+      duringContest
     }
+    outputLink
+    expectedOutputLink
   }
 }
 `;

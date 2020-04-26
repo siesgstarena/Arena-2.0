@@ -381,3 +381,21 @@ query Dashboard($code: String! ) {
  }
 }
 `;
+
+export const GET_RATINGS_CHANGE = gql`
+query RatingChanges($code: String!){
+  ratingChanges(code: $code) {
+   _id {
+     newRating
+   }
+   oldRating {
+     newRating
+   }
+   user {
+     username
+     ratings
+     _id
+   }
+ }
+}
+`;

@@ -220,3 +220,9 @@ export const languageCodeAppender = (code, language) => {
   }
   return code;
 };
+
+export const problemBackgroundColor = (solved, attempts) => {
+  if (solved > 0) return '#02b32826';
+  if (solved === 0 && attempts > 0) return '#d60b0b1c';
+  return '#ffffff';
+};

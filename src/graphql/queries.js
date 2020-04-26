@@ -367,3 +367,17 @@ query SubmissionById($id: ID!) {
   }
 }
 `;
+
+export const GET_CONTEST_DASHBOARD = gql`
+query Dashboard($code: String! ) {
+  dashboard(code: $code) {
+   problemDetails {
+     code
+     points
+     name
+   }
+   attempts
+   solved
+ }
+}
+`;

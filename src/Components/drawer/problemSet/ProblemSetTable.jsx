@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
 import Table from '../../common/Table/index';
+import { problemBackgroundColor } from '../../../commonFunctions';
 
 const ProblemsSetTable = ({ problemsList }) => {
   // Trimming tags because of database inconsistency
@@ -53,17 +54,12 @@ const ProblemsSetTable = ({ problemsList }) => {
           </span>
         );
       });
-      let backgroundColor = '';
-      if (problem.solved > 0) {
-        backgroundColor = '#02b32826';
-      } else if (problem.solved === 0 && problem.attempts > 0) {
-        backgroundColor = '#d60b0b1c';
-      } else {
-        backgroundColor = '#ffffff';
-      }
 
       return (
-        <tr style={{ backgroundColor: `${backgroundColor}` }} key={problem.problemDetails._id}>
+        <tr
+          style={{ backgroundColor: problemBackgroundColor(problem.solved, problem.attempts) }}
+          key={problem.problemDetails._id}
+        >
           <td>
             <Link className="no-underline blue pointer dim" to={`contests/${problem.problemDetails.contest.code}/problem/${problem.problemDetails.code}`}>
               {problem.problemDetails.code}

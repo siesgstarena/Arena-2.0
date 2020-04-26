@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import { GET_PROBLEMS_BY_CONTEST_CODE } from '../../../../graphql/queries';
+import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ProblemsTable from './ProblemsTable';
@@ -14,15 +14,15 @@ const ContestDashboardContainer = () => {
   const { contestId } = useParams();
   const {
     loading, error, data,
-  } = useQuery(GET_PROBLEMS_BY_CONTEST_CODE, {
-    variables: { contestCode: contestId },
+  } = useQuery(GET_CONTEST_DASHBOARD, {
+    variables: { code: contestId },
   });
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.problemsByContestCode) {
-    const problems = data.problemsByContestCode;
-    // console.log(data.problemsByContestCode.problems, problems);
+  if (data.dashboard) {
+    const problems = data.dashboard;
+    // console.log(data.dashboard.problems, problems);
     return (
       <div>
         <div style={{ marginBottom: '10px' }}>
@@ -33,7 +33,7 @@ const ContestDashboardContainer = () => {
       </div>
     );
   }
-  if (isSessionExpired(data.problemsByContestCode)) {
+  if (isSessionExpired(data.dashboard)) {
     // since the component hasn't rendered or returned anything,
     // we use redirectOnSessionExpiredBeforeRender function
     return redirectOnSessionExpiredBeforeRender();

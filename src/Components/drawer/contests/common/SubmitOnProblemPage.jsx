@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Body1 } from '@material/react-typography';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import { Button } from '@material/react-button';
@@ -14,8 +14,13 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 const SubmitOnProblemPage = () => {
 // initial State declaration
   const history = useHistory();
-  const { contestId, problemId } = useParams();
-  const [problem, setProblem] = useState('');
+  const { contestId } = useParams();
+  const location = useLocation();
+  // Getting the problemId from the location.
+  // Here we cannot use useParams to get the problemId because this component
+  // is the child of ContestPageSkeleton which is matched with url /contests/:contestId
+  // and thuse it does not have problemId as a param
+  const problemId = location.pathname.split('/problem/')[1];
   const [uploadMethod, setUploadMethod] = useState('file');
   const [lang, setLang] = useState('None');
   const [file, setFile] = useState({});
@@ -25,15 +30,11 @@ const SubmitOnProblemPage = () => {
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
-  useEffect(() => {
-    setProblem(problemId);
-  }, [problemId]);
-
   const submitFile = () => {
     const formData = new FormData();
     formData.append('language', lang);
     formData.append('file', file);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit/${problem}`, {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit/${problemId}`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -63,7 +64,7 @@ const SubmitOnProblemPage = () => {
     const formData = new FormData();
     formData.append('language', lang);
     formData.append('code', code);
-    formData.append('problemCode', problem);
+    formData.append('problemCode', problemId);
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit`, {
       method: 'POST',
       credentials: 'include',

@@ -3,7 +3,7 @@ import { Body1, Body2, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Card from '@material/react-card';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
 import AlertBox from '../../../common/AlertBox/index';
 import Pill from '../../../common/Pill/index';
@@ -26,6 +26,7 @@ const BlogCard = ({
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the blog - "${title}"`;
   const history = useHistory();
+  const location = useLocation();
   const createdAtDate = convertDate(adding330Minutes(Number(createdAt)));
   const createdAtTime = convertTime(adding330Minutes(Number(createdAt)));
   const currentDateObject = new Date();
@@ -36,7 +37,12 @@ const BlogCard = ({
   );
 
   const handleEdit = () => {
-    history.push(`/blogs/${id}/edit`);
+    history.push({
+      pathname: `/blogs/${id}/edit`,
+      state: {
+        from: location.pathname,
+      },
+    });
   };
   const handleDelete = () => {
     setIsAlertOpen(true);

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Headline4 } from '@material/react-typography';
 import PropTypes from 'prop-types';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import Button from '@material/react-button';
 import BlogDetails from '../create/BlogDetails';
@@ -11,6 +11,7 @@ import { EDIT_BLOG } from '../../../../graphql/mutations';
 
 const EditBlog = ({ blogDetails }) => {
   const { title, content, tags } = blogDetails;
+  const location = useLocation();
   const [blogTitle, setBlogTitle] = useState(title);
   const [blogContent, setBlogContent] = useState(content);
   const [blogTags, setBlogTags] = useState(tags.join());
@@ -19,6 +20,7 @@ const EditBlog = ({ blogDetails }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const history = useHistory();
+  const { state } = location;
 
   const handleEdit = async () => {
     setMessageType('loading');
@@ -36,7 +38,7 @@ const EditBlog = ({ blogDetails }) => {
     }
     if (data.editBlog.success) {
       history.push({
-        pathname: '/blogs',
+        pathname: state.from ? state.from : '/blogs',
         state: {
           snackbarMessage: 'Blog updated successfully',
         },

@@ -30,7 +30,7 @@ const MySubmissionsContainer = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
-    const { submissions } = data.submissionsByContestCode;
+    const { submissions, submissionsVisible } = data.submissionsByContestCode;
     return (
       <div className="">
         <div style={{ marginBottom: '10px' }}>
@@ -39,6 +39,7 @@ const MySubmissionsContainer = () => {
         <ProblemStatusTable
           contestId={contestId}
           submissions={submissions}
+          submissionsVisible={submissionsVisible}
         />
         <div className="pt3">
           <PageCountDisplayer

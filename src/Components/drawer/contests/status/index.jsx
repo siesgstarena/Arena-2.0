@@ -36,7 +36,7 @@ const StatusContainer = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
-    const { submissions } = data.submissionsByContestCode;
+    const { submissions, submissionsVisible } = data.submissionsByContestCode;
     const problems = data.problemsByContestCode;
     return (
       <div className="">
@@ -47,6 +47,7 @@ const StatusContainer = () => {
         <ProblemStatusTable
           submissions={submissions}
           contestId={contestId}
+          submissionsVisible={submissionsVisible}
         />
         <FilterButton
           problems={problems}

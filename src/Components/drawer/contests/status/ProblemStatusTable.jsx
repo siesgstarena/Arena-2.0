@@ -7,7 +7,9 @@ import {
 } from '../../../../commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 
-const ProblemsubmissionTable = ({ submissions, contestId }) => {
+const ProblemsubmissionTable = ({
+  submissions, contestId, submissionsVisible, onSubmissionPage = false,
+}) => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   const { authState } = useContext(AuthContext);
   const location = useLocation();
@@ -16,13 +18,14 @@ const ProblemsubmissionTable = ({ submissions, contestId }) => {
     const addedCreatedAt = adding330Minutes(submission.createdAt);
     const createdAtDate = convertDate(addedCreatedAt);
     const createdAtTime = convertTime(addedCreatedAt);
-    // console.log(submission.duringContest);
+    // console.log(submissionsVisible);
     return (
       <tr key={submission._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">
           {
-            !submission.duringContest
-            || (authState.user && authState.user.userId === submission.userId._id)
+            (submissionsVisible
+            || (authState.user && authState.user.userId === submission.userId._id))
+            && !onSubmissionPage
               ? (
                 <Link
                   className="no-underline dim blue pointer"
@@ -81,6 +84,8 @@ const ProblemsubmissionTable = ({ submissions, contestId }) => {
 ProblemsubmissionTable.propTypes = {
   submissions: PropTypes.array.isRequired,
   contestId: PropTypes.string.isRequired,
+  submissionsVisible: PropTypes.bool,
+  onSubmissionPage: PropTypes.bool,
 };
 
 

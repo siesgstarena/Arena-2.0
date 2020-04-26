@@ -37,8 +37,8 @@ const SubmitContainer = () => {
     const submissionArray = [submission];
     return (
       <div>
-        <Button className="mb2" onClick={() => history.push(state.from)}>Go Back</Button>
-        <ProblemStatusTable submissions={submissionArray} contestId={contestId} />
+        <Button className="mb2" onClick={() => (state && state.from ? history.push(state.from) : history.push(`/contests/${contestId}`))}>Go Back</Button>
+        <ProblemStatusTable submissions={submissionArray} contestId={contestId} onSubmissionPage />
         <Headline6 className="mt2 mb1 purple">CODE:</Headline6>
         <div className="mb3">
           <Viewer value={languageCodeAppender(fileContent, language)} />

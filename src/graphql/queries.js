@@ -299,6 +299,7 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
     success
     message
     pages
+    submissionsVisible
     submissions {
       _id
       userId{
@@ -319,7 +320,6 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
       language
       time
       memory
-      duringContest
     }
   }
   problemsByContestCode(contestCode: $contestCode) {

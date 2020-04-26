@@ -20,7 +20,8 @@ const SubmitOnProblemPage = () => {
   // Here we cannot use useParams to get the problemId because this component
   // is the child of ContestPageSkeleton which is matched with url /contests/:contestId
   // and thuse it does not have problemId as a param
-  const problemId = location.pathname.split('/problem/')[1];
+  let problemId = location.pathname.split('/problem/')[1];
+  [problemId] = problemId.split('/');
   const [uploadMethod, setUploadMethod] = useState('file');
   const [lang, setLang] = useState('None');
   const [file, setFile] = useState({});

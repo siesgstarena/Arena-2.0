@@ -6,9 +6,9 @@ import {
   userColor,
 } from '../../../../commonFunctions';
 
-const RatingsChangeTable = ({ ratingsChange }) => {
+const RatingChangesTable = ({ ratingChanges }) => {
   const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];
-  const problemsubmissionArray = ratingsChange.map((change, index) => {
+  const ratingChangesArray = ratingChanges.map((change, index) => {
     let changeColor = '#000000';
     const delta = change._id.newRating - change.oldRating.newRating;
     if (delta > 0) {
@@ -46,13 +46,13 @@ const RatingsChangeTable = ({ ratingsChange }) => {
 
   return (
     <div>
-      <Table tableHeadings={tableHeadings} tableData={problemsubmissionArray} tableHeadingClassName="tc" />
+      <Table tableHeadings={tableHeadings} tableData={ratingChangesArray} tableHeadingClassName="tc" />
     </div>
   );
 };
 
-RatingsChangeTable.propTypes = {
-  ratingsChange: PropTypes.array.isRequired,
+RatingChangesTable.propTypes = {
+  ratingChanges: PropTypes.array.isRequired,
 };
 
-export default RatingsChangeTable;
+export default RatingChangesTable;

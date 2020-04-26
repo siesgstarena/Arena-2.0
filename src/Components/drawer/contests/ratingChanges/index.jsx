@@ -5,7 +5,7 @@ import { GET_RATINGS_CHANGE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ContestTabBar from '../common/ContestTabBar';
-import RatingsChangeTable from './RatingsChangeTable';
+import RatingChangesTable from './RatingChangesTable';
 import Spinner from '../../../common/Spinner/index';
 
 const ContestDashboardContainer = () => {
@@ -20,14 +20,14 @@ const ContestDashboardContainer = () => {
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.ratingChanges) {
-    const ratingsChange = data.ratingChanges;
-    console.log(ratingsChange);
+    const { ratingChanges } = data;
+    console.log(ratingChanges);
     return (
       <div>
         <div style={{ marginBottom: '10px' }}>
           <ContestTabBar />
         </div>
-        <RatingsChangeTable ratingsChange={ratingsChange} />
+        <RatingChangesTable ratingChanges={ratingChanges} />
       </div>
     );
   }

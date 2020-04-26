@@ -59,7 +59,7 @@ const ContestTabBar = () => {
         <span className="mdc-tab__text-label">Scoreboard</span>
       </Tab>
       <Tab onClick={() => onTabClick(`/${url}/change`)}>
-        <span className="mdc-tab__text-label">Ratings Change</span>
+        <span className="mdc-tab__text-label">Rating Changes</span>
       </Tab>
       {
         // The reason why I have written separate checks for each test is because

@@ -25,7 +25,7 @@ const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboa
 const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
 const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
 const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/index'));
-const ContestRatingsChange = lazy(() => import('./Components/drawer/contests/ratingsChange/index'));
+const ContestRatingChanges = lazy(() => import('./Components/drawer/contests/ratingChanges/index'));
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const ContestProblemPage = lazy(() => import('./Components/drawer/contests/problemPage/index'));
 const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
@@ -117,7 +117,7 @@ const App = () => {
                           <Route path="/contests/:contestId/status" exact component={ContestStatus} />
                           <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
-                          <Route path="/contests/:contestId/change" exact component={ContestRatingsChange} />
+                          <Route path="/contests/:contestId/change" exact component={ContestRatingChanges} />
                           <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                           <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
                           <PrivateRoute path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />

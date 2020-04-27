@@ -79,8 +79,8 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
             value={formDetails.type}
             onEnhancedChange={(item, index) => onSelectChange(item, index, 'type')}
           >
-            <Option value="round">ROUND</Option>
-            <Option value="queue">QUEUE</Option>
+            <Option value="RATED">RATED</Option>
+            <Option value="UNRATED">UNRATED</Option>
           </Select>
         </Cell>
       </Row>

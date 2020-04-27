@@ -16,7 +16,7 @@ const EditContest = ({ contestData, users }) => {
   }));
   const intialFormDetails = {
     code: contestData.code,
-    type: 'round',
+    type: contestData.type,
     name: contestData.name,
     description: contestData.description,
     admins: mappedAdmins,

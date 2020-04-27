@@ -385,7 +385,7 @@ query Dashboard($code: String! ) {
 export const GET_RATINGS_CHANGE = gql`
 query RatingChanges($code: String!){
   ratingChanges(code: $code) {
-   _id {
+   newRatings {
      newRating
    }
    oldRating {
@@ -406,6 +406,7 @@ query ContestCode($code: String!){
     _id
     code
     name
+    type
     description
     startsAt
     endsAt

@@ -8,9 +8,12 @@ import {
 
 const RatingChangesTable = ({ ratingChanges }) => {
   const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];
+  // console.log(ratingChanges);
   const ratingChangesArray = ratingChanges.map((change, index) => {
     let changeColor = '#000000';
-    const delta = change._id.newRating - change.oldRating.newRating;
+    console.log(change.oldRating.newRating);
+    const delta = change.newRatings.newRating - change.oldRating.newRating;
+    console.log(change.oldRating.newRating);
     if (delta > 0) {
       changeColor = 'green';
     } else if (delta < 0) {
@@ -30,8 +33,8 @@ const RatingChangesTable = ({ ratingChanges }) => {
           {delta}
         </td>
         <td className="tc pa3">
-          <span style={{ color: userColor(change._id.newRating, change.user._id) }}>
-            {change._id.newRating}
+          <span style={{ color: userColor(change.newRatings.newRating, change.user._id) }}>
+            {change.newRatings.newRating}
           </span>
           &nbsp;
           -&gt;

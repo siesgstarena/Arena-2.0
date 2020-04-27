@@ -1,4 +1,6 @@
-import React, { lazy, Suspense, useReducer } from 'react';
+import React, {
+  lazy, Suspense, useReducer, useEffect,
+} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
@@ -85,12 +87,21 @@ const App = () => {
   let initialState = {
     user: null,
   };
-
   if (localStorage.getItem('user')) {
     initialState = { ...initialState, user: JSON.parse(localStorage.getItem('user')) };
   }
-
   const [authState, authDispatch] = useReducer(authReducer, initialState);
+
+  // Logging out the user on mount if the session has expired
+  useEffect(() => {
+    const now = new Date();
+    if (JSON.parse(localStorage.getItem('sessionExpiry')) < now.getTime()) {
+      authDispatch({
+        type: 'LOGOUT',
+      });
+    }
+  }, []);
+
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (

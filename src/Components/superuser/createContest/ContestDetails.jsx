@@ -10,8 +10,9 @@ import MultiSelect from '../../common/MultiSelect/index';
 import Editor from '../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 
-const ContestDetails = ({ formDetails, setFormDetails }) => {
-  const options = ['ac030540@gmail.com', 'ninadc32@gmail.com', 'test@gmail.com', 'test2@gmail.com'];
+const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
+  // const options = [
+  //   {label: 'ac030540@gmail.com', value: '1' }, { label: 'ninadc32@gmail.com', value: '2'}];
 
   // console.log(formDetails.admins);
   const onTextFieldChange = (event, keyToBeUpdated) => {
@@ -108,7 +109,7 @@ const ContestDetails = ({ formDetails, setFormDetails }) => {
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <MultiSelect
-            options={options}
+            options={adminOptions}
             selectedOptions={formDetails.admins}
             updateSelectedOptions={onAdminsChange}
           />
@@ -154,6 +155,7 @@ const ContestDetails = ({ formDetails, setFormDetails }) => {
 ContestDetails.propTypes = {
   formDetails: PropTypes.object.isRequired,
   setFormDetails: PropTypes.func.isRequired,
+  adminOptions: PropTypes.array.isRequired,
 };
 
 export default ContestDetails;

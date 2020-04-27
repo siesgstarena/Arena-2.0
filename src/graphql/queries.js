@@ -399,3 +399,27 @@ query RatingChanges($code: String!){
  }
 }
 `;
+
+export const GET_CONTEST_EDIT_DETAILS = gql`
+query ContestCode($code: String!){
+  contestCode(code:$code){
+    _id
+    code
+    name
+    description
+    startsAt
+    endsAt
+    solutionVisibility
+    contestAdmin {
+      name
+      _id
+      username
+    }
+  }
+   users {
+    _id
+    name
+    username
+  }
+}
+`;

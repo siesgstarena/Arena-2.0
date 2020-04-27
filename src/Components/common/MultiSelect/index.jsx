@@ -20,11 +20,11 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
   const removeOption = useCallback((option) => {
     // Removing the option in consideration from selectedOptions
     selectedOptionsInternal.current = selectedOptionsInternal.current.filter(
-      optionPresent => optionPresent !== option,
+      optionPresent => optionPresent.value !== option.value,
     );
     // Updating the mappedResults to display the changes on the frontend
     setMappedSelectedOptions(selectedOptionsInternal.current.map(value => (
-      <SelectedItemBox option={value} removeOption={removeOption} key={value} />
+      <SelectedItemBox option={value} removeOption={removeOption} key={value.value} />
     )));
     // Updating the options in the parent component
     updateSelectedOptions(selectedOptionsInternal.current);

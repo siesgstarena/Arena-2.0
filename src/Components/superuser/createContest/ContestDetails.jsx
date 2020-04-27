@@ -142,9 +142,9 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
             value={formDetails.solutionVisibility}
             onEnhancedChange={(index, item) => onSelectChange(index, item, 'solutionVisibility')}
           >
-            <Option value="after">AFTER</Option>
-            <Option value="during">DURING</Option>
-            <Option value="never">NEVER</Option>
+            <Option value="AFTER">AFTER</Option>
+            <Option value="DURING">DURING</Option>
+            <Option value="NEVER">NEVER</Option>
           </Select>
         </Cell>
       </Row>

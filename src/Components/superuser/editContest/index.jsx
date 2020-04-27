@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
-import { Headline4, Body2 } from '@material/react-typography';
-import Button from '@material/react-button';
-import ContestDetails from '../createContest/ContestDetails';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import { GET_CONTEST_EDIT_DETAILS } from '../../../graphql/queries';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import Spinner from '../../common/Spinner/index';
+import EditContest from './EditContest';
 
-const EditContest = () => {
-  const intialFormDetails = {
-    code: '',
-    type: 'round',
-    name: '',
-    description: '',
-    admins: [{ value: '1', label: 'ac030540@gmail.com' }],
-    start: new Date(),
-    end: new Date(),
-    solutionVisibility: 'after',
-  };
-  const [formDetails, setFormDetails] = useState(intialFormDetails);
-  return (
-    <div className="mw7 center pa2">
-      <Headline4 className="purple mb1 mt3">Edit Contest</Headline4>
-      <Body2 className="mt0 mid-gray mb4">Edit a Single Round Match or Long Queue Contest</Body2>
-      <ContestDetails formDetails={formDetails} setFormDetails={setFormDetails} adminOptions={['1']} />
-      <Button
-        className="ma1 mt3"
-        raised
-      >
-        Edit Contest
-      </Button>
-    </div>
-  );
+
+const EditcontestContainer = () => {
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const { contestId } = useParams();
+  const {
+    loading, error, data,
+  } = useQuery(GET_CONTEST_EDIT_DETAILS, {
+    variables: { code: contestId },
+  });
+
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.contestCode) {
+    const contestData = data.contestCode;
+    const { users } = data;
+    return <EditContest contestData={contestData} users={users} />;
+  }
+  if (isSessionExpired(data.contestCode)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
-export default EditContest;
+export default EditcontestContainer;

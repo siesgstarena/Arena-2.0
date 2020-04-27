@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const SelectedItemBox = ({ option, removeOption }) => (
   <div className="ba br2 b--moon-gray ma2 mb3 pa3 dib">
-    {option.value}
+    {option.label}
     <div role="presentation" onClick={() => removeOption(option)} className="fr pointer"><MaterialIcon icon="close" /></div>
   </div>
 );

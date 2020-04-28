@@ -424,3 +424,18 @@ query ContestCode($code: String!){
   }
 }
 `;
+
+export const GET_ALL_CONTEST_DETAILS = gql`
+query AllContests($skip: Int, $limit: Int) {
+  allContests(skip: $skip, limit: $limit) {
+    pageCount
+    contests {
+      name
+      code
+      _id
+      startsAt
+      endsAt
+    }
+  }
+}
+`;

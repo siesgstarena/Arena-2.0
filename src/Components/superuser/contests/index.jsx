@@ -1,21 +1,47 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { Headline4, Body2 } from '@material/react-typography';
-import ContestCardsArray from './ContestCardsArray';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import Spinner from '../../common/Spinner/index';
+import AllContestPage from './AllContestPage';
+import PageCountDisplayer from '../../common/PageCountDisplayer';
+import useActivePageState from '../../../customHooks/useAcitvePageState';
 
-const Contests = () => {
-  const history = useHistory();
-  return (
-    <div className="mw7 center pa2">
-      <Headline4 className="purple mt4 mb0 ml0">Contests</Headline4>
-      <Body2 className="ml0 mid-gray">
-        Single Round Matches and Long Contest |
-        &nbsp;
-        <span className="dim pointer" role="presentation" onClick={() => history.push('/superuser/contests/create')}>Create a new contest</span>
-      </Body2>
-      <ContestCardsArray />
-    </div>
-  );
+
+const EditcontestContainer = () => {
+  const limit = 12;
+  const activePageNumber = useActivePageState();
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const {
+    loading, error, data,
+  } = useQuery(GET_ALL_CONTEST_DETAILS, {
+    variables: { limit, skip: ((activePageNumber - 1) * limit) },
+  });
+
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.allContests) {
+    const { contests } = data.allContests;
+    return (
+      <div className="mw7 center pa2">
+        <AllContestPage contests={contests} />
+        <div className="pt3">
+          <PageCountDisplayer
+            pageCount={data.allContests.pageCount}
+            activePageNumber={activePageNumber}
+          />
+        </div>
+      </div>
+    );
+  }
+  if (isSessionExpired(data.allContests)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
-export default Contests;
+export default EditcontestContainer;

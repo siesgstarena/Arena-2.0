@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Container from './Container';
 import SelectedItemBox from './SelectedItemBox';
 
-const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
+const MultiSelect = ({ options, selectedOptions = [], updateSelectedOptions }) => {
   const [search, setSearch] = useState('');
   let searchResults = [];
   // used selectedOptionsInteral as ref because others global

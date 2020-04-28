@@ -21,7 +21,6 @@ const ContestDashboardContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.ratingChanges) {
     const { ratingChanges } = data;
-    console.log(ratingChanges);
     return (
       <div>
         <div style={{ marginBottom: '10px' }}>

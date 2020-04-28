@@ -11,36 +11,48 @@ const RatingChangesTable = ({ ratingChanges }) => {
   // console.log(ratingChanges);
   const ratingChangesArray = ratingChanges.map((change, index) => {
     let changeColor = '#000000';
-    console.log(change.oldRating.newRating);
-    const delta = change.newRatings.newRating - change.oldRating.newRating;
-    console.log(change.oldRating.newRating);
+    let oldRating = 1200;
+    if (change.oldRating) {
+      oldRating = change.oldRating.newRating;
+    }
+    const { newRating } = change.newRatings;
+    const user = change.user[0];
+    const delta = newRating - oldRating;
+    // console.log(oldRating);
     if (delta > 0) {
       changeColor = 'green';
     } else if (delta < 0) {
       changeColor = 'red';
     }
     return (
-      <tr key={change.user._id} style={{ fontSize: '.9em' }}>
+      <tr key={user._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">
           {index + 1}
         </td>
-        <td className="tc pa3" style={{ color: userColor(change.user.ratings, change.user._id) }}>
-          <Link to={`profile/${change.user._id}`} className="no-underline">
-            {change.user.username}
+        <td className="tc pa3">
+          <Link to={`/profile/${user._id}`} style={{ color: userColor(user.ratings, user._id) }} className="no-underline">
+            {user.username}
           </Link>
         </td>
         <td className="pa3 tc" style={{ color: changeColor }}>
           {delta}
         </td>
         <td className="tc pa3">
-          <span style={{ color: userColor(change.newRatings.newRating, change.user._id) }}>
-            {change.newRatings.newRating}
-          </span>
-          &nbsp;
-          -&gt;
-          &nbsp;
-          <span style={{ color: userColor(change.oldRating.newRating, change.user._id) }}>
-            {change.oldRating.newRating}
+          {
+            change.oldRating
+              ? (
+                <>
+                  <span style={{ color: userColor(oldRating, change.user._id) }}>
+                    {oldRating}
+                  </span>
+                  &nbsp;
+                  -&gt;
+                  &nbsp;
+                </>
+              ) : null
+          }
+          <span style={{ color: userColor(newRating, change.user._id) }}>
+            {newRating}
           </span>
         </td>
       </tr>

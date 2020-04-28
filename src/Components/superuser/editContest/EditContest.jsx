@@ -10,7 +10,6 @@ import { subtracting330Minutes } from '../../../commonFunctions';
 import { EDIT_CONTEST } from '../../../graphql/mutations';
 
 const EditContest = ({ contestData, users }) => {
-  // console.log(contestData);
   const mappedAdmins = contestData.contestAdmin.map(admin => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
@@ -30,7 +29,6 @@ const EditContest = ({ contestData, users }) => {
     end: Number(subtracting330Minutes(contestData.endsAt)),
     solutionVisibility: contestData.solutionVisibility,
   };
-  // console.log(contestData);
   const [formDetails, setFormDetails] = useState(intialFormDetails);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
@@ -40,11 +38,8 @@ const EditContest = ({ contestData, users }) => {
   const updateDB = async () => {
     setMessageType('loading');
     setMessage('Updating Contest, Please wait');
-    // console.log(String(formDetails.type).substring(1).slice(0,-1));
     const selectedAdmins = formDetails.admins.map(admin => admin.value);
-    // console.log(formDetails.code,formDetails.type, formDetails.name,formDetails.description,
-    // String(formDetails.start),String(formDetails.end)
-    // ,selectedAdmins,formDetails.solutionVisibility);
+
     const { data, error } = await client.mutate({
       mutation: EDIT_CONTEST,
       variables: {

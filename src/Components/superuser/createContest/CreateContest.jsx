@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
@@ -26,6 +27,7 @@ const CreateContest = ({ users }) => {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const client = useApolloClient();
+  const history = useHistory();
 
   const updateDB = async () => {
     setMessageType('loading');
@@ -52,8 +54,12 @@ const CreateContest = ({ users }) => {
       return;
     }
     if (data.createContest.success) {
-      setMessageType('success');
-      setMessage('Contest successfully Created');
+      history.push({
+        pathname: '/superuser/contests',
+        state: {
+          snackbarMessage: 'Contest Successfully Created',
+        },
+      });
     } else {
       setMessageType('error');
       setMessage(data.createContest.message);

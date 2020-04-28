@@ -79,8 +79,8 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
             value={formDetails.type}
             onEnhancedChange={(item, index) => onSelectChange(item, index, 'type')}
           >
-            <Option value="RATED">RATED</Option>
-            <Option value="UNRATED">UNRATED</Option>
+            <Option value={String(/RATED/).substring(1).slice(0, -1)}>RATED</Option>
+            <Option value={String(/UNRATED/).substring(1).slice(0, -1)}>UNRATED</Option>
           </Select>
         </Cell>
       </Row>
@@ -142,9 +142,9 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
             value={formDetails.solutionVisibility}
             onEnhancedChange={(index, item) => onSelectChange(index, item, 'solutionVisibility')}
           >
-            <Option value="AFTER">AFTER</Option>
-            <Option value="DURING">DURING</Option>
-            <Option value="NEVER">NEVER</Option>
+            <Option value={String(/AFTER/).substring(1).slice(0, -1)}>AFTER</Option>
+            <Option value={String(/DURING/).substring(1).slice(0, -1)}>DURING</Option>
+            <Option value={String(/NEVER/).substring(1).slice(0, -1)}>NEVER</Option>
           </Select>
         </Cell>
       </Row>

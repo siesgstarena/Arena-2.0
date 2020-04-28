@@ -90,3 +90,13 @@ mutation DeleteBlog($id: ID!){
   }
 }
 `;
+
+export const EDIT_CONTEST = gql`
+mutation EditContest($oldCode: String!, $code: String!, $type: ContestType!, $name: String!, $description: String!, $startsAt: String!, $endsAt: String!, $contestAdmin:[String]!, $solutionVisibility: SolutionVisibility!) {
+  editContest(oldCode: $oldCode,code: $code,type: $type,name: $name,description: $description, startsAt: $startsAt, endsAt: $endsAt, contestAdmin: $contestAdmin, solutionVisibility: $solutionVisibility){
+    code
+    success
+    message
+  }
+}
+`;

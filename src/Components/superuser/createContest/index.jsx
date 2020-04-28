@@ -1,33 +1,31 @@
-import React, { useState } from 'react';
-import { Headline4, Body2 } from '@material/react-typography';
-import Button from '@material/react-button';
-import ContestDetails from './ContestDetails';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ALL_USERS } from '../../../graphql/queries';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import Spinner from '../../common/Spinner/index';
+import CreateContest from './CreateContest';
 
-const CreateContest = () => {
-  const intialFormDetails = {
-    code: '',
-    type: 'round',
-    name: '',
-    description: '',
-    admins: [],
-    start: new Date(),
-    end: new Date(),
-    solutionVisibility: 'after',
-  };
-  const [formDetails, setFormDetails] = useState(intialFormDetails);
-  return (
-    <div className="mw7 center pa2">
-      <Headline4 className="purple mb1 mt3">Create Contest</Headline4>
-      <Body2 className="mt0 mid-gray mb4">Create a Single Round Match or Long Queue Contest</Body2>
-      <ContestDetails formDetails={formDetails} setFormDetails={setFormDetails} />
-      <Button
-        className="ma1 ml0 mt3"
-        raised
-      >
-        Create Contest
-      </Button>
-    </div>
-  );
+
+const CreateContestContainer = () => {
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const {
+    loading, error, data,
+  } = useQuery(GET_ALL_USERS);
+
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.users) {
+    const { users } = data;
+    return <CreateContest users={users} />;
+  }
+  if (isSessionExpired(data.users)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
-export default CreateContest;
+export default CreateContestContainer;

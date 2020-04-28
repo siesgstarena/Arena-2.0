@@ -10,14 +10,6 @@ query Login($email: String!, $password: String!) {
 }  
 `;
 
-// export const GET_ALL_USER_DETAILS = gql`
-// query GetAllUserDetails($email: String!, $password: String!) {
-//   login(email: $email, password: $password) {
-//     userId
-//   }
-// }
-// `;
-
 export const GET_IS_USER_ADMIN = gql`
 query IsAdmin($code: String!) {
   isAdmin(code: $code) {
@@ -438,4 +430,14 @@ query AllContests($skip: Int, $limit: Int) {
     }
   }
 }
+`;
+
+export const GET_ALL_USERS = gql`
+  query Users {
+    users {
+    _id
+    name
+    username
+  }
+  }
 `;

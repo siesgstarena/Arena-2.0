@@ -41,16 +41,6 @@ mutation UpdateAnnouncement($code: String!, $announcement: String!) {
 }
 `;
 
-export const CREATE_CONTEST = gql`
-mutation CreateContest($code: String!,$type: String!, $name: String!,$description: String!, $startsAt: String!, $endsAt:String!, $contestAdmin:[String!]!, $solutionVisibility:String!) {
-  createContest(code: $code, type: $type, name: $name, description:$description, startsAt: $startsAt,endsAt: $endsAt,contestAdmin: $contestAdmin,solutionVisibility: $solutionVisibility){
-    code
-    success
-    message
-  }
-}
-`;
-
 export const RESET_SUBMISSION = gql`
 mutation ResetSubmission($id: String!, $status:String!) {
   resetSubmission(_id:$id, status:$status) {
@@ -84,6 +74,16 @@ mutation EditBlog($id:ID!, $title:String!, $content:String!, $tags:String!) {
 export const DELETE_BLOG = gql`
 mutation DeleteBlog($id: ID!){
   deleteBlog(_id:$id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const CREATE_CONTEST = gql`
+mutation CreateContest($code: String!,$type: ContestType!, $name: String!,$description: String!, $startsAt: String!, $endsAt:String!, $contestAdmin:[String]!, $solutionVisibility: SolutionVisibility!) {
+  createContest(code: $code, type: $type, name: $name, description:$description, startsAt: $startsAt,endsAt: $endsAt,contestAdmin: $contestAdmin,solutionVisibility: $solutionVisibility){
     code
     success
     message

@@ -1,54 +1,41 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material/react-button';
-import { useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Headline4, Body2 } from '@material/react-typography';
-import ContestDetails from '../createContest/ContestDetails';
+import Button from '@material/react-button';
+import ContestDetails from './ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
-import { subtracting330Minutes } from '../../../commonFunctions';
-import { EDIT_CONTEST } from '../../../graphql/mutations';
+import { CREATE_CONTEST } from '../../../graphql/mutations';
 
-const EditContest = ({ contestData, users }) => {
-  // console.log(contestData);
-  const mappedAdmins = contestData.contestAdmin.map(admin => ({
-    label: `${admin.name} (${admin.username})`,
-    value: admin._id,
-  }));
+const CreateContest = ({ users }) => {
   const mappedUsers = users.map(admin => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
-  const { contestId } = useParams();
   const intialFormDetails = {
-    code: contestData.code,
-    type: contestData.type,
-    name: contestData.name,
-    description: contestData.description,
-    admins: mappedAdmins,
-    start: Number(subtracting330Minutes(contestData.startsAt)),
-    end: Number(subtracting330Minutes(contestData.endsAt)),
-    solutionVisibility: contestData.solutionVisibility,
+    code: '',
+    type: String(/RATED/).substring(1).slice(0, -1),
+    name: '',
+    description: '',
+    admins: [],
+    start: new Date(),
+    end: new Date(),
+    solutionVisibility: String(/AFTER/).substring(1).slice(0, -1),
   };
-  // console.log(contestData);
   const [formDetails, setFormDetails] = useState(intialFormDetails);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-
   const client = useApolloClient();
 
   const updateDB = async () => {
     setMessageType('loading');
-    setMessage('Updating Contest, Please wait');
+    setMessage('Creating Contest, Please wait');
     // console.log(String(formDetails.type).substring(1).slice(0,-1));
     const selectedAdmins = formDetails.admins.map(admin => admin.value);
-    // console.log(formDetails.code,formDetails.type, formDetails.name,formDetails.description,
-    // String(formDetails.start),String(formDetails.end)
-    // ,selectedAdmins,formDetails.solutionVisibility);
+
     const { data, error } = await client.mutate({
-      mutation: EDIT_CONTEST,
+      mutation: CREATE_CONTEST,
       variables: {
-        oldCode: contestId,
         code: formDetails.code,
         type: formDetails.type,
         name: formDetails.name,
@@ -64,19 +51,18 @@ const EditContest = ({ contestData, users }) => {
       setMessage('Database error encountered');
       return;
     }
-    if (data.editContest.success) {
+    if (data.createContest.success) {
       setMessageType('success');
-      setMessage('Contest successfully edited');
+      setMessage('Contest successfully Created');
     } else {
       setMessageType('error');
-      setMessage(data.editContest.message);
+      setMessage(data.createContest.message);
     }
   };
-
   return (
     <div className="mw7 center pa2">
-      <Headline4 className="purple mb1 mt3">Edit Contest</Headline4>
-      <Body2 className="mt0 mid-gray mb4">Edit a Single Round Match or Long Queue Contest</Body2>
+      <Headline4 className="purple mb1 mt3">Create Contest</Headline4>
+      <Body2 className="mt0 mid-gray mb4">Create a Single Round Match or Long Queue Contest</Body2>
       <ContestDetails
         formDetails={formDetails}
         setFormDetails={setFormDetails}
@@ -88,19 +74,18 @@ const EditContest = ({ contestData, users }) => {
         setMessageType={setMessageType}
       />
       <Button
-        className="ma1 mt3"
+        className="ma1 ml0 mt3"
         raised
         onClick={updateDB}
       >
-        Edit Contest
+        Create Contest
       </Button>
     </div>
   );
 };
 
-EditContest.propTypes = {
+CreateContest.propTypes = {
   users: PropTypes.array.isRequired,
-  contestData: PropTypes.object.isRequired,
 };
 
-export default EditContest;
+export default CreateContest;

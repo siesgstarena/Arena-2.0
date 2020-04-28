@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestCardsArray from './ContestCardsArray';
 
-const AllContestsPage = ({ contests }) => {
+const AllContestsPage = ({ contests, setSnackbarMessage }) => {
   const history = useHistory();
   return (
     <div>
@@ -14,13 +14,14 @@ const AllContestsPage = ({ contests }) => {
         &nbsp;
         <span className="dim pointer" role="presentation" onClick={() => history.push('/superuser/contests/create')}>Create a new contest</span>
       </Body2>
-      <ContestCardsArray contests={contests} />
+      <ContestCardsArray contests={contests} setSnackbarMessage={setSnackbarMessage} />
     </div>
   );
 };
 
 AllContestsPage.propTypes = {
   contests: PropTypes.array.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default AllContestsPage;

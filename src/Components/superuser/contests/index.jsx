@@ -39,7 +39,7 @@ const AllContestsContainer = () => {
     const { contests } = data.allContests;
     return (
       <div className="mw7 center pa2">
-        <AllContestPage contests={contests} />
+        <AllContestPage contests={contests} setSnackbarMessage={setSnackbarMessage} />
         <div className="pt3">
           <PageCountDisplayer
             pageCount={data.allContests.pageCount}

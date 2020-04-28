@@ -4,12 +4,13 @@ import ContestCard from './ContestCard';
 import { convertDate, convertTime, differenceInTwoDates } from '../../../commonFunctions';
 
 
-const ContestCardsArray = ({ contests }) => {
+const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
   const contestsArray = contests.map(contest => (
     <ContestCard
       code={contest.code}
       key={contest._id}
       name={contest.name}
+      setSnackbarMessage={setSnackbarMessage}
       startTime={`${convertDate(contest.startsAt)}, ${convertTime(contest.startsAt)}`}
       endTime={`${convertDate(contest.endsAt)}, ${convertTime(contest.endsAt)}`}
       duration={differenceInTwoDates(contest.endsAt, contest.startsAt)}
@@ -25,6 +26,7 @@ const ContestCardsArray = ({ contests }) => {
 
 ContestCardsArray.propTypes = {
   contests: PropTypes.array.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default ContestCardsArray;

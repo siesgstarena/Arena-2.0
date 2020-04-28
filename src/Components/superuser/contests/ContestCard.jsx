@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import Card from '@material/react-card';
+import { useApolloClient } from '@apollo/react-hooks';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
-import CustomSnackbar from '../../common/Snackbar';
+import { DELETE_CONTEST } from '../../../graphql/mutations';
 
 const ContestCard = ({
-  name, startTime, duration, endTime, code,
+  name, startTime, duration, endTime, code, setSnackbarMessage,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the contest - "${name}"`;
   const history = useHistory();
   const location = useLocation();
-  // onAlertAccept runs when the user clicks on the accept button on the alert box
-  const onAlertAccept = () => {
-    setSnackbarMessage('The contest is successfully deleted');
-  };
+
   const redirectToContest = () => {
     history.push(`/contests/${code}`);
   };
@@ -30,6 +27,25 @@ const ContestCard = ({
   };
   const onDeleteClick = () => {
     setIsAlertOpen(true);
+  };
+  const client = useApolloClient();
+  const deleteContest = async () => {
+    setSnackbarMessage('Deleting contest, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: DELETE_CONTEST,
+      variables: {
+        code,
+      },
+    });
+    if (error) {
+      setSnackbarMessage('Database error encountered');
+      return;
+    }
+    if (data.deleteContest.success) {
+      setSnackbarMessage('Contest deleted successfully');
+    } else {
+      setSnackbarMessage(data.deleteContest.message);
+    }
   };
 
   return (
@@ -74,11 +90,7 @@ const ContestCard = ({
         setIsOpen={setIsAlertOpen}
         title={alertTitle}
         content={alertContent}
-        onAccept={onAlertAccept}
-      />
-      <CustomSnackbar
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
+        onAccept={deleteContest}
       />
     </Card>
   );
@@ -90,6 +102,7 @@ ContestCard.propTypes = {
   duration: PropTypes.array.isRequired,
   endTime: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default ContestCard;

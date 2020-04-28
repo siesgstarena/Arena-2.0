@@ -100,3 +100,13 @@ mutation EditContest($oldCode: String!, $code: String!, $type: ContestType!, $na
   }
 }
 `;
+
+export const DELETE_CONTEST = gql`
+mutation DeleteContest($code: String!){
+  deleteContest(code: $code){
+    code
+    success
+    message
+  }
+}
+`;

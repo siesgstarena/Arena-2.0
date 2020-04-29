@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
+import { GET_ALL_CONTEST_DETAILS_SUPERUSER } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
@@ -16,7 +16,7 @@ const AllContestsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data,
-  } = useQuery(GET_ALL_CONTEST_DETAILS, {
+  } = useQuery(GET_ALL_CONTEST_DETAILS_SUPERUSER, {
     variables: { limit, skip: ((activePageNumber - 1) * limit) },
   });
   const location = useLocation();
@@ -35,7 +35,7 @@ const AllContestsContainer = () => {
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.allContests) {
+  if (data.allContests && data.isSuperuser.isSuperuser) {
     const { contests } = data.allContests;
     return (
       <div className="mw7 center pa2">

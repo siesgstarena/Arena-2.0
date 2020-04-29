@@ -417,7 +417,7 @@ query ContestCode($code: String!){
 }
 `;
 
-export const GET_ALL_CONTEST_DETAILS = gql`
+export const GET_ALL_CONTEST_DETAILS_SUPERUSER = gql`
 query AllContests($skip: Int, $limit: Int) {
   allContests(skip: $skip, limit: $limit) {
     pageCount
@@ -428,6 +428,9 @@ query AllContests($skip: Int, $limit: Int) {
       startsAt
       endsAt
     }
+  }
+  isSuperuser {
+    isSuperuser
   }
 }
 `;

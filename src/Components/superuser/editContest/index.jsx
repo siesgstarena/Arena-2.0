@@ -19,7 +19,7 @@ const EditcontestContainer = () => {
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.contestCode) {
+  if (data.contestCode && data.isSuperuser.isSuperuser) {
     const contestData = data.contestCode;
     const { users } = data;
     return <EditContest contestData={contestData} users={users} />;

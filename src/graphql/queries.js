@@ -414,6 +414,9 @@ query ContestCode($code: String!){
     name
     username
   }
+  isSuperuser {
+    isSuperuser
+  }
 }
 `;
 
@@ -435,12 +438,15 @@ query AllContests($skip: Int, $limit: Int) {
 }
 `;
 
-export const GET_ALL_USERS = gql`
+export const GET_ALL_USERS_SUPERUSER = gql`
   query Users {
     users {
-    _id
-    name
-    username
-  }
+      _id
+      name
+      username
+    }
+    isSuperuser {
+      isSuperuser
+    }
   }
 `;

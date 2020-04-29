@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_ALL_USERS } from '../../../graphql/queries';
+import { GET_ALL_USERS_SUPERUSER } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
@@ -11,11 +11,11 @@ const CreateContestContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data,
-  } = useQuery(GET_ALL_USERS);
+  } = useQuery(GET_ALL_USERS_SUPERUSER);
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.users) {
+  if (data.users && data.isSuperuser.isSuperuser) {
     const { users } = data;
     return <CreateContest users={users} />;
   }

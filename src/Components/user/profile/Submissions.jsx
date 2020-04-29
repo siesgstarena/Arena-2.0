@@ -39,7 +39,7 @@ const pastSubmissions = [
     problemCode: 'SRM14B',
     result: 'Accepted',
     lang: 'Javascript',
-  }
+  },
 ];
 
 // SubmissionTab Content
@@ -76,8 +76,7 @@ const Submissions = () => {
         </span>
       </td>
     </tr>
-  ),
-  );
+  ));
   return (
     <div className="mt3">
       <Table

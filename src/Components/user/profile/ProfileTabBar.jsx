@@ -19,10 +19,10 @@ const ProfileTabBar = () => {
         activeIndex={activeIndex}
         handleActiveIndexUpdate={handleActiveIndexUpdate}
       >
-        <Tab onClick={()=>{toggleClass('db')}}>
+        <Tab onClick={() => { toggleClass('db'); }}>
           <span className="mdc-tab__text-label">Posts</span>
         </Tab>
-        <Tab onClick={()=>{ toggleClass('dn'); }}>
+        <Tab onClick={() => { toggleClass('dn'); }}>
           <span className="mdc-tab__text-label">Submissions</span>
         </Tab>
       </TabBar>
@@ -31,6 +31,6 @@ const ProfileTabBar = () => {
       }
 
     </div>
-  )
+  );
 };
 export default ProfileTabBar;

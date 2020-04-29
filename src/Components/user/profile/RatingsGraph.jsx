@@ -167,5 +167,3 @@ const RatingsGraph = () => (
 );
 
 export default RatingsGraph;
-
-

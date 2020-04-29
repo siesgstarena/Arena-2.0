@@ -52,7 +52,7 @@ const Info = () => {
                 Ratings:
                 <b>{` ${user.rating}`}</b>
               </Body1>
-              <Body1 className="fl w-60 gray pointer mr2" style={{width: '180px', marginBottom: '4px'}}>
+              <Body1 className="fl w-60 gray pointer mr2" style={{ width: '180px', marginBottom: '4px' }}>
                 Joined:
                 <b>{` ${user.since}`}</b>
               </Body1>
@@ -87,7 +87,7 @@ const Info = () => {
                 <img className="mr2" alt={profile.name} src={profile.icon} width="32px" />
                 { (removeTag)
                   ? (
-                    <span style={{fontSize:'18px'}} className="mt1">{`${profile.name}`}</span>
+                    <span style={{ fontSize: '18px' }} className="mt1">{`${profile.name}`}</span>
                   )
                   : ('')
                 }

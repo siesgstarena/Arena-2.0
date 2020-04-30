@@ -5,11 +5,10 @@ import AnnouncementEditor from './AnnouncementEditor';
 import { GET_CONTEST_ANNOUNCEMENT } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
+import AdminContainer from '../AdminContainer';
 
 const EditAnnouncements = () => {
   const { contestId } = useParams();
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { loading, error, data } = useQuery(GET_CONTEST_ANNOUNCEMENT, {
     variables: { code: contestId },
   });
@@ -17,15 +16,15 @@ const EditAnnouncements = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.adminDashboard
     && data.adminDashboard.contest) {
-    return <AnnouncementEditor announcement={data.adminDashboard.contest.announcement ? data.adminDashboard.contest.announcement : ''} />;
+    return (
+      <AdminContainer contestCode={contestId}>
+        <AnnouncementEditor announcement={data.adminDashboard.contest.announcement ? data.adminDashboard.contest.announcement : ''} />
+      </AdminContainer>
+    );
   }
-  if (isSessionExpired(data.adminDashboard)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // case for the user not being admin or superuser
-  return <SomethingWentWrong message={data.adminDashboard.message} />;
+
+  // random errors not handled by graphql
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
 export default EditAnnouncements;

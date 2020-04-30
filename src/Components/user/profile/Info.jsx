@@ -50,7 +50,7 @@ const Info = () => {
       <Grid key="0">
         <Row>
           <Cell phoneColumns={3} desktopColumns={8} tabletColumns={5} className="">
-            <Headline6 className="mb1" style={{ color: userColor(user.rating, user.id)}}>{userStatus(user.rating, user.id)}</Headline6>
+            <Headline6 className="mb1" style={{ color: userColor(user.rating, user.id) }}>{userStatus(user.rating, user.id)}</Headline6>
             <Headline4 className="purple mt0 mb0 " style={{ fontSize: '1.7em' }}>
               { user.name }
             </Headline4>
@@ -112,4 +112,4 @@ const Info = () => {
 
 export default Info;
 
-// 
+//

@@ -43,31 +43,31 @@ const Info = () => {
     return (() => {
       window.removeEventListener('resize', updateWidthOnResize);
     });
-  });
+  }, []);
 
   return (
     DemoUser.map(user => (
       <Grid key="0">
         <Row>
-          <Cell phoneColumns={2} desktopColumns={8} tabletColumns={5} className="">
-            <Headline6 className="mb1" style={{ color: userColor(user.rating, user.id) }}>{userStatus(user.rating, user.id)}</Headline6>
-            <Headline4 className="purple mt0 mb0">
+          <Cell phoneColumns={3} desktopColumns={8} tabletColumns={5} className="">
+            <Headline6 className="mb1" style={{ color: userColor(user.rating, user.id)}}>{userStatus(user.rating, user.id)}</Headline6>
+            <Headline4 className="purple mt0 mb0 " style={{ fontSize: '1.7em' }}>
               { user.name }
             </Headline4>
             <Headline6 className="mt0 mb1 black-70">{`@${user.username}`}</Headline6>
             <div className="cf mb1">
-              <Body1 className="fl w-40 gray pointer" style={{ width: '150px', margin: '4px 0px' }}>
+              <Body1 className="fl w-40 gray pointer " style={{ width: 'auto', margin: '4px  10px 4px 0px' }}>
                 Ratings:
                 <b>{` ${user.rating}`}</b>
               </Body1>
-              <Body1 className="fl w-60 gray pointer mr2" style={{ width: '180px', margin: '4px 0px' }}>
+              <Body1 className="fl w-60 gray pointer" style={{ width: 'auto', margin: '4px 0px' }}>
                 Joined:
                 <b>{` ${user.since}`}</b>
               </Body1>
             </div>
           </Cell>
-          <Cell phoneColumns={2} tabletColumns={3} desktopColumns={4} className="pt5" style={{ paddingTop: '72px' }}>
-            <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="70vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
+          <Cell phoneColumns={1} tabletColumns={3} desktopColumns={4} className="pt5">
+            <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="80vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
           </Cell>
         </Row>
         <Row className="pt2">
@@ -111,3 +111,5 @@ const Info = () => {
 };
 
 export default Info;
+
+// 

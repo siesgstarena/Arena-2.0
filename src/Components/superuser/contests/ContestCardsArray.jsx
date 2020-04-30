@@ -1,16 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ContestCard from './ContestCard';
-import { pastContests as contests } from '../../drawer/contests/schedule/contests';
+import { convertDate, convertTime, differenceInTwoDates } from '../../../commonFunctions';
 
 
-const ContestCardsArray = () => {
+const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
   const contestsArray = contests.map(contest => (
     <ContestCard
-      key={contest.id}
-      name={contest.contestName}
-      id={contest.id}
-      startTime={contest.start}
-      duration={contest.duration}
+      code={contest.code}
+      key={contest._id}
+      name={contest.name}
+      setSnackbarMessage={setSnackbarMessage}
+      startTime={`${convertDate(contest.startsAt)}, ${convertTime(contest.startsAt)}`}
+      endTime={`${convertDate(contest.endsAt)}, ${convertTime(contest.endsAt)}`}
+      duration={differenceInTwoDates(contest.endsAt, contest.startsAt)}
     />
   ));
 
@@ -19,6 +22,11 @@ const ContestCardsArray = () => {
       {contestsArray}
     </div>
   );
+};
+
+ContestCardsArray.propTypes = {
+  contests: PropTypes.array.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
 export default ContestCardsArray;

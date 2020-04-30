@@ -6,15 +6,14 @@ import ResetSubmissionTable from './ResetSubmissionTable';
 import Spinner from '../../common/Spinner/index';
 import { GET_RESET_SUBMISSION_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
+import AdminContainer from '../AdminContainer';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
   const limit = 15;
   const activePageNumber = useActivePageState();
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data, networkStatus,
   } = useQuery(GET_RESET_SUBMISSION_DETAILS, {
@@ -41,33 +40,31 @@ const ResetSubmissionStatus = () => {
     const response = data.submissionsByContestCode.submissions;
     // console.log(response);
     return (
-      <div className="pl5-ns pr5-ns pl2 pr2">
-        <Headline4 className="purple mb0">Update Submission Status</Headline4>
-        <Body1 className="mt2">
-          Problem:
-          &nbsp;
-          {problemId}
-          &nbsp;
-          -
-          &nbsp;
-          {response[0].problemId.name}
-        </Body1>
-        <ResetSubmissionTable resetSubmissionTableData={response} />
-        <div className="mt3">
-          <PageCountDisplayer
-            pageCount={data.submissionsByContestCode.pages}
-            activePageNumber={activePageNumber}
-          />
+      <AdminContainer contestCode={contestId}>
+        <div className="pl5-ns pr5-ns pl2 pr2">
+          <Headline4 className="purple mb0">Update Submission Status</Headline4>
+          <Body1 className="mt2">
+            Problem:
+            &nbsp;
+            {problemId}
+            &nbsp;
+            -
+            &nbsp;
+            {response[0].problemId.name}
+          </Body1>
+          <ResetSubmissionTable resetSubmissionTableData={response} />
+          <div className="mt3">
+            <PageCountDisplayer
+              pageCount={data.submissionsByContestCode.pages}
+              activePageNumber={activePageNumber}
+            />
+          </div>
         </div>
-      </div>
+      </AdminContainer>
     );
   }
-  if (isSessionExpired(data.submissionsByContestCode)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // case for the user not being admin or superuser
+
+  // random cases not handled by graphql
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

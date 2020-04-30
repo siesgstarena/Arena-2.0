@@ -10,14 +10,6 @@ query Login($email: String!, $password: String!) {
 }  
 `;
 
-// export const GET_ALL_USER_DETAILS = gql`
-// query GetAllUserDetails($email: String!, $password: String!) {
-//   login(email: $email, password: $password) {
-//     userId
-//   }
-// }
-// `;
-
 export const GET_IS_USER_ADMIN = gql`
 query IsAdmin($code: String!) {
   isAdmin(code: $code) {
@@ -380,4 +372,83 @@ query Dashboard($code: String! ) {
    solved
  }
 }
+`;
+
+export const GET_RATINGS_CHANGE = gql`
+query RatingChanges($code: String!){
+  ratingChanges(code: $code) {
+   newRatings {
+     newRating
+   }
+   oldRating {
+     newRating
+   }
+   user {
+     username
+     ratings
+     _id
+   }
+ }
+}
+`;
+
+export const GET_CONTEST_EDIT_DETAILS = gql`
+query ContestCode($code: String!){
+  contestCode(code:$code){
+    _id
+    code
+    name
+    type
+    description
+    startsAt
+    endsAt
+    solutionVisibility
+    contestAdmin {
+      name
+      _id
+      username
+    }
+  }
+   users {
+    _id
+    name
+    username
+  }
+}
+`;
+
+export const GET_ALL_CONTEST_DETAILS = gql`
+query AllContests($skip: Int, $limit: Int) {
+  allContests(skip: $skip, limit: $limit) {
+    pageCount
+    contests {
+      name
+      code
+      _id
+      startsAt
+      endsAt
+    }
+  }
+}
+`;
+
+export const GET_ALL_USERS = gql`
+  query Users {
+    users {
+      _id
+      name
+      username
+    }
+  }
+`;
+
+export const IS_SUPERUSER = gql`
+  query IsSuperuser {
+    isSuperuser {
+      isSuperuser
+      success
+      code
+      message
+    }
+  }
 `;

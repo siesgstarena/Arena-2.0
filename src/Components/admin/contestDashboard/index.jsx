@@ -3,9 +3,9 @@ import { useQuery } from '@apollo/react-hooks';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
 import ContestDashboard from './ContestDashboard';
 import loadingData from './loadingData';
+import AdminContainer from '../AdminContainer';
 
 const ContestDashboardContainer = () => {
   const { contestId } = useParams();
@@ -18,7 +18,6 @@ const ContestDashboardContainer = () => {
     delete state.snackbarMessage;
     history.replace({ location, state });
   }
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data, refetch,
   } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
@@ -54,24 +53,22 @@ const ContestDashboardContainer = () => {
       usersCount,
     };
     return (
-      <ContestDashboard
-        contest={contest}
-        stats={stats}
-        announcement={announcement}
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
-        problems={problems}
-        refetch={refetch}
-      />
+      <AdminContainer contestCode={contestId}>
+        <ContestDashboard
+          contest={contest}
+          stats={stats}
+          announcement={announcement}
+          setSnackbarMessage={setSnackbarMessage}
+          snackbarMessage={snackbarMessage}
+          problems={problems}
+          refetch={refetch}
+        />
+      </AdminContainer>
     );
   }
-  if (isSessionExpired(data.adminDashboard)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // case for the user not being admin or superuser
-  return <SomethingWentWrong message={data.adminDashboard.message} />;
+
+  // Random errors not handled by graphql
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
 export default ContestDashboardContainer;

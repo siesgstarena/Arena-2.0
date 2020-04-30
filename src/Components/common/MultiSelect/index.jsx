@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Container from './Container';
 import SelectedItemBox from './SelectedItemBox';
 
-const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
+const MultiSelect = ({ options, selectedOptions = [], updateSelectedOptions }) => {
   const [search, setSearch] = useState('');
   let searchResults = [];
   // used selectedOptionsInteral as ref because others global
@@ -20,11 +20,11 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
   const removeOption = useCallback((option) => {
     // Removing the option in consideration from selectedOptions
     selectedOptionsInternal.current = selectedOptionsInternal.current.filter(
-      optionPresent => optionPresent !== option,
+      optionPresent => optionPresent.value !== option.value,
     );
     // Updating the mappedResults to display the changes on the frontend
     setMappedSelectedOptions(selectedOptionsInternal.current.map(value => (
-      <SelectedItemBox option={value} removeOption={removeOption} key={value} />
+      <SelectedItemBox option={value} removeOption={removeOption} key={value.value} />
     )));
     // Updating the options in the parent component
     updateSelectedOptions(selectedOptionsInternal.current);
@@ -32,11 +32,13 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
 
   // To add a new option to selectedOptions
   const addOption = useCallback((option) => {
-    if (!selectedOptionsInternal.current.includes(option)) {
+    if (!selectedOptionsInternal.current.some(
+      selectedOption => selectedOption.value === option.value,
+    )) {
       selectedOptionsInternal.current = [...selectedOptionsInternal.current, option];
       // Updating the mappedResults to display the changes on the frontend
       setMappedSelectedOptions(selectedOptionsInternal.current.map(value => (
-        <SelectedItemBox option={value} removeOption={removeOption} key={value} />
+        <SelectedItemBox option={value} removeOption={removeOption} key={value.value} />
       )));
     }
     // Updating the options in the parent component
@@ -48,14 +50,14 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
     const mappedOptions = optionsRecieved.map((option, index) => {
       if ((index + 1) % 2 === 0) {
         return (
-          <div role="presentation" key={option} className="bg-washed-green pa2 pointer" onClick={() => addOption(option)}>
-            {option}
+          <div role="presentation" key={option.value} className="bg-washed-green pa2 pointer" onClick={() => addOption(option)}>
+            {option.label}
           </div>
         );
       }
       return (
-        <div role="presentation" key={option} className="bg-lightest-blue pa2 pointer" onClick={() => addOption(option)}>
-          {option}
+        <div role="presentation" key={option.value} className="bg-lightest-blue pa2 pointer" onClick={() => addOption(option)}>
+          {option.label}
         </div>
       );
     });
@@ -67,7 +69,7 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
   useEffect(() => {
     setMappedSearchResults(mapResults(options));
     setMappedSelectedOptions(selectedOptionsInternal.current.map(value => (
-      <SelectedItemBox option={value} removeOption={removeOption} key={value} />
+      <SelectedItemBox option={value} removeOption={removeOption} key={value.value} />
     )));
   }, [options, removeOption, mapResults]);
 
@@ -75,7 +77,7 @@ const MultiSelect = ({ options, selectedOptions, updateSelectedOptions }) => {
     const searchValue = e.target.value;
     setSearch(searchValue);
     // Updating the disaplyed options based on the searchValue
-    searchResults = options.filter(option => option.toLowerCase().includes(searchValue));
+    searchResults = options.filter(option => option.label.toLowerCase().includes(searchValue));
     // Updating the frontend to reflect the changes
     setMappedSearchResults(mapResults(searchResults));
   };

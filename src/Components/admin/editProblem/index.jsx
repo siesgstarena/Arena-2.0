@@ -6,11 +6,10 @@ import { GET_PROBLEM_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import EditProblemForm from './EditProblemForm';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
+import AdminContainer from '../AdminContainer';
 
 const EditProblem = () => {
-  const { problemId } = useParams();
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const { problemId, contestId } = useParams();
   const { loading, error, data } = useQuery(GET_PROBLEM_DETAILS, {
     variables: { code: problemId },
   });
@@ -32,15 +31,13 @@ const EditProblem = () => {
       tags: data.problemByCode.tags,
     };
     return (
-      <EditProblemForm intialFormDetails={intialFormDetails} />
+      <AdminContainer contestCode={contestId}>
+        <EditProblemForm intialFormDetails={intialFormDetails} />
+      </AdminContainer>
     );
   }
-  if (isSessionExpired(data.problemByCode)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // case for the user not being admin or superuser
+
+  // random errors not handled by graphql
   return <SomethingWentWrong message={data.problemByCode.message} />;
 };
 

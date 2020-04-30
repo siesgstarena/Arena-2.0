@@ -43,6 +43,7 @@ const AllBlogsPageContainer = () => {
       <div className="mw7 ma3 pa2 center">
         <AllBlogsPage
           blogs={blogs}
+          setSnackbarMessage={setSnackbarMessage}
         />
         <div>
           <PageCountDisplayer

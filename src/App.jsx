@@ -1,4 +1,6 @@
-import React, { lazy, Suspense, useReducer } from 'react';
+import React, {
+  lazy, Suspense, useReducer, useEffect,
+} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
@@ -25,11 +27,13 @@ const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboa
 const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
 const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
 const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/index'));
+const ContestRatingChanges = lazy(() => import('./Components/drawer/contests/ratingChanges/index'));
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const ContestProblemPage = lazy(() => import('./Components/drawer/contests/problemPage/index'));
 const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
+const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
 const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
@@ -83,12 +87,21 @@ const App = () => {
   let initialState = {
     user: null,
   };
-
   if (localStorage.getItem('user')) {
     initialState = { ...initialState, user: JSON.parse(localStorage.getItem('user')) };
   }
-
   const [authState, authDispatch] = useReducer(authReducer, initialState);
+
+  // Logging out the user on mount if the session has expired
+  useEffect(() => {
+    const now = new Date();
+    if (JSON.parse(localStorage.getItem('sessionExpiry')) < now.getTime()) {
+      authDispatch({
+        type: 'LOGOUT',
+      });
+    }
+  }, []);
+
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
   return (
@@ -113,11 +126,12 @@ const App = () => {
                         <Suspense fallback={<Spinner />}>
                           <Route path="/contests/:contestId" exact component={ContestDashboard} />
                           <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                          <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+                          <PrivateRoute path="/contests/:contestId/my" exact component={ContestMySubmissions} />
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
-                          <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
+                          <Route path="/contests/:contestId/change" exact component={ContestRatingChanges} />
+                          <PrivateRoute path="/contests/:contestId/submit" exact component={ContestSubmit} />
                           <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
-                          <PrivateRoute path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
+                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
                         </Suspense>
                       </ContestSkeletonContainer>
                     )}
@@ -132,6 +146,7 @@ const App = () => {
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
                   <Route path="/playlists" exact component={PlaylistsWelcomePage} />

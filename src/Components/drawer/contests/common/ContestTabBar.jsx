@@ -27,10 +27,12 @@ const ContestTabBar = () => {
       setActiveIndex(1);
     } else if (currentPathname === `/${url}/scoreboard`) {
       setActiveIndex(2);
-    } else if (currentPathname === `/${url}/my` && authState.user) {
+    } else if (currentPathname === `/${url}/change`) {
       setActiveIndex(3);
-    } else if (currentPathname === `/${url}/submit` && authState.user) {
+    } else if (currentPathname === `/${url}/my` && authState.user) {
       setActiveIndex(4);
+    } else if (currentPathname === `/${url}/submit` && authState.user) {
+      setActiveIndex(5);
     }
   }, [currentPathname, url, authState.user]);
 
@@ -55,6 +57,9 @@ const ContestTabBar = () => {
       </Tab>
       <Tab onClick={() => onTabClick(`/${url}/scoreboard`)}>
         <span className="mdc-tab__text-label">Scoreboard</span>
+      </Tab>
+      <Tab onClick={() => onTabClick(`/${url}/change`)}>
+        <span className="mdc-tab__text-label">Rating Changes</span>
       </Tab>
       {
         // The reason why I have written separate checks for each test is because

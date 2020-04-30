@@ -15,7 +15,7 @@ const LinkGenerator = ({
         className=""
         outlined
         helperText={<HelperText>Username</HelperText>}
-       >
+      >
         <Input
           className=""
           id={id}

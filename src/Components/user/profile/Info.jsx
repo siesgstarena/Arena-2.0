@@ -66,7 +66,7 @@ const Info = () => {
               </Body1>
             </div>
           </Cell>
-          <Cell phoneColumns={2} tabletColumns={3} desktopColumns={4} className="pt5" style={{paddingTop: '72px'}}>
+          <Cell phoneColumns={2} tabletColumns={3} desktopColumns={4} className="pt5" style={{ paddingTop: '72px' }}>
             <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="70vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
           </Cell>
         </Row>

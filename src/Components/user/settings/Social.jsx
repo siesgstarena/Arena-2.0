@@ -4,7 +4,6 @@ import { Button } from '@material/react-button';
 import LinkGenerator from './LinkGenerator';
 
 
-
 const Social = () => {
   const [codeChef, setCC] = useState('');
   const [codeForces, setCF] = useState('');

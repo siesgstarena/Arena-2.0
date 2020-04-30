@@ -145,8 +145,8 @@ const App = () => {
                   <Route path="/contests" exact component={ContestsSchedule} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
-                  <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
                   <Route path="/playlists" exact component={PlaylistsWelcomePage} />

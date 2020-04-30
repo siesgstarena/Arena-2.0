@@ -414,13 +414,10 @@ query ContestCode($code: String!){
     name
     username
   }
-  isSuperuser {
-    isSuperuser
-  }
 }
 `;
 
-export const GET_ALL_CONTEST_DETAILS_SUPERUSER = gql`
+export const GET_ALL_CONTEST_DETAILS = gql`
 query AllContests($skip: Int, $limit: Int) {
   allContests(skip: $skip, limit: $limit) {
     pageCount
@@ -432,21 +429,26 @@ query AllContests($skip: Int, $limit: Int) {
       endsAt
     }
   }
-  isSuperuser {
-    isSuperuser
-  }
 }
 `;
 
-export const GET_ALL_USERS_SUPERUSER = gql`
+export const GET_ALL_USERS = gql`
   query Users {
     users {
       _id
       name
       username
     }
+  }
+`;
+
+export const IS_SUPERUSER = gql`
+  query IsSuperuser {
     isSuperuser {
       isSuperuser
+      success
+      code
+      message
     }
   }
 `;

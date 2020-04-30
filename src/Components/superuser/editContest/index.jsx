@@ -6,6 +6,7 @@ import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
 import EditContest from './EditContest';
+import SuperuserContainer from '../SuperuserContainer';
 
 
 const EditcontestContainer = () => {
@@ -19,10 +20,14 @@ const EditcontestContainer = () => {
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.contestCode && data.isSuperuser.isSuperuser) {
+  if (data.contestCode) {
     const contestData = data.contestCode;
     const { users } = data;
-    return <EditContest contestData={contestData} users={users} />;
+    return (
+      <SuperuserContainer>
+        <EditContest contestData={contestData} users={users} />
+      </SuperuserContainer>
+    );
   }
   if (isSessionExpired(data.contestCode)) {
     // since the component hasn't rendered or returned anything,

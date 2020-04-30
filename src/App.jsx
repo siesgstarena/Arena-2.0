@@ -126,12 +126,12 @@ const App = () => {
                         <Suspense fallback={<Spinner />}>
                           <Route path="/contests/:contestId" exact component={ContestDashboard} />
                           <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                          <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+                          <PrivateRoute path="/contests/:contestId/my" exact component={ContestMySubmissions} />
                           <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
                           <Route path="/contests/:contestId/change" exact component={ContestRatingChanges} />
-                          <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
+                          <PrivateRoute path="/contests/:contestId/submit" exact component={ContestSubmit} />
                           <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
-                          <PrivateRoute path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
+                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
                         </Suspense>
                       </ContestSkeletonContainer>
                     )}

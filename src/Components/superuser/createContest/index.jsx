@@ -1,30 +1,29 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { GET_ALL_USERS_SUPERUSER } from '../../../graphql/queries';
+import { GET_ALL_USERS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
 import CreateContest from './CreateContest';
+import SuperuserContainer from '../SuperuserContainer';
 
 
 const CreateContestContainer = () => {
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data,
-  } = useQuery(GET_ALL_USERS_SUPERUSER);
+  } = useQuery(GET_ALL_USERS);
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.users && data.isSuperuser.isSuperuser) {
+  if (data.users) {
     const { users } = data;
-    return <CreateContest users={users} />;
+    return (
+      <SuperuserContainer>
+        <CreateContest users={users} />
+      </SuperuserContainer>
+    );
   }
-  if (isSessionExpired(data.users)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // case for the user not being admin or superuser
+
+  // case for random errors which are not handled by graphql
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 

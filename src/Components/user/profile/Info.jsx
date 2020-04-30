@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Button from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';
@@ -36,7 +36,15 @@ const DemoUser = [
 const Info = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = (width > 625);
-  window.addEventListener('resize', () => { setWidth(window.innerWidth); });
+  useEffect(() => {
+    const updateWidthOnResize = () => { setWidth(window.innerWidth); };
+    window.addEventListener('resize', updateWidthOnResize);
+
+    return (() => {
+      window.removeEventListener('resize', updateWidthOnResize);
+    });
+  });
+
   return (
     DemoUser.map(user => (
       <Grid key="0">
@@ -48,21 +56,21 @@ const Info = () => {
             </Headline4>
             <Headline6 className="mt0 mb1 black-70">{`@${user.username}`}</Headline6>
             <div className="cf mb1">
-              <Body1 className="fl w-40 gray pointer" style={{ width: '150px' }}>
+              <Body1 className="fl w-40 gray pointer" style={{ width: '150px', margin: '4px 0px' }}>
                 Ratings:
                 <b>{` ${user.rating}`}</b>
               </Body1>
-              <Body1 className="fl w-60 gray pointer mr2" style={{ width: '180px', marginBottom: '4px' }}>
+              <Body1 className="fl w-60 gray pointer mr2" style={{ width: '180px', margin: '4px 0px' }}>
                 Joined:
                 <b>{` ${user.since}`}</b>
               </Body1>
             </div>
           </Cell>
-          <Cell phoneColumns={2} tabletColumns={3} desktopColumns={2} className="pt5">
-            <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="100px" width="100px" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
+          <Cell phoneColumns={2} tabletColumns={3} desktopColumns={4} className="pt5" style={{paddingTop: '72px'}}>
+            <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="70vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
           </Cell>
         </Row>
-        <Row>
+        <Row className="pt2">
           <Cell tabletColumns={6} desktopColumns={9}>
             <Headline6 style={{ margin: '0px' }} className="pa2 bl bw1 i br2 bg-light-gray black-80">{user.bio}</Headline6>
           </Cell>

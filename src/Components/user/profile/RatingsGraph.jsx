@@ -156,7 +156,7 @@ const options = {
 };
 
 const RatingsGraph = () => (
-  <div className="pl4 pr4">
+  <div className="pl2 pr2">
     <Headline6 className="purple">Ratings</Headline6>
     <HighchartsReact
       highcharts={Highcharts}

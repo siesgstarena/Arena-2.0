@@ -1,6 +1,7 @@
 import React from 'react';
-import { Headline5, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import { Headline6 } from '@material/react-typography';
+import Viewer from '../../common/MarkdownEditor/Viewer';
 
 const DataBlock = ({ title, content }) => (
   <div className="ma0 mb4" style={{ border: '1px solid purple', borderRadius: '6px' }}>
@@ -13,13 +14,13 @@ const DataBlock = ({ title, content }) => (
         borderTopRightRadius: '6px',
       }}
     >
-      <Headline5 style={{ color: 'purple' }} className="ma2">
+      <Headline6 style={{ color: 'purple' }} className="ma2">
         {title}
-      </Headline5>
+      </Headline6>
     </div>
-    <Body1 className="pa2 ma2" style={{ whiteSpace: 'pre-line' }}>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
-    </Body1>
+    <div className="ma1">
+      <Viewer value={content} />
+    </div>
   </div>
 );
 

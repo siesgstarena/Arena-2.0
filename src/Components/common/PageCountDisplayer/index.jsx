@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PageBlock from './PageBlock';
 
 const PageCountDisplayer = ({
-  pageCount, onLoadMore, setActivePageNumber, activePageNumber, limit,
+  pageCount, activePageNumber,
 }) => {
   const pageCountDisplayerArray = [];
   let i = 0;
@@ -12,9 +12,6 @@ const PageCountDisplayer = ({
       <PageBlock
         key={i + 1}
         pageNumber={i + 1}
-        onLoadMore={onLoadMore}
-        limit={limit}
-        setActivePageNumber={setActivePageNumber}
         activePageNumber={activePageNumber}
       />,
     );
@@ -28,10 +25,7 @@ const PageCountDisplayer = ({
 
 PageCountDisplayer.propTypes = {
   pageCount: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired,
-  onLoadMore: PropTypes.func.isRequired,
   activePageNumber: PropTypes.number.isRequired,
-  setActivePageNumber: PropTypes.func.isRequired,
 };
 
 export default PageCountDisplayer;

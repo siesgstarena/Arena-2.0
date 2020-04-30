@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
-import TextField, { Input } from '@material/react-text-field';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import { useApolloClient } from '@apollo/react-hooks';
+import Editor from '../../common/MarkdownEditor/Editor';
+import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_ANNOUNCEMENT } from '../../../graphql/mutations';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
@@ -76,17 +77,9 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       <Headline4 className="purple mb0 mt2">Announcements</Headline4>
       <Body1 className="mid-gray">Edit announcements for Single Round Match #1</Body1>
       <Body1>Type your message in the box below</Body1>
-      <TextField
-        label="Announcement"
-        className="mb2 text-area-width-100"
-        style={{ height: '300px' }}
-        textarea
-      >
-        <Input
-          value={announcement}
-          onChange={e => setAnnouncement(e.currentTarget.value)}
-        />
-      </TextField>
+      <EditorContainer title="Announcement">
+        <Editor value={announcement} setValue={setAnnouncement} />
+      </EditorContainer>
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button outlined className="" onClick={handleAnnoucementSubmit}>
         Submit

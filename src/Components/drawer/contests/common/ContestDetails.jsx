@@ -3,7 +3,10 @@ import Card from '@material/react-card';
 import {
   Body1,
   Body2,
+  Headline4,
 } from '@material/react-typography';
+import PropTypes from 'prop-types';
+import CountDownTimer from './CountDownTimer';
 import 'tachyons';
 
 // const [timeStamp, setTimeStamp] = useState(new Date());
@@ -14,20 +17,26 @@ import 'tachyons';
 //   setExtractedDate(timeStamp.toLocaleTimeString());
 // }, [timeStamp]);
 
-const ContestDetails = () => (
+const ContestDetails = ({ name, description, endsAt }) => (
   <Card className="pa2 tc">
     <Body1 className="mb0">
-      Universe
+      {name}
     </Body1>
     <Body2 className="mid-gray">
-      Contest open for 1 year with playlists problems
+      {description}
     </Body2>
     <hr className="ml3 mr3" />
-    {/* <Headline3 className="ma0">
-      {extractedDate}
-    </Headline3> */}
+    <Headline4 className="mt2 mb2 mid-gray">
+      <CountDownTimer countDownTill={endsAt} />
+    </Headline4>
   </Card>
 );
+
+ContestDetails.propTypes = {
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  endsAt: PropTypes.string.isRequired,
+};
 
 
 export default ContestDetails;

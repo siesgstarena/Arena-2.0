@@ -9,9 +9,10 @@ input[type="file"] {
   cursor: pointer;
   border-radius: 4px;
   margin-bottom: 20px;
+  word-break: break-all;
   color: #505050;
-}
-
-.custom-file-upload:hover {
-  border-color: black;
+  &:hover {
+    border-color: black;
+    color: black;
+  }
 }

@@ -7,6 +7,7 @@ import { Headline4, Body2 } from '@material/react-typography';
 import ProblemDetails from './ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import AdminContainer from '../AdminContainer';
 // import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const CreateProblem = () => {
@@ -105,19 +106,21 @@ const CreateProblem = () => {
   };
 
   return (
-    <div className="mw7 center pa2">
-      <Headline4 className="ma0 mt3 purple mb1">Create Problem</Headline4>
-      <Body2 className="ma0 ml1  mid-gray mb4">
-        Create Problem for
-        &nbsp;
-        {contestId}
-      </Body2>
-      <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
-      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
-      <Button raised onClick={handleCreateProblem}>
-        Create Problem
-      </Button>
-    </div>
+    <AdminContainer contestCode={contestId}>
+      <div className="mw7 center pa2">
+        <Headline4 className="ma0 mt3 purple mb1">Create Problem</Headline4>
+        <Body2 className="ma0 ml1  mid-gray mb4">
+          Create Problem for
+          &nbsp;
+          {contestId}
+        </Body2>
+        <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
+        <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
+        <Button raised onClick={handleCreateProblem}>
+          Create Problem
+        </Button>
+      </div>
+    </AdminContainer>
   );
 };
 

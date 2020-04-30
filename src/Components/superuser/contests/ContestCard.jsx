@@ -1,41 +1,70 @@
 import React, { useState } from 'react';
+import Card from '@material/react-card';
+import { useApolloClient } from '@apollo/react-hooks';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
-import CustomSnackbar from '../../common/Snackbar';
+import { DELETE_CONTEST } from '../../../graphql/mutations';
 
-const ProblemCard = ({
-  name, id, startTime, duration,
+const ContestCard = ({
+  name, startTime, duration, endTime, code, setSnackbarMessage,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the contest - "${name}"`;
   const history = useHistory();
   const location = useLocation();
-  // onAlertAccept runs when the user clicks on the accept button on the alert box
-  const onAlertAccept = () => {
-    setSnackbarMessage('The contest is successfully deleted');
-  };
+
   const redirectToContest = () => {
-    history.push(`/contests/${id}`);
+    history.push(`/contests/${code}`);
   };
   const redirectToEditContest = () => {
-    history.push(`${location.pathname}/${id}/edit`);
+    history.push(`${location.pathname}/${code}/edit`);
   };
   const onDeleteClick = () => {
     setIsAlertOpen(true);
   };
+  const client = useApolloClient();
+  const deleteContest = async () => {
+    setSnackbarMessage('Deleting contest, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: DELETE_CONTEST,
+      variables: {
+        code,
+      },
+    });
+    if (error) {
+      setSnackbarMessage('Database error encountered');
+      return;
+    }
+    if (data.deleteContest.success) {
+      setSnackbarMessage('Contest deleted successfully');
+    } else {
+      setSnackbarMessage(data.deleteContest.message);
+    }
+  };
 
   return (
-    <div className="ba br4 b--black-20 pa3 mt2">
-      <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={redirectToContest}>{name}</Headline6>
+    <Card className="pa3 mt2">
+      <Headline6 className="mt0 blue mb2 pointer dim" onClick={redirectToContest}>
+        {name}
+        &nbsp;
+        (
+        {code}
+        )
+      </Headline6>
       <Body1 className="mid-gray">
-        {duration}
+        <span className="black">
+          Duration:
+        </span>
+        &nbsp;
+        {duration[0]}
+        &nbsp;
+        {duration[1]}
       </Body1>
       <Body1>
         <span>Start:</span>
@@ -46,37 +75,34 @@ const ProblemCard = ({
         &nbsp;
         <span>End:</span>
         &nbsp;
-        <span className="mid-gray">{startTime}</span>
+        <span className="mid-gray">{endTime}</span>
       </Body1>
-      <Button style={{ color: '#555555' }} onClick={redirectToContest}>
-        View Contest
-      </Button>
-      <Button style={{ color: '#555555' }} onClick={redirectToEditContest}>
-        Edit Contest
-      </Button>
-      <Button style={{ color: '#555555' }} onClick={onDeleteClick}>
-        Delete Contest
-      </Button>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Button style={{ color: '#555555', padding: 0 }} className="mr3" onClick={redirectToEditContest}>
+          Edit Contest
+        </Button>
+        <Button style={{ color: '#555555', padding: 0 }} onClick={onDeleteClick}>
+          Delete Contest
+        </Button>
+      </div>
       <AlertBox
         isOpen={isAlertOpen}
         setIsOpen={setIsAlertOpen}
         title={alertTitle}
         content={alertContent}
-        onAccept={onAlertAccept}
+        onAccept={deleteContest}
       />
-      <CustomSnackbar
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
-      />
-    </div>
+    </Card>
   );
 };
 
-ProblemCard.propTypes = {
+ContestCard.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
   startTime: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
+  duration: PropTypes.array.isRequired,
+  endTime: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
+  setSnackbarMessage: PropTypes.func.isRequired,
 };
 
-export default ProblemCard;
+export default ContestCard;

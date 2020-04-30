@@ -1,53 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
 import Table from '../../../common/Table/index';
-import problemStatus from './problemStatus';
-import FilterButton from './FilterButton';
+import {
+  getSubmissionColor, convertDate, convertTime, adding330Minutes, userColor,
+} from '../../../../commonFunctions';
+import AuthContext from '../../../../Contexts/AuthContext';
 
-const ProblemStatusTable = () => {
+const ProblemsubmissionTable = ({
+  submissions, contestId, submissionsVisible, onSubmissionPage = false,
+}) => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
-  const problemStatusArray = problemStatus.map((status) => {
-    // This portion checks which color is to be assigned to the verdict
-    let color = '';
-    if (status.verdict === 'Accepted') {
-      color = 'green';
-    } else if (status.verdict === 'Compilation Error') {
-      color = '#999900';
-    } else {
-      color = 'red';
-    }
-
+  const { authState } = useContext(AuthContext);
+  const location = useLocation();
+  const problemsubmissionArray = submissions.map((submission) => {
+    const color = getSubmissionColor(submission.status);
+    const addedCreatedAt = adding330Minutes(submission.createdAt);
+    const createdAtDate = convertDate(addedCreatedAt);
+    const createdAtTime = convertTime(addedCreatedAt);
+    // console.log(submissionsVisible);
     return (
-      <tr key={status.id} style={{ fontSize: '.9em' }}>
+      <tr key={submission._id} style={{ fontSize: '.9em' }}>
         <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`submission/${status.id}`}>
-            {status.id}
+          {
+            (submissionsVisible
+            || (authState.user && authState.user.userId === submission.userId._id))
+            && !onSubmissionPage
+              ? (
+                <Link
+                  className="no-underline dim blue pointer"
+                  to={{
+                    pathname: `/contests/${contestId}/submission/${submission._id}`,
+                    state: {
+                      from: location.pathname,
+                    },
+                  }}
+                >
+                  {submission._id.slice(-6)}
+                </Link>
+              )
+              : submission._id.slice(-6)
+          }
+        </td>
+        <td className="tc pa3">
+          {createdAtDate}
+          ,
+          &nbsp;
+          {createdAtTime}
+        </td>
+        <td className="tc pa3">
+          <Link className="no-underline dim pointer" style={{ color: userColor(submission.userId.ratings, submission.userId._id) }} to={`/profile/${submission.userId._id}`}>
+            {submission.userId.username}
           </Link>
         </td>
         <td className="tc pa3">
-          {status.when}
-        </td>
-        <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`/profile/${status.who.id}`}>
-            {status.who.username}
-          </Link>
-        </td>
-        <td className="tc pa3">
-          <Link className="no-underline dim blue pointer" to={`problem/${status.problem.id}`}>
-            {status.problem.name}
+          <Link className="no-underline dim blue pointer" to={`/contests/${contestId}/problem/${submission.problemId.code}`}>
+            {submission.problemId.name}
           </Link>
         </td>
         <td className="tc pa3" style={{ color }}>
-          {status.verdict}
+          {submission.status}
         </td>
         <td className="tc pa3">
-          {status.language}
+          {submission.language}
         </td>
         <td className="tc pa3">
-          {status.time}
+          {submission.time}
         </td>
         <td className="tc pa3">
-          {status.memory}
+          {submission.memory}
         </td>
       </tr>
     );
@@ -55,10 +76,17 @@ const ProblemStatusTable = () => {
 
   return (
     <div>
-      <Table tableHeadings={tableHeadings} tableData={problemStatusArray} tableHeadingClassName="tc" />
-      <FilterButton />
+      <Table tableHeadings={tableHeadings} tableData={problemsubmissionArray} tableHeadingClassName="tc" />
     </div>
   );
 };
 
-export default ProblemStatusTable;
+ProblemsubmissionTable.propTypes = {
+  submissions: PropTypes.array.isRequired,
+  contestId: PropTypes.string.isRequired,
+  submissionsVisible: PropTypes.bool,
+  onSubmissionPage: PropTypes.bool,
+};
+
+
+export default ProblemsubmissionTable;

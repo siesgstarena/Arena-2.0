@@ -1,32 +1,45 @@
 import React from 'react';
-import { Cell, Grid, Row } from '@material/react-layout-grid';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
+import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ProblemsTable from './ProblemsTable';
+import ContestTabBar from '../common/ContestTabBar';
 import SubmissionDetails from './SubmissionDetails';
-import ContestDetails from '../common/ContestDetails';
-import Announcements from '../common/Announcements';
-import 'tachyons';
+import Spinner from '../../../common/Spinner/index';
 
-const ContestDashboard = () => (
-  <Grid className="mw9 center">
-    <Row>
-      <Cell desktopColumns={9} tabletColumns={8}>
-        <Cell className="">
-          <ProblemsTable />
-        </Cell>
-        <Cell>
-          <SubmissionDetails />
-        </Cell>
-      </Cell>
-      <Cell desktopColumns={3} tabletColumns={8}>
-        <Cell>
-          <ContestDetails />
-        </Cell>
-        <Cell>
-          <Announcements />
-        </Cell>
-      </Cell>
-    </Row>
-  </Grid>
-);
+const ContestDashboardContainer = () => {
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const { contestId } = useParams();
+  const {
+    loading, error, data,
+  } = useQuery(GET_CONTEST_DASHBOARD, {
+    variables: { code: contestId },
+  });
 
-export default ContestDashboard;
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.dashboard) {
+    const problems = data.dashboard;
+    // console.log(data.dashboard.problems, problems);
+    return (
+      <div>
+        <div style={{ marginBottom: '10px' }}>
+          <ContestTabBar />
+        </div>
+        <ProblemsTable problems={problems} />
+        <SubmissionDetails />
+      </div>
+    );
+  }
+  if (isSessionExpired(data.dashboard)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // case for the user not being admin or superuser
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
+};
+
+export default ContestDashboardContainer;

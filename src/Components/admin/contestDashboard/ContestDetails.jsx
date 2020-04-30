@@ -2,12 +2,11 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Body1, Headline5 } from '@material/react-typography';
-import useConvertDateAndTime from '../../../customHooks/useConvertDateAndTime';
+import { convertDate, convertTime } from '../../../commonFunctions';
 import loadingData from './loadingData';
 
 const ContestDetails = ({ contest }) => {
   const { contestId } = useParams();
-  const { convertDate, convertTime } = useConvertDateAndTime();
   let startsAtDate = 'Loading...';
   let endsAtDate = 'Loading...';
   let startsAtTime = 'Loading...';

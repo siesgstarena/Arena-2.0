@@ -1,43 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Dialog, {
   DialogContent,
   DialogButton,
   DialogTitle,
 } from '@material/react-dialog';
+import Select from '@material/react-select';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Button } from '@material/react-button';
 import 'tachyons';
 import MaterialIcon from '@material/react-material-icon';
 import Fab from '@material/react-fab';
-import DynamicSelect from '../../../common/DynamicSelect';
-// Select Component to display for different values like
-// Problem,language and Type
+import { languageOptions, typeOptions } from './options';
 
-
-const FilterButton = () => {
+const FilterButton = ({
+  problems, problemCode = 'None', type: initialType = 'None', language: initialLanguage = 'None',
+}) => {
   // State
   const [isOpen, setOpen] = useState(false);
-  const [problem, setProblem] = useState('None');
-  const [language, setLanguage] = useState('None');
-  const [type, setType] = useState('None');
+  const [problem, setProblem] = useState(problemCode);
+  const [language, setLanguage] = useState(initialLanguage);
+  const [type, setType] = useState(initialType);
 
-  // Arrays to display options from ..
-  const problemList = ['Odd or Even', 'Swedish Mafia', 'New Mafia'];
-  const langList = ['C', 'C++', 'Python 2', 'Python 3', 'Java', 'JavaScript', 'Go'];
-  const typeList = ['Accepted', 'Wrong Answer', 'Runtime Error', 'Time Limit Exceeded', 'Compilation Error'];
+  // This effect is to set the states to the default values when all the filters are reset.
+  // However this can cause different side-effects when the search query will change.
+  // Need to find a better solution.
+  useEffect(() => {
+    setProblem(problemCode);
+    setLanguage(initialLanguage);
+    setType(initialType);
+  }, [initialLanguage, initialType, problemCode]);
 
-  // Array to be displayed
-  const selectedValues = [problem, language, type];
+  let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
+  const incomingProblemOptions = problems.map(problemOption => ({
+    value: problemOption.code,
+    label: `${problemOption.name} (${problemOption.code})`,
+  }));
+  problemOptions = [...problemOptions, ...incomingProblemOptions];
+
+  const history = useHistory();
+  const location = useLocation();
 
   const onVariableChange = setVariable => ((_, item) => (
     setVariable(item.getAttribute('data-value')))
   );
   // Functions to update State
   const onProblemChange = onVariableChange(setProblem);
-
-  const onLangChange = onVariableChange(setLanguage);
-
+  const onLanguageChange = onVariableChange(setLanguage);
   const onTypeChange = onVariableChange(setType);
-
   const toggleOpen = () => setOpen(!isOpen);
 
   // Return
@@ -47,7 +57,7 @@ const FilterButton = () => {
         textLabel="Filter"
         className="center"
         style={{
-          backgroundColor: '#6200EE', position: 'fixed', bottom: '2rem', right: '2rem',
+          backgroundColor: '#6200EE', position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100,
         }}
         icon={(<MaterialIcon icon="filter_list" />)}
         onClick={toggleOpen}
@@ -58,6 +68,12 @@ const FilterButton = () => {
         onClose={toggleOpen}
       >
         <DialogTitle style={{ height: '30px' }}>
+          {
+            /*
+            Here we have placed a dummy button which
+            solves wierd foucs issues with select boxes
+            */
+          }
           <Button
             style={{
               backgroundColor: 'white',
@@ -66,31 +82,39 @@ const FilterButton = () => {
               cursor: 'default',
             }}
             raised
-            className=""
           />
         </DialogTitle>
         <DialogContent className="">
           <div className="flex-column">
-            <DynamicSelect
-              label="Problem"
-              isValRequired
+            <Select
+              label="Choose Problem"
+              className="w-100"
+              notchedOutlineClassName="pa2"
+              enhanced
+              outlined
               value={problem}
-              valueList={problemList}
-              onValueChange={onProblemChange}
+              options={problemOptions}
+              onEnhancedChange={onProblemChange}
             />
-            <DynamicSelect
-              isValRequired
-              label="Language"
+            <Select
+              label="Choose Language"
+              className="w-100"
+              notchedOutlineClassName="pa2"
+              enhanced
+              outlined
               value={language}
-              valueList={langList}
-              onValueChange={onLangChange}
+              options={languageOptions}
+              onEnhancedChange={onLanguageChange}
             />
-            <DynamicSelect
-              isValRequired
-              label="Type"
+            <Select
+              label="Choose Type"
+              className="w-100"
+              notchedOutlineClassName="pa2"
+              enhanced
+              outlined
               value={type}
-              valueList={typeList}
-              onValueChange={onTypeChange}
+              options={typeOptions}
+              onEnhancedChange={onTypeChange}
             />
             <div className="pa2">
               <DialogButton
@@ -98,7 +122,32 @@ const FilterButton = () => {
                 className="pa2 w-100"
                 action="filter"
                 onClick={() => {
-                  console.log(selectedValues);
+                  let searchString = '';
+                  if (problem !== 'None') {
+                    // Appeding to searchquery if problem exists
+                    searchString += `problemCode=${problem}`;
+                  }
+                  if (language !== 'None') {
+                    // Appeding to searchquery if language exists
+                    if (searchString !== '') {
+                      // if searchString already has something then we append & before language
+                      // to separate them
+                      searchString += `&language=${language}`;
+                    } else {
+                      searchString += `language=${language}`;
+                    }
+                  }
+                  if (type !== 'None') {
+                    if (searchString !== '') {
+                      searchString += `&type=${type}`;
+                    } else {
+                      searchString += `type=${type}`;
+                    }
+                  }
+                  history.push({
+                    pathname: location.pathname,
+                    search: searchString,
+                  });
                 }}
               >
                 Filter
@@ -111,5 +160,11 @@ const FilterButton = () => {
   );
 };
 
+FilterButton.propTypes = {
+  problems: PropTypes.array.isRequired,
+  language: PropTypes.string,
+  type: PropTypes.string,
+  problemCode: PropTypes.string,
+};
 
 export default FilterButton;

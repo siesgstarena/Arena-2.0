@@ -5,31 +5,17 @@ import { Link, useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import { RESET_SUBMISSION } from '../../../graphql/mutations';
-import useConvertDateAndTime from '../../../customHooks/useConvertDateAndTime';
+import { convertDate, convertTime, getSubmissionColor } from '../../../commonFunctions';
 
 const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   const { contestId } = useParams();
-  const { convertDate, convertTime } = useConvertDateAndTime();
   const createdAtDate = convertDate(data.createdAt);
   const createdAtTime = convertTime(data.createdAt);
   const [problemStatus, setProblemStatus] = useState(data.status);
   const [status, setStatus] = useState(data.status);
   const client = useApolloClient();
 
-
-  const updateStatusColor = (submissionStatus) => {
-    if (submissionStatus === 'Time Limit Exceeded' || submissionStatus === 'Compilation Error') {
-      return '#ffc107';
-    }
-    if (submissionStatus === 'Wrong Answer' || submissionStatus === 'Runtime Error') {
-      return '#dc3545';
-    }
-    if (submissionStatus === 'Accepted') {
-      return '#28a745';
-    }
-    return '#dc3545';
-  };
-  const [statusColor, setStatuscolor] = useState(updateStatusColor(data.status));
+  const [statusColor, setStatuscolor] = useState(getSubmissionColor(data.status));
 
   const onUpdateClick = async () => {
     setSnackbarMessage('Updating status, Please wait.');
@@ -47,7 +33,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
     if (updationResponse.resetSubmission.success) {
       setSnackbarMessage('Successfully updated the submission status.');
       setStatus(problemStatus);
-      setStatuscolor(updateStatusColor(problemStatus));
+      setStatuscolor(getSubmissionColor(problemStatus));
     } else {
       setSnackbarMessage(updationResponse.resetSubmission.message);
     }

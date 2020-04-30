@@ -1,28 +1,62 @@
-import React from 'react';
-import { Cell, Grid, Row } from '@material/react-layout-grid';
-import SubmissionStatusTable from './SubmissionStatusTable';
-import ContestDetails from '../common/ContestDetails';
-import Announcements from '../common/Announcements';
-import 'tachyons';
+import React, { useContext } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import Spinner from '../../../common/Spinner/index';
+import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
+import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
+import ContestTabBar from '../common/ContestTabBar';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
+import PageCountDisplayer from '../../../common/PageCountDisplayer';
+import ProblemStatusTable from '../status/ProblemStatusTable';
+import useActivePageState from '../../../../customHooks/useAcitvePageState';
+import AuthContext from '../../../../Contexts/AuthContext';
 
-const SubmissionStatus = () => (
-  <Grid className="mw9 center">
-    <Row>
-      <Cell desktopColumns={9} tabletColumns={8}>
-        <Cell className="">
-          <SubmissionStatusTable />
-        </Cell>
-      </Cell>
-      <Cell desktopColumns={3} tabletColumns={8}>
-        <Cell>
-          <ContestDetails />
-        </Cell>
-        <Cell>
-          <Announcements />
-        </Cell>
-      </Cell>
-    </Row>
-  </Grid>
-);
+const MySubmissionsContainer = () => {
+  const limit = 15;
+  const { contestId } = useParams();
+  const activePageNumber = useActivePageState();
+  const { authState } = useContext(AuthContext);
+  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const {
+    loading, error, data,
+  } = useQuery(GET_CONTEST_STATUS, {
+    variables: {
+      limit,
+      skip: ((activePageNumber - 1) * limit),
+      contestCode: contestId,
+      userId: authState.user.userId,
+    },
+  });
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.submissionsByContestCode) {
+    const { submissions, submissionsVisible } = data.submissionsByContestCode;
+    return (
+      <div className="">
+        <div style={{ marginBottom: '10px' }}>
+          <ContestTabBar />
+        </div>
+        <ProblemStatusTable
+          contestId={contestId}
+          submissions={submissions}
+          submissionsVisible={submissionsVisible}
+        />
+        <div className="pt3">
+          <PageCountDisplayer
+            pageCount={data.submissionsByContestCode.pages}
+            activePageNumber={activePageNumber}
+          />
+        </div>
+      </div>
+    );
+  }
+  if (isSessionExpired(data.submissionsByContestCode)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
+  }
+  // Random errors
+  return <SomethingWentWrong message="An unexpected error has occured" />;
+};
 
-export default SubmissionStatus;
+export default MySubmissionsContainer;

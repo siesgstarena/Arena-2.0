@@ -1,17 +1,19 @@
-import React, { lazy, Suspense } from 'react';
+import React, {
+  lazy, Suspense, useReducer, useEffect,
+} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
-import useStateWithLocalStroage from './customHooks/useStateWithLocalStorage';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
-import ContestTabBar from './Components/drawer/contests/common/ContestTabBar';
+import ContestSkeletonContainer from './Components/drawer/contests/common/ContestPageSkeletonContainer';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
-import UserContext from './Contexts/UserContext';
+import AuthContext from './Contexts/AuthContext';
+import authReducer from './reducers/authReducer';
 import './App.scss';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
@@ -25,9 +27,15 @@ const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboa
 const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
 const ContestMySubmissions = lazy(() => import('./Components/drawer/contests/mySubmissions/index'));
 const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/index'));
+const ContestRatingChanges = lazy(() => import('./Components/drawer/contests/ratingChanges/index'));
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
+const ContestProblemPage = lazy(() => import('./Components/drawer/contests/problemPage/index'));
+const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
+const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
+const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
+const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
 const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
@@ -62,7 +70,6 @@ const SuperuserContests = lazy(() => import('./Components/superuser/contests/ind
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-// import Editor from './Components/drawer/blogs/create/editor';
 
 const App = () => {
   const httpLink = createHttpLink({
@@ -77,7 +84,23 @@ const App = () => {
     cache,
   });
 
-  const [user, setUser] = useStateWithLocalStroage('user', null);
+  let initialState = {
+    user: null,
+  };
+  if (localStorage.getItem('user')) {
+    initialState = { ...initialState, user: JSON.parse(localStorage.getItem('user')) };
+  }
+  const [authState, authDispatch] = useReducer(authReducer, initialState);
+
+  // Logging out the user on mount if the session has expired
+  useEffect(() => {
+    const now = new Date();
+    if (JSON.parse(localStorage.getItem('sessionExpiry')) < now.getTime()) {
+      authDispatch({
+        type: 'LOGOUT',
+      });
+    }
+  }, []);
 
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
@@ -92,11 +115,27 @@ const App = () => {
                 some part of the URL. Hence in our case, AppBar and Footer will be rendered
                 on all the pages which has REACT_APP_BASE_ADDRESS in their URL
             */}
-            <UserContext.Provider value={{ user, setUser }}>
+            <AuthContext.Provider value={{ authState, authDispatch }}>
               <Route path="/" render={() => <AppBar />} />
-              <Route path="/contests/:contestId" component={ContestTabBar} />
               <Suspense fallback={<Spinner />}>
                 <Switch>
+                  <Route
+                    path="/contests/:contestId"
+                    render={() => (
+                      <ContestSkeletonContainer>
+                        <Suspense fallback={<Spinner />}>
+                          <Route path="/contests/:contestId" exact component={ContestDashboard} />
+                          <Route path="/contests/:contestId/status" exact component={ContestStatus} />
+                          <PrivateRoute path="/contests/:contestId/my" exact component={ContestMySubmissions} />
+                          <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
+                          <Route path="/contests/:contestId/change" exact component={ContestRatingChanges} />
+                          <PrivateRoute path="/contests/:contestId/submit" exact component={ContestSubmit} />
+                          <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
+                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
+                        </Suspense>
+                      </ContestSkeletonContainer>
+                    )}
+                  />
                   <Route path="/" exact render={() => (<h1 className="tc purple">WIP</h1>)} />
                   <Route path="/auth/signin" exact component={SignIn} />
                   <Route path="/auth/signup" exact component={SignUp} />
@@ -104,14 +143,11 @@ const App = () => {
                   <Route path="/auth/reset/:key" exact component={Reset} />
                   <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                   <Route path="/contests" exact component={ContestsSchedule} />
-                  <Route path="/contests/:contestId" exact component={ContestDashboard} />
-                  <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                  <Route path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-                  <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
-                  <Route path="/contests/:contestId/submit" exact component={ContestSubmit} />
                   <Route path="/ratings" exact component={Ratings} />
-                  <Route path="/blog" exact component={BlogsList} />
-                  {/* <Route path="/blog/create" exact component={Editor} /> */}
+                  <Route path="/blogs" exact component={BlogsList} />
+                  <Route path="/blogs/:blogId" exact component={BlogPage} />
+                  <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
                   <Route path="/playlists" exact component={PlaylistsWelcomePage} />
                   <Route path="/playlists/home" exact component={PlaylistsHomePage} />
@@ -122,8 +158,8 @@ const App = () => {
                   <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
-                  <Route path="/profile/:id/settings" exact component={Settings} />
-                  <Route path="/profile/:id" exact component={Profile} />
+                  <Route path="/profile/:userId/settings" exact component={Settings} />
+                  <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />
                   <Route path="/contact" exact component={Contact} />
@@ -149,7 +185,7 @@ const App = () => {
                 </Switch>
               </Suspense>
               <Route path="/" render={() => <Footer />} />
-            </UserContext.Provider>
+            </AuthContext.Provider>
           </ScrollToTop>
         </BrowserRouter>
       </ApolloProvider>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
@@ -11,12 +11,23 @@ import TopAppBar, {
 } from '@material/react-top-app-bar';
 import { Body1 } from '@material/react-typography';
 import MaterialIcon from '@material/react-material-icon';
-import UserContext from '../../../Contexts/UserContext';
+import AuthContext from '../../../Contexts/AuthContext';
 import UserMenu from './UserMenu';
 
 const CustomTopAppBar = ({ setDrawerOpen }) => {
-  const mobileDevice = window.innerWidth < 480;
-  const { user } = useContext(UserContext);
+  const [width, setWidth] = useState(window.innerWidth);
+  const mobileDevice = width < 480;
+  useEffect(() => {
+    const updateWidthOnResize = () => { setWidth(window.innerWidth); };
+    // Adding a resize event listener on mount
+    window.addEventListener('resize', updateWidthOnResize);
+    return (() => {
+      // Removing the listener when the component unmounts so that
+      // no state updates happen when the component is unmounted
+      window.removeEventListener('resize', updateWidthOnResize);
+    });
+  }, []);
+  const { authState } = useContext(AuthContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [coordinatesOfUserMenu, setCoordinatesOfUserMenu] = useState({});
   const onUserIconClick = (event) => {
@@ -45,7 +56,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
               more responsive
             */}
             {
-              !mobileDevice && !user
+              !mobileDevice && !authState.user
                 ? (
                   <div>
                     <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
@@ -68,11 +79,11 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 ) : null
             }
             {
-              !mobileDevice && user
+              !mobileDevice && authState.user
                 ? (
                   <Body1 className="flex items-center">
-                    <Link to={`/profile/${user.userId}`} style={{ textDecoration: 'none', color: 'black' }}>
-                      <span className="mr2 pointer" role="presentation">{user.name}</span>
+                    <Link to={`/profile/${authState.user.userId}`} style={{ textDecoration: 'none', color: 'black' }}>
+                      <span className="mr2 pointer" role="presentation">{authState.user.name}</span>
                     </Link>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     <UserMenu
@@ -85,7 +96,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 : null
             }
             {
-              mobileDevice && user
+              mobileDevice && authState.user
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
@@ -99,7 +110,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 : null
             }
             {
-              mobileDevice && !user
+              mobileDevice && !authState.user
                 ? (
                   <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
                     <Button

@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import UserContext from '../Contexts/UserContext';
+import AuthContext from '../Contexts/AuthContext';
 
 const useRedirectLoggedInUser = () => {
-  const { user } = useContext(UserContext);
+  const { authState } = useContext(AuthContext);
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
@@ -11,10 +11,10 @@ const useRedirectLoggedInUser = () => {
   // Not allowing the user to visit auth pages when the user is logged in
   // This function will only be executed when the component is mounted
   useEffect(() => {
-    if (user && (!state || !state.isSessionExpired)) {
-      history.push(`/profile/${user.userId}`);
+    if ((authState && authState.user) && (!state || !state.isSessionExpired)) {
+      history.push(`/profile/${authState.user.userId}`);
     }
-  }, [history, user, state]);
+  }, [history, authState, state]);
 };
 
 export default useRedirectLoggedInUser;

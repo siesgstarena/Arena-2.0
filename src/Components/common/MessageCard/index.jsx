@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Body1,
 } from '@material/react-typography';
-import './index.css';
-import 'tachyons';
+import './index.scss';
 
 // This component displays the message on screen
 // To display the error, you need to pass message as prop to this component

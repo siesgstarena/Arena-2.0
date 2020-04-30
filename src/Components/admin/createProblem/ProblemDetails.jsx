@@ -3,6 +3,8 @@ import React from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import PropTypes from 'prop-types';
+import Editor from '../../common/MarkdownEditor/Editor';
+import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 import FileUpload from '../../common/FileUpload/index';
 
 const ProblemDetails = ({ formDetails, setFormDetails }) => {
@@ -15,6 +17,14 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
       return { ...previousFormDetails };
     }));
   };
+
+  const updateEditorStates = (keyToBeUpdated, value) => (setFormDetails((previousFormDetails) => {
+    previousFormDetails[keyToBeUpdated] = value;
+    // we are making use of ... operator to return a completely new object
+    // and thus making the component re-render since the state has changed.
+    return { ...previousFormDetails };
+  }));
+
 
   const onFileChange = keyToBeUpdated => (event) => {
     const file = event.target.files[0];
@@ -71,86 +81,44 @@ const ProblemDetails = ({ formDetails, setFormDetails }) => {
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Description"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.description}
-              onChange={e => onTextFieldChange(e, 'description')}
-            />
-          </TextField>
+          <EditorContainer title="Description">
+            <Editor value={formDetails.description} setValue={value => updateEditorStates('description', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Input"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.input}
-              onChange={e => onTextFieldChange(e, 'input')}
-            />
-          </TextField>
+          <EditorContainer title="Input">
+            <Editor value={formDetails.input} setValue={value => updateEditorStates('input', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Output"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.output}
-              onChange={e => onTextFieldChange(e, 'output')}
-            />
-          </TextField>
+          <EditorContainer title="Output">
+            <Editor value={formDetails.output} setValue={value => updateEditorStates('output', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Constraints"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.constraints}
-              onChange={e => onTextFieldChange(e, 'constraints')}
-            />
-          </TextField>
+          <EditorContainer title="Constraints">
+            <Editor value={formDetails.constraints} setValue={value => updateEditorStates('constraints', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Examples"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.examples}
-              onChange={e => onTextFieldChange(e, 'examples')}
-            />
-          </TextField>
+          <EditorContainer title="Examples">
+            <Editor value={formDetails.examples} setValue={value => updateEditorStates('examples', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Explanation"
-            className="mb4 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.explanation}
-              onChange={e => onTextFieldChange(e, 'explanation')}
-            />
-          </TextField>
+          <EditorContainer title="Explanation">
+            <Editor value={formDetails.explanation} setValue={value => updateEditorStates('explanation', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>

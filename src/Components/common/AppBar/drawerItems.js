@@ -19,9 +19,9 @@ const drawerItems = [
   },
   {
     id: 4,
-    name: 'Blog',
+    name: 'Blogs',
     icon: 'library_books',
-    path: '/blog',
+    path: '/blogs',
   },
   {
     id: 5,

@@ -1,13 +1,28 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './index.scss';
 
 const PageBlock = ({
-  activePageNumber, pageNumber, setActivePageNumber, onLoadMore, limit,
+  activePageNumber, pageNumber,
 }) => {
+  const history = useHistory();
+  const location = useLocation();
   const updateActivePageNumberAndData = () => {
-    setActivePageNumber(pageNumber);
-    onLoadMore((pageNumber - 1) * limit);
+    const splittedSearchString = location.search.split('pageNumber=');
+    let searchString = splittedSearchString[0];
+    // if pageNumber is already present in the search query then
+    // when user clicks on the page block we just update the pageNumber
+    // and keep the original query as it is
+    if (location.search.includes('pageNumber')) {
+      searchString += `pageNumber=${pageNumber}`;
+    } else {
+      searchString += `&pageNumber=${pageNumber}`;
+    }
+    history.push({
+      pathname: location.pathname,
+      search: searchString,
+    });
   };
   if (activePageNumber === pageNumber) {
     return (
@@ -38,9 +53,6 @@ const PageBlock = ({
 PageBlock.propTypes = {
   activePageNumber: PropTypes.number.isRequired,
   pageNumber: PropTypes.number.isRequired,
-  setActivePageNumber: PropTypes.func.isRequired,
-  onLoadMore: PropTypes.func.isRequired,
-  limit: PropTypes.number.isRequired,
 };
 
 export default PageBlock;

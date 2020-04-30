@@ -30,6 +30,24 @@
   width: 100%;
 }
 
+
+// Styles for the container of the markdown editor
+.editor-outer-container {
+  padding: .5em;
+  margin-bottom: 1em;
+  border-radius: .25em;
+  border: 1px solid #808080;
+  color: #808080;
+  &:hover {
+    border: 1px solid black;
+  }
+  &:focus-within {
+    border: 1.5px solid #6200ee;
+    color: #6200ee;
+  }
+}
+
+
 // .text-area-border:hover:not(.mdc-text-field--focused) {
 //   // It makes the color of the textarea border color to black when we hover on it
 //   border-color: black !important;

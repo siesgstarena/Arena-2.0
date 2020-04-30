@@ -1,25 +1,19 @@
 /* eslint-disable no-param-reassign */
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import DatePicker from '../../common/DatePicker/index';
 import TimePicker from '../../common/TimePicker/index';
 import MultiSelect from '../../common/MultiSelect/index';
+import Editor from '../../common/MarkdownEditor/Editor';
+import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 
-const ContestDetails = () => {
-  const intialFormDetails = {
-    code: '',
-    type: 'round',
-    name: '',
-    description: '',
-    admins: [],
-    start: new Date(),
-    end: new Date(),
-    solutionVisibility: 'after',
-  };
-  const options = ['ac030540@gmail.com', 'ninadc32@gmail.com', 'test@gmail.com', 'test2@gmail.com'];
-  const [formDetails, setFormDetails] = useState(intialFormDetails);
+const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
+  // const options = [
+  //   {label: 'ac030540@gmail.com', value: '1' }, { label: 'ninadc32@gmail.com', value: '2'}];
+
   // console.log(formDetails.admins);
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
@@ -36,9 +30,17 @@ const ContestDetails = () => {
     return { ...previousFormDetails };
   });
 
+
   const onSelectChange = (index, item, keyToBeUpdated) => (
     setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = item.getAttribute('data-value');
+      return { ...previousFormDetails };
+    })
+  );
+
+  const updateEditorStates = (keyToBeUpdated, value) => (
+    setFormDetails((previousFormDetails) => {
+      previousFormDetails[keyToBeUpdated] = value;
       return { ...previousFormDetails };
     })
   );
@@ -77,8 +79,8 @@ const ContestDetails = () => {
             value={formDetails.type}
             onEnhancedChange={(item, index) => onSelectChange(item, index, 'type')}
           >
-            <Option value="round">ROUND</Option>
-            <Option value="queue">QUEUE</Option>
+            <Option value="RATED">RATED</Option>
+            <Option value="UNRATED">UNRATED</Option>
           </Select>
         </Cell>
       </Row>
@@ -99,22 +101,15 @@ const ContestDetails = () => {
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Description"
-            className="mb3 text-area-width-100"
-            textarea
-          >
-            <Input
-              value={formDetails.description}
-              onChange={e => onTextFieldChange(e, 'description')}
-            />
-          </TextField>
+          <EditorContainer title="Description">
+            <Editor value={formDetails.description} setValue={value => updateEditorStates('description', value)} />
+          </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <MultiSelect
-            options={options}
+            options={adminOptions}
             selectedOptions={formDetails.admins}
             updateSelectedOptions={onAdminsChange}
           />
@@ -147,14 +142,20 @@ const ContestDetails = () => {
             value={formDetails.solutionVisibility}
             onEnhancedChange={(index, item) => onSelectChange(index, item, 'solutionVisibility')}
           >
-            <Option value="after">AFTER</Option>
-            <Option value="during">DURING</Option>
-            <Option value="never">NEVER</Option>
+            <Option value="AFTER">AFTER</Option>
+            <Option value="DURING">DURING</Option>
+            <Option value="NEVER">NEVER</Option>
           </Select>
         </Cell>
       </Row>
     </Grid>
   );
+};
+
+ContestDetails.propTypes = {
+  formDetails: PropTypes.object.isRequired,
+  setFormDetails: PropTypes.func.isRequired,
+  adminOptions: PropTypes.array.isRequired,
 };
 
 export default ContestDetails;

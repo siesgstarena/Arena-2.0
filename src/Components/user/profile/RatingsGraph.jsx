@@ -7,7 +7,6 @@ import HighchartsReact from 'highcharts-react-official';
 const Inf = Infinity;
 
 const RatingsGraph = ({ contests, ratingChanges }) => {
-  console.log(ratingChanges, contests);
   const options = {
 
     title: {

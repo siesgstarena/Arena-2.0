@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TabBar from '@material/react-tab-bar';
 import Tab from '@material/react-tab';
-import Submissions from './Submissions';
+import SubmissionsContainer from './SubmissionsContainer';
 import Posts from './Posts';
 
-const ProfileTabBar = ({
-  blogPages, submissionPages, blogs, submissions,
-}) => {
+const ProfileTabBar = ({ user }) => {
+  const location = useLocation();
+  const history = useHistory();
   const [activeIndex, setActiveIndex] = useState(0);
   const handleActiveIndexUpdate = (updatedActiveIndex) => {
     setActiveIndex(updatedActiveIndex);
@@ -16,21 +17,29 @@ const ProfileTabBar = ({
 
   const toggleClass = newClass => (setClass(newClass));
 
+  const toggleTab = (className) => {
+    toggleClass(className);
+    history.push({
+      pathname: location.pathname,
+      search: '',
+    });
+  };
+
   return (
     <div>
       <TabBar
         activeIndex={activeIndex}
         handleActiveIndexUpdate={handleActiveIndexUpdate}
       >
-        <Tab onClick={() => { toggleClass('db'); }}>
+        <Tab onClick={() => { toggleTab('db'); }}>
           <span className="mdc-tab__text-label">Submissions</span>
         </Tab>
-        <Tab onClick={() => { toggleClass('dn'); }}>
+        <Tab onClick={() => { toggleTab('dn'); }}>
           <span className="mdc-tab__text-label">Posts</span>
         </Tab>
       </TabBar>
       {
-        (initialClass === 'db') ? <Submissions submissions={submissions} submissionPages={submissionPages} /> : <Posts blogPages={blogPages} blogs={blogs} />
+        (initialClass === 'db') ? <SubmissionsContainer /> : <Posts user={user} />
       }
 
     </div>
@@ -38,10 +47,7 @@ const ProfileTabBar = ({
 };
 
 ProfileTabBar.propTypes = {
-  blogPages: PropTypes.number.isRequired,
-  blogs: PropTypes.array.isRequired,
-  submissionPages: PropTypes.number.isRequired,
-  submissions: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default ProfileTabBar;

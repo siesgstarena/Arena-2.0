@@ -25,19 +25,12 @@ const ProfileContainer = () => {
     const userDetails = data.profilePage.user;
     const ratingChanges = data.profilePage.changes;
     const { contests } = data.profilePage;
-    const { blogPages } = data.profilePage;
-    const { submissionPages } = data.profilePage;
-    const { submissions } = data.profilePage;
-    const { blogs } = data.profilePage;
     return (
       <div className="mw7 pa2 center pt0">
         <Info userDetails={userDetails} />
         <RatingsGraph contests={contests} ratingChanges={ratingChanges} />
         <ProfileTabBar
-          blogPages={blogPages}
-          submissionPages={submissionPages}
-          blogs={blogs}
-          submissions={submissions}
+          user={userDetails}
         />
       </div>
     );

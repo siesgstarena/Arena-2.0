@@ -5,15 +5,14 @@ import { getSubmissionColor } from '../../../commonFunctions';
 import Table from '../../common/Table';
 
 // SubmissionTab Content
-const Submissions = ({ submissions, submissionPages }) => {
+const Submissions = ({ submissions }) => {
   const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
-  console.log(submissionPages);
   const SubmissionContent = submissions.map(sub => (
     <tr key={sub._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/submission/${sub._id}`}
+          to={`/contests/${sub.problemId.contestCode}/submission/${sub._id}`}
         >
           {(sub._id).slice(-6)}
         </Link>
@@ -21,7 +20,7 @@ const Submissions = ({ submissions, submissionPages }) => {
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/problem/${sub.problemId.code}`}
+          to={`/contests/${sub.problemId.contestCode}/problem/${sub.problemId.code}`}
         >
           {sub.problemId.name}
         </Link>
@@ -53,7 +52,6 @@ const Submissions = ({ submissions, submissionPages }) => {
 };
 
 Submissions.propTypes = {
-  submissionPages: PropTypes.number.isRequired,
   submissions: PropTypes.array.isRequired,
 };
 

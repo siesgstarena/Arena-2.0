@@ -480,32 +480,42 @@ query ProfilePage($id: ID!, $blogLimit: Int, $blogSkip: Int, $submissionSkip: In
       createdAt
       following
     }
-    blogs {
+    changes
+    contests
+  }
+}
+`;
+
+export const GET_SUBMISSION_BY_USER_ID = gql`
+  query SubmissionsByUserId($id: ID!, $limit: Int, $skip: Int) {
+    submissionsByUserId(_id: $id, limit: $limit, skip: $skip) {
+      pages
+      submissions {
+        _id
+        problemId {
+          code
+          name
+          contestCode
+        }
+        language
+        status
+      }
+    }
+  }
+`;
+
+export const GET_BLOGS_BY_USER = gql`
+query BlogByUser($id: String!, $limit: Int, $skip: Int) {
+  blogByUser(userId: $id,limit: $limit, skip: $skip) {
+     blogs {
+      _id
       title
-      createdAt
-      updatedAt
       tags
       timeToRead
-      _id
-      userId {
-        _id
-        name
-        ratings
-      }
+      createdAt
+      updatedAt
     }
-    submissions {
-      _id
-      problemId {
-        code
-        name
-      }
-      language
-      status
-    }
-    changes
-    blogPages
-    contests
-    submissionPages
+    pages
   }
 }
 `;

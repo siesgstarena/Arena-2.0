@@ -31,6 +31,7 @@
     "@material/react-typography": "^0.8.0",
     "@material/ripple": "^0.44.1",
     "@material/top-app-bar": "^0.44.0",
+    "@sentry/browser": "^5.15.5",
     "apollo-boost": "^0.4.7",
     "babel-polyfill": "^6.26.0",
     "date-fns": "^2.0.0",

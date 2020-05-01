@@ -14,6 +14,7 @@ import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
 import authReducer from './reducers/authReducer';
+// import * as Sentry from '@sentry/browser';
 import './App.scss';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
@@ -101,6 +102,7 @@ const App = () => {
       });
     }
   }, []);
+  // Sentry.captureException(new Error("Something broke"));
 
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.

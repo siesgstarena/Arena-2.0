@@ -96,6 +96,19 @@ const SignIn = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    // checking for enter key
+    if (e.keyCode === 13) {
+      handleSignIn();
+    }
+  };
+  // Adding event listener for keydown
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const onInputChange = (setFunction, value) => {
     setFunction(value);
@@ -148,7 +161,10 @@ const SignIn = () => {
               &nbsp;Let&apos;s create one!
               </span>
             </Body1>
-            <Button raised onClick={handleSignIn}>
+            <Button
+              raised
+              onClick={handleSignIn}
+            >
               Sign in
             </Button>
           </div>

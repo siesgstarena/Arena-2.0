@@ -5,10 +5,10 @@ import { GET_ALL_RATINGS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
-import BlogCard from '../../drawer/blogs/BlogCard/BlogCard';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
+import Submissions from './Submissions';
 
-const PostsContainer = () => {
+const SubmissionsContainer = () => {
   const limit = 3;
   const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -19,35 +19,22 @@ const PostsContainer = () => {
   });
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.ratings) {
-    const { blogs } = data;
+  if (data.submissions) {
+    const { submissionPages } = data;
+    const { submissions } = data;
     return (
       <div>
-        {
-          blogs.map(blog => (
-            <BlogCard
-              key={blog._id}
-              tags={blog.tags}
-              id={blog._id}
-              author={blog.userId.name}
-              authorId={blog.userId._id}
-              createdAt={blog.createdAt}
-              updatedAt={blog.updatedAt}
-              timeToRead={blog.timeToRead}
-              title={blog.title}
-              ratings={blogs.userId.ratings}
-            />
-          ))}
+        <Submissions submissionPages={submissionPages} submissions={submissions} />
         <div className="pt3">
           <PageCountDisplayer
-            pageCount={data.ratings.pages}
+            pageCount={data.submissions.pages}
             activePageNumber={activePageNumber}
           />
         </div>
       </div>
     );
   }
-  if (isSessionExpired(data.ratings)) {
+  if (isSessionExpired(data.submissions)) {
     // since the component hasn't rendered or returned anything,
     // we use redirectOnSessionExpiredBeforeRender function
     return redirectOnSessionExpiredBeforeRender();
@@ -56,4 +43,4 @@ const PostsContainer = () => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-export default PostsContainer;
+export default SubmissionsContainer;

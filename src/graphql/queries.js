@@ -466,3 +466,46 @@ query CalculateNewRatings($code: String!) {
   }
 } 
 `;
+
+export const GET_PROFILE_DETAILS = gql`
+query ProfilePage($id: ID!, $blogLimit: Int, $blogSkip: Int, $submissionSkip: Int, $submissionLimit: Int){
+  profilePage (_id: $id, blogLimit: $blogLimit, blogSkip: $blogSkip, submissionSkip: $submissionSkip, submissionLimit: $submissionLimit){
+    user {
+      name
+      ratings
+      _id
+      username
+      about
+      followers
+      createdAt
+      following
+    }
+    blogs {
+      title
+      createdAt
+      updatedAt
+      tags
+      timeToRead
+      _id
+      userId {
+        _id
+        name
+        ratings
+      }
+    }
+    submissions {
+      _id
+      problemId {
+        code
+        name
+      }
+      language
+      status
+    }
+    changes
+    blogPages
+    contests
+    submissionPages
+  }
+}
+`;

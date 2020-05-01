@@ -1,78 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getSubmissionColor } from '../../../commonFunctions';
 import Table from '../../common/Table';
 
-
-// Array/Objects to fetch from
-const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
-
-const pastSubmissions = [
-  {
-    id: '5e89ec23e4cda30022544d85',
-    problem: 'Tug of War',
-    problemCode: 'UNI04',
-    contest: 'UNIVERSE',
-    result: 'Wrong Answer',
-    lang: 'Python3',
-  },
-  {
-    id: '5e80c4cb99770c00221d40cc',
-    problem: 'Go Corona, Corona Go',
-    problemCode: 'SRM16A',
-    contest: 'SRM16',
-    result: 'Runtime Error',
-    lang: 'C++',
-  },
-  {
-    id: '5e80c40c99770c00221d408d',
-    problem: 'A Mission in the Land of Greens',
-    contest: 'SRM14',
-    problemCode: 'SRM14B',
-    result: 'Accepted',
-    lang: 'Javascript',
-  },
-  {
-    id: '5e80c40c99770c00221d418d',
-    problem: 'A Mission in the Land of Greens',
-    contest: 'SRM14',
-    problemCode: 'SRM14B',
-    result: 'Accepted',
-    lang: 'Javascript',
-  },
-];
-
 // SubmissionTab Content
-const Submissions = () => {
-  const SubmissionContent = pastSubmissions.map(sub => (
-    <tr key={sub.id} style={{ fontSize: '.9em' }}>
+const Submissions = ({ submissions, submissionPages }) => {
+  const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
+  console.log(submissionPages);
+  const SubmissionContent = submissions.map(sub => (
+    <tr key={sub._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/submission/${sub.id}`}
+          to={`/contest/${sub.contest}/submission/${sub._id}`}
         >
-          {(sub.id).slice(-6)}
+          {(sub._id).slice(-6)}
         </Link>
       </td>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/problem/${sub.problemCode}`}
+          to={`/contest/${sub.contest}/problem/${sub.problemId.code}`}
         >
-          {sub.problem}
+          {sub.problemId.name}
         </Link>
       </td>
       <td className="tc pa3">
         <span
           className="b"
-          style={{ color: getSubmissionColor(sub.result) }}
+          style={{ color: getSubmissionColor(sub.status) }}
         >
-          {sub.result}
+          {sub.status}
         </span>
       </td>
       <td className="tc pa3">
         <span>
-          {sub.lang}
+          {sub.language}
         </span>
       </td>
     </tr>
@@ -86,6 +50,11 @@ const Submissions = () => {
       />
     </div>
   );
+};
+
+Submissions.propTypes = {
+  submissionPages: PropTypes.number.isRequired,
+  submissions: PropTypes.array.isRequired,
 };
 
 export default Submissions;

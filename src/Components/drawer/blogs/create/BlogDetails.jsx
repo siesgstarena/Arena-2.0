@@ -19,7 +19,7 @@ const BlogDetails = ({
         onChange={e => setBlogTitle(e.currentTarget.value)}
       />
     </TextField>
-    <EditorContainer title="You content goes here...">
+    <EditorContainer title="Your content goes here...">
       <Editor value={blogContent} setValue={setBlogContent} />
     </EditorContainer>
     <TextField

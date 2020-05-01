@@ -1,5 +1,4 @@
 import React from 'react';
-import { Headline6 } from '@material/react-typography';
 import myPosts from './myPosts';
 import BlogCard from '../../drawer/blogs/BlogCard/BlogCard';
 
@@ -17,8 +16,7 @@ const Posts = () => {
   ));
 
   return (
-    <div className="pl4 pr4">
-      <Headline6 className="purple">Posts</Headline6>
+    <div className="pl1 mt3 pr1">
       {myPostsArray}
     </div>
   );

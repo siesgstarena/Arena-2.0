@@ -145,7 +145,7 @@ const SignIn = () => {
             <Body1 className="mid-gray">
               Don&apos;t have an account?
               <span className="dim pointer" role="presentation" onClick={() => history.push('/auth/signup')}>
-              &nbsp;Let&apos;s create one
+              &nbsp;Let&apos;s create one!
               </span>
             </Body1>
             <Button raised onClick={handleSignIn}>

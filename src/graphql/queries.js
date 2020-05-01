@@ -326,6 +326,7 @@ export const GET_SUBMISSION_PAGE_DETAILS = gql`
 query SubmissionById($id: ID!) {
   submissionById(_id:$id){
     success
+    code
     message
     submission {
       _id

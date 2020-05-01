@@ -13,12 +13,12 @@ const ProfileTabBar = ({ user }) => {
   const handleActiveIndexUpdate = (updatedActiveIndex) => {
     setActiveIndex(updatedActiveIndex);
   };
-  const [initialClass, setClass] = useState('db');
+  const [tab, setTab] = useState('submissions');
 
-  const toggleClass = newClass => (setClass(newClass));
-
-  const toggleTab = (className) => {
-    toggleClass(className);
+  const toggleTab = (tabName) => {
+    setTab(tabName);
+    // This is done to remove pageNumber from the url so that it
+    // doesn't conflict with the other tab when the tab is changed
     history.push({
       pathname: location.pathname,
       search: '',
@@ -31,15 +31,15 @@ const ProfileTabBar = ({ user }) => {
         activeIndex={activeIndex}
         handleActiveIndexUpdate={handleActiveIndexUpdate}
       >
-        <Tab onClick={() => { toggleTab('db'); }}>
+        <Tab onClick={() => { toggleTab('submissions'); }}>
           <span className="mdc-tab__text-label">Submissions</span>
         </Tab>
-        <Tab onClick={() => { toggleTab('dn'); }}>
+        <Tab onClick={() => { toggleTab('posts'); }}>
           <span className="mdc-tab__text-label">Posts</span>
         </Tab>
       </TabBar>
       {
-        (initialClass === 'db') ? <SubmissionsContainer /> : <Posts user={user} />
+        (tab === 'submissions') ? <SubmissionsContainer /> : <Posts user={user} />
       }
 
     </div>

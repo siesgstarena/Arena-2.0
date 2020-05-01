@@ -7,35 +7,35 @@ import Table from '../../common/Table';
 // SubmissionTab Content
 const Submissions = ({ submissions }) => {
   const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
-  const SubmissionContent = submissions.map(sub => (
-    <tr key={sub._id} style={{ fontSize: '.9em' }}>
+  const SubmissionContent = submissions.map(submission => (
+    <tr key={submission._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contests/${sub.problemId.contestCode}/submission/${sub._id}`}
+          to={`/contests/${submission.problemId.contestCode}/submission/${submission._id}`}
         >
-          {(sub._id).slice(-6)}
+          {(submission._id).slice(-6)}
         </Link>
       </td>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer mid-gray"
-          to={`/contests/${sub.problemId.contestCode}/problem/${sub.problemId.code}`}
+          to={`/contests/${submission.problemId.contestCode}/problem/${submission.problemId.code}`}
         >
-          {sub.problemId.name}
+          {submission.problemId.name}
         </Link>
       </td>
       <td className="tc pa3">
         <span
           className="b"
-          style={{ color: getSubmissionColor(sub.status) }}
+          style={{ color: getSubmissionColor(submission.status) }}
         >
-          {sub.status}
+          {submission.status}
         </span>
       </td>
       <td className="tc pa3">
         <span>
-          {sub.language}
+          {submission.language}
         </span>
       </td>
     </tr>

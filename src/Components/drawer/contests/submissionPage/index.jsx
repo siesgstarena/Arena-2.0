@@ -26,7 +26,7 @@ const SubmitContainer = () => {
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.submissionById) {
+  if (data.submissionById.success) {
     const {
       submission, showOutput, outputLink, expectedOutputLink,
     } = data.submissionById;

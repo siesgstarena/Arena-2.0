@@ -1,11 +1,21 @@
+/* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextField, { Input } from '@material/react-text-field';
 import { userColor } from '../../../commonFunctions';
 
-const UpdateRatingsTableData = ({ ratingData }) => {
+const UpdateRatingsTableData = ({ ratingData, setUpdatedRatings }) => {
   const [rating, setRating] = useState(ratingData.newRating);
+  const handleRatingChange = (e) => {
+    setRating(e.target.value);
+    setUpdatedRatings((previousRatings) => {
+      const foundIndex = previousRatings.findIndex(x => x.user._id === ratingData.user._id);
+      previousRatings[foundIndex].newRating = Number(e.target.value);
+      return previousRatings;
+    });
+  };
+
   return (
     <tr style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
@@ -25,7 +35,7 @@ const UpdateRatingsTableData = ({ ratingData }) => {
           <Input
             value={rating}
             id={ratingData.user._id}
-            onChange={e => setRating(e.target.value)}
+            onChange={handleRatingChange}
           />
         </TextField>
       </td>
@@ -35,6 +45,7 @@ const UpdateRatingsTableData = ({ ratingData }) => {
 
 UpdateRatingsTableData.propTypes = {
   ratingData: PropTypes.object.isRequired,
+  setUpdatedRatings: PropTypes.func.isRequired,
 };
 
 export default UpdateRatingsTableData;

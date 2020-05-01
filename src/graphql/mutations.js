@@ -110,3 +110,13 @@ mutation DeleteContest($code: String!){
   }
 }
 `;
+
+export const UPDATE_RATINGS = gql`
+mutation UpdateNewRatings($updateChange: [updateRatings]!) {
+  updateNewRatings(updateChange: $updateChange){
+    code
+    success
+    message
+  }
+}
+`;

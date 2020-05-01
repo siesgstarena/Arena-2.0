@@ -462,6 +462,7 @@ query CalculateNewRatings($code: String!) {
       _id
       ratings
     }
+    contestId
   }
 } 
 `;

@@ -1,41 +1,55 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Headline5 } from '@material/react-typography';
-// import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import UpdateRatingsTable from './UpdateRatingsTable';
 import AlertBox from '../../common/AlertBox/index';
+import { UPDATE_RATINGS } from '../../../graphql/mutations';
 
-const UpdateRatings = ({ ratingsData }) => {
+const UpdateRatings = ({ ratingsData: incomingRatingsData }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { contestId } = useParams();
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  // Added ratingsData as a state in order to cause a re-render once the ratings are updated
+  const [ratingsData, setRatingsData] = useState(JSON.parse(JSON.stringify(incomingRatingsData)));
+  // updatedRatings state holds all the updated values of the ratings.
+  const [updatedRatings, setUpdatedRatings] = useState(JSON.parse(JSON.stringify(ratingsData)));
+  const client = useApolloClient();
 
-  // const client = useApolloClient();
   const updateDB = async () => {
     setMessageType('loading');
     setMessage('Updating ratings, Please wait');
+    // converting the updatedRatings in the form desired by the query
+    const updateChange = updatedRatings.map((updatedRating => ({
+      contestId: updatedRating.contestId,
+      userId: updatedRating.user._id,
+      newRating: updatedRating.newRating,
+    })));
 
-    // const { data, error } = await client.mutate({
-    //   mutation: EDIT_CONTEST,
-    //   variables: {
-    //   },
-    // });
-    // if (error) {
-    //   setMessageType('error');
-    //   setMessage('Database error encountered');
-    //   return;
-    // }
-    // if (data.editContest.success) {
-    //   setMessageType('success');
-    //   setMessage('Ratings updated successfully');
-    // } else {
-    //   setMessageType('error');
-    //   setMessage(data.editContest.message);
-    // }
+    const { data, error } = await client.mutate({
+      mutation: UPDATE_RATINGS,
+      variables: {
+        updateChange,
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (data.updateNewRatings.success) {
+      // updating the ratingsData with the latest data once the db is updated
+      setRatingsData(JSON.parse(JSON.stringify(updatedRatings)));
+      setMessageType('success');
+      setMessage('Ratings updated successfully');
+    } else {
+      setMessageType('error');
+      setMessage(data.updateNewRatings.message);
+    }
   };
 
 
@@ -46,7 +60,7 @@ const UpdateRatings = ({ ratingsData }) => {
         &nbsp;
         {contestId}
       </Headline5>
-      <UpdateRatingsTable ratingsData={ratingsData} />
+      <UpdateRatingsTable ratingsData={ratingsData} setUpdatedRatings={setUpdatedRatings} />
       <MessageCard
         messageType={messageType}
         message={message}

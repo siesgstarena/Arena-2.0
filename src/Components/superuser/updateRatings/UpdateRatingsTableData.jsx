@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import TextField, { Input } from '@material/react-text-field';
 import PropTypes from 'prop-types';
+import TextField, { Input } from '@material/react-text-field';
+import { userColor } from '../../../commonFunctions';
 
-const UpdateRatingsTableData = ({ user }) => {
-  const [rating, setRating] = useState(user.rating);
+const UpdateRatingsTableData = ({ ratingData }) => {
+  const [rating, setRating] = useState(ratingData.newRating);
   return (
     <tr style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
-        <Link className="no-underline dim blue pointer" to={`/profile/${user.profileId}`}>
-          {user.name}
+        <Link className="no-underline dim pointer" style={{ color: userColor(ratingData.user.ratings, ratingData.user._id) }} to={`/profile/${ratingData.user._id}`}>
+          {ratingData.user.username}
         </Link>
       </td>
       <td className="tc pa3">
-        {user.rating}
+        {ratingData.newRating}
       </td>
       <td className="tc pa3">
         <TextField
@@ -23,7 +24,7 @@ const UpdateRatingsTableData = ({ user }) => {
         >
           <Input
             value={rating}
-            id={user.rank}
+            id={ratingData.user._id}
             onChange={e => setRating(e.target.value)}
           />
         </TextField>
@@ -33,7 +34,7 @@ const UpdateRatingsTableData = ({ user }) => {
 };
 
 UpdateRatingsTableData.propTypes = {
-  user: PropTypes.object.isRequired,
+  ratingData: PropTypes.object.isRequired,
 };
 
 export default UpdateRatingsTableData;

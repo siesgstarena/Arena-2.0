@@ -452,3 +452,16 @@ export const IS_SUPERUSER = gql`
     }
   }
 `;
+
+export const GET_NEW_RATINGS = gql`
+query CalculateNewRatings($code: String!) {
+  calculateNewRatings(code: $code) {
+    newRating
+    user {
+      username
+      _id
+      ratings
+    }
+  }
+} 
+`;

@@ -1,39 +1,34 @@
-import React, { useState } from 'react';
-import { Headline5 } from '@material/react-typography';
-import { useHistory } from 'react-router-dom';
-import Button from '@material/react-button';
-import UpdateRatingsTable from './UpdateRatingsTable';
-import AlertBox from '../../common/AlertBox/index';
+import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import { GET_NEW_RATINGS } from '../../../graphql/queries';
+import SomethingWentWrong from '../../common/SomethingWentWrong/index';
+import Spinner from '../../common/Spinner/index';
+import UpdateRatings from './UpdateRatings';
+import SuperuserContainer from '../SuperuserContainer';
 
-const UpdateRatings = () => {
-  const history = useHistory();
-  const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <div className="mw7 center ma1 pa2">
-      <Headline5 className="purple mt2 mb2 ml1"> Update Ratings for Single Round Match #08 </Headline5>
-      <UpdateRatingsTable />
-      <Button
-        className="ma1 mt3"
-        style={{ marginLeft: 'auto', marginRight: 0, display: 'block' }}
-        raised
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        Update
-      </Button>
-      <AlertBox
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title="Update Confirmation"
-        content="Are you sure you want to update the ratings?"
-        onAccept={() => {
-          history.push('/superuser/ratings/');
-        }}
-      />
-    </div>
-  );
+const UpdateRatingsContainer = () => {
+  const { contestId } = useParams();
+  const {
+    loading, error, data,
+  } = useQuery(GET_NEW_RATINGS, {
+    variables: { code: contestId },
+  });
+
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.calculateNewRatings) {
+    const ratingsData = data.calculateNewRatings;
+    return (
+      <SuperuserContainer>
+        <UpdateRatings ratingsData={ratingsData} />
+      </SuperuserContainer>
+    );
+  }
+
+  // case for random errors which are not handled by graphql
+  return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 
-export default UpdateRatings;
+export default UpdateRatingsContainer;

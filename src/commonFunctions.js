@@ -11,7 +11,8 @@ export const userColor = (ratings, userId) => {
     return 'orange';
   }
   if (ratings >= 1600 && ratings <= 1799) {
-    return 'yellow';
+    // yellow
+    return '#FDA50F';
   }
   if (ratings >= 1400 && ratings <= 1599) {
     return '#9932CC';

@@ -47,7 +47,7 @@ const MyBlogsContainer = () => {
                       updatedAt={blog.updatedAt}
                       timeToRead={blog.timeToRead}
                       title={blog.title}
-                      ratings={1456}
+                      ratings={blog.userId.ratings}
                       setSnackbarMessage={setSnackbarMessage}
                     />
                   ))

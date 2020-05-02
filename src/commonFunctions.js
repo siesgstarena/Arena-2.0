@@ -11,7 +11,8 @@ export const userColor = (ratings, userId) => {
     return 'orange';
   }
   if (ratings >= 1600 && ratings <= 1799) {
-    return 'yellow';
+    // yellow
+    return '#FDA50F';
   }
   if (ratings >= 1400 && ratings <= 1599) {
     return '#9932CC';
@@ -225,4 +226,41 @@ export const problemBackgroundColor = (solved, attempts) => {
   if (solved > 0) return '#02b32826';
   if (solved === 0 && attempts > 0) return '#d60b0b1c';
   return '#ffffff';
+};
+
+export const getMonth = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[d.getMonth()];
+};
+
+export const getDay = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return days[d.getDay()];
+};
+
+export const getYear = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  return d.getFullYear();
+};
+
+export const getDate = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  return d.getDate();
+};
+
+export const getHours = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  return d.getHours();
+};
+
+export const getMinutes = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  return d.getMinutes();
+};
+
+export const getSeconds = (milliSeconds) => {
+  const d = new Date(Number(milliSeconds));
+  return d.getSeconds();
 };

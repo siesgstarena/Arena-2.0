@@ -1,4 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  useState, useContext, useEffect, useCallback,
+} from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
@@ -53,7 +55,7 @@ const SignIn = () => {
 
   const client = useApolloClient();
 
-  const handleSignIn = async () => {
+  const handleSignIn = useCallback(async () => {
     // getDog();
     setMessageType('loading');
     setMessage('Logging In, Please Wait');
@@ -94,8 +96,21 @@ const SignIn = () => {
       setMessageType('error');
       setMessage('Invalid Credentials');
     }
-  };
+  }, [email, password, authDispatch, client, history, location, state]);
 
+  const handleKeyDown = useCallback((e) => {
+    // checking for enter key
+    if (e.keyCode === 13) {
+      handleSignIn();
+    }
+  }, [handleSignIn]);
+  // Adding event listener for keydown
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const onInputChange = (setFunction, value) => {
     setFunction(value);
@@ -145,10 +160,13 @@ const SignIn = () => {
             <Body1 className="mid-gray">
               Don&apos;t have an account?
               <span className="dim pointer" role="presentation" onClick={() => history.push('/auth/signup')}>
-              &nbsp;Let&apos;s create one
+              &nbsp;Let&apos;s create one!
               </span>
             </Body1>
-            <Button raised onClick={handleSignIn}>
+            <Button
+              raised
+              onClick={handleSignIn}
+            >
               Sign in
             </Button>
           </div>

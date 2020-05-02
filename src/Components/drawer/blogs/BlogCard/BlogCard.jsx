@@ -116,13 +116,15 @@ const BlogCard = ({
               &nbsp;
               {createdAtTime}
               <br />
-              Recent Activity:
-              &nbsp;
-              {convertedUpdatedAt}
-              &nbsp;
-              {convertedUpdatedAtType}
-              &nbsp;
-              ago
+              <span className="">
+                Recent Activity:
+                &nbsp;
+                {convertedUpdatedAt}
+                &nbsp;
+                {convertedUpdatedAtType}
+                &nbsp;
+                ago
+              </span>
               <br />
               {timeToRead}
               &nbsp;

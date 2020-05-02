@@ -106,12 +106,12 @@ const Info = ({ userDetails: user }) => {
         unfollowId: user._id,
       },
       update: (cache) => {
-        try {
-          // Removing logged in user from the array of followers for the user
-          const { profilePage } = cache.readQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: user._id },
-          });
+        // Removing logged in user from the array of followers for the user
+        const { profilePage } = cache.readQuery({
+          query: GET_PROFILE_DETAILS,
+          variables: { id: user._id },
+        });
+        if (profilePage) {
           cache.writeQuery({
             query: GET_PROFILE_DETAILS,
             variables: { id: user._id },
@@ -125,15 +125,13 @@ const Info = ({ userDetails: user }) => {
               },
             },
           });
-        } catch (e) {
-          console.log(e);
         }
-        try {
-          // Reoving the person followed by the loggedIn user from his array of following
-          const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: authState.user.userId },
-          });
+        // Reoving the person followed by the loggedIn user from his array of following
+        const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
+          query: GET_PROFILE_DETAILS,
+          variables: { id: authState.user.userId },
+        });
+        if (profilePageOfLoggedInUser) {
           cache.writeQuery({
             query: GET_PROFILE_DETAILS,
             variables: { id: authState.user.userId },
@@ -147,8 +145,6 @@ const Info = ({ userDetails: user }) => {
               },
             },
           });
-        } catch (e) {
-          console.log(e);
         }
       },
     });

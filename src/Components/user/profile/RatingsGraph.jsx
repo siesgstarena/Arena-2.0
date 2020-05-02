@@ -156,15 +156,19 @@ const RatingsGraph = ({ contests, ratingChanges }) => {
       verticalAlign: 'middle',
     },
   };
+
   return (
-    <div className="">
-      <Headline6 className="purple">Ratings</Headline6>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-      />
-      <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
-    </div>
+    ratingChanges !== '[]' && contests !== '[]'
+      ? (
+        <div className="">
+          <Headline6 className="purple">Ratings</Headline6>
+          <HighchartsReact
+            highcharts={Highcharts}
+            options={options}
+          />
+          <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
+        </div>
+      ) : null
   );
 };
 

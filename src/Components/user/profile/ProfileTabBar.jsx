@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TabBar from '@material/react-tab-bar';
@@ -14,6 +14,10 @@ const ProfileTabBar = ({ user }) => {
     setActiveIndex(updatedActiveIndex);
   };
   const [tab, setTab] = useState('submissions');
+  useEffect(() => {
+    // Added it because the window was automatically coming to the tab bar on mount
+    window.scrollTo(0, 0);
+  }, []);
 
   const toggleTab = (tabName) => {
     setTab(tabName);

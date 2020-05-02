@@ -160,7 +160,7 @@ const App = () => {
                   <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
-                  <Route path="/profile/:userId/settings" exact component={Settings} />
+                  <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />

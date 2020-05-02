@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
-import Button from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';
 import {
   userColor, userStatus, getMonth, getYear,
 } from '../../../commonFunctions';
+import AuthContext from '../../../Contexts/AuthContext';
+import EditAbout from './EditAbout';
 
 const Info = ({ userDetails: user }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = (width > 625);
+  const { authState } = useContext(AuthContext);
   useEffect(() => {
     const updateWidthOnResize = () => { setWidth(window.innerWidth); };
     window.addEventListener('resize', updateWidthOnResize);
@@ -44,16 +46,21 @@ const Info = ({ userDetails: user }) => {
         </Cell>
       </Row>
       <Row className="pt2">
-        <Cell tabletColumns={6} desktopColumns={9}>
-          <Headline6 style={{ margin: '0px' }} className="pa2 dib bl bw1 i br2 bg-light-gray black-80">{user.about}</Headline6>
-        </Cell>
-        <Cell tabletColumns={3}>
-          <Button
-            className=""
-            raised
-          >
-            Edit
-          </Button>
+        {
+          user.about
+            ? (
+              <Cell tabletColumns={6} desktopColumns={9}>
+                <Headline6 style={{ margin: '0px' }} className="pa2 dib bl bw1 i br2 bg-light-gray black-80">{user.about}</Headline6>
+              </Cell>
+            )
+            : null
+        }
+        <Cell columns={12}>
+          {
+            authState.user.userId === user._id
+              ? <EditAbout about={user.about} />
+              : null
+          }
         </Cell>
       </Row>
       <Row>

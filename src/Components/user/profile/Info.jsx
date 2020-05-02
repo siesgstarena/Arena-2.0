@@ -1,17 +1,31 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useApolloClient } from '@apollo/react-hooks';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
+import { Button } from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';
 import {
   userColor, userStatus, getMonth, getYear,
 } from '../../../commonFunctions';
 import AuthContext from '../../../Contexts/AuthContext';
 import EditAbout from './EditAbout';
+import MessageCard from '../../common/MessageCard/index';
+import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
+import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const Info = ({ userDetails: user }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = (width > 625);
+  const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const { authState } = useContext(AuthContext);
+  let loggedInUser = null;
+  if (authState.user && authState.user.userId) {
+    loggedInUser = authState.user;
+  }
   useEffect(() => {
     const updateWidthOnResize = () => { setWidth(window.innerWidth); };
     window.addEventListener('resize', updateWidthOnResize);
@@ -20,6 +34,156 @@ const Info = ({ userDetails: user }) => {
       window.removeEventListener('resize', updateWidthOnResize);
     });
   }, []);
+  const client = useApolloClient();
+  const handleFollow = async () => {
+    setMessageType('loading');
+    setMessage('Following user, Please Wait');
+    const { data, error } = await client.mutate({
+      mutation: FOLLOW,
+      variables: {
+        followId: user._id,
+      },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.follow.success) {
+          try {
+            // Adding logged in user in the array of followers for the user
+            const { profilePage } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+              data: {
+                profilePage: {
+                  ...profilePage,
+                  user: {
+                    ...profilePage.user,
+                    followers: [...profilePage.user.followers, loggedInUser.userId],
+                  },
+                },
+              },
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+          try {
+            // Adding the person followed by the loggedIn user in his array of following
+            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+              data: {
+                profilePage: {
+                  ...profilePageOfLoggedInUser,
+                  user: {
+                    ...profilePageOfLoggedInUser.user,
+                    following: [...profilePageOfLoggedInUser.user.following, user._id],
+                  },
+                },
+              },
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+        }
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.follow)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.follow.success) {
+      setMessageType('success');
+      setMessage(`You have started following ${user.name}`);
+    } else {
+      setMessageType('error');
+      setMessage(data.follow.message);
+    }
+  };
+  const handleUnfollow = async () => {
+    setMessageType('loading');
+    setMessage('Unfollowing user, Please Wait');
+    const { data, error } = await client.mutate({
+      mutation: UNFOLLOW,
+      variables: {
+        unfollowId: user._id,
+      },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.unfollow.success) {
+          try {
+            // Removing logged in user from the array of followers for the user
+            const { profilePage } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+              data: {
+                profilePage: {
+                  ...profilePage,
+                  user: {
+                    ...profilePage.user,
+                    followers: profilePage.user.followers.filter(id => id !== loggedInUser.userId),
+                  },
+                },
+              },
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+          try {
+            // Reoving the person followed by the loggedIn user from his array of following
+            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+              data: {
+                profilePage: {
+                  ...profilePageOfLoggedInUser,
+                  user: {
+                    ...profilePageOfLoggedInUser.user,
+                    following:
+                    profilePageOfLoggedInUser.user.following.filter(id => id !== user._id),
+                  },
+                },
+              },
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+        }
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.unfollow)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.unfollow.success) {
+      setMessageType('success');
+      setMessage(`You have unfollowed ${user.name}`);
+    } else {
+      setMessageType('error');
+      setMessage(data.follow.message);
+    }
+  };
 
   return (
     <Grid style={{ margin: 0, padding: 0 }}>
@@ -56,11 +220,28 @@ const Info = ({ userDetails: user }) => {
             : null
         }
         <Cell columns={12}>
-          {
-            authState.user.userId === user._id
-              ? <EditAbout about={user.about} />
-              : null
-          }
+          <div>
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
+            {
+              loggedInUser
+                ? loggedInUser.userId === user._id
+                  ? (
+                    <EditAbout
+                      about={user.about}
+                      setMessage={setMessage}
+                      setMessageType={setMessageType}
+                    />
+                  )
+                  : user.followers.includes(loggedInUser.userId)
+                    ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
+                    : <Button onClick={handleFollow} raised>Follow</Button>
+                : null
+            }
+          </div>
         </Cell>
       </Row>
       <Row>

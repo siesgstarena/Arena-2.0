@@ -515,6 +515,9 @@ query BlogByUser($id: String!, $limit: Int, $skip: Int) {
       timeToRead
       createdAt
       updatedAt
+      userId {
+        ratings
+      }
     }
     pages
   }

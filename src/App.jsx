@@ -36,6 +36,7 @@ const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
+const MyBlogs = lazy(() => import('./Components/user/myBlogs/index'));
 const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
@@ -148,6 +149,7 @@ const App = () => {
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <PrivateRoute path="/blogs/my" exact component={MyBlogs} />
                   <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />

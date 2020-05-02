@@ -469,8 +469,8 @@ query CalculateNewRatings($code: String!) {
 `;
 
 export const GET_PROFILE_DETAILS = gql`
-query ProfilePage($id: ID!, $blogLimit: Int, $blogSkip: Int, $submissionSkip: Int, $submissionLimit: Int){
-  profilePage (_id: $id, blogLimit: $blogLimit, blogSkip: $blogSkip, submissionSkip: $submissionSkip, submissionLimit: $submissionLimit){
+query ProfilePage($id: ID!){
+  profilePage (_id: $id){
     user {
       name
       ratings

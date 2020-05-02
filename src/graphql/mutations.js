@@ -120,3 +120,13 @@ mutation UpdateNewRatings($updateChange: [updateRatings]!) {
   }
 }
 `;
+
+export const UPDATE_ABOUT = gql`
+mutation UpdatedBio($about: String!) {
+  updateBio(about: $about) {
+    code
+    success
+    message
+  }
+}
+`;

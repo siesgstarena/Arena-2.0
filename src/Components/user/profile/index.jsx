@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 import Info from './Info';
 import RatingsGraph from './RatingsGraph';
 import ProfileTabBar from './ProfileTabBar';
-import Spinner from '../../common/Spinner/index';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import ProfileLoadingSkeleton from './ProfileLoadingSkeleton';
 
 const ProfileContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -19,7 +19,7 @@ const ProfileContainer = () => {
       id: userId,
     },
   });
-  if (loading) return <Spinner />;
+  if (loading) return <ProfileLoadingSkeleton />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.profilePage) {
     const userDetails = data.profilePage.user;

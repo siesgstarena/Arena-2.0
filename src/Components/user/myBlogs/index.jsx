@@ -64,7 +64,7 @@ const MyBlogsContainer = () => {
                 </div>
               </div>
             )
-            : <NoBlogs />
+            : <NoBlogs showCreateButton />
         }
 
       </div>

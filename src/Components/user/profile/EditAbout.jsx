@@ -6,11 +6,13 @@ import Button from '@material/react-button';
 import { useApolloClient } from '@apollo/react-hooks';
 import { UPDATE_ABOUT } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 
 const EditAbout = ({ about, setMessage, setMessageType }) => {
   const [showTextBox, setShowTextBox] = useState(false);
   const [editedAbout, setEditedAbout] = useState(about);
+  const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const { userId } = useParams();
   const client = useApolloClient();
   const handleAboutSubmit = async () => {
@@ -21,33 +23,39 @@ const EditAbout = ({ about, setMessage, setMessageType }) => {
       variables: {
         about: editedAbout,
       },
-      update: (cache) => {
-        try {
-          const { profilePage } = cache.readQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: userId },
-          });
-          cache.writeQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: userId },
-            data: {
-              profilePage: {
-                ...profilePage,
-                user: {
-                  ...profilePage.user,
-                  about: editedAbout,
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.updateBio.success) {
+          try {
+            const { profilePage } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: userId },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: userId },
+              data: {
+                profilePage: {
+                  ...profilePage,
+                  user: {
+                    ...profilePage.user,
+                    about: editedAbout,
+                  },
                 },
               },
-            },
-          });
-        } catch (e) {
-          console.log(e);
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
         }
       },
     });
     if (error) {
       setMessageType('error');
       setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.updateBio)) {
+      redirectOnSessionExpiredAfterRender();
       return;
     }
     if (data.updateBio.success) {

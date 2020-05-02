@@ -13,13 +13,19 @@ import EditAbout from './EditAbout';
 import MessageCard from '../../common/MessageCard/index';
 import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const Info = ({ userDetails: user }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = (width > 625);
+  const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const { authState } = useContext(AuthContext);
+  let loggedInUser = null;
+  if (authState.user && authState.user.userId) {
+    loggedInUser = authState.user;
+  }
   useEffect(() => {
     const updateWidthOnResize = () => { setWidth(window.innerWidth); };
     window.addEventListener('resize', updateWidthOnResize);
@@ -37,56 +43,62 @@ const Info = ({ userDetails: user }) => {
       variables: {
         followId: user._id,
       },
-      update: (cache) => {
-        try {
-          // Adding logged in user in the array of followers for the user
-          const { profilePage } = cache.readQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: user._id },
-          });
-          cache.writeQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: user._id },
-            data: {
-              profilePage: {
-                ...profilePage,
-                user: {
-                  ...profilePage.user,
-                  followers: [...profilePage.user.followers, authState.user.userId],
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.follow.success) {
+          try {
+            // Adding logged in user in the array of followers for the user
+            const { profilePage } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+              data: {
+                profilePage: {
+                  ...profilePage,
+                  user: {
+                    ...profilePage.user,
+                    followers: [...profilePage.user.followers, loggedInUser.userId],
+                  },
                 },
               },
-            },
-          });
-        } catch (e) {
-          console.log(e);
-        }
-        try {
-          // Adding the person followed by the loggedIn user in his array of following
-          const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: authState.user.userId },
-          });
-          cache.writeQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: authState.user.userId },
-            data: {
-              profilePage: {
-                ...profilePageOfLoggedInUser,
-                user: {
-                  ...profilePageOfLoggedInUser.user,
-                  following: [...profilePageOfLoggedInUser.user.following, user._id],
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+          try {
+            // Adding the person followed by the loggedIn user in his array of following
+            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+              data: {
+                profilePage: {
+                  ...profilePageOfLoggedInUser,
+                  user: {
+                    ...profilePageOfLoggedInUser.user,
+                    following: [...profilePageOfLoggedInUser.user.following, user._id],
+                  },
                 },
               },
-            },
-          });
-        } catch (e) {
-          console.log(e);
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
         }
       },
     });
     if (error) {
       setMessageType('error');
       setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.follow)) {
+      redirectOnSessionExpiredAfterRender();
       return;
     }
     if (data.follow.success) {
@@ -105,52 +117,63 @@ const Info = ({ userDetails: user }) => {
       variables: {
         unfollowId: user._id,
       },
-      update: (cache) => {
-        // Removing logged in user from the array of followers for the user
-        const { profilePage } = cache.readQuery({
-          query: GET_PROFILE_DETAILS,
-          variables: { id: user._id },
-        });
-        if (profilePage) {
-          cache.writeQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: user._id },
-            data: {
-              profilePage: {
-                ...profilePage,
-                user: {
-                  ...profilePage.user,
-                  followers: profilePage.user.followers.filter(id => id !== authState.user.userId),
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.unfollow.success) {
+          try {
+            // Removing logged in user from the array of followers for the user
+            const { profilePage } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: user._id },
+              data: {
+                profilePage: {
+                  ...profilePage,
+                  user: {
+                    ...profilePage.user,
+                    followers: profilePage.user.followers.filter(id => id !== loggedInUser.userId),
+                  },
                 },
               },
-            },
-          });
-        }
-        // Reoving the person followed by the loggedIn user from his array of following
-        const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-          query: GET_PROFILE_DETAILS,
-          variables: { id: authState.user.userId },
-        });
-        if (profilePageOfLoggedInUser) {
-          cache.writeQuery({
-            query: GET_PROFILE_DETAILS,
-            variables: { id: authState.user.userId },
-            data: {
-              profilePage: {
-                ...profilePageOfLoggedInUser,
-                user: {
-                  ...profilePageOfLoggedInUser.user,
-                  following: profilePageOfLoggedInUser.user.following.filter(id => id !== user._id),
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+          try {
+            // Reoving the person followed by the loggedIn user from his array of following
+            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+            });
+            cache.writeQuery({
+              query: GET_PROFILE_DETAILS,
+              variables: { id: loggedInUser.userId },
+              data: {
+                profilePage: {
+                  ...profilePageOfLoggedInUser,
+                  user: {
+                    ...profilePageOfLoggedInUser.user,
+                    following:
+                    profilePageOfLoggedInUser.user.following.filter(id => id !== user._id),
+                  },
                 },
               },
-            },
-          });
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
         }
       },
     });
     if (error) {
       setMessageType('error');
       setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.unfollow)) {
+      redirectOnSessionExpiredAfterRender();
       return;
     }
     if (data.unfollow.success) {
@@ -204,17 +227,19 @@ const Info = ({ userDetails: user }) => {
               setMessageType={setMessageType}
             />
             {
-              authState.user.userId === user._id
-                ? (
-                  <EditAbout
-                    about={user.about}
-                    setMessage={setMessage}
-                    setMessageType={setMessageType}
-                  />
-                )
-                : user.followers.includes(authState.user.userId)
-                  ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
-                  : <Button onClick={handleFollow} raised>Follow</Button>
+              loggedInUser
+                ? loggedInUser.userId === user._id
+                  ? (
+                    <EditAbout
+                      about={user.about}
+                      setMessage={setMessage}
+                      setMessageType={setMessageType}
+                    />
+                  )
+                  : user.followers.includes(loggedInUser.userId)
+                    ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
+                    : <Button onClick={handleFollow} raised>Follow</Button>
+                : null
             }
           </div>
         </Cell>

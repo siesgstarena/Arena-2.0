@@ -11,7 +11,7 @@ const Submissions = ({ submissions }) => {
     <tr key={submission._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
-          className="no-underline dim pointer mid-gray"
+          className="no-underline dim pointer blue"
           to={`/contests/${submission.problemId.contestCode}/submission/${submission._id}`}
         >
           {(submission._id).slice(-6)}
@@ -19,7 +19,7 @@ const Submissions = ({ submissions }) => {
       </td>
       <td className="tc pa3">
         <Link
-          className="no-underline dim pointer mid-gray"
+          className="no-underline dim pointer blue"
           to={`/contests/${submission.problemId.contestCode}/problem/${submission.problemId.code}`}
         >
           {submission.problemId.name}

@@ -130,3 +130,23 @@ mutation UpdatedBio($about: String!) {
   }
 }
 `;
+
+export const FOLLOW = gql`
+mutation Follow($followId: String!) {
+  follow(followId: $followId){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UNFOLLOW = gql`
+mutation Unfollow($unfollowId: String!){
+  unfollow(unfollowId: $unfollowId){
+    code
+    success
+    message
+  }
+}
+`;

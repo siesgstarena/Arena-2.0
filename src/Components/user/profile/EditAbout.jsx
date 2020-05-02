@@ -6,13 +6,11 @@ import Button from '@material/react-button';
 import { useApolloClient } from '@apollo/react-hooks';
 import { UPDATE_ABOUT } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
-import MessageCard from '../../common/MessageCard/index';
 
-const EditAbout = ({ about }) => {
+
+const EditAbout = ({ about, setMessage, setMessageType }) => {
   const [showTextBox, setShowTextBox] = useState(false);
   const [editedAbout, setEditedAbout] = useState(about);
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState('');
   const { userId } = useParams();
   const client = useApolloClient();
   const handleAboutSubmit = async () => {
@@ -63,7 +61,6 @@ const EditAbout = ({ about }) => {
   };
   return (
     <div>
-      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       {
         showTextBox
           ? (
@@ -110,6 +107,8 @@ const EditAbout = ({ about }) => {
 
 EditAbout.propTypes = {
   about: PropTypes.string.isRequired,
+  setMessage: PropTypes.func.isRequired,
+  setMessageType: PropTypes.func.isRequired,
 };
 
 export default EditAbout;

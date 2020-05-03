@@ -40,7 +40,7 @@ const PostsContainer = ({ user }) => {
                       tags={blog.tags}
                       id={blog._id}
                       author={user.name}
-                      authorId={user.userId}
+                      authorId={user._id}
                       createdAt={blog.createdAt}
                       updatedAt={blog.updatedAt}
                       timeToRead={blog.timeToRead}

@@ -171,3 +171,13 @@ mutation UpdateNotification($type: notificationType!, $set: Boolean!) {
   }
 }
 `;
+
+export const UPDATE_SOCIAL = gql`
+mutation UpdateSocialLinks($github:String!, $codechef: String!, $codeforces:String!) {
+  updateSocialLinks(github: $github,codechef: $codechef,codeforces:$codeforces){
+    code
+    success
+    message
+  }
+}
+`;

@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../../common/Spinner/index';
 import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
-import ContestTabBar from '../common/ContestTabBar';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import ProblemStatusTable from '../status/ProblemStatusTable';
@@ -34,9 +33,6 @@ const MySubmissionsContainer = () => {
     const { submissions, submissionsVisible } = data.submissionsByContestCode;
     return (
       <div className="">
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
         {
           submissions.length !== 0
             ? (

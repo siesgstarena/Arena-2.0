@@ -46,6 +46,7 @@ const ContestTabBar = () => {
   // and then we update the site according to it.
   return (
     <TabBar
+      className="mb3"
       activeIndex={activeIndex}
       handleActiveIndexUpdate={handleActiveIndexUpdate}
     >

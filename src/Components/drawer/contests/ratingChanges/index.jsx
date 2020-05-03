@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { GET_RATINGS_CHANGE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
-import ContestTabBar from '../common/ContestTabBar';
 import RatingChangesTable from './RatingChangesTable';
 import Spinner from '../../../common/Spinner/index';
 import EmptyData from '../../../common/EmptyData';
@@ -24,9 +23,6 @@ const ContestDashboardContainer = () => {
     const { ratingChanges } = data;
     return (
       <div>
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
         {
           ratingChanges.length !== 0
             ? <RatingChangesTable ratingChanges={ratingChanges} />

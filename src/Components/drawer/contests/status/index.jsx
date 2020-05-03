@@ -10,7 +10,6 @@ import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import ProblemStatusTable from './ProblemStatusTable';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import FilterButton from './FilterButton';
-import ContestTabBar from '../common/ContestTabBar';
 import FilterDisplayer from './FilterDisplayer';
 import EmptyData from '../../../common/EmptyData';
 
@@ -41,9 +40,6 @@ const StatusContainer = () => {
     const problems = data.problemsByContestCode;
     return (
       <div className="">
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
         {
           submissions.length !== 0
             ? (

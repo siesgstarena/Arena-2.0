@@ -5,7 +5,6 @@ import { GET_PROBLEMS_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import SubmitSolution from './SubmitSolution';
-import ContestTabBar from '../common/ContestTabBar';
 import Spinner from '../../../common/Spinner/index';
 
 const SubmitContainer = () => {
@@ -24,9 +23,6 @@ const SubmitContainer = () => {
     // console.log(data.problemsByContestCode.problems, problems);
     return (
       <div>
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
         <SubmitSolution problems={problems} />
       </div>
     );

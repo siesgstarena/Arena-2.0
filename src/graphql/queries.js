@@ -485,6 +485,10 @@ query ProfilePage($id: ID!){
         codechef
         codeforces
       }
+      notifications {
+        activities
+        updates
+      }
     }
     changes
     contests

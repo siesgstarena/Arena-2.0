@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Switch from '@material/react-switch';
 import { Headline6, Headline4, Body1 } from '@material/react-typography';
 import './settings.scss';
 
-const EmailSettings = () => {
-  const [allowNotifications, setAllowNotifications] = useState(false);
-  const [allowAnnouncements, setAllowAnnouncements] = useState(false);
+const EmailSettings = ({ notifications, email }) => {
+  const [allowNotifications, setAllowNotifications] = useState(notifications.activities);
+  const [allowAnnouncements, setAllowAnnouncements] = useState(notifications.updates);
   return (
     <div>
       <Headline4 className="purple mb2">Email Settings</Headline4>
       <Headline6 className="mt3 mb0">Your Email</Headline6>
-      <Body1 className="mt0 mid-gray">swapnil.satish17@siesgst.ac.in</Body1>
+      <Body1 className="mt0 mid-gray">{email}</Body1>
       <hr className="ma0" style={{ borderColor: '#FFFFFF' }} />
       <Headline6 className="mt3 mb0">Notifications on your content</Headline6>
       <Switch
@@ -32,6 +33,11 @@ const EmailSettings = () => {
       <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
     </div>
   );
+};
+
+EmailSettings.propTypes = {
+  notifications: PropTypes.object.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default EmailSettings;

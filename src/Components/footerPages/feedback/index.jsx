@@ -51,7 +51,6 @@ const Feedback = () => {
               label="Message"
               className="mb4 text-area-width-100"
               textarea
-              rows="20"
             >
               <Input
                 value={message}

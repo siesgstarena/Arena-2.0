@@ -12,6 +12,7 @@ const Settings = () => (
     <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
     <Account />
     <Social />
+    <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
     <EmailSettings />
     <Security />
   </div>

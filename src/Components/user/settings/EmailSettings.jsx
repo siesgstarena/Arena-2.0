@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Switch from '@material/react-switch';
 import { Headline6, Headline4, Body1 } from '@material/react-typography';
-import './EmailSettings.scss';
+import './settings.scss';
 
 const EmailSettings = () => {
   const [allowNotifications, setAllowNotifications] = useState(false);

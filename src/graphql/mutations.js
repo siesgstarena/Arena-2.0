@@ -150,3 +150,14 @@ mutation Unfollow($unfollowId: String!){
   }
 }
 `;
+
+
+export const SUBMIT_FEEDBACK = gql`
+mutation submitFeedback($name: String!, $email: String!, $message: String!){
+  submitFeedback(name: $name, anyEmail: $email, message: $message) {
+    code
+    message
+    success
+  }
+}
+`;

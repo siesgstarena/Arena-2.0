@@ -181,7 +181,7 @@ const Info = ({ userDetails: user }) => {
       setMessage(`You have unfollowed ${user.name}`);
     } else {
       setMessageType('error');
-      setMessage(data.follow.message);
+      setMessage(data.unfollow.message);
     }
   };
 

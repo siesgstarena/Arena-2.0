@@ -480,6 +480,11 @@ query ProfilePage($id: ID!){
       followers
       createdAt
       following
+      social {
+        github
+        codechef
+        codeforces
+      }
     }
     changes
     contests

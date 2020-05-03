@@ -30,7 +30,15 @@ const BlogContent = () => {
   } = blogData[0];
   return (
     <div className="pa2 ba b--transparent br4 ma3">
-      <BlogHeader author={author} authorId={authorId} title={title} authorRating={authorRating} lastEdited={lastEdited} timeToRead={timeToRead} tags={tags} />
+      <BlogHeader
+        author={author}
+        authorId={authorId}
+        title={title}
+        authorRating={authorRating}
+        lastEdited={lastEdited}
+        timeToRead={timeToRead}
+        tags={tags}
+      />
       <div className="">
         <Viewer value={content.text} />
       </div>

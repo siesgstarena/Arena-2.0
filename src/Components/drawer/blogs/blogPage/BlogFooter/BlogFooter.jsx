@@ -35,28 +35,6 @@ CommentSection.propTypes = {
   comments: PropTypes.array.isRequired,
 };
 
-/*
-  commentList = [
-    {
-      id: '',
-      user:'',
-      icon:'',
-      commentValue: '',
-      time: '',
-      likes: ''
-      dislikes: ''
-    },
-    {
-      id: '',
-      user:'',
-      icon:'',
-      commentValue: '',
-      time: '',
-      likes: ''
-      dislikes: ''
-    },
-  ]
-*/
 
 const IconToggle = ({ isIconClicked, alt, iconLinks }) => (
   isIconClicked ? (
@@ -75,13 +53,19 @@ IconToggle.propTypes = {
 
 
 const BlogFooter = () => {
+
+// State for Likes and Dislikes
   const [like, setLike] = useState(0);
+  const [isUpvote, setUpvote] = useState(false);
   const [dislike, setDislike] = useState(0);
+  const [isDownvote, setDownvote] = useState(false);
+
+// State for Comments
   const [comment, setComment] = useState('');
   const [addComment, setAddComment] = useState(false);
   const [commentList, setCommentList] = useState([]);
-  const [isUpvote, setUpvote] = useState(false);
-  const [isDownvote, setDownvote] = useState(false);
+
+  // STATE for FAB
   const [isOpen, setOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const modularComment = (width < 770);
@@ -106,12 +90,8 @@ const BlogFooter = () => {
       window.removeEventListener('resize', updateWidthOnResize);
     });
   }, []);
-  //   const decreaseValue = (value, setValue) => {
-  //     const newValue = value - 1;
-  //     setValue(newValue);
-  //   };
 
-  const pushComment = (newComment) => {
+  const pushAndReset = (newComment, setValue, setAddValue) => {
     const commentObject = {
       userId: '5b5ca6857cf0b100209fe499',
       user: 'Rahul Sawantdesai',
@@ -122,8 +102,9 @@ const BlogFooter = () => {
       dislikes: 0,
     };
     setCommentList([...commentList, commentObject]);
+    setValue('');
+    setAddValue(false);
   };
-
 
   return (
     <div className="">
@@ -176,7 +157,12 @@ const BlogFooter = () => {
                     style={{ width: '100%' }}
                     textarea
                     outlined
-                    helperText={<HelperText>There is a limit of 2048 characters. Ensure comments are friendly, informative and relevant.</HelperText>}
+                    helperText={(
+                      <HelperText>
+                        There is a limit of 2048 characters.
+                        Ensure comments are friendly, informative and relevant.
+                      </HelperText>
+)}
                   >
                     <Input
                       className="w-100"
@@ -189,11 +175,7 @@ const BlogFooter = () => {
                   <DialogButton
                     action="comment"
                     className="pa2 w-100"
-                    onClick={() => {
-                      pushComment(comment);
-                      setComment('');
-                      setAddComment(false);
-                    }}
+                    onClick={() => { pushAndReset(comment, setComment, setAddComment); }}
                     raised
                   >
                     Submit
@@ -231,7 +213,12 @@ const BlogFooter = () => {
                 style={{ width: '100%' }}
                 textarea
                 outlined
-                helperText={<HelperText>There is a limit of 2048 characters. Ensure comments are friendly, informative and relevant.</HelperText>}
+                helperText={(
+                  <HelperText>
+                    There is a limit of 2048 characters.
+                    Ensure comments are friendly, informative and relevant.
+                  </HelperText>
+              )}
               >
                 <Input
                   className="w-100"
@@ -241,11 +228,7 @@ const BlogFooter = () => {
               </TextField>
               <Button
                 className=""
-                onClick={() => {
-                  pushComment(comment);
-                  setComment('');
-                  setAddComment(false);
-                }}
+                onClick={() => { pushAndReset(comment, setComment, setAddComment); }}
                 raised
               >
                 Submit
@@ -260,5 +243,4 @@ const BlogFooter = () => {
 };
 
 export default BlogFooter;
-// pushComment(comment)
-// red : #dc3545
+

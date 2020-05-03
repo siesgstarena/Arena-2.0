@@ -88,7 +88,8 @@ const Comment = ({ newComment }) => {
             </Button>
             <Button
               className="center-ns"
-              onClick={() => {setDelete(true)
+              onClick={() => {
+                setDelete(true);
               }}
               style={{ float: 'right' }}
             >

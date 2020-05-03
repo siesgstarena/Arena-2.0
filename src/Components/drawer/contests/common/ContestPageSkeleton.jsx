@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ContestDetails from './ContestDetails';
 import Announcements from './Announcements';
@@ -10,7 +10,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
   const {
     name, description, endsAt, announcement,
   } = contestDetails;
-  const location = useLocation();
+
   return (
     <Grid className="">
       <Row>
@@ -27,11 +27,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
             <Announcements announcement={announcement} />
           </Cell>
           <Cell>
-            {
-              location.pathname.includes('problem')
-                ? <Submit />
-                : null
-            }
+            <Route path="/contests/:contestId/problem/:problemId" exact component={Submit} />
           </Cell>
         </Cell>
       </Row>

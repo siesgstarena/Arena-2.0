@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Body1 } from '@material/react-typography';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import { Button } from '@material/react-button';
@@ -14,14 +14,7 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 const SubmitOnProblemPage = () => {
 // initial State declaration
   const history = useHistory();
-  const { contestId } = useParams();
-  const location = useLocation();
-  // Getting the problemId from the location.
-  // Here we cannot use useParams to get the problemId because this component
-  // is the child of ContestPageSkeleton which is matched with url /contests/:contestId
-  // and thuse it does not have problemId as a param
-  let problemId = location.pathname.split('/problem/')[1];
-  [problemId] = problemId.split('/');
+  const { contestId, problemId } = useParams();
   const [uploadMethod, setUploadMethod] = useState('file');
   const [lang, setLang] = useState('None');
   const [file, setFile] = useState({});
@@ -44,6 +37,7 @@ const SubmitOnProblemPage = () => {
       .then((jsonResponse) => {
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           history.push({

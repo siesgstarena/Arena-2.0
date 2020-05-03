@@ -477,6 +477,7 @@ query ProfilePage($id: ID!){
       _id
       username
       about
+      email
       followers
       createdAt
       following

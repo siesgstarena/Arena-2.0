@@ -161,3 +161,13 @@ mutation submitFeedback($name: String!, $email: String!, $message: String!){
   }
 }
 `;
+
+export const UPDATE_NOTIFICATION = gql`
+mutation UpdateNotification($type: notificationType!, $set: Boolean!) {
+  updateNotification(type: $type, set: $set){
+    code
+    success
+    message
+  }
+}
+`;

@@ -7,6 +7,7 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ContestTabBar from '../common/ContestTabBar';
 import RatingChangesTable from './RatingChangesTable';
 import Spinner from '../../../common/Spinner/index';
+import EmptyData from '../../../common/EmptyData';
 
 const ContestDashboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -26,7 +27,11 @@ const ContestDashboardContainer = () => {
         <div style={{ marginBottom: '10px' }}>
           <ContestTabBar />
         </div>
-        <RatingChangesTable ratingChanges={ratingChanges} />
+        {
+          ratingChanges.length !== 0
+            ? <RatingChangesTable ratingChanges={ratingChanges} />
+            : <EmptyData message="Ratings have not been updated yet. Come back later." />
+        }
       </div>
     );
   }

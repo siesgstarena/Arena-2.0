@@ -9,9 +9,9 @@ const NoBlogs = ({ showCreateButton }) => {
   return (
     <div className="tc">
       <img
-        src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283327/arena/assets_webp/arena_assets_blog_create.webp"
+        src="https://res.cloudinary.com/ashokc/image/upload/f_auto,q_auto/v1588485470/arena/assets/undraw_no_data_qbuo_jn6cn7.svg"
         alt="no-blogs"
-        style={{ width: '12em', height: '12em' }}
+        style={{ width: '16em', height: 'auto' }}
       />
       <Body1 className="mid-gray">There are no blog posts</Body1>
       {

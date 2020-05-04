@@ -477,9 +477,19 @@ query ProfilePage($id: ID!){
       _id
       username
       about
+      email
       followers
       createdAt
       following
+      social {
+        github
+        codechef
+        codeforces
+      }
+      notifications {
+        activities
+        updates
+      }
     }
     changes
     contests

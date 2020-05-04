@@ -28,7 +28,7 @@ const Table = ({ tableData, tableHeadings, tableHeadingClassName }) => {
 
 Table.propTypes = {
   tableHeadings: PropTypes.array.isRequired,
-  tableData: PropTypes.array,
+  tableData: PropTypes.any,
   tableHeadingClassName: PropTypes.string,
 };
 

@@ -5,19 +5,15 @@ import PropTypes from 'prop-types';
 const LinkGenerator = ({
   id, profileLink, siteName, setValue, onUserNameChange,
 }) => (
-  <div className="flex" style={{ height: '40px' }}>
-    <span className="pa2 ba b--purple-50 br3 br--left" style={{ backgroundColor: '#f0e8ff', cursor: 'pointer' }}>{profileLink}</span>
-    <div className="" style={{ height: '50px !important' }}>
+  <div className="flex" style={{ height: '2.2em' }}>
+    <span className="pa2 ba br2 br--left" style={{ backgroundColor: '#f0e8ff', borderColor: 'purple', color: 'purple' }}>{profileLink}</span>
+    <div>
       <TextField
-        style={{ height: '40px' }}
-        label=""
-        notchedOutlineClassName=""
-        className=""
+        style={{ height: '2.2em' }}
         outlined
         helperText={<HelperText>Username</HelperText>}
       >
         <Input
-          className=""
           id={id}
           value={siteName}
           onChange={e => onUserNameChange(e.target.value, setValue)}

@@ -44,7 +44,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
               <MaterialIcon hasRipple icon="menu" onClick={() => setDrawerOpen(previousValue => !previousValue)} />
             </TopAppBarIcon>
             <TopAppBarTitle>
-              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
+              <Link to="/" className="noselect" style={{ color: 'black', textDecoration: 'none' }}>
                 SIESGSTarena
               </Link>
             </TopAppBarTitle>
@@ -85,7 +85,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                     <Link to={`/profile/${authState.user.userId}`} style={{ textDecoration: 'none', color: 'black' }}>
                       <span className="mr2 pointer" role="presentation">{authState.user.name}</span>
                     </Link>
-                    <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
+                    <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     <UserMenu
                       setIsUserMenuOpen={setIsUserMenuOpen}
                       isUserMenuOpen={isUserMenuOpen}
@@ -99,7 +99,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
               mobileDevice && authState.user
                 ? (
                   <div>
-                    <MaterialIcon icon="account_circle" className="pointer" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
+                    <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     <UserMenu
                       setIsUserMenuOpen={setIsUserMenuOpen}
                       isUserMenuOpen={isUserMenuOpen}

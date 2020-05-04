@@ -16,7 +16,9 @@
 @import '../node_modules/@material/react-fab/dist/fab.css';
 @import '../node_modules/@material/react-dialog/dist/dialog.css';
 
-.noselect {
+.noselect, Link, a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */

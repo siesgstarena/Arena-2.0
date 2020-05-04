@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import '@material/react-material-icon/dist/material-icon.css';
 import CommentSection from './CommentSection/DisplayComment';
 import './BlogFooter.css';

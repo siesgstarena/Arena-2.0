@@ -9,23 +9,22 @@ const LikeDislike = () => {
   const [isDownvote, setDownvote] = useState(false);
 
 
-  const toggleValue = (value,setValue, setVote) => {
+  const toggleValue = (value, setValue, setVote) => {
     const newValue = value + 1;
     const tempValue = value - 1;
     if (newValue % 2 === 0) {
       setVote(false);
       setValue(tempValue);
-    }
-    else {
+    } else {
       setVote(true);
       setValue(newValue);
     }
-  }
+  };
   const UpvoteOptions = ['https://img.icons8.com/material/24/28a745/facebook-like--v1.png', 'https://img.icons8.com/material-outlined/24/28a745/facebook-like.png'];
   const DownvoteOptions = ['https://img.icons8.com/material-rounded/24/dc3545/thumbs-down.png', 'https://img.icons8.com/material-outlined/24/dc3545/thumbs-down.png'];
 
   return (
-    <div style={{ width: '200px'}} className="flex">
+    <div style={{ width: '200px' }} className="flex">
       <Button
         disabled={isDownvote}
         className="mt2 btn"

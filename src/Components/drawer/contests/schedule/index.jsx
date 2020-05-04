@@ -1,10 +1,12 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { Headline6 } from '@material/react-typography';
 import { GET_CONTEST_HOMEPAGE_DETAILS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ContestsSchedule from './ContestsSchedule';
-import Spinner from '../../../common/Spinner/index';
+import LoadingTable from '../../../common/LoadingTable/index';
+import ContestsTable from './ContestsTable';
 
 const ContestScheduleContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -12,14 +14,25 @@ const ContestScheduleContainer = () => {
     loading, error, data,
   } = useQuery(GET_CONTEST_HOMEPAGE_DETAILS);
 
-  if (loading) return <Spinner />;
+  if (loading) {
+    const tableHeadings = ['Contest name', 'Setter', 'Start', ' Length', 'More details'];
+    return (
+      <ContestsSchedule>
+        <LoadingTable tableHeadings={tableHeadings} count={10} />
+        <Headline6 className="purple mb2">Past Contests</Headline6>
+        <LoadingTable tableHeadings={tableHeadings} count={50} />
+      </ContestsSchedule>
+    );
+  }
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.contests) {
     const { contests } = data;
     return (
-      <ContestsSchedule
-        contests={contests}
-      />
+      <ContestsSchedule>
+        <ContestsTable contests={contests.contests} />
+        <Headline6 className="purple mb2">Past Contests</Headline6>
+        <ContestsTable contests={contests.finishedContests} />
+      </ContestsSchedule>
     );
   }
   if (isSessionExpired(data.contests)) {

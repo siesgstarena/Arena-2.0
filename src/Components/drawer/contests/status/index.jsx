@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import Spinner from '../../../common/Spinner/index';
+import LoadingTable from '../../../common/LoadingTable/index';
 import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
@@ -33,7 +33,9 @@ const StatusContainer = () => {
       status: type,
     },
   });
-  if (loading) return <Spinner />;
+  const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
+
+  if (loading) return <LoadingTable tableHeadings={tableHeadings} count={50} />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
     const { submissions, submissionsVisible } = data.submissionsByContestCode;

@@ -1,15 +1,15 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import Info from './Info';
-import RatingsGraph from './RatingsGraph';
-import ProfileTabBar from './ProfileTabBar';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
-import ProfileLoadingSkeleton from './ProfileLoadingSkeleton';
+import Social from './Social';
+import SettingsLoadingScreen from './SettingsLoadingScreen';
+import EmailSettings from './EmailSettings';
+import Account from './Account';
 
-const ProfileContainer = () => {
+const SocialContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { userId } = useParams();
   const {
@@ -19,19 +19,19 @@ const ProfileContainer = () => {
       id: userId,
     },
   });
-  if (loading) return <ProfileLoadingSkeleton />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.profilePage) {
-    const userDetails = data.profilePage.user;
-    const ratingChanges = data.profilePage.changes;
-    const { contests } = data.profilePage;
+  if (loading) return <SettingsLoadingScreen />;
+  if (error) return <SomethingWentWrong message="An error has been encountered" />;
+  if (data.profilePage.user.username) {
+    const { social } = data.profilePage.user;
+    const { username } = data.profilePage.user;
+    const { notifications } = data.profilePage.user;
+    const { email } = data.profilePage.user;
     return (
-      <div className="mw7 pa2 center pt0">
-        <Info userDetails={userDetails} />
-        <RatingsGraph contests={contests} ratingChanges={ratingChanges} />
-        <ProfileTabBar
-          user={userDetails}
-        />
+      <div>
+        <Account username={username} />
+        <Social socialDetails={social} />
+        <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
+        <EmailSettings notifications={notifications} email={email} />
       </div>
     );
   }
@@ -44,4 +44,4 @@ const ProfileContainer = () => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-export default ProfileContainer;
+export default SocialContainer;

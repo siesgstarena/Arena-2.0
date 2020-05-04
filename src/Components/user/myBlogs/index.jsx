@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { Headline6 } from '@material/react-typography';
 import { useQuery } from '@apollo/react-hooks';
-import PropTypes from 'prop-types';
 import Spinner from '../../common/Spinner/index';
 import { GET_BLOGS_BY_USER } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
@@ -9,26 +9,28 @@ import PageCountDisplayer from '../../common/PageCountDisplayer';
 import BlogCard from '../../drawer/blogs/BlogCard/BlogCard';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../common/Snackbar/index';
-import NoBlogs from '../myBlogs/NoBlogs';
 import AuthContext from '../../../Contexts/AuthContext';
+import NoBlogs from './NoBlogs';
 
-const PostsContainer = ({ user }) => {
-  const limit = 3;
-  const activePageNumber = useActivePageState();
+const MyBlogsContainer = () => {
+  const limit = 10;
   const { authState } = useContext(AuthContext);
+  const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const {
     loading, error, data,
   } = useQuery(GET_BLOGS_BY_USER, {
-    variables: { limit, skip: ((activePageNumber - 1) * limit), id: user._id },
+    variables: { limit, skip: ((activePageNumber - 1) * limit), id: authState.user.userId },
   });
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.blogByUser) {
     const { blogs } = data.blogByUser;
+
     return (
-      <div className="pt3">
+      <div className="mw7 center pa2 pt3">
+        <Headline6 className="ma0 purple tc mt2 mb3">{`${authState.user.name.trim()}'s blogs`}</Headline6>
         {
           blogs.length !== 0
             ? (
@@ -39,8 +41,8 @@ const PostsContainer = ({ user }) => {
                       key={blog._id}
                       tags={blog.tags}
                       id={blog._id}
-                      author={user.name}
-                      authorId={user._id}
+                      author={authState.user.name}
+                      authorId={authState.user.userId}
                       createdAt={blog.createdAt}
                       updatedAt={blog.updatedAt}
                       timeToRead={blog.timeToRead}
@@ -62,8 +64,9 @@ const PostsContainer = ({ user }) => {
                 </div>
               </div>
             )
-            : <NoBlogs showCreateButton={authState.user && authState.user.userId === user._id} />
+            : <NoBlogs showCreateButton />
         }
+
       </div>
     );
   }
@@ -76,8 +79,4 @@ const PostsContainer = ({ user }) => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-PostsContainer.propTypes = {
-  user: PropTypes.object.isRequired,
-};
-
-export default PostsContainer;
+export default MyBlogsContainer;

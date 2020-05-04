@@ -110,3 +110,74 @@ mutation DeleteContest($code: String!){
   }
 }
 `;
+
+export const UPDATE_RATINGS = gql`
+mutation UpdateNewRatings($updateChange: [updateRatings]!) {
+  updateNewRatings(updateChange: $updateChange){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UPDATE_ABOUT = gql`
+mutation UpdatedBio($about: String!) {
+  updateBio(about: $about) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const FOLLOW = gql`
+mutation Follow($followId: String!) {
+  follow(followId: $followId){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UNFOLLOW = gql`
+mutation Unfollow($unfollowId: String!){
+  unfollow(unfollowId: $unfollowId){
+    code
+    success
+    message
+  }
+}
+`;
+
+
+export const SUBMIT_FEEDBACK = gql`
+mutation submitFeedback($name: String!, $email: String!, $message: String!){
+  submitFeedback(name: $name, anyEmail: $email, message: $message) {
+    code
+    message
+    success
+  }
+}
+`;
+
+export const UPDATE_NOTIFICATION = gql`
+mutation UpdateNotification($type: notificationType!, $set: Boolean!) {
+  updateNotification(type: $type, set: $set){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UPDATE_SOCIAL = gql`
+mutation UpdateSocialLinks($github:String!, $codechef: String!, $codeforces:String!) {
+  updateSocialLinks(github: $github,codechef: $codechef,codeforces:$codeforces){
+    code
+    success
+    message
+  }
+}
+`;

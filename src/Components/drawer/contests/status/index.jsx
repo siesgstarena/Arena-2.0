@@ -10,8 +10,8 @@ import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import ProblemStatusTable from './ProblemStatusTable';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import FilterButton from './FilterButton';
-import ContestTabBar from '../common/ContestTabBar';
 import FilterDisplayer from './FilterDisplayer';
+import EmptyData from '../../../common/EmptyData';
 
 const StatusContainer = () => {
   const limit = 15;
@@ -40,27 +40,33 @@ const StatusContainer = () => {
     const problems = data.problemsByContestCode;
     return (
       <div className="">
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
-        <FilterDisplayer problemCode={problemCode} type={type} language={language} />
-        <ProblemStatusTable
-          submissions={submissions}
-          contestId={contestId}
-          submissionsVisible={submissionsVisible}
-        />
-        <FilterButton
-          problems={problems}
-          problemCode={problemCode}
-          type={type}
-          language={language}
-        />
-        <div className="pt3">
-          <PageCountDisplayer
-            pageCount={data.submissionsByContestCode.pages}
-            activePageNumber={activePageNumber}
-          />
-        </div>
+        {
+          submissions.length !== 0
+            ? (
+              <div>
+                <FilterDisplayer problemCode={problemCode} type={type} language={language} />
+                <ProblemStatusTable
+                  submissions={submissions}
+                  contestId={contestId}
+                  submissionsVisible={submissionsVisible}
+                />
+                <FilterButton
+                  problems={problems}
+                  problemCode={problemCode}
+                  type={type}
+                  language={language}
+                />
+                <div className="pt3">
+                  <PageCountDisplayer
+                    pageCount={data.submissionsByContestCode.pages}
+                    activePageNumber={activePageNumber}
+                  />
+                </div>
+              </div>
+            )
+            : <EmptyData message="No submissions in the contest yet" />
+        }
+
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import * as Sentry from '@sentry/browser';
 import SomethingWentWrong from '../SomethingWentWrong/index';
 
 class ErrorBoundary extends Component {
@@ -13,9 +14,11 @@ class ErrorBoundary extends Component {
     return { hasError: true };
   }
 
-  componentDidCatch(error, info) {
-    // You can also log the error to an error reporting service
-    console.log(error, info);
+  componentDidCatch(error, errorInfo) {
+    Sentry.withScope((scope) => {
+      scope.setExtras(errorInfo);
+      Sentry.captureException(error);
+    });
   }
 
   render() {

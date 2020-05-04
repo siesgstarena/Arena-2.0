@@ -14,6 +14,7 @@ import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
 import authReducer from './reducers/authReducer';
+// import * as Sentry from '@sentry/browser';
 import './App.scss';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
@@ -35,6 +36,7 @@ const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const CreateBlog = lazy(() => import('./Components/drawer/blogs/create/index'));
+const MyBlogs = lazy(() => import('./Components/user/myBlogs/index'));
 const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
@@ -101,6 +103,7 @@ const App = () => {
       });
     }
   }, []);
+  // Sentry.captureException(new Error("Something broke"));
 
   // Here we add all the routes in the app.
   // Depending upon the path, individual route will be rendered.
@@ -146,6 +149,7 @@ const App = () => {
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />
+                  <PrivateRoute path="/blogs/my" exact component={MyBlogs} />
                   <Route path="/blogs/:blogId" exact component={BlogPage} />
                   <PrivateRoute path="/blogs/:blogId/edit" exact component={EditBlog} />
                   <Route path="/problem-set" exact component={ProblemSet} />
@@ -158,7 +162,7 @@ const App = () => {
                   <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
-                  <Route path="/profile/:userId/settings" exact component={Settings} />
+                  <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />

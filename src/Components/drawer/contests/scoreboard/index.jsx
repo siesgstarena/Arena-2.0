@@ -5,8 +5,8 @@ import { GET_SCOREBOARD_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import Scoreboard from './Scoreboard';
-import ContestTabBar from '../common/ContestTabBar';
 import Spinner from '../../../common/Spinner/index';
+import EmptyData from '../../../common/EmptyData';
 
 const ScoreboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -25,13 +25,16 @@ const ScoreboardContainer = () => {
     // console.log(data.scoreboard.problems, problems);
     return (
       <div>
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
-        <Scoreboard
-          scoreboardDetails={scoreboard}
-          problems={problems}
-        />
+        {
+          scoreboard.length !== 0
+            ? (
+              <Scoreboard
+                scoreboardDetails={scoreboard}
+                problems={problems}
+              />
+            )
+            : <EmptyData message="The scoreboard is empty" />
+        }
       </div>
     );
   }

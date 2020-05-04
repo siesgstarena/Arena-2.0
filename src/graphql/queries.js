@@ -326,6 +326,7 @@ export const GET_SUBMISSION_PAGE_DETAILS = gql`
 query SubmissionById($id: ID!) {
   submissionById(_id:$id){
     success
+    code
     message
     submission {
       _id
@@ -451,4 +452,84 @@ export const IS_SUPERUSER = gql`
       message
     }
   }
+`;
+
+export const GET_NEW_RATINGS = gql`
+query CalculateNewRatings($code: String!) {
+  calculateNewRatings(code: $code) {
+    newRating
+    user {
+      username
+      _id
+      ratings
+    }
+    contestId
+  }
+} 
+`;
+
+export const GET_PROFILE_DETAILS = gql`
+query ProfilePage($id: ID!){
+  profilePage (_id: $id){
+    user {
+      name
+      ratings
+      _id
+      username
+      about
+      email
+      followers
+      createdAt
+      following
+      social {
+        github
+        codechef
+        codeforces
+      }
+      notifications {
+        activities
+        updates
+      }
+    }
+    changes
+    contests
+  }
+}
+`;
+
+export const GET_SUBMISSION_BY_USER_ID = gql`
+  query SubmissionsByUserId($id: ID!, $limit: Int, $skip: Int) {
+    submissionsByUserId(_id: $id, limit: $limit, skip: $skip) {
+      pages
+      submissions {
+        _id
+        problemId {
+          code
+          name
+          contestCode
+        }
+        language
+        status
+      }
+    }
+  }
+`;
+
+export const GET_BLOGS_BY_USER = gql`
+query BlogByUser($id: String!, $limit: Int, $skip: Int) {
+  blogByUser(userId: $id,limit: $limit, skip: $skip) {
+     blogs {
+      _id
+      title
+      tags
+      timeToRead
+      createdAt
+      updatedAt
+      userId {
+        ratings
+      }
+    }
+    pages
+  }
+}
 `;

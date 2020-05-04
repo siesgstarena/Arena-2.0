@@ -5,7 +5,6 @@ import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ProblemsTable from './ProblemsTable';
-import ContestTabBar from '../common/ContestTabBar';
 import SubmissionDetails from './SubmissionDetails';
 import Spinner from '../../../common/Spinner/index';
 
@@ -25,9 +24,6 @@ const ContestDashboardContainer = () => {
     // console.log(data.dashboard.problems, problems);
     return (
       <div>
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
         <ProblemsTable problems={problems} />
         <SubmissionDetails />
       </div>

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import Spinner from '../../../common/Spinner/index';
 import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
@@ -10,6 +9,7 @@ import ProblemStatusTable from '../status/ProblemStatusTable';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import AuthContext from '../../../../Contexts/AuthContext';
 import EmptyData from '../../../common/EmptyData';
+import LoadingTable from '../../../common/LoadingTable/index';
 
 const MySubmissionsContainer = () => {
   const limit = 15;
@@ -27,7 +27,8 @@ const MySubmissionsContainer = () => {
       userId: authState.user.userId,
     },
   });
-  if (loading) return <Spinner />;
+  const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
+  if (loading) return <LoadingTable tableHeadings={tableHeadings} count={10} />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
     const { submissions, submissionsVisible } = data.submissionsByContestCode;

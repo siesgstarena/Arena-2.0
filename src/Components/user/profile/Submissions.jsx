@@ -1,78 +1,41 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getSubmissionColor } from '../../../commonFunctions';
 import Table from '../../common/Table';
 
-
-// Array/Objects to fetch from
-const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
-
-const pastSubmissions = [
-  {
-    id: '5e89ec23e4cda30022544d85',
-    problem: 'Tug of War',
-    problemCode: 'UNI04',
-    contest: 'UNIVERSE',
-    result: 'Wrong Answer',
-    lang: 'Python3',
-  },
-  {
-    id: '5e80c4cb99770c00221d40cc',
-    problem: 'Go Corona, Corona Go',
-    problemCode: 'SRM16A',
-    contest: 'SRM16',
-    result: 'Runtime Error',
-    lang: 'C++',
-  },
-  {
-    id: '5e80c40c99770c00221d408d',
-    problem: 'A Mission in the Land of Greens',
-    contest: 'SRM14',
-    problemCode: 'SRM14B',
-    result: 'Accepted',
-    lang: 'Javascript',
-  },
-  {
-    id: '5e80c40c99770c00221d418d',
-    problem: 'A Mission in the Land of Greens',
-    contest: 'SRM14',
-    problemCode: 'SRM14B',
-    result: 'Accepted',
-    lang: 'Javascript',
-  },
-];
-
 // SubmissionTab Content
-const Submissions = () => {
-  const SubmissionContent = pastSubmissions.map(sub => (
-    <tr key={sub.id} style={{ fontSize: '.9em' }}>
+const Submissions = ({ submissions }) => {
+  const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
+  const SubmissionContent = submissions.map(submission => (
+    <tr key={submission._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
-          className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/submission/${sub.id}`}
+          className="no-underline dim pointer blue"
+          to={`/contests/${submission.problemId.contestCode}/submission/${submission._id}`}
         >
-          {(sub.id).slice(-6)}
+          {(submission._id).slice(-6)}
         </Link>
       </td>
       <td className="tc pa3">
         <Link
-          className="no-underline dim pointer mid-gray"
-          to={`/contest/${sub.contest}/problem/${sub.problemCode}`}
+          className="no-underline dim pointer blue"
+          to={`/contests/${submission.problemId.contestCode}/problem/${submission.problemId.code}`}
         >
-          {sub.problem}
+          {submission.problemId.name}
         </Link>
       </td>
       <td className="tc pa3">
         <span
           className="b"
-          style={{ color: getSubmissionColor(sub.result) }}
+          style={{ color: getSubmissionColor(submission.status) }}
         >
-          {sub.result}
+          {submission.status}
         </span>
       </td>
       <td className="tc pa3">
         <span>
-          {sub.lang}
+          {submission.language}
         </span>
       </td>
     </tr>
@@ -86,6 +49,10 @@ const Submissions = () => {
       />
     </div>
   );
+};
+
+Submissions.propTypes = {
+  submissions: PropTypes.array.isRequired,
 };
 
 export default Submissions;

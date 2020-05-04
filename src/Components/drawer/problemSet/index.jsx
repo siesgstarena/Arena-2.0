@@ -16,7 +16,11 @@ const ProblemSetContainer = () => {
   if (data.problemSet) {
     const problems = data.problemSet;
     return (
+<<<<<<< HEAD
       <div className="mw7 pa2">
+=======
+      <div className="mw7 center">
+>>>>>>> 36acc501a4c2783700411d6bda6bb654071eade8
         <ProblemSet
           problems={problems}
         />

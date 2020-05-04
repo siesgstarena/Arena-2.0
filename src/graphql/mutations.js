@@ -181,3 +181,13 @@ mutation UpdateSocialLinks($github:String!, $codechef: String!, $codeforces:Stri
   }
 }
 `;
+
+export const UPDATE_PASSWORD = gql`
+mutation UpdatePassword($oldPassword: String!, $password: String!){
+  updatePassword(oldPassword: $oldPassword,password: $password){
+    code
+    success
+    message
+  }
+}
+`;

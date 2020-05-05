@@ -15,7 +15,8 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
       setSnackbarMessage={setSnackbarMessage}
       key={problem._id}
       name={problem.name}
-      id={problem.code}
+      code={problem.code}
+      id={problem._id}
       refetch={refetch}
       points={problem.points}
     />

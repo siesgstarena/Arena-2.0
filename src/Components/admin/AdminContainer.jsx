@@ -37,6 +37,9 @@ const AdminContainer = ({ children, contestCode, loadingScreen = null }) => {
     // we use redirectOnSessionExpiredBeforeRender function
     return redirectOnSessionExpiredBeforeRender();
   }
+  if (loadingScreen) {
+    return loadingScreen;
+  }
   return <Spinner />;
 };
 

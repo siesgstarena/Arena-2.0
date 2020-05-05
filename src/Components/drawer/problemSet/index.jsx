@@ -17,19 +17,10 @@ const ProblemSetContainer = () => {
     const problems = data.problemSet;
     return (
 
-      <div className="mw7 pa2">
-
-        <div className="mw7 center">
-          <ProblemSet
-            problems={problems}
-          />
-        </div>
-
-        <div className="mw7 center">
-          <ProblemSet
-            problems={problems}
-          />
-        </div>
+      <div className="mw7 pa1 center">
+        <ProblemSet
+          problems={problems}
+        />
       </div>
     );
   }

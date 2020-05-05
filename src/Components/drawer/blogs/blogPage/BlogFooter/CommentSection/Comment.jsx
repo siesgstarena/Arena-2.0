@@ -15,7 +15,7 @@ const Comment = ({
   } = newComment;
   const [isUpdate, setUpdate] = useState(false);
   return (
-    <div className="pa2 ba b--transparent br3" style={{ backgroundColor: '#f0e8ff' }}>
+    <div className="pa2 ba b--transparent br3 mb3" style={{ backgroundColor: '#f0e8ff' }}>
       <div className="flex mt2">
         <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="40em" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
         <div className="flex flex-column">

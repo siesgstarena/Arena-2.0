@@ -13,11 +13,11 @@ const tagsArray = tags => (tags.map(tag => (
 
 
 const BlogHeader = ({
-  author, authorId, title, lastEdited, tags, timeToRead, authorRating,
+  author, authorId, title, lastEdited, tags, postedOn, timeToRead, authorRating,
 }) => (
   <div className="flex flex-column ba b--transparent br--top br4" style={{ alignItems: 'center' }}>
     <Headline4 className="pa1 purple" style={{ textAlign: 'center', fontWeight: 'bolder', margin: '20px 0px' }}>{title}</Headline4>
-    <div className="flex pa3 pointer ba b--transparent br4 mb3">
+    <div className="flex pa3 pointer items-center ba b--transparent br4 mb3">
       <img
         src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp"
         alt="profile"
@@ -34,7 +34,10 @@ const BlogHeader = ({
           </Link>
         </Headline6>
         <span className="" style={{ margin: '0px 10px 4px 10px' }}>
-          {lastEdited}
+          {`Created : ${postedOn.substring(0, 11)}`}
+        </span>
+        <span className="" style={{ margin: '0px 10px 4px 10px' }}>
+          {`Edited : ${lastEdited}`}
         </span>
         <span style={{ margin: '2px 10px' }}>{`${timeToRead} read`}</span>
       </div>
@@ -53,6 +56,7 @@ BlogHeader.propTypes = {
   authorRating: PropTypes.number.isRequired,
   timeToRead: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  postedOn: PropTypes.string.isRequired,
 };
 
 export default BlogHeader;

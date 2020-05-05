@@ -13,7 +13,7 @@ const UpdateComment = ({
   return (
 
     <div className="flex flex-column pa1 mt2 mb2">
-      <div className="mb2" style={{paddingLeft: '3.1em'}}>
+      <div className="mb2" style={{ paddingLeft: '3.1em' }}>
         <TextField
           label="Update Comment"
           notchedOutlineClassName=""
@@ -50,7 +50,6 @@ const UpdateComment = ({
           onClick={() => {
             setUpdate(false);
             onUpdateFunction(index, endComment);
-
           }}
         >
           Update

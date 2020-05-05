@@ -3,7 +3,6 @@ import { Headline6 } from '@material/react-typography';
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
-import loadingData from './loadingData';
 import Viewer from '../../common/MarkdownEditor/Viewer';
 
 const Announcements = ({ announcement }) => {
@@ -25,7 +24,7 @@ const Announcements = ({ announcement }) => {
         </div>
       </div>
       <hr />
-      <Button className="mt1" onClick={onEditClick} disabled={announcement === loadingData.announcement}>
+      <Button className="mt1" onClick={onEditClick}>
         Edit
       </Button>
     </div>

@@ -7,6 +7,7 @@ import ContestDashboard from './ContestDashboard';
 import loadingData from './loadingData';
 import AdminContainer from '../AdminContainer';
 import useSentry from '../../../customHooks/useSentry';
+import ContestLoadingScreen from './ContestLoadingScreen';
 
 const ContestDashboardContainer = () => {
   const { contestId } = useParams();
@@ -26,22 +27,7 @@ const ContestDashboardContainer = () => {
     variables: { code: contestId },
   });
 
-  if (loading) {
-    const {
-      contest, stats, announcement, problems,
-    } = loadingData;
-    return (
-      <ContestDashboard
-        contest={contest}
-        stats={stats}
-        announcement={announcement}
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
-        problems={problems}
-        refetch={refetch}
-      />
-    );
-  }
+  if (loading) return <ContestLoadingScreen />;
   if (error) {
     logError('adminDashboard query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
@@ -58,7 +44,7 @@ const ContestDashboardContainer = () => {
       usersCount,
     };
     return (
-      <AdminContainer contestCode={contestId}>
+      <AdminContainer contestCode={contestId} loadingScreen={<ContestLoadingScreen />}>
         <ContestDashboard
           contest={contest}
           stats={stats}

@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Body1, Headline5 } from '@material/react-typography';
 import { convertDate, convertTime } from '../../../commonFunctions';
-import loadingData from './loadingData';
 
 const ContestDetails = ({ contest }) => {
   const { contestId } = useParams();
@@ -13,13 +12,10 @@ const ContestDetails = ({ contest }) => {
   let endsAtTime = 'Loading...';
   // Checking whether the startsAt and endsAt time are not the loading values.
   // If they are loading values then we won't pass them to our convert functions.
-  if (contest.startsAt !== loadingData.contest.startsAt
-    && contest.endsAt !== loadingData.contest.endsAt) {
-    startsAtDate = convertDate(contest.startsAt);
-    startsAtTime = convertTime(contest.startsAt);
-    endsAtDate = convertDate(contest.endsAt);
-    endsAtTime = convertTime(contest.endsAt);
-  }
+  startsAtDate = convertDate(contest.startsAt);
+  startsAtTime = convertTime(contest.startsAt);
+  endsAtDate = convertDate(contest.endsAt);
+  endsAtTime = convertTime(contest.endsAt);
 
   return (
     <div className="">

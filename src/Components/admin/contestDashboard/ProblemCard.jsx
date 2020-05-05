@@ -25,6 +25,7 @@ const ProblemCard = ({
 
   // onAlertAccept runs when the user clicks on the accept button on the alert box
   const onAlertAccept = () => {
+    setSnackbarMessage('Deleting problem, please wait');
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${code}/delete`, {
       method: 'GET',
       credentials: 'include',

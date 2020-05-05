@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import * as Sentry from '@sentry/browser';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemPage from './ProblemPage';
@@ -17,7 +18,10 @@ const AdminProblemPage = () => {
   });
   // console.log(GET_PROBLEM_DETAILS);
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    Sentry.captureException(new Error(error, data, 'problemByCode'));
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data && data.problemByCode && data.problemByCode._id) {
     return (
       <AdminContainer contestCode={contestId}>
@@ -35,6 +39,7 @@ const AdminProblemPage = () => {
   }
 
   // random cases not handle by graphql
+  Sentry.captureException(new Error(error, data, 'problemByCode'));
   return <SomethingWentWrong message={data.problemByCode.message} />;
 };
 

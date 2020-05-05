@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import * as Sentry from '@sentry/browser';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
@@ -40,7 +41,10 @@ const ContestDashboardContainer = () => {
       />
     );
   }
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    Sentry.captureException(new Error(error, data, 'adminDashboard'));
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.adminDashboard.contest) {
     const response = data.adminDashboard;
     const { contest } = response;
@@ -68,6 +72,7 @@ const ContestDashboardContainer = () => {
   }
 
   // Random errors not handled by graphql
+  Sentry.captureException(new Error(error, data, 'adminDashboard'));
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 

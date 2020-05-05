@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
+import * as Sentry from '@sentry/browser';
 import { useParams, useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import { Headline4, Body2 } from '@material/react-typography';
@@ -58,6 +59,7 @@ const CreateProblem = () => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           // const { adminDashboard } = client.readQuery({
@@ -96,10 +98,12 @@ const CreateProblem = () => {
             },
           });
         } else {
+          Sentry.captureException(new Error(jsonResponse, 'REST API, createProblem'));
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      }).catch((error) => {
+        Sentry.captureException(new Error(error, 'REST API, createProblem'));
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
@@ -40,6 +41,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           history.push({
@@ -49,10 +51,12 @@ const EditProblemForm = ({ intialFormDetails }) => {
             },
           });
         } else {
+          Sentry.captureException(new Error(jsonResponse, 'REST API, editProblem'));
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      }).catch((error) => {
+        Sentry.captureException(new Error(error, 'REST API, editProblem'));
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import Select, { Option } from '@material/react-select';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
@@ -37,15 +38,18 @@ const TestProblem = () => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           setMessageType('success');
           setMessage(jsonResponse.data.restAPI.message);
         } else {
+          Sentry.captureException(new Error(jsonResponse, 'REST API, testProblem'));
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      }).catch((error) => {
+        Sentry.captureException(new Error(error, 'REST API, testProblem'));
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

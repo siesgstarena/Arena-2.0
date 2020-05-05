@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import * as Sentry from '@sentry/browser';
 import { useParams } from 'react-router-dom';
 import AnnouncementEditor from './AnnouncementEditor';
 import { GET_CONTEST_ANNOUNCEMENT } from '../../../graphql/queries';
@@ -13,7 +14,10 @@ const EditAnnouncements = () => {
     variables: { code: contestId },
   });
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    Sentry.captureException(new Error(error, data, 'adminDashboard'));
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.adminDashboard
     && data.adminDashboard.contest) {
     return (
@@ -24,6 +28,7 @@ const EditAnnouncements = () => {
   }
 
   // random errors not handled by graphql
+  Sentry.captureException(new Error(error, data, 'adminDashboard'));
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 

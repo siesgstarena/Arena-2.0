@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import * as Sentry from '@sentry/browser';
 import { useParams } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
 import ResetSubmissionTable from './ResetSubmissionTable';
@@ -35,7 +36,10 @@ const ResetSubmissionStatus = () => {
   // };
   if (networkStatus === 3) return <Spinner />;
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    Sentry.captureException(new Error(error, data, 'submissionsByContestCode'));
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.submissionsByContestCode) {
     const response = data.submissionsByContestCode.submissions;
     // console.log(response);
@@ -65,6 +69,7 @@ const ResetSubmissionStatus = () => {
   }
 
   // random cases not handled by graphql
+  Sentry.captureException(new Error(error, data, 'submissionsByContestCode'));
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

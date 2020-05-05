@@ -2,6 +2,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
+import * as Sentry from '@sentry/browser';
 import { GET_PROBLEM_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import EditProblemForm from './EditProblemForm';
@@ -14,7 +15,10 @@ const EditProblem = () => {
     variables: { code: problemId },
   });
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    Sentry.captureException(new Error(error, data));
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data && data.problemByCode && data.problemByCode._id) {
     const intialFormDetails = {
       code: problemId,
@@ -38,6 +42,7 @@ const EditProblem = () => {
   }
 
   // random errors not handled by graphql
+  Sentry.captureException(new Error(error, data));
   return <SomethingWentWrong message={data.problemByCode.message} />;
 };
 

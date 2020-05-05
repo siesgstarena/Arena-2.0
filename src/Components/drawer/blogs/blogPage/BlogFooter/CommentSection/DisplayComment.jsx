@@ -3,16 +3,16 @@ import { Button } from '@material/react-button';
 import { Headline6, Headline5 } from '@material/react-typography';
 import Comment from './Comment';
 import MessageCard from '../../../../../common/MessageCard';
-import LikeDislike from '../LikeDislike';
+
 import CommentBox from './CommentBox';
-import UpdateComment from './UpdateComment';
+
 import '../BlogFooter.css';
 
 
 const DisplayComment = () => {
   const [comment, setComment] = useState('');
   const [commentList, setCommentList] = useState([]);
-  const [isUpdate, setUpdate] = useState(false);
+  // const [isUpdate, setUpdate] = useState(false);
 
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
@@ -21,6 +21,8 @@ const DisplayComment = () => {
   const deleteComment = (newComment) => {
     const newCommentList = commentList.filter(j => newComment !== j);
     setCommentList(newCommentList);
+    setMessage('Comment Deleted Successfully!');
+    setMessageType('success');
   };
 
   const updateAndReset = (index, updatedComment) => {
@@ -29,7 +31,7 @@ const DisplayComment = () => {
       temporaryArray[index].commentValue = updatedComment;
       setCommentList(temporaryArray);
       setComment('');
-      setUpdate(false);
+
       setMessage('Comment Updated Successfully');
       setMessageType('success');
     } else {
@@ -39,7 +41,6 @@ const DisplayComment = () => {
   };
 
   const onCancelUpdate = () => {
-    setUpdate(false);
     setMessage('Comment Retained Successfully');
     setMessageType('info');
   };
@@ -82,59 +83,26 @@ const DisplayComment = () => {
           Submit
         </Button>
       </div>
-      <div style={{ marginTop: '40px' }} className="center">
+      <div style={{ marginTop: '4em' }} className="center">
         {
-      (commentList.length === 0) ? (
-        <div style={{ textAlign: 'center' }}>
-          <img alt="nocomments" className="" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/arena_assets_comment_actions.webp" width="200px" />
-          <Headline6 className="" style={{ margin: '2px 0px' }}>No Comments</Headline6>
-        </div>
-      ) : (
-        commentList.map((newComment, index) => (
-          <div key={index.toString()}>
-
-            <Comment newComment={newComment} />
-            <span style={{ fontSize: '13px', marginLeft: '40px' }}>{newComment.time}</span>
-            {
-                    (isUpdate) ? (
-                      <UpdateComment
-                        initialComment={newComment}
-                        onUpdateFunction={updateAndReset}
-                        index={index}
-                        onCancel={onCancelUpdate}
-                      />
-                    ) : (
-                      <>
-                        <Headline6 style={{ margin: '5px 40px', fontSize: '18px' }}>{newComment.commentValue}</Headline6>
-                        <div className="flex justify-between">
-                          <LikeDislike />
-                          <div className="flex justify-around pt1">
-                            <Button
-                              className=""
-                              style={{ float: 'right' }}
-                              onClick={() => {
-                                deleteComment(newComment);
-                                setMessage('Comment Deleted Successfully!');
-                                setMessageType('success');
-                              }}
-                            >
-                              Delete
-                            </Button>
-                            <Button
-                              className=""
-                              onClick={() => setUpdate(true)}
-                            >
-                              Update
-                            </Button>
-                          </div>
-                        </div>
-                      </>
-                    )
-                  }
+        (commentList.length === 0) ? (
+          <div style={{ textAlign: 'center' }}>
+            <img alt="nocomments" className="" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/arena_assets_comment_actions.webp" width="200px" />
+            <Headline6 className="" style={{ margin: '2px 0px' }}>No Comments</Headline6>
           </div>
+        ) : (
+          commentList.map((newComment, index) => (
+            <Comment
+              key={index.toString()}
+              newComment={newComment}
+              index={index}
+              updateAndReset={updateAndReset}
+              onCancelUpdate={onCancelUpdate}
+              deleteComment={deleteComment}
+            />
 
-        )))
-            }
+          ))
+        )}
         {/* message card */}
         <MessageCard
           message={message}

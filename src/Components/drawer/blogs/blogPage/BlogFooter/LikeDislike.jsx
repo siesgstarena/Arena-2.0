@@ -24,11 +24,11 @@ const LikeDislike = () => {
   const DownvoteOptions = ['https://img.icons8.com/material-rounded/24/dc3545/thumbs-down.png', 'https://img.icons8.com/material-outlined/24/dc3545/thumbs-down.png'];
 
   return (
-    <div style={{ width: '200px' }} className="flex">
+    <div className="flex mt2">
       <Button
         disabled={isDownvote}
-        className="mt2 btn"
-        style={{ color: '#28a745' }}
+        className="btn"
+        style={{ color: '#28a745', padding: '0px', minWidth: '40px' }}
         icon={<IconToggle isIconClicked={isUpvote} alt="like" color="#28a745" iconLinks={UpvoteOptions} />}
         onClick={() => { toggleValue(like, setLike, setUpvote); }}
       >
@@ -40,8 +40,8 @@ const LikeDislike = () => {
       </Button>
       <Button
         disabled={isUpvote}
-        className="mt2 ml2 btn"
-        style={{ color: '#dc3545', minWidth: '32px' }}
+        className="btn"
+        style={{ color: '#dc3545', padding: '0px', minWidth: '40px' }}
         onClick={() => toggleValue(dislike, setDislike, setDownvote)}
         icon={<IconToggle isIconClicked={isDownvote} alt="dislike" iconLinks={DownvoteOptions} />}
       >

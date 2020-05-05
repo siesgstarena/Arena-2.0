@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
 
 const UpdateComment = ({
-  initialComment, onUpdateFunction, index, onCancel,
+  initialComment, onUpdateFunction, index, onCancel, setUpdate,
 }) => {
   const {
     commentValue,
@@ -13,7 +13,7 @@ const UpdateComment = ({
   return (
 
     <div className="flex flex-column pa1 mt2 mb2">
-      <div className="pl4 mb2">
+      <div className="mb2" style={{paddingLeft: '3.1em'}}>
         <TextField
           label="Update Comment"
           notchedOutlineClassName=""
@@ -36,9 +36,9 @@ const UpdateComment = ({
       </div>
       <div className="pl4 flex justify-between">
         <Button
-          enhanced
           className=""
           onClick={() => {
+            setUpdate(false);
             onCancel();
           }}
         >
@@ -48,7 +48,9 @@ const UpdateComment = ({
           className=""
           raised
           onClick={() => {
+            setUpdate(false);
             onUpdateFunction(index, endComment);
+
           }}
         >
           Update
@@ -63,6 +65,7 @@ UpdateComment.propTypes = {
   onUpdateFunction: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   onCancel: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default UpdateComment;

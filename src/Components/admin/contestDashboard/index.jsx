@@ -4,7 +4,6 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import ContestDashboard from './ContestDashboard';
-import loadingData from './loadingData';
 import AdminContainer from '../AdminContainer';
 import useSentry from '../../../customHooks/useSentry';
 import ContestLoadingScreen from './ContestLoadingScreen';

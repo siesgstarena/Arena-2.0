@@ -21,7 +21,7 @@ const ContestDashboardContainer = () => {
     history.replace({ location, state });
   }
   const {
-    loading, error, data, refetch,
+    loading, error, data,
   } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
@@ -51,7 +51,6 @@ const ContestDashboardContainer = () => {
           setSnackbarMessage={setSnackbarMessage}
           snackbarMessage={snackbarMessage}
           problems={problems}
-          refetch={refetch}
         />
       </AdminContainer>
     );

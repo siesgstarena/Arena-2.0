@@ -80,13 +80,13 @@ const BlogCard = ({
   };
 
   return (
-    <Card className="ma0 mb4" style={{ borderRadius: '20px' }} key={id}>
+    <Card className="ma0 mb4" style={{ borderRadius: '5px' }} key={id}>
       <div
         className="pa1"
         style={{
           background: '#F0E8FF',
-          borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px',
+          borderTopLeftRadius: '5px',
+          borderTopRightRadius: '5px',
         }}
       >
         <Link to={`/blogs/${id}`} className="no-underline black">

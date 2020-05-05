@@ -1,12 +1,10 @@
 import React from 'react';
-import BlogHeader from './BlogHeader';
+import BlogContent from './BlogContent';
+
 
 const BlogPage = () => (
   <div className="mw8 center">
-    <BlogHeader />
-    {/* <BlogContent />
-    <BlogFooter />
-    <Comments /> */}
+    <BlogContent />
   </div>
 );
 

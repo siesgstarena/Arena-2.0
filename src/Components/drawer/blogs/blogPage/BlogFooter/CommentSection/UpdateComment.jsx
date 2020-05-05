@@ -7,7 +7,7 @@ const UpdateComment = ({
   initialComment, onUpdateFunction, index, onCancel,
 }) => {
   const {
-    commentValue
+    commentValue,
   } = initialComment;
   const [endComment, setEndComment] = useState(commentValue);
   return (

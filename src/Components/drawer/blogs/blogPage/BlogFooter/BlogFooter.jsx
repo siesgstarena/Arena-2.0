@@ -6,20 +6,17 @@ import LikeDislike from './LikeDislike';
 import ShareIcon from './ShareIcon';
 
 
-const BlogFooter = () => {
-
-  return (
-    <div className="center ">
-      {/* like dislike and share section  */}
-      <div className="flex justify-between">
-        <LikeDislike />
-        <ShareIcon />
-      </div>
-      {/* comment section  */}
-      <CommentSection />
-
+const BlogFooter = () => (
+  <div className="center ">
+    {/* like dislike and share section  */}
+    <div className="flex justify-between">
+      <LikeDislike />
+      <ShareIcon />
     </div>
-  );
-};
+    {/* comment section  */}
+    <CommentSection />
+
+  </div>
+);
 
 export default BlogFooter;

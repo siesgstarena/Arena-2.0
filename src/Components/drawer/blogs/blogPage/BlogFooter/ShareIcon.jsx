@@ -1,11 +1,8 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
-const arenaUrl = 'http://arena.siesgst.ac.in';
 const telegramUrl = 'https://t.me/share/url?url=';
 const ShareIcon = () => {
-  const location = useLocation();
-  const url = arenaUrl.concat(location.pathname);
+  const url = window.location.href;
   return (
     <div className="flex mt3">
       <a target="_blank" rel="noopener noreferrer" className="twitter-share-button mr3" href={`https://twitter.com/intent/tweet?url=${url}`}><img alt="tweet" src="https://img.icons8.com/color/32/000000/twitter.png" /></a>

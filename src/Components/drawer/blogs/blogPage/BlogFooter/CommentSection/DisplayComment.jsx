@@ -32,15 +32,16 @@ const DisplayComment = () => {
       setUpdate(false);
       setMessage('Comment Updated Successfully');
       setMessageType('success');
+    } else {
+      setMessage('Updated Comment cannot be less than 4 characters');
+      setMessageType('error');
     }
-    // else {
-    //   setMessage('Comment cannot be less than 4 characters');
-    //   setMessageType('error');
-    // }
   };
 
   const onCancelUpdate = () => {
     setUpdate(false);
+    setMessage('Comment Retained Successfully');
+    setMessageType('info');
   };
   const pushAndReset = (newComment, setValue) => {
     if (newComment.length >= 4) {
@@ -57,11 +58,10 @@ const DisplayComment = () => {
       setValue('');
       setMessage('Comment Posted Successfully');
       setMessageType('success');
+    } else {
+      setMessage('Comment cannot be less than 4 characters');
+      setMessageType('error');
     }
-    // else {
-    //   setMessage('Comment cannot be less than 4 characters');
-    //   setMessageType('error');
-    // }
   };
 
 
@@ -92,58 +92,59 @@ const DisplayComment = () => {
       ) : (
         commentList.map((newComment, index) => (
           <div key={index.toString()}>
+
+            <Comment newComment={newComment} />
+            <span style={{ fontSize: '13px', marginLeft: '40px' }}>{newComment.time}</span>
             {
-            (isUpdate) ? (
-              <UpdateComment
-                initialComment={newComment}
-                onUpdateFunction={updateAndReset}
-                index={index}
-                onCancel={onCancelUpdate}
-              />
-            )
-              : (
-                <>
-                  <Comment newComment={newComment} />
-                  <div className="flex justify-between">
-                    <LikeDislike />
-                    <div className="flex justify-around pt1">
-                      <Button
-                        className=""
-                        style={{ float: 'right' }}
-                        onClick={() => {
-                          deleteComment(newComment);
-                          setMessage('Comment Deleted Successfully!');
-                          setMessageType('success');
-                        }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        className=""
-                        onClick={() => setUpdate(true)}
-                      >
-                        Update
-                      </Button>
-                    </div>
-                  </div>
-                </>
-              )
-            }
-            {/* message card */}
-            <MessageCard
-              message={message}
-              messageType={messageType}
-              setMessageType={setMessageType}
-            />
+                    (isUpdate) ? (
+                      <UpdateComment
+                        initialComment={newComment}
+                        onUpdateFunction={updateAndReset}
+                        index={index}
+                        onCancel={onCancelUpdate}
+                      />
+                    ) : (
+                      <>
+                        <Headline6 style={{ margin: '5px 40px', fontSize: '18px' }}>{newComment.commentValue}</Headline6>
+                        <div className="flex justify-between">
+                          <LikeDislike />
+                          <div className="flex justify-around pt1">
+                            <Button
+                              className=""
+                              style={{ float: 'right' }}
+                              onClick={() => {
+                                deleteComment(newComment);
+                                setMessage('Comment Deleted Successfully!');
+                                setMessageType('success');
+                              }}
+                            >
+                              Delete
+                            </Button>
+                            <Button
+                              className=""
+                              onClick={() => setUpdate(true)}
+                            >
+                              Update
+                            </Button>
+                          </div>
+                        </div>
+                      </>
+                    )
+                  }
           </div>
-        ))
-      )
-      }
+
+        )))
+            }
+        {/* message card */}
+        <MessageCard
+          message={message}
+          messageType={messageType}
+          setMessageType={setMessageType}
+        />
       </div>
     </div>
   );
 };
-
 export default DisplayComment;
 
 

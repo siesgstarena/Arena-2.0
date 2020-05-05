@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import * as Sentry from '@sentry/browser';
 import { useParams } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
 import ResetSubmissionTable from './ResetSubmissionTable';
@@ -10,9 +9,11 @@ import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
+  const { logError } = useSentry();
   const limit = 15;
   const activePageNumber = useActivePageState();
   const {
@@ -37,7 +38,7 @@ const ResetSubmissionStatus = () => {
   if (networkStatus === 3) return <Spinner />;
   if (loading) return <Spinner />;
   if (error) {
-    Sentry.captureException(new Error(error, data, 'submissionsByContestCode'));
+    logError('adminDashboard query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data.submissionsByContestCode) {
@@ -69,7 +70,7 @@ const ResetSubmissionStatus = () => {
   }
 
   // random cases not handled by graphql
-  Sentry.captureException(new Error(error, data, 'submissionsByContestCode'));
+  logError('adminDashboard query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

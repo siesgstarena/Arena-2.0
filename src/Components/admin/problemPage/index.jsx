@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import * as Sentry from '@sentry/browser';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemPage from './ProblemPage';
@@ -8,10 +7,12 @@ import { GET_PROBLEM_DETAILS } from '../../../graphql/queries';
 import Spinner from '../../common/Spinner/index';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const AdminProblemPage = () => {
   const location = useLocation();
   const history = useHistory();
+  const { logError } = useSentry();
   const { problemId, contestId } = useParams();
   const { loading, error, data } = useQuery(GET_PROBLEM_DETAILS, {
     variables: { code: problemId },
@@ -19,7 +20,7 @@ const AdminProblemPage = () => {
   // console.log(GET_PROBLEM_DETAILS);
   if (loading) return <Spinner />;
   if (error) {
-    Sentry.captureException(new Error(error, data, 'problemByCode'));
+    logError('problemByCode query on problemPage', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data && data.problemByCode && data.problemByCode._id) {
@@ -39,7 +40,7 @@ const AdminProblemPage = () => {
   }
 
   // random cases not handle by graphql
-  Sentry.captureException(new Error(error, data, 'problemByCode'));
+  logError('problemByCode query on problemPage', { ...data, ...error });
   return <SomethingWentWrong message={data.problemByCode.message} />;
 };
 

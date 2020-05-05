@@ -9,12 +9,14 @@ import ProblemDetails from './ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 // import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const CreateProblem = () => {
   const { contestId } = useParams();
   const history = useHistory();
   const [message, setMessage] = useState('');
+  const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [messageType, setMessageType] = useState('');
   // const client = useApolloClient();
@@ -98,12 +100,13 @@ const CreateProblem = () => {
             },
           });
         } else {
+          logError('REST APT, createProblem', { ...jsonResponse.data });
           Sentry.captureException(new Error(jsonResponse, 'REST API, createProblem'));
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
       }).catch((error) => {
-        Sentry.captureException(new Error(error, 'REST API, createProblem'));
+        logError('REST APT, createProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

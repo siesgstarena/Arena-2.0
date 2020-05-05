@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from '@apollo/react-hooks';
-import * as Sentry from '@sentry/browser';
 import { GET_IS_USER_ADMIN } from '../../graphql/queries';
 import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import useSessionExpired from '../../customHooks/useSessionExpired';
 import Spinner from '../common/Spinner/index';
+import useSentry from '../../customHooks/useSentry';
 
 const AdminContainer = ({ children, contestCode }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
+  const { logError } = useSentry();
   const {
     loading, error, data,
   } = useQuery(GET_IS_USER_ADMIN, {
@@ -17,7 +18,7 @@ const AdminContainer = ({ children, contestCode }) => {
 
   if (loading) return <Spinner />;
   if (error) {
-    Sentry.captureException(new Error(error, data, 'isAdmin'));
+    logError('isAdmin query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data.isAdmin.isAdmin) {

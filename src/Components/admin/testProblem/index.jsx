@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import * as Sentry from '@sentry/browser';
 import Select, { Option } from '@material/react-select';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
@@ -8,11 +7,13 @@ import MessageCard from '../../common/MessageCard/index';
 import FileUpload from '../../common/FileUpload/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const TestProblem = () => {
   const [language, setLanguage] = useState('C');
   const { contestId, problemId } = useParams();
   const [message, setMessage] = useState('');
+  const { logError } = useSentry();
   const [messageType, setMessageType] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [solutionFile, setSolutionFile] = useState({});
@@ -44,12 +45,12 @@ const TestProblem = () => {
           setMessageType('success');
           setMessage(jsonResponse.data.restAPI.message);
         } else {
-          Sentry.captureException(new Error(jsonResponse, 'REST API, testProblem'));
+          logError('REST APT, testProblem', { ...jsonResponse.data });
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
       }).catch((error) => {
-        Sentry.captureException(new Error(error, 'REST API, testProblem'));
+        logError('REST APT, testProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

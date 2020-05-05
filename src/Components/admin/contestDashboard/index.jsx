@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import * as Sentry from '@sentry/browser';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import ContestDashboard from './ContestDashboard';
 import loadingData from './loadingData';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const ContestDashboardContainer = () => {
   const { contestId } = useParams();
   const location = useLocation();
   const { state } = location;
   const history = useHistory();
+  const { logError } = useSentry();
   const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
   // Deleting the snackbarMessage so that it is not displayed on every refresh
   if (state && state.snackbarMessage) {
@@ -42,7 +43,7 @@ const ContestDashboardContainer = () => {
     );
   }
   if (error) {
-    Sentry.captureException(new Error(error, data, 'adminDashboard'));
+    logError('adminDashboard query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data.adminDashboard.contest) {
@@ -72,7 +73,7 @@ const ContestDashboardContainer = () => {
   }
 
   // Random errors not handled by graphql
-  Sentry.captureException(new Error(error, data, 'adminDashboard'));
+  logError('adminDashboard query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 

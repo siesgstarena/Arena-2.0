@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import * as Sentry from '@sentry/browser';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import ProblemDetails from '../createProblem/ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import useSentry from '../../../customHooks/useSentry';
 
 const EditProblemForm = ({ intialFormDetails }) => {
   const { contestId, problemId } = useParams();
   const history = useHistory();
   const [formDetails, setFormDetails] = useState(intialFormDetails);
   const [messageType, setMessageType] = useState('');
+  const { logError } = useSentry();
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const handleEditProblem = () => {
@@ -51,12 +52,12 @@ const EditProblemForm = ({ intialFormDetails }) => {
             },
           });
         } else {
-          Sentry.captureException(new Error(jsonResponse, 'REST API, editProblem'));
+          logError('REST APT, editProblem', { ...jsonResponse.data });
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
       }).catch((error) => {
-        Sentry.captureException(new Error(error, 'REST API, editProblem'));
+        logError('REST APT, editProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import * as Sentry from '@sentry/browser';
 import { Headline4, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
@@ -11,6 +10,7 @@ import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_ANNOUNCEMENT } from '../../../graphql/mutations';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import useSentry from '../../../customHooks/useSentry';
 
 const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const { contestId } = useParams();
@@ -19,6 +19,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const history = useHistory();
+  const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
 
   const handleAnnoucementSubmit = async () => {
@@ -59,7 +60,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       // ],
     });
     if (error) {
-      Sentry.captureException(new Error(error, data, 'updateAnnoucement'));
+      logError('updateAnnoucement query', { ...data, ...error });
       setMessageType('error');
       setMessage('Database error encountered');
       return;
@@ -76,7 +77,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
         },
       });
     } else {
-      Sentry.captureException(new Error(error, data, 'updateAnnoucement'));
+      logError('updateAnnoucement query', { ...data, ...error });
       setMessageType('error');
       setMessage(data.updateAnnouncement.message);
     }

@@ -45,7 +45,11 @@ const BlogFooter = ({ upvotes, downvotes }) => {
                 ...blogById,
                 blog: {
                   ...blogById.blog,
+                  // adding the current user in the list of upvotes
                   upvote: [...blogById.blog.upvote, authState.user.userId],
+                  // removing the current user from the list of downvotes
+                  // I ma doing both the operations because the user cannot be
+                  // in both lists at the same time
                   downvote: blogById.blog.downvote.filter(id => id !== authState.user.userId),
                 },
               },
@@ -91,7 +95,11 @@ const BlogFooter = ({ upvotes, downvotes }) => {
                 ...blogById,
                 blog: {
                   ...blogById.blog,
+                  // removing the current user from the list of upvotes
+                  // I ma doing both the operations because the user cannot
+                  // be in both lists at the same time
                   upvote: blogById.blog.upvote.filter(id => id !== authState.user.userId),
+                  // adding the current user in the list of downvotes
                   downvote: [...blogById.blog.downvote, authState.user.userId],
                 },
               },

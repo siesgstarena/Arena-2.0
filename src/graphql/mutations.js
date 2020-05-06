@@ -211,3 +211,23 @@ mutation DownvoteBlog($id: ID!){
   }
 }
 `;
+
+export const DOWNVOTE_COMMENT = gql`
+mutation DownvoteComment($id: String!){
+  downvoteComment(_id: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UPVOTE_COMMENT = gql`
+mutation UpvoteComment($id: String!){
+  upvoteComment(_id: $id){
+    code
+    success
+    message
+  }
+}
+`;

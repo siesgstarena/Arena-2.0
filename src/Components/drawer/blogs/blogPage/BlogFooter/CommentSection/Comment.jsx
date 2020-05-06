@@ -5,17 +5,20 @@ import { Button } from '@material/react-button';
 import { Headline6 } from '@material/react-typography';
 import LikeDislike from '../LikeDislike';
 import UpdateComment from './UpdateComment';
-import { userColor } from '../../../../../../commonFunctions';
+import {
+  userColor, getDate, getMonth, getYear, convertTime,
+} from '../../../../../../commonFunctions';
 
 const Comment = ({
   newComment, updateAndReset, index, onCancelUpdate, deleteComment,
 }) => {
   const {
-    userId, userRatings, user, time, commentValue,
+    userId: userObject, createdAt: time, content: commentValue,
   } = newComment;
+  const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
   return (
-    <div className="pa2 ba b--transparent br3 mb3" style={{ backgroundColor: '#f0e8ff' }}>
+    <div className="pa2 ba b--transparent br3 mb3">
       <div className="flex mt2">
         <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="40em" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
         <div className="flex flex-column">
@@ -24,13 +27,13 @@ const Comment = ({
             to={`/profile/${userId}`}
           >
             <Headline6 style={{
-              color: userColor(userId, userRatings), margin: '2px 2px 0px 0px', lineHeight: '1rem', fontSize: '17px',
+              color: userColor(userRatings, userId), margin: '2px 2px 0px 0px', lineHeight: '1rem', fontSize: '17px',
             }}
             >
               {user}
             </Headline6>
           </Link>
-          <span className="mt1 ml3" style={{ fontSize: '15px' }}>{time}</span>
+          <span className="mt1 ml3" style={{ fontSize: '15px' }}>{`${getDate(time)} ${getMonth(time)} ${getYear(time)}, ${convertTime(time)} `}</span>
         </div>
       </div>
       <div>
@@ -47,7 +50,7 @@ const Comment = ({
             <>
               <Headline6 style={{ margin: '0.5em 3.1em', fontSize: '18px' }}>{commentValue}</Headline6>
               <div className="flex justify-between">
-                <LikeDislike />
+                <LikeDislike upvotes={newComment.upvote} downvotes={newComment.downvote} />
                 <div className="flex justify-around pt1">
                   <Button
                     className="mr3"

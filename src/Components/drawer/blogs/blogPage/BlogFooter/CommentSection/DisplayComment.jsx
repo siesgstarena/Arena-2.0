@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Button } from '@material/react-button';
-import { Headline6, Headline5 } from '@material/react-typography';
+import PropTypes from 'prop-types';
+import { Headline6 } from '@material/react-typography';
 import Comment from './Comment';
 import MessageCard from '../../../../../common/MessageCard';
-
-import CommentBox from './CommentBox';
 
 import '../BlogFooter.css';
 
 
-const DisplayComment = () => {
-  const [comment, setComment] = useState('');
-  const [commentList, setCommentList] = useState([]);
+const DisplayComment = ({ comments }) => {
+  const [commentList, setCommentList] = useState(comments);
   // const [isUpdate, setUpdate] = useState(false);
 
   const [message, setMessage] = useState('');
@@ -30,7 +27,7 @@ const DisplayComment = () => {
       const temporaryArray = [...commentList];
       temporaryArray[index].commentValue = updatedComment;
       setCommentList(temporaryArray);
-      setComment('');
+      // setComment('');
 
       setMessage('Comment Updated Successfully');
       setMessageType('success');
@@ -44,58 +41,42 @@ const DisplayComment = () => {
     setMessage('Comment Retained Successfully');
     setMessageType('info');
   };
-  const pushAndReset = (newComment, setValue) => {
-    if (newComment.length >= 4) {
-      const commentObject = {
-        userId: '5b5ca6857cf0b100209fe499',
-        user: 'Rahul Sawantdesai',
-        userRatings: 0,
-        commentValue: newComment,
-        time: 'May 1, 2020 11:21 PM',
-        likes: 0,
-        dislikes: 0,
-      };
-      setCommentList([...commentList, commentObject]);
-      setValue('');
-      setMessage('Comment Posted Successfully');
-      setMessageType('success');
-    } else {
-      setMessage('Comment cannot be less than 4 characters');
-      setMessageType('error');
-    }
-  };
+  // const pushAndReset = (newComment, setValue) => {
+  //   if (newComment.length >= 4) {
+  //     const commentObject = {
+  //       userId: '5b5ca6857cf0b100209fe499',
+  //       user: 'Rahul Sawantdesai',
+  //       userRatings: 0,
+  //       commentValue: newComment,
+  //       time: 'May 1, 2020 11:21 PM',
+  //       likes: 0,
+  //       dislikes: 0,
+  //     };
+  //     setCommentList([...commentList, commentObject]);
+  //     setValue('');
+  //     setMessage('Comment Posted Successfully');
+  //     setMessageType('success');
+  //   } else {
+  //     setMessage('Comment cannot be less than 4 characters');
+  //     setMessageType('error');
+  //   }
+  // };
 
 
   return (
     <div>
-      <Headline5 style={{ margin: '15px 0px 10px 0px' }}>
-        Comments
-      </Headline5>
-      <hr className="ba" style={{ borderColor: '#6200ee' }} />
-      <div className="">
-        <CommentBox endComment={comment} setEndComment={setComment} />
-        <Button
-          className=""
-          style={{ float: 'right' }}
-          onClick={() => { pushAndReset(comment, setComment); }}
-          raised
-        >
-          Submit
-        </Button>
-      </div>
       <div style={{ marginTop: '4em' }} className="center">
         {
-        (commentList.length === 0) ? (
+        (comments.length === 0) ? (
           <div style={{ textAlign: 'center' }}>
             <img alt="nocomments" className="" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/arena_assets_comment_actions.webp" width="200px" />
             <Headline6 className="" style={{ margin: '2px 0px' }}>No Comments</Headline6>
           </div>
         ) : (
-          commentList.map((newComment, index) => (
+          comments.map(newComment => (
             <Comment
-              key={index.toString()}
+              key={newComment._id}
               newComment={newComment}
-              index={index}
               updateAndReset={updateAndReset}
               onCancelUpdate={onCancelUpdate}
               deleteComment={deleteComment}
@@ -113,7 +94,9 @@ const DisplayComment = () => {
     </div>
   );
 };
+
+DisplayComment.propTypes = {
+  comments: PropTypes.array.isRequired,
+};
+
 export default DisplayComment;
-
-
-// NoComments;

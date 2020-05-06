@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Headline4, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Pill from '../../../common/Pill/index';
-import { userColor } from '../../../../commonFunctions';
+import {
+  userColor, getDate, getMonth, getYear, convertTime,
+} from '../../../../commonFunctions';
 
 const tagsArray = tags => (tags.map(tag => (
   <Link key={tag} to={`/search?q=${tag}`} className="pointer dim mr2">
@@ -16,8 +18,8 @@ const BlogHeader = ({
   author, authorId, title, lastEdited, tags, postedOn, timeToRead, authorRating,
 }) => (
   <div className="flex flex-column ba b--transparent br--top br4" style={{ alignItems: 'center' }}>
-    <Headline4 className="pa1 purple" style={{ textAlign: 'center', fontWeight: 'bolder', margin: '20px 0px' }}>{title}</Headline4>
-    <div className="flex pa3 pointer items-center ba b--transparent br4 mb3">
+    <Headline4 className="pa1 purple ma0 mt2" style={{ textAlign: 'center', fontWeight: 'bolder' }}>{title}</Headline4>
+    <div className="flex pa3 items-center ba b--transparent br4 mb3">
       <img
         src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp"
         alt="profile"
@@ -27,19 +29,20 @@ const BlogHeader = ({
       <div className="flex flex-column ml2">
         <Headline6 style={{ margin: '0px 10px 0px 10px', fontSize: '1em' }}>
           <Link
-            className="no-underline dim pointer mid-gray"
+            className="no-underline dim pointer"
             to={`/profile/${authorId}`}
+            style={{ color: userColor(authorRating, authorId) }}
           >
             {author}
           </Link>
         </Headline6>
         <span className="" style={{ margin: '0px 10px 4px 10px' }}>
-          {`Created : ${postedOn.substring(0, 11)}`}
+          {`Created: ${getDate(postedOn)} ${getMonth(postedOn)} ${getYear(postedOn)}, ${convertTime(postedOn)}`}
         </span>
         <span className="" style={{ margin: '0px 10px 4px 10px' }}>
-          {`Edited : ${lastEdited}`}
+          {`Edited: ${getDate(lastEdited)} ${getMonth(lastEdited)} ${getYear(lastEdited)}, ${convertTime(lastEdited)}`}
         </span>
-        <span style={{ margin: '2px 10px' }}>{`${timeToRead} read`}</span>
+        <span style={{ margin: '2px 10px' }}>{`${timeToRead} min read`}</span>
       </div>
     </div>
     <span className="mb3">
@@ -54,7 +57,7 @@ BlogHeader.propTypes = {
   title: PropTypes.string.isRequired,
   lastEdited: PropTypes.string.isRequired,
   authorRating: PropTypes.number.isRequired,
-  timeToRead: PropTypes.string.isRequired,
+  timeToRead: PropTypes.number.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   postedOn: PropTypes.string.isRequired,
 };

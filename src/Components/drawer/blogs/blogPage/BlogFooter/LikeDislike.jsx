@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
 import IconToggle from './IconToggle';
 
-const LikeDislike = () => {
-  const [like, setLike] = useState(0);
+const LikeDislike = ({ upvotes, downvotes }) => {
+  const [like, setLike] = useState(upvotes.length);
   const [isUpvote, setUpvote] = useState(false);
-  const [dislike, setDislike] = useState(0);
+  const [dislike, setDislike] = useState(downvotes.length);
   const [isDownvote, setDownvote] = useState(false);
 
 
@@ -53,6 +54,11 @@ const LikeDislike = () => {
       </Button>
     </div>
   );
+};
+
+LikeDislike.propTypes = {
+  upvotes: PropTypes.array.isRequired,
+  downvotes: PropTypes.array.isRequired,
 };
 
 export default LikeDislike;

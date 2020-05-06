@@ -533,3 +533,25 @@ query BlogByUser($id: String!, $limit: Int, $skip: Int) {
   }
 }
 `;
+
+export const GET_BLOG_BY_BLOG_ID = gql`
+query BlogById($id: ID!){
+  blogById(_id:$id){
+    blog{
+      userId{
+        name
+        _id
+        ratings
+      }
+      title
+      timeToRead
+      createdAt
+      updatedAt
+      content
+      tags
+      upvote
+      downvote
+    }
+  }
+}
+`;

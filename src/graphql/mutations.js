@@ -191,3 +191,23 @@ mutation UpdatePassword($oldPassword: String!, $password: String!){
   }
 }
 `;
+
+export const UPVOTE_BLOG = gql`
+mutation UpvoteBlog($id: ID!){
+  upvoteBlog(postId: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const DOWNVOTE_BLOG = gql`
+mutation DownvoteBlog($id: ID!){
+  downvoteBlog(postId: $id){
+    code
+    success
+    message
+  }
+}
+`;

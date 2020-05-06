@@ -12,7 +12,7 @@ import CommentLoadingScreen from './CommentLoadingScreen';
 
 const CommentsSectionContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const limit = 1;
+  const limit = 4;
   const count = useRef(0);
   const [hideButton, setHideButton] = useState(false);
   const { blogId } = useParams();

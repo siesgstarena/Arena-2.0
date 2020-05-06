@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
@@ -8,6 +8,7 @@ import UpdateComment from './UpdateComment';
 import {
   userColor, getDate, getMonth, getYear, convertTime,
 } from '../../../../../../commonFunctions';
+import AuthContext from '../../../../../../Contexts/AuthContext';
 
 const Comment = ({
   newComment, updateAndReset, index, onCancelUpdate, deleteComment,
@@ -15,6 +16,7 @@ const Comment = ({
   const {
     userId: userObject, createdAt: time, content: commentValue,
   } = newComment;
+  const { authState } = useContext(AuthContext);
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
   return (
@@ -51,24 +53,29 @@ const Comment = ({
               <Headline6 style={{ margin: '0.5em 3.1em', fontSize: '18px' }}>{commentValue}</Headline6>
               <div className="flex justify-between">
                 <LikeDislike upvotes={newComment.upvote} downvotes={newComment.downvote} />
-                <div className="flex justify-around pt1">
-                  <Button
-                    className="mr3"
-                    style={{ float: 'right', padding: '0px' }}
-                    onClick={() => {
-                      deleteComment(newComment);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    style={{ padding: '0px' }}
-                    className=""
-                    onClick={() => setUpdate(true)}
-                  >
-                    Update
-                  </Button>
-                </div>
+                {
+                  authState.user && authState.user.userId === userId
+                    ? (
+                      <div className="flex justify-around pt1">
+                        <Button
+                          className="mr3"
+                          style={{ float: 'right', padding: '0px' }}
+                          onClick={() => {
+                            deleteComment(newComment);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                        <Button
+                          style={{ padding: '0px' }}
+                          className=""
+                          onClick={() => setUpdate(true)}
+                        >
+                          edit
+                        </Button>
+                      </div>
+                    ) : null
+                  }
               </div>
             </>
           )

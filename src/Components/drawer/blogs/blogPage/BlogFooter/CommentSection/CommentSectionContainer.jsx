@@ -12,7 +12,7 @@ import CommentLoadingScreen from './CommentLoadingScreen';
 
 const CommentsSectionContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const limit = 4;
+  const limit = 3;
   const count = useRef(0);
   const [hideButton, setHideButton] = useState(false);
   const { blogId } = useParams();
@@ -41,7 +41,6 @@ const CommentsSectionContainer = () => {
     const { comments, totalNumberOfComments } = data.comments;
     // count represents the number of entries we have to skip
     count.current = comments.length;
-
 
     return (
       <div className="mw8 center">

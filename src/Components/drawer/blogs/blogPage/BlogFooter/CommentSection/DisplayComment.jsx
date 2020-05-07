@@ -22,10 +22,10 @@ const DisplayComment = ({ comments }) => {
     setMessageType('success');
   };
 
-  const updateAndReset = (index, updatedComment) => {
+  const updateAndReset = (updatedComment) => {
     if (updatedComment.length >= 4) {
       const temporaryArray = [...commentList];
-      temporaryArray[index].commentValue = updatedComment;
+      // temporaryArray[index].commentValue = updatedComment;
       setCommentList(temporaryArray);
       // setComment('');
 

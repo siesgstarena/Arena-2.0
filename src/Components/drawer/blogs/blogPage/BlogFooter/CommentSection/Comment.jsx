@@ -16,7 +16,7 @@ import { GET_COMMENTS_OF_BLOG } from '../../../../../../graphql/queries';
 import useSessionExpired from '../../../../../../customHooks/useSessionExpired';
 
 const Comment = ({
-  newComment, updateAndReset, index, onCancelUpdate, deleteComment,
+  newComment, updateAndReset, onCancelUpdate, deleteComment,
 }) => {
   const {
     userId: userObject, createdAt: time, content: commentValue,
@@ -39,7 +39,6 @@ const Comment = ({
       },
       update: (cache, { data: mutationResponse }) => {
         if (mutationResponse.upvoteComment.success) {
-          // cache is not being updated but the mutation is working
           const { comments } = cache.readQuery({
             query: GET_COMMENTS_OF_BLOG,
             variables: { id: blogId },
@@ -59,10 +58,9 @@ const Comment = ({
             data: {
               comments: {
                 ...comments,
-                comments: {
-                  ...comments.comments,
-                  commentsArray,
-                },
+                comments: [
+                  ...commentsArray,
+                ],
               },
             },
           });
@@ -93,28 +91,31 @@ const Comment = ({
         id: newComment._id,
       },
       update: (cache, { data: mutationResponse }) => {
-        // cache is not being updated but the mutation is working
         if (mutationResponse.downvoteComment.success) {
           const { comments } = cache.readQuery({
             query: GET_COMMENTS_OF_BLOG,
             variables: { id: blogId },
           });
+          // grabbing all the comments
           const commentsArray = comments.comments;
+          // finding the index of comment to be updated
           const commentIndex = commentsArray.findIndex((obj => obj._id === newComment._id));
+          // updating the comment into consideration
           commentsArray[commentIndex] = {
             ...commentsArray[commentIndex],
             downvote: [...commentsArray[commentIndex].downvote, authState.user.userId],
             upvote: commentsArray[commentIndex].upvote.filter(id => id !== authState.user.userId),
           };
+          // writing the updated data into the cache
           cache.writeQuery({
             query: GET_COMMENTS_OF_BLOG,
             variables: { id: blogId },
             data: {
               comments: {
                 ...comments,
-                comments: {
-                  commentsArray,
-                },
+                comments: [
+                  ...commentsArray,
+                ],
               },
             },
           });
@@ -164,7 +165,6 @@ const Comment = ({
             <UpdateComment
               initialComment={newComment}
               onUpdateFunction={updateAndReset}
-              index={index}
               setUpdate={setUpdate}
               onCancel={onCancelUpdate}
             />
@@ -217,7 +217,6 @@ Comment.propTypes = {
   newComment: PropTypes.object.isRequired,
   updateAndReset: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
   onCancelUpdate: PropTypes.func.isRequired,
 };
 

@@ -558,7 +558,7 @@ query BlogById($id: ID!){
 
 export const GET_COMMENTS_OF_BLOG = gql`
 query Comments($id: String!, $limit: Int, $skip: Int){
-  comments(where:{postId: $id}, skip: $skip, limit: $limit ) {
+  comments(where:{postId: $id}, skip: $skip, limit: $limit ) @connection(key:"comments", filter: ["where"]) {
     comments {
       _id
       userId{

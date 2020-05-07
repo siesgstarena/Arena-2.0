@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
 
 const UpdateComment = ({
-  initialComment, onUpdateFunction, index, onCancel, setUpdate,
+  initialComment, onUpdateFunction, onCancel, setUpdate,
 }) => {
   const {
     commentValue,
@@ -49,7 +49,7 @@ const UpdateComment = ({
           raised
           onClick={() => {
             setUpdate(false);
-            onUpdateFunction(index, endComment);
+            onUpdateFunction(endComment);
           }}
         >
           Update
@@ -62,7 +62,6 @@ const UpdateComment = ({
 UpdateComment.propTypes = {
   initialComment: PropTypes.object.isRequired,
   onUpdateFunction: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
   onCancel: PropTypes.func.isRequired,
   setUpdate: PropTypes.func.isRequired,
 };

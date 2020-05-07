@@ -5,11 +5,11 @@ import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Social from './Social';
-import SettingsLoadingScreen from './SettingsLoadingScreen';
 import EmailSettings from './EmailSettings';
 import Account from './Account';
+import LoadingInfoArray from '../../common/LoadingInfoArray';
 
-const SocialContainer = () => {
+const SettingsDetailsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { userId } = useParams();
   const {
@@ -19,7 +19,7 @@ const SocialContainer = () => {
       id: userId,
     },
   });
-  if (loading) return <SettingsLoadingScreen />;
+  if (loading) return <LoadingInfoArray count={3} />;
   if (error) return <SomethingWentWrong message="An error has been encountered" />;
   if (data.profilePage.user.username) {
     const { social } = data.profilePage.user;
@@ -44,4 +44,4 @@ const SocialContainer = () => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-export default SocialContainer;
+export default SettingsDetailsContainer;

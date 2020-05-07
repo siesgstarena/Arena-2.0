@@ -9,7 +9,7 @@ import AllBlogsPage from './AllBlogsPage';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../../common/Snackbar/index';
-import AllBlogPageLoadingScreen from './AllBlogPageLoadingScreen';
+import LoadingCardArray from '../../../common/LoadingCardArray';
 
 const AllBlogsPageContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -34,7 +34,14 @@ const AllBlogsPageContainer = () => {
     variables: { limit, skip: ((activePageNumber - 1) * limit) },
   });
 
-  if (loading) return <AllBlogPageLoadingScreen />;
+  if (loading) {
+    return (
+      <div className="mw7 ma3 pa2 center">
+        <Headline5 className="purple ma0 ml1 mb4">SIESGSTarena&apos;s Blogs</Headline5>
+        <LoadingCardArray count={8} />
+      </div>
+    );
+  }
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.blogs) {
     const { blogs } = data.blogs;

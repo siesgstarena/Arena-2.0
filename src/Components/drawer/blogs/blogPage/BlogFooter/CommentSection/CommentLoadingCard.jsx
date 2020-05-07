@@ -1,12 +1,12 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
-import LoadingParagraph from '../../../../../common/LoadingParagaph';
+import LoadingParagraphArray from '../../../../../common/LoadingParagraphArray';
 
 const CommentLoadingCard = () => (
   <div className="flex ma3">
     <Skeleton circle height={100} width={100} />
     <div className="ml4 w-90">
-      <LoadingParagraph />
+      <LoadingParagraphArray />
     </div>
   </div>
 );

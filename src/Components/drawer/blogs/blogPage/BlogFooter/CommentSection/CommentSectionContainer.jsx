@@ -7,7 +7,7 @@ import { GET_COMMENTS_OF_BLOG } from '../../../../../../graphql/queries';
 import SomethingWentWrong from '../../../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../../../customHooks/useSentry';
-import CommentLoadingScreen from './CommentLoadingScreen';
+import CommentLoadingCardArray from './CommentLoadingCardArray';
 
 
 const CommentsSectionContainer = () => {
@@ -28,11 +28,11 @@ const CommentsSectionContainer = () => {
     return (
       <div>
         <DisplayComment comments={comments} />
-        <CommentLoadingScreen />
+        <CommentLoadingCardArray count={limit} />
       </div>
     );
   }
-  if (loading) return <CommentLoadingScreen />;
+  if (loading) return <CommentLoadingCardArray />;
   if (error) {
     logError('comments query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;

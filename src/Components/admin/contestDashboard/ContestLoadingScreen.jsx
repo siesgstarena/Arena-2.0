@@ -2,7 +2,7 @@ import React from 'react';
 import { Headline4 } from '@material/react-typography';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import Skeleton from 'react-loading-skeleton';
-import LoadingInfo from '../../common/LoadingInfo';
+import LoadingInfoArray from '../../common/LoadingInfoArray';
 
 const ContestLoadingScreen = () => (
   <Grid className="mw7 center pa2">
@@ -13,7 +13,7 @@ const ContestLoadingScreen = () => (
     </Row>
     <Row>
       <Cell columns={12}>
-        <LoadingInfo />
+        <LoadingInfoArray />
       </Cell>
     </Row>
     <Row className="pt3">

@@ -6,7 +6,6 @@ const CommentLoadingScreen = () => (
     <CommentLoadingCard />
     <CommentLoadingCard />
     <CommentLoadingCard />
-    <CommentLoadingCard />
   </div>
 );
 

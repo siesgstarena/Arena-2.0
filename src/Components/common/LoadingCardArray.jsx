@@ -6,7 +6,7 @@ const LoadingCardArray = ({ count = 1, loadingCardClassName = 'ma2 mb3' }) => {
   const cardArray = [];
   for (let i = 0; i < count; i += 1) {
     cardArray.push((
-      <div className={loadingCardClassName}>
+      <div key={i} className={loadingCardClassName}>
         <Skeleton height={100} />
       </div>
     ));

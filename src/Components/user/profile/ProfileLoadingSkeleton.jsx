@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import Skeleton from 'react-loading-skeleton';
+import LoadingParagraphArray from '../../common/LoadingParagraphArray';
 
 const ProfileLoadingSkeleton = () => (
   <div className="mw7 pa2 center pt3">
@@ -16,18 +17,7 @@ const ProfileLoadingSkeleton = () => (
         </Cell>
       </Row>
     </Grid>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <Skeleton count={12} />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <Skeleton count={12} />
+    <LoadingParagraphArray count={4} loadingParagraphClassname="mt5 mb5" />
   </div>
 );
 

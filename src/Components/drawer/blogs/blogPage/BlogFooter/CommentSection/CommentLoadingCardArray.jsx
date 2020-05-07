@@ -6,7 +6,7 @@ const CommentLoadingCardArray = ({ count = 1 }) => {
   const cardArray = [];
   for (let i = 0; i < count; i += 1) {
     cardArray.push((
-      <CommentLoadingCard />
+      <CommentLoadingCard key={i} />
     ));
   }
   return (

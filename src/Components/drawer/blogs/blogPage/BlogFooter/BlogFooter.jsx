@@ -24,108 +24,126 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   const [upvote, setUpvote] = useState(authState.user && upvotes.includes(authState.user.userId));
   const [downvote, setDownvote] = useState(authState.user
     && downvotes.includes(authState.user.userId));
+  // Added separate states for disabling because we wanted to disable the button,
+  // the moment user clicks.We can't wait for the response to come back from server and then disable
+  const [disableUpvote, setDisableUpvote] = useState(authState.user
+    && upvotes.includes(authState.user.userId));
+  const [disableDownvote, setDisableDownvote] = useState(authState.user
+    && downvotes.includes(authState.user.userId));
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const { blogId } = useParams();
   const handleUpvote = async () => {
-    const { data, error } = await client.mutate({
-      mutation: UPVOTE_BLOG,
-      variables: {
-        id: blogId,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.upvoteBlog.success) {
-          const { blogById } = cache.readQuery({
-            query: GET_BLOG_BY_BLOG_ID,
-            variables: { id: blogId },
-          });
-          cache.writeQuery({
-            query: GET_BLOG_BY_BLOG_ID,
-            variables: { id: blogId },
-            data: {
-              blogById: {
-                ...blogById,
-                blog: {
-                  ...blogById.blog,
-                  // adding the current user in the list of upvotes
-                  upvote: [...blogById.blog.upvote, authState.user.userId],
-                  // removing the current user from the list of downvotes
-                  // I ma doing both the operations because the user cannot be
-                  // in both lists at the same time
-                  downvote: blogById.blog.downvote.filter(id => id !== authState.user.userId),
+    if (!upvote) {
+      const { data, error } = await client.mutate({
+        mutation: UPVOTE_BLOG,
+        variables: {
+          id: blogId,
+        },
+        update: (cache, { data: mutationResponse }) => {
+          if (mutationResponse.upvoteBlog.success) {
+            const { blogById } = cache.readQuery({
+              query: GET_BLOG_BY_BLOG_ID,
+              variables: { id: blogId },
+            });
+            cache.writeQuery({
+              query: GET_BLOG_BY_BLOG_ID,
+              variables: { id: blogId },
+              data: {
+                blogById: {
+                  ...blogById,
+                  blog: {
+                    ...blogById.blog,
+                    // adding the current user in the list of upvotes
+                    upvote: [...blogById.blog.upvote, authState.user.userId],
+                    // removing the current user from the list of downvotes
+                    // I ma doing both the operations because the user cannot be
+                    // in both lists at the same time
+                    downvote: blogById.blog.downvote.filter(id => id !== authState.user.userId),
+                  },
                 },
               },
-            },
-          });
-        }
-      },
-    });
-    if (error) {
-      setUpvote(false);
-      setDownvote(true);
-      return;
-    }
-    if (isSessionExpired(data.upvoteBlog)) {
-      redirectOnSessionExpiredAfterRender();
-      return;
-    }
-    if (data.upvoteBlog.success || data.upvoteBlog.message === 'You have already upvoted for this post') {
-      setUpvote(true);
-      setDownvote(false);
-    } else {
-      setUpvote(false);
-      setDownvote(true);
+            });
+          }
+        },
+      });
+      if (error) {
+        setDisableUpvote(false);
+        setUpvote(false);
+        setDownvote(true);
+        return;
+      }
+      if (isSessionExpired(data.upvoteBlog)) {
+        redirectOnSessionExpiredAfterRender();
+        return;
+      }
+      if (data.upvoteBlog.success || data.upvoteBlog.message === 'You have already upvoted for this post') {
+        setUpvote(true);
+        setDownvote(false);
+        setDisableUpvote(true);
+        setDisableDownvote(false);
+      } else {
+        setUpvote(false);
+        setDisableUpvote(false);
+        setDownvote(true);
+      }
     }
   };
   const handleDownvote = async () => {
-    const { data, error } = await client.mutate({
-      mutation: DOWNVOTE_BLOG,
-      variables: {
-        id: blogId,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.downvoteBlog.success) {
-          const { blogById } = cache.readQuery({
-            query: GET_BLOG_BY_BLOG_ID,
-            variables: { id: blogId },
-          });
-          cache.writeQuery({
-            query: GET_BLOG_BY_BLOG_ID,
-            variables: { id: blogId },
-            data: {
-              blogById: {
-                ...blogById,
-                blog: {
-                  ...blogById.blog,
-                  // removing the current user from the list of upvotes
-                  // I ma doing both the operations because the user cannot
-                  // be in both lists at the same time
-                  upvote: blogById.blog.upvote.filter(id => id !== authState.user.userId),
-                  // adding the current user in the list of downvotes
-                  downvote: [...blogById.blog.downvote, authState.user.userId],
+    if (!downvote) {
+      const { data, error } = await client.mutate({
+        mutation: DOWNVOTE_BLOG,
+        variables: {
+          id: blogId,
+        },
+        update: (cache, { data: mutationResponse }) => {
+          if (mutationResponse.downvoteBlog.success) {
+            const { blogById } = cache.readQuery({
+              query: GET_BLOG_BY_BLOG_ID,
+              variables: { id: blogId },
+            });
+            cache.writeQuery({
+              query: GET_BLOG_BY_BLOG_ID,
+              variables: { id: blogId },
+              data: {
+                blogById: {
+                  ...blogById,
+                  blog: {
+                    ...blogById.blog,
+                    // removing the current user from the list of upvotes
+                    // I ma doing both the operations because the user cannot
+                    // be in both lists at the same time
+                    upvote: blogById.blog.upvote.filter(id => id !== authState.user.userId),
+                    // adding the current user in the list of downvotes
+                    downvote: [...blogById.blog.downvote, authState.user.userId],
+                  },
                 },
               },
-            },
-          });
-        }
-      },
-    });
-    if (error) {
-      setUpvote(true);
-      setDownvote(false);
-      return;
-    }
-    if (isSessionExpired(data.downvoteBlog)) {
-      redirectOnSessionExpiredAfterRender();
-      return;
-    }
-    if (data.downvoteBlog.success || data.downvoteBlog.message === 'You have already downvoted for this post') {
-      setUpvote(false);
-      setDownvote(true);
-    } else {
-      setUpvote(true);
-      setDownvote(false);
+            });
+          }
+        },
+      });
+      if (error) {
+        setUpvote(true);
+        setDownvote(false);
+        setDisableDownvote(false);
+        return;
+      }
+      if (isSessionExpired(data.downvoteBlog)) {
+        redirectOnSessionExpiredAfterRender();
+        return;
+      }
+      if (data.downvoteBlog.success || data.downvoteBlog.message === 'You have already downvoted for this post') {
+        setUpvote(false);
+        setDownvote(true);
+        setDisableDownvote(true);
+        setDisableUpvote(false);
+      } else {
+        setUpvote(true);
+        setDownvote(false);
+        setDisableDownvote(false);
+      }
     }
   };
 
@@ -138,6 +156,7 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         id: blogId,
         content: comment,
       },
+      // used refetchQueries because I was not able to get all the details of the user
       refetchQueries: [{
         query: GET_COMMENTS_OF_BLOG,
         variables: { id: blogId },
@@ -173,6 +192,8 @@ const BlogFooter = ({ upvotes, downvotes }) => {
           isDownvote={downvote}
           onUpvote={handleUpvote}
           onDownvote={handleDownvote}
+          disableUpvote={disableUpvote}
+          disableDownvote={disableDownvote}
         />
         <ShareIcon />
       </div>

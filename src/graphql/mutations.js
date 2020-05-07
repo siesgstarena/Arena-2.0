@@ -231,3 +231,13 @@ mutation UpvoteComment($id: String!){
   }
 }
 `;
+
+export const EDIT_COMMENT = gql`
+mutation editComment($id: String!, $content: String!) {
+  editComment(_id: $id,content: $content) {
+    code
+    success
+    message
+  }
+}
+`;

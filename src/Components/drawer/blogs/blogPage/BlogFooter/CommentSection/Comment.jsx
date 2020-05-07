@@ -4,31 +4,35 @@ import PropTypes from 'prop-types';
 import { useApolloClient } from 'react-apollo';
 import { useParams } from 'react-router';
 import { Button } from '@material/react-button';
-import { Headline6 } from '@material/react-typography';
+import { Headline6, Body2, Body1 } from '@material/react-typography';
 import LikeDislike from '../LikeDislike';
 import UpdateComment from './UpdateComment';
+import MessageCard from '../../../../../common/MessageCard';
 import {
   userColor, getDate, getMonth, getYear, convertTime,
 } from '../../../../../../commonFunctions';
 import AuthContext from '../../../../../../Contexts/AuthContext';
-import { UPVOTE_COMMENT, DOWNVOTE_COMMENT } from '../../../../../../graphql/mutations';
+import { UPVOTE_COMMENT, DOWNVOTE_COMMENT, EDIT_COMMENT } from '../../../../../../graphql/mutations';
 import { GET_COMMENTS_OF_BLOG } from '../../../../../../graphql/queries';
 import useSessionExpired from '../../../../../../customHooks/useSessionExpired';
 
 const Comment = ({
-  newComment, updateAndReset, onCancelUpdate, deleteComment,
+  newComment, deleteComment,
 }) => {
   const {
     userId: userObject, createdAt: time, content: commentValue,
   } = newComment;
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const { authState } = useContext(AuthContext);
+  const [editedComment, setEditedComment] = useState(commentValue);
   const [upvote, setUpvote] = useState(authState.user
     && newComment.upvote.includes(authState.user.userId));
   const [downvote, setDownvote] = useState(authState.user
     && newComment.downvote.includes(authState.user.userId));
   const client = useApolloClient();
   const { blogId } = useParams();
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
   const handleUpvote = async () => {
@@ -139,6 +143,70 @@ const Comment = ({
       setDownvote(false);
     }
   };
+  const handleUpdate = async () => {
+    setMessageType('loading');
+    setMessage('Editing comment, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: EDIT_COMMENT,
+      variables: {
+        id: newComment._id,
+        content: editedComment,
+      },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.editComment.success) {
+          const { comments } = cache.readQuery({
+            query: GET_COMMENTS_OF_BLOG,
+            variables: { id: blogId },
+          });
+          // grabbing all the comments
+          const commentsArray = comments.comments;
+          // finding the index of comment to be updated
+          const commentIndex = commentsArray.findIndex((obj => obj._id === newComment._id));
+          // updating the comment into consideration
+          commentsArray[commentIndex] = {
+            ...commentsArray[commentIndex],
+            content: editedComment,
+          };
+          // writing the updated data into the cache
+          cache.writeQuery({
+            query: GET_COMMENTS_OF_BLOG,
+            variables: { id: blogId },
+            data: {
+              comments: {
+                ...comments,
+                comments: [
+                  ...commentsArray,
+                ],
+              },
+            },
+          });
+        }
+      },
+    });
+    if (error) {
+      setUpdate(false);
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.editComment)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.editComment.success) {
+      setUpdate(false);
+      setMessageType('success');
+      setMessage('Comment successfully edited');
+    } else {
+      setUpdate(false);
+      setMessageType('error');
+      setMessage('An unexpected error has been encountered');
+    }
+  };
+  const onCancelUpdate = () => {
+    setUpdate(false);
+  };
+
 
   return (
     <div className="pa2 ba b--transparent br3 mb3">
@@ -156,21 +224,28 @@ const Comment = ({
               {user}
             </Headline6>
           </Link>
-          <span className="mt1 ml3" style={{ fontSize: '15px' }}>{`${getDate(time)} ${getMonth(time)} ${getYear(time)}, ${convertTime(time)} `}</span>
+          <Body2 className="ma0 mt1 ml3">{`${getDate(time)} ${getMonth(time)} ${getYear(time)}, ${convertTime(time)} `}</Body2>
         </div>
       </div>
       <div>
+        <div style={{ margin: '0', marginLeft: '3.6em', marginRight: '.5em' }}>
+          <MessageCard
+            message={message}
+            messageType={messageType}
+            setMessageType={setMessageType}
+          />
+        </div>
         {
           (isUpdate) ? (
             <UpdateComment
-              initialComment={newComment}
-              onUpdateFunction={updateAndReset}
-              setUpdate={setUpdate}
+              onUpdateFunction={handleUpdate}
               onCancel={onCancelUpdate}
+              setEditedComment={setEditedComment}
+              editedComment={editedComment}
             />
           ) : (
             <>
-              <Headline6 style={{ margin: '0.5em 3.1em', fontSize: '18px' }}>{commentValue}</Headline6>
+              <Body1 style={{ margin: '0', marginLeft: '3.6em' }}>{commentValue}</Body1>
               <div className="flex justify-between">
                 <LikeDislike
                   upvotes={newComment.upvote}
@@ -185,6 +260,13 @@ const Comment = ({
                     ? (
                       <div className="flex justify-around pt1">
                         <Button
+                          style={{ padding: '0px' }}
+                          className=""
+                          onClick={() => setUpdate(true)}
+                        >
+                          edit
+                        </Button>
+                        <Button
                           className="mr3"
                           style={{ float: 'right', padding: '0px' }}
                           onClick={() => {
@@ -192,13 +274,6 @@ const Comment = ({
                           }}
                         >
                           Delete
-                        </Button>
-                        <Button
-                          style={{ padding: '0px' }}
-                          className=""
-                          onClick={() => setUpdate(true)}
-                        >
-                          edit
                         </Button>
                       </div>
                     ) : null
@@ -215,9 +290,7 @@ const Comment = ({
 
 Comment.propTypes = {
   newComment: PropTypes.object.isRequired,
-  updateAndReset: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  onCancelUpdate: PropTypes.func.isRequired,
 };
 
 export default Comment;

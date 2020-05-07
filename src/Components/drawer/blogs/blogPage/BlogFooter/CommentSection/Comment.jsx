@@ -10,7 +10,7 @@ import UpdateComment from './UpdateComment';
 import AlertBox from '../../../../../common/AlertBox/index';
 import MessageCard from '../../../../../common/MessageCard';
 import {
-  userColor, getDate, getMonth, getYear, convertTime,
+  userColor, getDate, getMonth, getYear, convertTime, adding330Minutes,
 } from '../../../../../../commonFunctions';
 import AuthContext from '../../../../../../Contexts/AuthContext';
 import {
@@ -233,8 +233,8 @@ const Comment = ({
               comments: {
                 ...comments,
                 comments: comments.comments.filter(comment => comment._id !== newComment._id),
+                totalNumberOfComments: comments.totalNumberOfComments - 1,
               },
-              totalNumberOfComments: comments.totalNumberOfComments - 1,
             },
           });
         }
@@ -262,7 +262,7 @@ const Comment = ({
   return (
     <div className="pa2 ba b--transparent br3 mb3">
       <div className="flex mt2">
-        <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="40em" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
+        <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%', borderColor: userColor(userRatings, userId) }} height="40em" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
         <div className="flex flex-column">
           <Link
             className="no-underline dim ml3"
@@ -275,7 +275,7 @@ const Comment = ({
               {user}
             </Headline6>
           </Link>
-          <Body2 className="ma0 mt1 ml3">{`${getDate(time)} ${getMonth(time)} ${getYear(time)}, ${convertTime(time)} `}</Body2>
+          <Body2 className="ma0 mt1 ml3 mid-gray">{`${getDate(adding330Minutes(time))} ${getMonth(adding330Minutes(time))} ${getYear(adding330Minutes(time))}, ${convertTime(adding330Minutes(time))} `}</Body2>
         </div>
       </div>
       <div>

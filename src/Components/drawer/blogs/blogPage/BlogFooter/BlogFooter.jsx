@@ -5,13 +5,14 @@ import { useApolloClient } from 'react-apollo';
 import { useParams } from 'react-router';
 import { Headline5 } from '@material/react-typography';
 import '@material/react-material-icon/dist/material-icon.css';
+import MessageCard from '../../../../common/MessageCard';
 import CommentSectionContainer from './CommentSection/CommentSectionContainer';
 import './BlogFooter.css';
 import LikeDislike from './LikeDislike';
 import ShareIcon from './ShareIcon';
 import CommentBox from './CommentSection/CommentBox';
-import { UPVOTE_BLOG, DOWNVOTE_BLOG } from '../../../../../graphql/mutations';
-import { GET_BLOG_BY_BLOG_ID } from '../../../../../graphql/queries';
+import { UPVOTE_BLOG, DOWNVOTE_BLOG, WRITE_COMMENT } from '../../../../../graphql/mutations';
+import { GET_BLOG_BY_BLOG_ID, GET_COMMENTS_OF_BLOG } from '../../../../../graphql/queries';
 import useSessionExpired from '../../../../../customHooks/useSessionExpired';
 import AuthContext from '../../../../../Contexts/AuthContext';
 
@@ -23,6 +24,8 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   const [upvote, setUpvote] = useState(authState.user && upvotes.includes(authState.user.userId));
   const [downvote, setDownvote] = useState(authState.user
     && downvotes.includes(authState.user.userId));
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const { blogId } = useParams();
   const handleUpvote = async () => {
@@ -125,6 +128,40 @@ const BlogFooter = ({ upvotes, downvotes }) => {
       setDownvote(false);
     }
   };
+
+  const handleCreate = async () => {
+    setMessageType('loading');
+    setMessage('Creating comment, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: WRITE_COMMENT,
+      variables: {
+        id: blogId,
+        content: comment,
+      },
+      refetchQueries: [{
+        query: GET_COMMENTS_OF_BLOG,
+        variables: { id: blogId },
+      }],
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.writeComment)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.writeComment.success) {
+      setComment('');
+      setMessageType('success');
+      setMessage('Comment successfully created');
+    } else {
+      setMessageType('error');
+      setMessage('An unexpected error has been encountered');
+    }
+  };
+
   return (
     <div className="center ">
       {/* like dislike and share section  */}
@@ -146,10 +183,15 @@ const BlogFooter = ({ upvotes, downvotes }) => {
       <hr className="ba" style={{ borderColor: '#6200ee' }} />
       <div className="">
         <CommentBox endComment={comment} setEndComment={setComment} />
+        <MessageCard
+          message={message}
+          messageType={messageType}
+          setMessageType={setMessageType}
+        />
         <Button
           className=""
           style={{ float: 'right' }}
-          onClick={() => { console.log('clicked'); }}
+          onClick={handleCreate}
           raised
         >
           Submit

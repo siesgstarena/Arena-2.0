@@ -241,3 +241,13 @@ mutation editComment($id: String!, $content: String!) {
   }
 }
 `;
+
+export const DELETE_COMMENT = gql`
+mutation DeleteComment($id: String!) {
+  deleteComment(_id: $id) {
+    code
+    success
+    message
+  }
+}
+`;

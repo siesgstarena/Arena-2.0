@@ -7,17 +7,20 @@ import { Button } from '@material/react-button';
 import { Headline6, Body2, Body1 } from '@material/react-typography';
 import LikeDislike from '../LikeDislike';
 import UpdateComment from './UpdateComment';
+import AlertBox from '../../../../../common/AlertBox/index';
 import MessageCard from '../../../../../common/MessageCard';
 import {
   userColor, getDate, getMonth, getYear, convertTime,
 } from '../../../../../../commonFunctions';
 import AuthContext from '../../../../../../Contexts/AuthContext';
-import { UPVOTE_COMMENT, DOWNVOTE_COMMENT, EDIT_COMMENT } from '../../../../../../graphql/mutations';
+import {
+  UPVOTE_COMMENT, DOWNVOTE_COMMENT, EDIT_COMMENT, DELETE_COMMENT,
+} from '../../../../../../graphql/mutations';
 import { GET_COMMENTS_OF_BLOG } from '../../../../../../graphql/queries';
 import useSessionExpired from '../../../../../../customHooks/useSessionExpired';
 
 const Comment = ({
-  newComment, deleteComment,
+  newComment,
 }) => {
   const {
     userId: userObject, createdAt: time, content: commentValue,
@@ -33,6 +36,10 @@ const Comment = ({
   const { blogId } = useParams();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  // isAlertOpen is the state, used to indicate whether the alertbox is open or not
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const alertTitle = 'Delete Confirmation';
+  const alertContent = 'Are you sure you want to delete the comment?';
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
   const handleUpvote = async () => {
@@ -203,6 +210,49 @@ const Comment = ({
       setMessage('An unexpected error has been encountered');
     }
   };
+
+  const handleDelete = async () => {
+    setMessageType('loading');
+    setMessage('Deleting comment, Please wait');
+    const { data, error } = await client.mutate({
+      mutation: DELETE_COMMENT,
+      variables: {
+        id: newComment._id,
+      },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.deleteComment.success) {
+          const { comments } = cache.readQuery({
+            query: GET_COMMENTS_OF_BLOG,
+            variables: { id: blogId },
+          });
+          // writing the updated data into the cache
+          cache.writeQuery({
+            query: GET_COMMENTS_OF_BLOG,
+            variables: { id: blogId },
+            data: {
+              comments: {
+                ...comments,
+                comments: comments.comments.filter(comment => comment._id !== newComment._id),
+              },
+            },
+          });
+        }
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.deleteComment)) {
+      redirectOnSessionExpiredAfterRender();
+    }
+    if (data.deleteComment.success === false) {
+      setMessageType('error');
+      setMessage('An unexpected error has been encountered');
+    }
+  };
+
   const onCancelUpdate = () => {
     setUpdate(false);
   };
@@ -235,6 +285,13 @@ const Comment = ({
             setMessageType={setMessageType}
           />
         </div>
+        <AlertBox
+          isOpen={isAlertOpen}
+          setIsOpen={setIsAlertOpen}
+          title={alertTitle}
+          content={alertContent}
+          onAccept={handleDelete}
+        />
         {
           (isUpdate) ? (
             <UpdateComment
@@ -269,9 +326,7 @@ const Comment = ({
                         <Button
                           className="mr3"
                           style={{ float: 'right', padding: '0px' }}
-                          onClick={() => {
-                            deleteComment(newComment);
-                          }}
+                          onClick={() => setIsAlertOpen(true)}
                         >
                           Delete
                         </Button>
@@ -290,7 +345,6 @@ const Comment = ({
 
 Comment.propTypes = {
   newComment: PropTypes.object.isRequired,
-  deleteComment: PropTypes.func.isRequired,
 };
 
 export default Comment;

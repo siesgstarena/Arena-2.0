@@ -4,7 +4,6 @@ import ProblemResults from './ProblemResults';
 import PostResults from './PostResults';
 
 
-
 const resultArray = [
   [
     {

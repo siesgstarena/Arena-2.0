@@ -58,5 +58,5 @@ const ProblemResults = ({ problemArray }) => (
 
 ProblemResults.propTypes = {
   problemArray: PropTypes.array.isRequired,
-}
+};
 export default ProblemResults;

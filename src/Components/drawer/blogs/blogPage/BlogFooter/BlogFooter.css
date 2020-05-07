@@ -1,0 +1,3 @@
+.btn::before, .btn::after {
+    background-color: white;
+}

@@ -1,14 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Button from '@material/react-button';
+import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1 } from '@material/react-typography';
-import Button from '@material/react-button';
+import MessageCard from '../../common/MessageCard/index';
+import { SUBMIT_FEEDBACK } from '../../../graphql/mutations';
 import 'tachyons';
+import AuthContext from '../../../Contexts/AuthContext';
 
 const Feedback = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const { authState } = useContext(AuthContext);
+  const [name, setName] = useState(authState.user && authState.user.name ? authState.user.name : '');
+  const [email, setEmail] = useState(authState.user && authState.user.email ? authState.user.email : '');
+  const [feedback, setFeedback] = useState('');
   const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
+  const client = useApolloClient();
+
+  const handleFeedback = async () => {
+    setMessageType('loading');
+    setMessage('Submitting feedback, Please Wait');
+    const { data, error } = await client.mutate({
+      mutation: SUBMIT_FEEDBACK,
+      variables: {
+        name,
+        email,
+        message: feedback,
+      },
+    });
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    if (data.submitFeedback.success) {
+      setFeedback('');
+      setMessageType('success');
+      setMessage('Feedback submitted successfully');
+    } else {
+      setMessageType('error');
+      setMessage(data.submitFeedback.message);
+    }
+  };
 
   return (
     <Grid className="mw8 center">
@@ -51,15 +85,19 @@ const Feedback = () => {
               label="Message"
               className="mb4 text-area-width-100"
               textarea
-              rows="20"
             >
               <Input
-                value={message}
-                onChange={e => setMessage(e.currentTarget.value)}
+                value={feedback}
+                onChange={e => setFeedback(e.currentTarget.value)}
               />
             </TextField>
             <br />
-            <Button raised>
+            <MessageCard
+              messageType={messageType}
+              message={message}
+              setMessageType={setMessageType}
+            />
+            <Button raised onClick={handleFeedback}>
               Submit
             </Button>
           </div>

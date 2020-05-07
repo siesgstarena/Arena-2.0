@@ -9,7 +9,7 @@ import Announcements from './Announcements';
 import ProblemsCardArray from './ProblemsCardArray';
 
 const ContestDashboard = ({
-  contest, stats, announcement, setSnackbarMessage, snackbarMessage, problems, refetch,
+  contest, stats, announcement, setSnackbarMessage, snackbarMessage, problems,
 }) => (
   <Grid className="mw7 center pa2">
     <Row>
@@ -43,7 +43,6 @@ const ContestDashboard = ({
         <ProblemsCardArray
           problems={problems}
           setSnackbarMessage={setSnackbarMessage}
-          refetch={refetch}
         />
       </Cell>
     </Row>
@@ -57,7 +56,6 @@ ContestDashboard.propTypes = {
   setSnackbarMessage: PropTypes.func,
   snackbarMessage: PropTypes.string,
   problems: PropTypes.array.isRequired,
-  refetch: PropTypes.func.isRequired,
 };
 
 export default ContestDashboard;

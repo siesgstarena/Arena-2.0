@@ -1,21 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ContestDetails from './ContestDetails';
 import Announcements from './Announcements';
 import Submit from './SubmitOnProblemPage';
+import ContestTabBar from './ContestTabBar';
 
 const ContestPageSkeleton = ({ children, contestDetails }) => {
   const {
     name, description, endsAt, announcement,
   } = contestDetails;
-  const location = useLocation();
+
   return (
     <Grid className="">
       <Row>
         <Cell desktopColumns={9} tabletColumns={8}>
           <Cell>
+            <Route path="/contests/:contestId" exact component={ContestTabBar} />
+            <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
+            <Route path="/contests/:contestId/my" exact component={ContestTabBar} />
+            <Route path="/contests/:contestId/scoreboard" exact component={ContestTabBar} />
+            <Route path="/contests/:contestId/submit" exact component={ContestTabBar} />
+            <Route path="/contests/:contestId/change" exact component={ContestTabBar} />
             {children}
           </Cell>
         </Cell>
@@ -27,11 +34,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
             <Announcements announcement={announcement} />
           </Cell>
           <Cell>
-            {
-              location.pathname.includes('problem')
-                ? <Submit />
-                : null
-            }
+            <Route path="/contests/:contestId/problem/:problemId" exact component={Submit} />
           </Cell>
         </Cell>
       </Row>

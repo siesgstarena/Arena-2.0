@@ -7,11 +7,13 @@ import MessageCard from '../../common/MessageCard/index';
 import FileUpload from '../../common/FileUpload/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const TestProblem = () => {
   const [language, setLanguage] = useState('C');
   const { contestId, problemId } = useParams();
   const [message, setMessage] = useState('');
+  const { logError } = useSentry();
   const [messageType, setMessageType] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [solutionFile, setSolutionFile] = useState({});
@@ -37,15 +39,18 @@ const TestProblem = () => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           setMessageType('success');
           setMessage(jsonResponse.data.restAPI.message);
         } else {
+          logError('REST APT, testProblem', { ...jsonResponse.data });
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      }).catch((error) => {
+        logError('REST APT, testProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

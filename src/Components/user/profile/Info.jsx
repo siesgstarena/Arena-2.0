@@ -181,7 +181,7 @@ const Info = ({ userDetails: user }) => {
       setMessage(`You have unfollowed ${user.name}`);
     } else {
       setMessageType('error');
-      setMessage(data.follow.message);
+      setMessage(data.unfollow.message);
     }
   };
 
@@ -206,7 +206,7 @@ const Info = ({ userDetails: user }) => {
           </div>
         </Cell>
         <Cell phoneColumns={1} tabletColumns={3} desktopColumns={4} className="pt5">
-          <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="80vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
+          <img className="fr ba bw1" alt="user-icon" style={{ borderRadius: '50%', borderColor: userColor(user.ratings, user._id) }} height="80vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
         </Cell>
       </Row>
       <Row className="pt2">
@@ -250,20 +250,52 @@ const Info = ({ userDetails: user }) => {
         </Cell>
       </Row>
       <Row>
-        { user.social
-          ? user.social.map(profile => (
-            <Cell key={profile.name} desktopColumns={3} tabletColumns={2} phoneColumns={1}>
-              <a className="black flex flex-start" href={profile.link} rel="noopener noreferrer" target="_blank" style={{ textDecoration: 'None' }}>
-                <img className="mr2" alt={profile.name} src={profile.icon} width="32px" />
+        { user.social.codeforces
+          ? (
+            <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
+              <a className="black flex flex-start dim" href={`https://codeforces.com/profile/${user.social.codeforces}`} rel="noopener noreferrer" target="_blank" style={{ textDecoration: 'None' }}>
+                <img className="mr2" alt="Codeforces" src="https://1.bp.blogspot.com/-pBimI1ZhYAA/Wnde0nmCz8I/AAAAAAAABPI/5LZ2y9tBOZIV-pm9KNbyNy3WZJkGS54WgCPcBGAYYCw/s1600/codeforce.png" width="30em" />
                 { (removeTag)
                   ? (
-                    <span style={{ fontSize: '18px' }} className="mt1">{`${profile.name}`}</span>
+                    <span style={{ fontSize: '1em' }} className="mt1">Codeforces</span>
                   )
                   : ('')
                 }
               </a>
             </Cell>
-          ))
+          )
+          : null
+        }
+        { user.social.codechef
+          ? (
+            <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
+              <a className="black flex flex-start dim" href={`https://www.codechef.com/users/${user.social.codechef}`} rel="noopener noreferrer" target="_blank" style={{ textDecoration: 'None' }}>
+                <img className="mr2" alt="Codechef" src="https://cdn.clipart.email/38dd8d751b58ba5ce74907dfc482776d_codechef-user-codechef_732-732.jpeg" width="30em" />
+                { (removeTag)
+                  ? (
+                    <span style={{ fontSize: '1em' }} className="mt1">CodeChef</span>
+                  )
+                  : ('')
+                }
+              </a>
+            </Cell>
+          )
+          : null
+        }
+        { user.social.github
+          ? (
+            <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
+              <a className="black flex flex-start dim" href={`https://github.com/${user.social.github}`} rel="noopener noreferrer" target="_blank" style={{ textDecoration: 'None' }}>
+                <img className="mr2" alt="Github" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="30em" />
+                { (removeTag)
+                  ? (
+                    <span style={{ fontSize: '1em' }} className="mt1">Github</span>
+                  )
+                  : ('')
+                }
+              </a>
+            </Cell>
+          )
           : null
         }
       </Row>

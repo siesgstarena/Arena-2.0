@@ -16,7 +16,8 @@ const ProblemSetContainer = () => {
   if (data.problemSet) {
     const problems = data.problemSet;
     return (
-      <div className="mw7 center">
+
+      <div className="mw7 pa1 center">
         <ProblemSet
           problems={problems}
         />

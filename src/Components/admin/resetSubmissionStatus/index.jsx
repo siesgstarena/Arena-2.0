@@ -9,9 +9,11 @@ import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
+  const { logError } = useSentry();
   const limit = 15;
   const activePageNumber = useActivePageState();
   const {
@@ -35,7 +37,10 @@ const ResetSubmissionStatus = () => {
   // };
   if (networkStatus === 3) return <Spinner />;
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    logError('adminDashboard query', { ...data, ...error });
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.submissionsByContestCode) {
     const response = data.submissionsByContestCode.submissions;
     // console.log(response);
@@ -65,6 +70,7 @@ const ResetSubmissionStatus = () => {
   }
 
   // random cases not handled by graphql
+  logError('adminDashboard query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

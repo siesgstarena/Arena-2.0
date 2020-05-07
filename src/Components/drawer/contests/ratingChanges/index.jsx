@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import { GET_RATINGS_CHANGE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
-import ContestTabBar from '../common/ContestTabBar';
 import RatingChangesTable from './RatingChangesTable';
-import Spinner from '../../../common/Spinner/index';
+import EmptyData from '../../../common/EmptyData';
+import LoadingTable from '../../../common/LoadingTable/index';
 
 const ContestDashboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -16,17 +16,18 @@ const ContestDashboardContainer = () => {
   } = useQuery(GET_RATINGS_CHANGE, {
     variables: { code: contestId },
   });
-
-  if (loading) return <Spinner />;
+  const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];
+  if (loading) return <LoadingTable tableHeadings={tableHeadings} count={20} />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.ratingChanges) {
     const { ratingChanges } = data;
     return (
       <div>
-        <div style={{ marginBottom: '10px' }}>
-          <ContestTabBar />
-        </div>
-        <RatingChangesTable ratingChanges={ratingChanges} />
+        {
+          ratingChanges.length !== 0
+            ? <RatingChangesTable ratingChanges={ratingChanges} />
+            : <EmptyData message="Ratings have not been updated yet. Come back later." />
+        }
       </div>
     );
   }

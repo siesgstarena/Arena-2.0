@@ -22,7 +22,7 @@ const Footer = () => (
           key={route.id}
           to={route.changeRouteTo}
           activeStyle={{ color: '#6200EE' }}
-          className="no-underline black"
+          className="no-underline noselect black"
           exact
         >
           <span className="ma2 pointer">

@@ -26,8 +26,8 @@ const LoadingInfoArray = ({ count = 1, loadingInfoClassName = 'ma3' }) => {
 };
 
 LoadingInfoArray.propTypes = {
-  count: PropTypes.number.isRequired,
-  loadingInfoClassName: PropTypes.string.isRequired,
+  count: PropTypes.number,
+  loadingInfoClassName: PropTypes.string,
 };
 
 export default LoadingInfoArray;

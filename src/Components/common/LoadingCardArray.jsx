@@ -19,8 +19,8 @@ const LoadingCardArray = ({ count = 1, loadingCardClassName = 'ma2 mb3' }) => {
 };
 
 LoadingCardArray.propTypes = {
-  count: PropTypes.number.isRequired,
-  loadingCardClassName: PropTypes.string.isRequired,
+  count: PropTypes.number,
+  loadingCardClassName: PropTypes.string,
 };
 
 export default LoadingCardArray;

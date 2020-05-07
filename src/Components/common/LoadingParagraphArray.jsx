@@ -28,8 +28,8 @@ const LoadingParagraphArray = ({ count = 1, loadingParagraphClassname = 'ma3' })
 };
 
 LoadingParagraphArray.propTypes = {
-  count: PropTypes.number.isRequired,
-  loadingParagraphClassname: PropTypes.string.isRequired,
+  count: PropTypes.number,
+  loadingParagraphClassname: PropTypes.string,
 };
 
 export default LoadingParagraphArray;

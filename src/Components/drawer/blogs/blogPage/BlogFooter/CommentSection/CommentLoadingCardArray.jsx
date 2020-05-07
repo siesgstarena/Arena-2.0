@@ -17,7 +17,7 @@ const CommentLoadingCardArray = ({ count = 1 }) => {
 };
 
 CommentLoadingCardArray.propTypes = {
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
 };
 
 export default CommentLoadingCardArray;

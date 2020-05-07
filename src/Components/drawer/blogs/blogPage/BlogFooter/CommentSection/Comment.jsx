@@ -234,6 +234,7 @@ const Comment = ({
                 ...comments,
                 comments: comments.comments.filter(comment => comment._id !== newComment._id),
               },
+              totalNumberOfComments: comments.totalNumberOfComments - 1,
             },
           });
         }

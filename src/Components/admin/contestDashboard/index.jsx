@@ -4,14 +4,16 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import ContestDashboard from './ContestDashboard';
-import loadingData from './loadingData';
 import AdminContainer from '../AdminContainer';
+import useSentry from '../../../customHooks/useSentry';
+import ContestLoadingScreen from './ContestLoadingScreen';
 
 const ContestDashboardContainer = () => {
   const { contestId } = useParams();
   const location = useLocation();
   const { state } = location;
   const history = useHistory();
+  const { logError } = useSentry();
   const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
   // Deleting the snackbarMessage so that it is not displayed on every refresh
   if (state && state.snackbarMessage) {
@@ -19,28 +21,16 @@ const ContestDashboardContainer = () => {
     history.replace({ location, state });
   }
   const {
-    loading, error, data, refetch,
+    loading, error, data,
   } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
 
-  if (loading) {
-    const {
-      contest, stats, announcement, problems,
-    } = loadingData;
-    return (
-      <ContestDashboard
-        contest={contest}
-        stats={stats}
-        announcement={announcement}
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
-        problems={problems}
-        refetch={refetch}
-      />
-    );
+  if (loading) return <ContestLoadingScreen />;
+  if (error) {
+    logError('adminDashboard query', { ...data, ...error });
+    return <SomethingWentWrong message="An error has been encountered." />;
   }
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.adminDashboard.contest) {
     const response = data.adminDashboard;
     const { contest } = response;
@@ -53,7 +43,7 @@ const ContestDashboardContainer = () => {
       usersCount,
     };
     return (
-      <AdminContainer contestCode={contestId}>
+      <AdminContainer contestCode={contestId} loadingScreen={<ContestLoadingScreen />}>
         <ContestDashboard
           contest={contest}
           stats={stats}
@@ -61,13 +51,13 @@ const ContestDashboardContainer = () => {
           setSnackbarMessage={setSnackbarMessage}
           snackbarMessage={snackbarMessage}
           problems={problems}
-          refetch={refetch}
         />
       </AdminContainer>
     );
   }
 
   // Random errors not handled by graphql
+  logError('adminDashboard query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
 };
 

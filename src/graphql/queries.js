@@ -533,3 +533,45 @@ query BlogByUser($id: String!, $limit: Int, $skip: Int) {
   }
 }
 `;
+
+export const GET_BLOG_BY_BLOG_ID = gql`
+query BlogById($id: ID!){
+  blogById(_id:$id){
+    blog{
+      userId{
+        name
+        _id
+        ratings
+      }
+      title
+      timeToRead
+      createdAt
+      updatedAt
+      content
+      tags
+      upvote
+      downvote
+    }
+  }
+}
+`;
+
+export const GET_COMMENTS_OF_BLOG = gql`
+query Comments($id: String!, $limit: Int, $skip: Int){
+  comments(where:{postId: $id}, skip: $skip, limit: $limit ) @connection(key:"comments", filter: ["where"]) {
+    comments {
+      _id
+      userId{
+        name
+        ratings
+        _id
+      }
+      upvote
+      downvote
+      content
+      createdAt
+    }
+    totalNumberOfComments
+  }
+}
+`;

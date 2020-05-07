@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import Table from '../Table/index';
 
-const LoadingTable = ({ tableHeadings }) => {
+const LoadingTable = ({ tableHeadings, count = 50, tableHeadingClassName = 'tc' }) => {
   const tableDataArray = tableHeadings.map(
-    heading => <td key={heading}><Skeleton count={50} /></td>,
+    heading => <td key={heading}><Skeleton count={count} /></td>,
   );
   const data = (
     <tr>
@@ -13,12 +13,18 @@ const LoadingTable = ({ tableHeadings }) => {
     </tr>
   );
   return (
-    <Table tableHeadings={tableHeadings} tableData={data} tableHeadingClassName="tc" />
+    <Table
+      tableHeadings={tableHeadings}
+      tableData={data}
+      tableHeadingClassName={tableHeadingClassName}
+    />
   );
 };
 
 LoadingTable.propTypes = {
   tableHeadings: PropTypes.array.isRequired,
+  count: PropTypes.number,
+  tableHeadingClassName: PropTypes.string,
 };
 
 export default LoadingTable;

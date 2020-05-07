@@ -206,7 +206,7 @@ const Info = ({ userDetails: user }) => {
           </div>
         </Cell>
         <Cell phoneColumns={1} tabletColumns={3} desktopColumns={4} className="pt5">
-          <img className="fr ba b--mid-gray" alt="user-icon" style={{ borderRadius: '50%' }} height="80vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
+          <img className="fr ba bw1" alt="user-icon" style={{ borderRadius: '50%', borderColor: userColor(user.ratings, user._id) }} height="80vh" width="auto" src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp" />
         </Cell>
       </Row>
       <Row className="pt2">

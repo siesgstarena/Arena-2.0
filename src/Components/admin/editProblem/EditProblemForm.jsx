@@ -6,12 +6,14 @@ import PropTypes from 'prop-types';
 import ProblemDetails from '../createProblem/ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
+import useSentry from '../../../customHooks/useSentry';
 
 const EditProblemForm = ({ intialFormDetails }) => {
   const { contestId, problemId } = useParams();
   const history = useHistory();
   const [formDetails, setFormDetails] = useState(intialFormDetails);
   const [messageType, setMessageType] = useState('');
+  const { logError } = useSentry();
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const handleEditProblem = () => {
@@ -40,6 +42,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
+          return;
         }
         if (jsonResponse.data.restAPI.success === true) {
           history.push({
@@ -49,10 +52,12 @@ const EditProblemForm = ({ intialFormDetails }) => {
             },
           });
         } else {
+          logError('REST APT, editProblem', { ...jsonResponse.data });
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      }).catch((error) => {
+        logError('REST APT, editProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });

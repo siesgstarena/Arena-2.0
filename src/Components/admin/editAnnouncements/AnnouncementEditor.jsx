@@ -9,6 +9,8 @@ import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_ANNOUNCEMENT } from '../../../graphql/mutations';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
+import useSessionExpired from '../../../customHooks/useSessionExpired';
+import useSentry from '../../../customHooks/useSentry';
 
 const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const { contestId } = useParams();
@@ -17,6 +19,8 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const history = useHistory();
+  const { logError } = useSentry();
+  const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
 
   const handleAnnoucementSubmit = async () => {
     setMessageType('loading');
@@ -27,24 +31,25 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
         code: contestId, announcement,
       },
       update: (cache, { data: updatedData }) => {
-        try {
-          const { adminDashboard } = cache.readQuery({
-            query: GET_ADMIN_DASHBOARD_DETAILS,
-            variables: { code: contestId },
-          });
-          console.log(updatedData, adminDashboard);
-          adminDashboard.contest.announcement = announcement;
-          cache.writeQuery({
-            query: GET_ADMIN_DASHBOARD_DETAILS,
-            variables: { code: contestId },
-            data: {
-              adminDashboard,
-            },
-          });
-        } catch (e) {
-          console.log(e);
-          // We should always catch here,
-          // as the cache may be empty or the query may fail
+        if (updatedData.updateAnnouncement.success) {
+          try {
+            const { adminDashboard } = cache.readQuery({
+              query: GET_ADMIN_DASHBOARD_DETAILS,
+              variables: { code: contestId },
+            });
+            adminDashboard.contest.announcement = announcement;
+            cache.writeQuery({
+              query: GET_ADMIN_DASHBOARD_DETAILS,
+              variables: { code: contestId },
+              data: {
+                adminDashboard,
+              },
+            });
+          } catch (e) {
+            console.log(e);
+            // We should always catch here,
+            // as the cache may be empty or the query may fail
+          }
         }
       },
       // refetchQueries: [
@@ -55,8 +60,13 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
       // ],
     });
     if (error) {
+      logError('updateAnnoucement query', { ...data, ...error });
       setMessageType('error');
       setMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.updateAnnouncement)) {
+      redirectOnSessionExpiredAfterRender();
       return;
     }
     if (data.updateAnnouncement.success) {
@@ -67,6 +77,7 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
         },
       });
     } else {
+      logError('updateAnnoucement query', { ...data, ...error });
       setMessageType('error');
       setMessage(data.updateAnnouncement.message);
     }

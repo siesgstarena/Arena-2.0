@@ -181,3 +181,83 @@ mutation UpdateSocialLinks($github:String!, $codechef: String!, $codeforces:Stri
   }
 }
 `;
+
+export const UPDATE_PASSWORD = gql`
+mutation UpdatePassword($oldPassword: String!, $password: String!){
+  updatePassword(oldPassword: $oldPassword,password: $password){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UPVOTE_BLOG = gql`
+mutation UpvoteBlog($id: ID!){
+  upvoteBlog(postId: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const DOWNVOTE_BLOG = gql`
+mutation DownvoteBlog($id: ID!){
+  downvoteBlog(postId: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const DOWNVOTE_COMMENT = gql`
+mutation DownvoteComment($id: String!){
+  downvoteComment(_id: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UPVOTE_COMMENT = gql`
+mutation UpvoteComment($id: String!){
+  upvoteComment(_id: $id){
+    code
+    success
+    message
+  }
+}
+`;
+
+export const EDIT_COMMENT = gql`
+mutation editComment($id: String!, $content: String!) {
+  editComment(_id: $id,content: $content) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const DELETE_COMMENT = gql`
+mutation DeleteComment($id: String!) {
+  deleteComment(_id: $id) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const WRITE_COMMENT = gql`
+mutation WriteComment($id: String!, $content: String!) {
+  writeComment(postId:$id, content: $content) {
+    code
+    success
+    message
+  }
+}
+`;

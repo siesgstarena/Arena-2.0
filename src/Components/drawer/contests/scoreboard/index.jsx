@@ -5,7 +5,7 @@ import { GET_SCOREBOARD_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import Scoreboard from './Scoreboard';
-import Spinner from '../../../common/Spinner/index';
+import LoadingTable from '../../../common/LoadingTable/index';
 import EmptyData from '../../../common/EmptyData';
 
 const ScoreboardContainer = () => {
@@ -16,8 +16,9 @@ const ScoreboardContainer = () => {
   } = useQuery(GET_SCOREBOARD_BY_CONTEST_CODE, {
     variables: { code: contestId },
   });
+  const tableHeadings = ['#', 'Who', '=', 'Time'];
 
-  if (loading) return <Spinner />;
+  if (loading) return <LoadingTable tableHeadings={tableHeadings} count={30} />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.scoreboard) {
     const { scoreboard } = data.scoreboard;

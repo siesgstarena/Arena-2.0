@@ -6,7 +6,7 @@ import Button from '@material/react-button';
 import ProblemCard from './ProblemCard';
 // import problems from './problems';
 
-const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
+const ProblemsCardArray = ({ problems, setSnackbarMessage }) => {
   const history = useHistory();
   const { contestId } = useParams();
 
@@ -15,8 +15,8 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
       setSnackbarMessage={setSnackbarMessage}
       key={problem._id}
       name={problem.name}
-      id={problem.code}
-      refetch={refetch}
+      code={problem.code}
+      id={problem._id}
       points={problem.points}
     />
   ));
@@ -41,7 +41,6 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage, refetch }) => {
 ProblemsCardArray.propTypes = {
   problems: PropTypes.array.isRequired,
   setSnackbarMessage: PropTypes.func,
-  refetch: PropTypes.func,
 };
 
 export default React.memo(ProblemsCardArray);

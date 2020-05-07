@@ -3,7 +3,7 @@ import { Headline3 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ChooseTags from './ChooseTags';
-import Results from './Results';
+import Results from './Results/Results';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -26,10 +26,10 @@ const Search = () => {
         </Cell>
       </Row>
       <Row>
-        <Cell desktopColumns={4}>
+        <Cell desktopColumns={4} tabletColumns={2}>
           <ChooseTags />
         </Cell>
-        <Cell desktopColumns={8}>
+        <Cell desktopColumns={8} tabletColumns={6}>
           <Results />
         </Cell>
       </Row>

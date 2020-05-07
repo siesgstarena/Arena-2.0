@@ -184,7 +184,7 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   return (
     <div className="center ">
       {/* like dislike and share section  */}
-      <div className="flex justify-between">
+      <div className="flex justify-between mr1">
         <LikeDislike
           upvotes={upvotes}
           downvotes={downvotes}

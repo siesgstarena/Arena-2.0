@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { Headline5 } from '@material/react-typography';
 import { useLocation, useHistory } from 'react-router-dom';
 import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import AllBlogsPage from './AllBlogsPage';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
-import Spinner from '../../../common/Spinner/index';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../../common/Snackbar/index';
+import AllBlogPageLoadingScreen from './AllBlogPageLoadingScreen';
 
 const AllBlogsPageContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -28,19 +29,18 @@ const AllBlogsPageContainer = () => {
   }, [history, location, state]);
   const activePageNumber = useActivePageState();
   const {
-    loading, error, data, networkStatus,
+    loading, error, data,
   } = useQuery(GET_ALL_BLOGS, {
     variables: { limit, skip: ((activePageNumber - 1) * limit) },
-    notifyOnNetworkStatusChange: true,
   });
-  if (networkStatus === 3) return <Spinner />;
 
-  if (loading) return <Spinner />;
+  if (loading) return <AllBlogPageLoadingScreen />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.blogs) {
     const { blogs } = data.blogs;
     return (
       <div className="mw7 ma3 pa2 center">
+        <Headline5 className="purple ma0 ml1 mb4">SIESGSTarena&apos;s Blogs</Headline5>
         <AllBlogsPage
           blogs={blogs}
           setSnackbarMessage={setSnackbarMessage}

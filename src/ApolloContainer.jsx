@@ -1,5 +1,6 @@
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-boost';
@@ -20,8 +21,13 @@ const client = new ApolloClient({
   cache,
 });
 
+
 const ApolloContainer = () => (
-  <ApolloProvider client={client}><App /></ApolloProvider>
+  <ApolloProvider client={client}>
+    <ApolloHooksProvider client={client}>
+      <App />
+    </ApolloHooksProvider>
+  </ApolloProvider>
 );
 
 export default ApolloContainer;

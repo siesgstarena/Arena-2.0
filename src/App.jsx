@@ -1,18 +1,16 @@
 import React, {
-  lazy, Suspense, useReducer, useEffect,
+  lazy, Suspense,
 } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
-import authReducer from './reducers/authReducer';
+import { GET_LOGGED_IN_USER } from './graphql/queries';
+import SomethingWentWrong from './Components/common/SomethingWentWrong/index';
 import './App.scss';
 
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
@@ -73,50 +71,34 @@ const SuperuserEditContest = lazy(() => import('./Components/superuser/editConte
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 
 const App = () => {
-  const httpLink = createHttpLink({
-    uri: `${process.env.REACT_APP_SERVER_BASE_URL}/graphql`,
-    credentials: 'include',
-  });
+  const {
+    loading, error, data,
+  } = useQuery(GET_LOGGED_IN_USER);
+  // running the query to the server to check if the user is already logged in or not
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
 
-  const cache = new InMemoryCache();
-
-  const client = new ApolloClient({
-    link: httpLink,
-    cache,
-  });
-
-  let initialState = {
-    user: null,
-  };
-  if (localStorage.getItem('user')) {
-    initialState = { ...initialState, user: JSON.parse(localStorage.getItem('user')) };
-  }
-  const [authState, authDispatch] = useReducer(authReducer, initialState);
-
-  // Logging out the user on mount if the session has expired
-  useEffect(() => {
-    const now = new Date();
-    if (JSON.parse(localStorage.getItem('sessionExpiry')) < now.getTime()) {
-      authDispatch({
-        type: 'LOGOUT',
-      });
-    }
-  }, []);
-
-  // Here we add all the routes in the app.
-  // Depending upon the path, individual route will be rendered.
-  return (
-    <ErrorBoundary>
-      <ApolloProvider client={client}>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <ScrollToTop>
-            {/*
-                Here we are not using exact pnprop for components like AppBar and Footer,
-                meaning they will be rendered whenever their paths are matched with
-                some part of the URL. Hence in our case, AppBar and Footer will be rendered
-                on all the pages which has REACT_APP_BASE_ADDRESS in their URL
-            */}
-            <AuthContext.Provider value={{ authState, authDispatch }}>
+  if (data.getLoggedInUser) {
+    // Updating the authState with details of the loggedInUser provided by the server
+    const authState = {
+      user: {
+        ...data.getLoggedInUser,
+      },
+    };
+    // We have wrapped the entire App under the query and hence whenever the loggedInUser wil change
+    // the entire app will re render
+    return (
+      // using context to pass the authState across the entire component tree
+      <AuthContext.Provider value={{ authState }}>
+        <ErrorBoundary>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <ScrollToTop>
+              {/*
+                  Here we are not using exact pnprop for components like AppBar and Footer,
+                  meaning they will be rendered whenever their paths are matched with
+                  some part of the URL. Hence in our case, AppBar and Footer will be rendered
+                  on all the pages which has REACT_APP_BASE_ADDRESS in their URL
+              */}
               <Route path="/" render={() => <AppBar />} />
               <Suspense fallback={<Spinner />}>
                 <Switch>
@@ -187,12 +169,15 @@ const App = () => {
                 </Switch>
               </Suspense>
               <Route path="/" render={() => <Footer />} />
-            </AuthContext.Provider>
-          </ScrollToTop>
-        </BrowserRouter>
-      </ApolloProvider>
-    </ErrorBoundary>
-  );
+            </ScrollToTop>
+          </BrowserRouter>
+        </ErrorBoundary>
+      </AuthContext.Provider>
+    );
+  }
+
+  // Random errors
+  return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
 export default App;

@@ -575,3 +575,13 @@ query Comments($id: String!, $limit: Int, $skip: Int){
   }
 }
 `;
+
+export const GET_LOGGED_IN_USER = gql`
+query GetLoggedInUser {
+  getLoggedInUser {
+    name
+    userId
+    email
+  }
+}
+`;

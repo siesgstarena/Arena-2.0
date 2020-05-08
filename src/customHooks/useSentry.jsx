@@ -7,7 +7,7 @@ const useSentryErrorLogging = () => {
   const logError = (errorName, additionalDetailsObject) => {
     // addtionalDetailsObject should not contain any nested key value pair.
     Sentry.setContext('Additional Details', additionalDetailsObject);
-    if (authState.user) {
+    if (authState.user.name) {
       Sentry.setUser({
         email: authState.user.email,
         id: authState.user.userId,

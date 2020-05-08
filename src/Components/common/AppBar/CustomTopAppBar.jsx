@@ -13,9 +13,11 @@ import { Body1 } from '@material/react-typography';
 import MaterialIcon from '@material/react-material-icon';
 import AuthContext from '../../../Contexts/AuthContext';
 import UserMenu from './UserMenu';
+import CustomSnackbar from '../Snackbar';
 
 const CustomTopAppBar = ({ setDrawerOpen }) => {
   const [width, setWidth] = useState(window.innerWidth);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const mobileDevice = width < 480;
   useEffect(() => {
     const updateWidthOnResize = () => { setWidth(window.innerWidth); };
@@ -56,7 +58,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
               more responsive
             */}
             {
-              !mobileDevice && !authState.user
+              !mobileDevice && !authState.user.name
                 ? (
                   <div>
                     <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
@@ -79,7 +81,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 ) : null
             }
             {
-              !mobileDevice && authState.user
+              !mobileDevice && authState.user.name
                 ? (
                   <Body1 className="flex items-center">
                     <Link to={`/profile/${authState.user.userId}`} style={{ textDecoration: 'none', color: 'black' }}>
@@ -87,6 +89,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                     </Link>
                     <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     <UserMenu
+                      setSnackbarMessage={setSnackbarMessage}
                       setIsUserMenuOpen={setIsUserMenuOpen}
                       isUserMenuOpen={isUserMenuOpen}
                       coordinatesOfUserMenu={coordinatesOfUserMenu}
@@ -96,11 +99,12 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 : null
             }
             {
-              mobileDevice && authState.user
+              mobileDevice && authState.user.name
                 ? (
                   <div>
                     <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
                     <UserMenu
+                      setSnackbarMessage={setSnackbarMessage}
                       setIsUserMenuOpen={setIsUserMenuOpen}
                       isUserMenuOpen={isUserMenuOpen}
                       coordinatesOfUserMenu={coordinatesOfUserMenu}
@@ -110,7 +114,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
                 : null
             }
             {
-              mobileDevice && !authState.user
+              mobileDevice && !authState.user.name
                 ? (
                   <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
                     <Button
@@ -127,6 +131,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
         </TopAppBarRow>
       </TopAppBar>
       <TopAppBarFixedAdjust />
+      <CustomSnackbar snackbarMessage={snackbarMessage} setSnackbarMessage={setSnackbarMessage} />
     </div>
   );
 };

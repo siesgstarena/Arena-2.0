@@ -25,6 +25,7 @@ const ProfileContainer = () => {
     const userDetails = data.profilePage.user;
     const ratingChanges = data.profilePage.changes;
     const { contests } = data.profilePage;
+
     return (
       <div className="mw7 pa2 center pt0">
         <Info userDetails={userDetails} />

@@ -1,5 +1,5 @@
 import React, {
-  useState, useContext, useEffect, useCallback,
+  useState, useEffect, useCallback,
 } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
@@ -10,35 +10,24 @@ import Button from '@material/react-button';
 import { GET_USER_DETAILS_ON_LOGIN } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import 'tachyons';
-import AuthContext from '../../../Contexts/AuthContext';
 import PasswordField from '../../common/PasswordField/index';
 import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
+import useLoggedInUser from '../../../customHooks/useLoggedInUser';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const { authDispatch } = useContext(AuthContext);
+  const { addUserToCache } = useLoggedInUser();
   const history = useHistory();
   const location = useLocation();
   // const isMountedRef = useRef(true);
   const { state } = location;
+  const client = useApolloClient();
   // useRedirectLoggenInUser is used to redirect the user to
   // profile page if they are already signed in.
   useRedirectLoggedInUser();
-
-  useEffect(() => {
-    // This effect is used to LOGOUT the user if the session of the user is expired
-    if (state && state.isSessionExpired) {
-      authDispatch({
-        type: 'LOGOUT',
-      });
-      delete state.isSessionExpired;
-      history.replace({ location, state });
-    }
-  }, [state, history, authDispatch, location]);
-
   useEffect(() => {
   // Here set the messageType and message of the message component on mount
   // We set these variables using the state which is passed using history.push of react router
@@ -50,53 +39,61 @@ const SignIn = () => {
       delete state.messageType;
       history.replace({ location, state });
     }
-  }, [state, history, location]);
-
-
-  const client = useApolloClient();
+    if (state && state.isSessionExpired) {
+      // resetting the cache since user session has expired
+      client.resetStore();
+      delete state.isSessionExpired;
+      history.replace({ location, state });
+    }
+    if (state && state.logout) {
+      // resetting the cache since user has tried to logout
+      client.resetStore();
+      delete state.logout;
+      history.replace({ location, state });
+    }
+  }, [state, history, location, client]);
 
   const handleSignIn = useCallback(async () => {
-    // getDog();
     setMessageType('loading');
     setMessage('Logging In, Please Wait');
     const { data, error } = await client.query({
       query: GET_USER_DETAILS_ON_LOGIN,
       variables: { email, password },
-      // errorPolicy: 'none',
-      // onError: ({ networkError, graphqlError }) => {
-      //   console.log(networkError, graphqlError);
-      //   setMessageType('error');
-      //   setMessage('Database error encountered');
-      // },
+      // fetch policy is set to network only so that everytime it hits the server
+      fetchPolicy: 'network-only',
     });
     if (error) {
-      // console.log(error.graphQLErrors);
       setMessageType('error');
       setMessage('Database error encountered');
       return;
     }
     if (data.login.userId) {
-      // console.log(data);
-      // console.log(data.error);
-      authDispatch({
-        type: 'LOGIN',
-        payload: {
-          user: data.login,
-        },
+      // Resetting the cache so that now user gets updated data
+      client.resetStore();
+      // Adding this user to the cache and thereby updating other component which
+      // depend on it
+      addUserToCache({
+        userId: data.login.userId,
+        name: data.login.name,
+        email: data.login.email,
       });
+      // state.from exists then redirecting the user to that location
       if (state && state.from) {
         const previousPathname = state.from.pathname;
+        history.push({
+          pathname: previousPathname,
+        });
         delete state.from;
         history.replace({ location, state });
-        history.push(previousPathname);
         return;
       }
+      // else redirect the user to the profile page
       history.push(`/profile/${data.login.userId}`);
     } else {
       setMessageType('error');
       setMessage('Invalid Credentials');
     }
-  }, [email, password, authDispatch, client, history, location, state]);
+  }, [email, password, addUserToCache, client, history, location, state]);
 
   const handleKeyDown = useCallback((e) => {
     // checking for enter key

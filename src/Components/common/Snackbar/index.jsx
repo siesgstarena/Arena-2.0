@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Snackbar } from '@material/react-snackbar';
 
 const CustomSnackbar = ({ snackbarMessage, setSnackbarMessage }) => (
-  <div>
+  <>
     {
       // timeoutMS is the time in milliseconds after which the snackbar is automatically closed
       snackbarMessage
         ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
         : null
     }
-  </div>
+  </>
 );
 
 CustomSnackbar.propTypes = {

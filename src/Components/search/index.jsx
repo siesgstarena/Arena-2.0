@@ -51,10 +51,10 @@ const Search = () => {
         </Cell>
       </Row>
       <Row>
-        <Cell desktopColumns={4} tabletColumns={2}>
+        <Cell desktopColumns={4} tabletColumns={8}>
           <ChooseTags />
         </Cell>
-        <Cell desktopColumns={8} tabletColumns={6}>
+        <Cell desktopColumns={8} tabletColumns={8}>
           <ResultsContainer />
         </Cell>
       </Row>

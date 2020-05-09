@@ -603,7 +603,6 @@ query GetSearchResults($text: String!) {
       _id
       tags
       createdAt
-      timeToRead
       userId {
         name
         _id
@@ -615,7 +614,6 @@ query GetSearchResults($text: String!) {
       code
       contestCode
       tags
-      createdAt
       points
     }
   }

@@ -15,7 +15,7 @@ const tagsArray = tags => (tags.map(tag => (
 
 const PostResults = ({ postArray }) => (
   <div className="mt3">
-    <Headline6 className="bb b--purple " style={{ margin: '0em' }}>Posts</Headline6>
+    <Headline6 className="bb b--purple purple" style={{ margin: '0em' }}>Posts</Headline6>
     {postArray.map(
       (post) => {
         const {

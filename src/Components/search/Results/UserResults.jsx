@@ -6,7 +6,7 @@ import { userColor, getYear, getMonth } from '../../../commonFunctions';
 
 const UserResults = ({ userArray }) => (
   <div className="">
-    <Headline6 className="bb b--purple" style={{ margin: '0em' }}>Users</Headline6>
+    <Headline6 className="bb b--purple purple" style={{ margin: '0em' }}>Users</Headline6>
     {userArray.map(
       (user) => {
         const {

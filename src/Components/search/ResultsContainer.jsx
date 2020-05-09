@@ -34,11 +34,12 @@ const ResultsContainer = () => {
     return (
       <div className="">
         {
-          users.length !== 0 || blogs.length !== 0 || problems.length !== 0
+          (users && users.length !== 0) || (blogs && blogs.length !== 0)
+          || (problems && problems.length !== 0)
             ? (
               <Results users={users} blogs={blogs} problems={problems} />
             )
-            : <EmptyData message="No Results found" imageUrl="https://res.cloudinary.com/ashokc/image/upload/f_auto,q_auto/v1589000427/arena/assets/undraw_web_search_eetr_ja4d57.svg" />
+            : <EmptyData message="No Results found. You can search for users, blogs or problems" imageUrl="https://res.cloudinary.com/ashokc/image/upload/f_auto,q_auto/v1589000427/arena/assets/undraw_web_search_eetr_ja4d57.svg" />
         }
 
       </div>

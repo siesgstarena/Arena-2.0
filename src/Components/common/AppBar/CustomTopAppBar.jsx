@@ -57,6 +57,9 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
               only singin button on mobile devices. This was done to make the site a bit
               more responsive
             */}
+            <Link to="/search?q=" className="no-underline mr2">
+              <MaterialIcon icon="search" className="noselect" style={{ color: '#6200EE' }} />
+            </Link>
             {
               !mobileDevice && !authState.user.name
                 ? (

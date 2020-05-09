@@ -585,3 +585,39 @@ query GetLoggedInUser {
   }
 }
 `;
+
+export const GET_SEARCH_RESULTS = gql`
+query GetSearchResults($text: String!) {
+  search(text:$text) {
+    users{
+      name
+      about
+      _id
+      ratings
+      followers
+      following
+      createdAt
+    }
+    blogs{
+      title
+      _id
+      tags
+      createdAt
+      timeToRead
+      userId {
+        name
+        _id
+        ratings
+      }
+    }
+    problems{
+      name
+      code
+      contestCode
+      tags
+      createdAt
+      points
+    }
+  }
+}
+`;

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import * as Sentry from '@sentry/browser';
 import AuthContext from '../Contexts/AuthContext';
 
-const useSentryErrorLogging = () => {
+const useSentry = () => {
   const { authState } = useContext(AuthContext);
   const logError = (errorName, additionalDetailsObject) => {
     // addtionalDetailsObject should not contain any nested key value pair.
@@ -25,4 +25,4 @@ const useSentryErrorLogging = () => {
   return { logError };
 };
 
-export default useSentryErrorLogging;
+export default useSentry;

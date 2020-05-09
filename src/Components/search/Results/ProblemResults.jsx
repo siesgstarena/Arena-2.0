@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Headline6 } from '@material/react-typography';
 import Pill from '../../common/Pill';
+import {
+  getMonth, getYear,
+} from '../../../commonFunctions';
 
 const tagsArray = tags => (tags.map(tag => (
   <Link key={tag} to={`/search?q=${tag}`} className="pointer dim mr2">
@@ -14,10 +17,11 @@ const ProblemResults = ({ problemArray }) => (
   <div className="mt3">
     <Headline6 className="bb b--purple" style={{ margin: '0em' }}>Problems</Headline6>
     {problemArray.map(
-      (obj) => {
+      (problem) => {
         const {
-          problemCode, problemName, contestCode, problemTags, problemPosted, points,
-        } = obj;
+          code: problemCode, name: problemName, contestCode, tags: problemTags,
+          createdAt: problemPosted, points,
+        } = problem;
         return (
           <div key={problemCode} className="mt3 flex flex-column ba b--transparent shadow-3 pa3 br3">
             <span className="">
@@ -40,7 +44,7 @@ const ProblemResults = ({ problemArray }) => (
               {tagsArray(problemTags)}
             </div>
             <div className="flex mt2 justify-between items-center">
-              <span>{problemPosted}</span>
+              <span>{`${getMonth(problemPosted)} ${getYear(problemPosted)}`}</span>
               <span>
                 <b>{points}</b>
                 {' '}

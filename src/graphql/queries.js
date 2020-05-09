@@ -575,3 +575,48 @@ query Comments($id: String!, $limit: Int, $skip: Int){
   }
 }
 `;
+
+export const GET_LOGGED_IN_USER = gql`
+query GetLoggedInUser {
+  getLoggedInUser {
+    name
+    userId
+    email
+  }
+}
+`;
+
+export const GET_SEARCH_RESULTS = gql`
+query GetSearchResults($text: String!) {
+  search(text:$text) {
+    users{
+      name
+      about
+      _id
+      ratings
+      followers
+      following
+      createdAt
+    }
+    blogs{
+      title
+      _id
+      tags
+      timeToRead
+      createdAt
+      userId {
+        name
+        _id
+        ratings
+      }
+    }
+    problems{
+      name
+      code
+      contestCode
+      tags
+      points
+    }
+  }
+}
+`;

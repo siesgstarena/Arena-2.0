@@ -30,6 +30,12 @@ const Comment = ({
   const [editedComment, setEditedComment] = useState(commentValue);
   const [upvote, setUpvote] = useState(authState.user
     && newComment.upvote.includes(authState.user.userId));
+  // Added separate states for disabling because we wanted to disable the button,
+  // the moment user clicks.We can't wait for the response to come back from server and then disable
+  const [disableUpvote, setDisableUpvote] = useState(authState.user
+    && newComment.upvote.includes(authState.user.userId));
+  const [disableDownvote, setDisableDownvote] = useState(authState.user
+      && newComment.downvote.includes(authState.user.userId));
   const [downvote, setDownvote] = useState(authState.user
     && newComment.downvote.includes(authState.user.userId));
   const client = useApolloClient();
@@ -43,6 +49,7 @@ const Comment = ({
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
   const handleUpvote = async () => {
+    setDisableUpvote(true);
     const { data, error } = await client.mutate({
       mutation: UPVOTE_COMMENT,
       variables: {
@@ -79,6 +86,7 @@ const Comment = ({
       },
     });
     if (error) {
+      setDisableUpvote(false);
       setUpvote(false);
       setDownvote(true);
       return;
@@ -89,9 +97,12 @@ const Comment = ({
     }
     if (data.upvoteComment.success || data.upvoteComment.message === 'You have already upvoted for this comment') {
       setUpvote(true);
+      setDisableUpvote(true);
       setDownvote(false);
+      setDisableDownvote(false);
     } else {
       setUpvote(false);
+      setDisableUpvote(false);
       setDownvote(true);
     }
   };
@@ -136,6 +147,7 @@ const Comment = ({
     if (error) {
       setUpvote(true);
       setDownvote(false);
+      setDisableDownvote(false);
       return;
     }
     if (isSessionExpired(data.downvoteComment)) {
@@ -145,9 +157,12 @@ const Comment = ({
     if (data.downvoteComment.success || data.downvoteComment.message === 'You have already downvoted for this comment') {
       setUpvote(false);
       setDownvote(true);
+      setDisableDownvote(true);
+      setDisableUpvote(false);
     } else {
       setUpvote(true);
       setDownvote(false);
+      setDisableDownvote(false);
     }
   };
   const handleUpdate = async () => {
@@ -312,6 +327,8 @@ const Comment = ({
                   isDownvote={downvote}
                   onUpvote={handleUpvote}
                   onDownvote={handleDownvote}
+                  disableDownvote={disableDownvote}
+                  disableUpvote={disableUpvote}
                 />
                 {
                   authState.user && authState.user.userId === userId

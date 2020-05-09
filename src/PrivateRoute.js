@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, data, ...rest }) => {
       {...rest}
       render={props => (
         // Check if the user exists
-        authState.user ? (
+        authState.user.name ? (
           <Component {...props} {...data} />
         ) : (
           <Redirect to={{ pathname: '/auth/signin', state: { message: 'You are not logged in. Please login to continue.', messageType: 'error', from: location } }} />

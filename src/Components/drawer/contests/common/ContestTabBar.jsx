@@ -29,12 +29,12 @@ const ContestTabBar = () => {
       setActiveIndex(2);
     } else if (currentPathname === `/${url}/change`) {
       setActiveIndex(3);
-    } else if (currentPathname === `/${url}/my` && authState.user) {
+    } else if (currentPathname === `/${url}/my` && authState.user.name) {
       setActiveIndex(4);
-    } else if (currentPathname === `/${url}/submit` && authState.user) {
+    } else if (currentPathname === `/${url}/submit` && authState.user.name) {
       setActiveIndex(5);
     }
-  }, [currentPathname, url, authState.user]);
+  }, [currentPathname, url, authState.user.name]);
 
   const onTabClick = (path) => {
     history.push(path);
@@ -67,7 +67,7 @@ const ContestTabBar = () => {
         // the TabBar don't recognise any component other than the Tab component.
         // Hence when I am keeing two divs together, I had to enclose them in div/span/<>
         // which were creating issues with TabBar
-        authState.user ? (
+        authState.user.name ? (
           <Tab onClick={() => onTabClick(`/${url}/my`)}>
             <span className="mdc-tab__text-label">My Submissions</span>
           </Tab>
@@ -75,7 +75,7 @@ const ContestTabBar = () => {
           : <></>
       }
       {
-        authState.user ? (
+        authState.user.name ? (
           <Tab onClick={() => onTabClick(`/${url}/submit`)}>
             <span className="mdc-tab__text-label">Submit</span>
           </Tab>

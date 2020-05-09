@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
@@ -16,10 +16,12 @@ const ContestDashboardContainer = () => {
   const { logError } = useSentry();
   const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
   // Deleting the snackbarMessage so that it is not displayed on every refresh
-  if (state && state.snackbarMessage) {
-    delete state.snackbarMessage;
-    history.replace({ location, state });
-  }
+  useEffect(() => {
+    if (state && state.snackbarMessage) {
+      delete state.snackbarMessage;
+      history.replace({ location, state });
+    }
+  }, [history, location, state]);
   const {
     loading, error, data,
   } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {

@@ -261,3 +261,13 @@ mutation WriteComment($id: String!, $content: String!) {
   }
 }
 `;
+
+export const LOGOUT = gql`
+mutation Logout($id: ID!){
+  logout(userId: $id) {
+    success
+    message
+    code
+  }
+}
+`;

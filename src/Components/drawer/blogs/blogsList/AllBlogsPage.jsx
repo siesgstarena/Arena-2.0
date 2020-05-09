@@ -1,5 +1,4 @@
 import React from 'react';
-import { Headline5 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import BlogCard from '../BlogCard/BlogCard';
 
@@ -21,7 +20,6 @@ const AllBlogsPage = ({ blogs, setSnackbarMessage }) => {
   ));
   return (
     <div>
-      <Headline5 className="purple ma0 ml1 mb4">SIESGSTarena&apos;s Blogs</Headline5>
       {BlogsArray}
     </div>
   );

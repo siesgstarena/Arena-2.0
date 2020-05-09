@@ -602,6 +602,7 @@ query GetSearchResults($text: String!) {
       title
       _id
       tags
+      timeToRead
       createdAt
       userId {
         name

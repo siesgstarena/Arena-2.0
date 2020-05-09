@@ -11,10 +11,12 @@ import useActivePageState from '../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../common/Snackbar/index';
 import NoBlogs from '../myBlogs/NoBlogs';
 import AuthContext from '../../../Contexts/AuthContext';
+import useSentry from '../../../customHooks/useSentry';
 
 const PostsContainer = ({ user }) => {
   const limit = 3;
   const activePageNumber = useActivePageState();
+  const { logError } = useSentry();
   const { authState } = useContext(AuthContext);
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -24,7 +26,10 @@ const PostsContainer = ({ user }) => {
     variables: { limit, skip: ((activePageNumber - 1) * limit), id: user._id },
   });
   if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    logError('search query', { ...data, ...error });
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.blogByUser) {
     const { blogs } = data.blogByUser;
     return (
@@ -73,6 +78,7 @@ const PostsContainer = ({ user }) => {
     return redirectOnSessionExpiredBeforeRender();
   }
   // Random errors
+  logError('search query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

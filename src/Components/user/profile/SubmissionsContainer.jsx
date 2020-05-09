@@ -25,15 +25,19 @@ const SubmissionsContainer = () => {
     const { pages } = data.submissionsByUserId;
     const { submissions } = data.submissionsByUserId;
     return (
-      <div>
-        <Submissions submissionPages={pages} submissions={submissions} />
-        <div className="pt3">
-          <PageCountDisplayer
-            pageCount={data.submissionsByUserId.pages}
-            activePageNumber={activePageNumber}
-          />
-        </div>
-      </div>
+      submissions.length !== 0
+        ? (
+          <div>
+            <Submissions submissionPages={pages} submissions={submissions} />
+            <div className="pt3">
+              <PageCountDisplayer
+                pageCount={data.submissionsByUserId.pages}
+                activePageNumber={activePageNumber}
+              />
+            </div>
+          </div>
+        )
+        : null
     );
   }
   if (isSessionExpired(data.submissionsByUserId)) {

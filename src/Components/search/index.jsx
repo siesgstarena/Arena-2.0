@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Headline3 } from '@material/react-typography';
+import { Headline3, Body2 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import ChooseTags from './ChooseTags';
@@ -33,7 +33,8 @@ const Search = () => {
     <Grid className="mw8 center pa3">
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <Headline3 className="purple">Search</Headline3>
+          <Headline3 className="purple mt0 mb0">Search</Headline3>
+          <Body2 className="mt1 mid-gray mb4">You can search for any user, blog or problem</Body2>
           <TextField
             label="Search SIESGSTarena"
             className="mb4 w-100"

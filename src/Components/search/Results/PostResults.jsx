@@ -44,7 +44,7 @@ const PostResults = ({ postArray }) => (
               </Link>
               <div className="flex mt2 justify-between">
                 <span>{`${getDate(postDate)} ${getMonth(postDate)}, ${getYear(postDate)}` }</span>
-                <span>{`${timeToRead} read`}</span>
+                <span>{`${timeToRead} min read`}</span>
               </div>
             </div>
           </div>

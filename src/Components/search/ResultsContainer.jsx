@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import LoadingCardArray from '../common/LoadingCardArray';
-import Results from './results/Results';
+import Results from './resultFiles/Results';
 import { GET_SEARCH_RESULTS } from '../../graphql/queries';
 import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import useSessionExpired from '../../customHooks/useSessionExpired';

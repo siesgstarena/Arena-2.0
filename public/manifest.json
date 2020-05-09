@@ -1,15 +1,31 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SIESGSTarena",
+  "name": "SIESGSTarena",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://res.cloudinary.com/ashokc/image/upload/v1588856429/arena/assets/arena_wbydxw.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
-    }
+    },
+    {
+      "src": "https://res.cloudinary.com/ashokc/image/upload/v1588856429/arena/assets/arena_wbydxw.png",
+      "sizes": "92x92",
+      "type": "image/png"
+    },
+    {
+        "src": "https://res.cloudinary.com/ashokc/image/upload/v1588856429/arena/assets/arena_wbydxw.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    },
+    {
+        "src": "https://res.cloudinary.com/ashokc/image/upload/v1588856429/arena/assets/arena_wbydxw.png",
+        "sizes": "152x152",
+        "type": "image/png"
+    }     
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

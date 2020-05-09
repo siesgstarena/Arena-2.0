@@ -2,14 +2,14 @@ import React, {
   lazy, Suspense,
 } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from 'react-apollo';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
-import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
 import { GET_LOGGED_IN_USER } from './graphql/queries';
+import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import SomethingWentWrong from './Components/common/SomethingWentWrong/index';
 import './App.scss';
 
@@ -88,9 +88,8 @@ const App = () => {
     // We have wrapped the entire App under the query and hence whenever the loggedInUser wil change
     // the entire app will re render
     return (
-      // using context to pass the authState across the entire component tree
       <AuthContext.Provider value={{ authState }}>
-        <ErrorBoundary>
+        <ErrorBoundary getLoggedInUser={data.getLoggedInUser}>
           <BrowserRouter basename={process.env.PUBLIC_URL}>
             <ScrollToTop>
               {/*

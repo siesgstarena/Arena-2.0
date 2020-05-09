@@ -15,6 +15,20 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
+    const { getLoggedInUser } = this.props;
+    if (getLoggedInUser.name) {
+      Sentry.setUser({
+        email: getLoggedInUser.email,
+        id: getLoggedInUser.userId,
+        username: getLoggedInUser.name,
+      });
+    } else {
+      Sentry.setUser({
+        email: 'Not logged in',
+        id: 'Not logged in',
+        username: 'Not logged in',
+      });
+    }
     Sentry.withScope((scope) => {
       scope.setExtras(errorInfo);
       Sentry.captureException(error);
@@ -35,6 +49,7 @@ class ErrorBoundary extends Component {
 
 ErrorBoundary.propTypes = {
   children: PropTypes.any.isRequired,
+  getLoggedInUser: PropTypes.object.isRequired,
 };
 
 export default ErrorBoundary;

@@ -1,13 +1,19 @@
 import React from 'react';
-import { Headline4, Body1 } from '@material/react-typography';
-import PlagiarismTable from './PlagiarismTable';
+import { useParams } from 'react-router-dom';
+import AdminContainer from '../AdminContainer';
+import Plagiarism from './Plagiarism';
 
-const Plagiarism = () => (
-  <div className="mw7 center">
-    <Headline4 className="purple mb0">Plagiarism Status</Headline4>
-    <Body1 className="mid-gray mt2">See who is cheating in the contest</Body1>
-    <PlagiarismTable />
-  </div>
-);
+const PlagiarismPage = () => {
+  const { contestId } = useParams();
+  // AdminContainer will check whether the user is admin or not and
+  // if the user is admin only then the user will be allowed to see the
+  // component
+  return (
+    <AdminContainer
+      component={<Plagiarism />}
+      contestCode={contestId}
+    />
+  );
+};
 
-export default Plagiarism;
+export default PlagiarismPage;

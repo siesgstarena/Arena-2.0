@@ -20,7 +20,9 @@ const ProfileContainer = () => {
     },
   });
   if (loading) return <ProfileLoadingSkeleton />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (error) {
+    return <SomethingWentWrong message="An error has been encountered." />;
+  }
   if (data.profilePage) {
     const userDetails = data.profilePage.user;
     const ratingChanges = data.profilePage.changes;

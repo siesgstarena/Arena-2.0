@@ -39,19 +39,13 @@ const SignIn = () => {
       delete state.messageType;
       history.replace({ location, state });
     }
-    if (state && state.isSessionExpired) {
-      // resetting the cache since user session has expired
-      client.resetStore();
-      delete state.isSessionExpired;
-      history.replace({ location, state });
-    }
-    if (state && state.logout) {
-      // resetting the cache since user has tried to logout
-      client.resetStore();
-      delete state.logout;
-      history.replace({ location, state });
-    }
-  }, [state, history, location, client]);
+    // if (state && state.isSessionExpired) {
+    //   // resetting the cache since user session has expired
+    //   client.cache.reset();
+    //   delete state.isSessionExpired;
+    //   history.replace({ location, state });
+    // }
+  }, [state, history, location]);
 
   const handleSignIn = useCallback(async () => {
     setMessageType('loading');
@@ -69,7 +63,7 @@ const SignIn = () => {
     }
     if (data.login.userId) {
       // Resetting the cache so that now user gets updated data
-      client.resetStore();
+      client.cache.reset();
       // Adding this user to the cache and thereby updating other component which
       // depend on it
       addUserToCache({

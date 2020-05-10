@@ -12,6 +12,7 @@ import MessageCard from '../../common/MessageCard/index';
 import PasswordField from '../../common/PasswordField/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import { UPDATE_PASSWORD } from '../../../graphql/mutations';
+import useClearCache from '../../../customHooks/useClearCache';
 
 const PasswordChange = ({ isOpen, setOpen }) => {
   const [oldPassword, setOldPassword] = useState('');
@@ -20,6 +21,7 @@ const PasswordChange = ({ isOpen, setOpen }) => {
   const [messageType, setMessageType] = useState('');
   const history = useHistory();
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
+  const { clearEntireCache } = useClearCache();
 
   const client = useApolloClient();
   const handlePasswordChange = async () => {
@@ -42,6 +44,7 @@ const PasswordChange = ({ isOpen, setOpen }) => {
       return;
     }
     if (data.updatePassword.success) {
+      clearEntireCache();
       history.push({
         pathname: '/auth/signin',
         state: {

@@ -1,34 +1,14 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { useParams } from 'react-router-dom';
-import { GET_NEW_RATINGS } from '../../../graphql/queries';
-import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import Spinner from '../../common/Spinner/index';
-import UpdateRatings from './UpdateRatings';
 import SuperuserContainer from '../SuperuserContainer';
+import UpdateRatingsContainer from './UpdateRatingsContainer';
 
+// SuperuserContainer will check whether the user is superuser or not and
+// if the user is admin only then the user will be allowed to see the
+// component
+const UpdateRatingsPage = () => (
+  <SuperuserContainer
+    component={<UpdateRatingsContainer />}
+  />
+);
 
-const UpdateRatingsContainer = () => {
-  const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_NEW_RATINGS, {
-    variables: { code: contestId },
-  });
-
-  if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data.calculateNewRatings) {
-    const ratingsData = data.calculateNewRatings;
-    return (
-      <SuperuserContainer>
-        <UpdateRatings ratingsData={ratingsData} />
-      </SuperuserContainer>
-    );
-  }
-
-  // case for random errors which are not handled by graphql
-  return <SomethingWentWrong message="An unexpected error has been encountered" />;
-};
-
-export default UpdateRatingsContainer;
+export default UpdateRatingsPage;

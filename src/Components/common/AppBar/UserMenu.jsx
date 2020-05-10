@@ -5,11 +5,13 @@ import PropTypes from 'prop-types';
 import { useApolloClient } from '@apollo/react-hooks';
 import AuthContext from '../../../Contexts/AuthContext';
 import { LOGOUT } from '../../../graphql/mutations';
+import useClearCache from '../../../customHooks/useClearCache';
 
 const UserMenu = ({
   setIsUserMenuOpen, isUserMenuOpen, coordinatesOfUserMenu, setSnackbarMessage,
 }) => {
   const { authState } = useContext(AuthContext);
+  const { clearEntireCache } = useClearCache();
 
   const client = useApolloClient();
   const history = useHistory();
@@ -45,12 +47,12 @@ const UserMenu = ({
     }
     if (data.logout.success) {
       setSnackbarMessage('');
+      clearEntireCache();
       history.push({
         pathname: '/auth/signin',
         state: {
           message: 'Successfully logged out',
           messageType: 'success',
-          logout: true,
         },
       });
     } else {

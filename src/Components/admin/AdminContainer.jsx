@@ -7,7 +7,7 @@ import useSessionExpired from '../../customHooks/useSessionExpired';
 import Spinner from '../common/Spinner/index';
 import useSentry from '../../customHooks/useSentry';
 
-const AdminContainer = ({ children, contestCode, loadingScreen = null }) => {
+const AdminContainer = ({ contestCode, loadingScreen = <Spinner />, component }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { logError } = useSentry();
   const {
@@ -17,17 +17,15 @@ const AdminContainer = ({ children, contestCode, loadingScreen = null }) => {
   });
 
   if (loading) {
-    if (loadingScreen) {
-      return loadingScreen;
-    }
-    return <Spinner />;
+    return loadingScreen;
   }
   if (error) {
     logError('isAdmin query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data.isAdmin.isAdmin) {
-    return children;
+    // If the user is admin run the component
+    return component;
   }
   if (data.isAdmin.message.toLowerCase() === 'you are not superuser or admin') {
     return <SomethingWentWrong message="You are not a superuser or admin" />;
@@ -37,14 +35,13 @@ const AdminContainer = ({ children, contestCode, loadingScreen = null }) => {
     // we use redirectOnSessionExpiredBeforeRender function
     return redirectOnSessionExpiredBeforeRender();
   }
-  if (loadingScreen) {
-    return loadingScreen;
-  }
-  return <Spinner />;
+
+  // random error not handled by graphql
+  return <SomethingWentWrong message="An error has been encountered." />;
 };
 
 AdminContainer.propTypes = {
-  children: PropTypes.object.isRequired,
+  component: PropTypes.object.isRequired,
   contestCode: PropTypes.string.isRequired,
   loadingScreen: PropTypes.object,
 };

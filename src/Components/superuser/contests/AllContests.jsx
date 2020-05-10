@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestCardsArray from './ContestCardsArray';
 
-const AllContestsPage = ({ contests, setSnackbarMessage }) => {
+const AllContests = ({ contests, setSnackbarMessage }) => {
   const history = useHistory();
   return (
     <div>
@@ -19,9 +19,9 @@ const AllContestsPage = ({ contests, setSnackbarMessage }) => {
   );
 };
 
-AllContestsPage.propTypes = {
+AllContests.propTypes = {
   contests: PropTypes.array.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 
-export default AllContestsPage;
+export default AllContests;

@@ -27,7 +27,7 @@ const PostsContainer = ({ user }) => {
   });
   if (loading) return <Spinner />;
   if (error) {
-    logError('search query', { ...data, ...error });
+    logError('blogByUser query', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
   if (data.blogByUser) {
@@ -78,7 +78,7 @@ const PostsContainer = ({ user }) => {
     return redirectOnSessionExpiredBeforeRender();
   }
   // Random errors
-  logError('search query', { ...data, ...error });
+  logError('blogByUser query', { ...data, ...error });
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 

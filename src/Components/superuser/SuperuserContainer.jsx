@@ -6,16 +6,16 @@ import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import useSessionExpired from '../../customHooks/useSessionExpired';
 import Spinner from '../common/Spinner/index';
 
-const SuperuserContainer = ({ children }) => {
+const SuperuserContainer = ({ component, loadingScreen = <Spinner /> }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data,
   } = useQuery(IS_SUPERUSER);
 
-  if (loading) return <Spinner />;
+  if (loading) return loadingScreen;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.isSuperuser.isSuperuser) {
-    return children;
+    return component;
   }
   if (data.isSuperuser.message.toLowerCase() === 'you are not superuser or admin') {
     return <SomethingWentWrong message="You are not a superuser" />;
@@ -26,11 +26,13 @@ const SuperuserContainer = ({ children }) => {
     return redirectOnSessionExpiredBeforeRender();
   }
 
-  return <Spinner />;
+  // random error not handled by graphql
+  return <SomethingWentWrong message="An error has been encountered." />;
 };
 
 SuperuserContainer.propTypes = {
-  children: PropTypes.object.isRequired,
+  component: PropTypes.object.isRequired,
+  loadingScreen: PropTypes.object,
 };
 
 export default SuperuserContainer;

@@ -6,7 +6,7 @@ const Spinner = () => (
     <div className="spinner-overlay">
       <div className="spinner-container">
         <div className="image-spinner" />
-        <img style={{ height: '8em', width: 'auto' }} src="https://res.cloudinary.com/ashokc/image/upload/c_scale,q_10,w_391/v1588856429/arena/assets/arena_wbydxw.jpg" alt="arena" />
+        <img style={{ width: '7.4em', height: 'auto' }} src="https://res.cloudinary.com/ashokc/image/upload/c_scale,q_10,w_391/v1588856429/arena/assets/arena_wbydxw.jpg" alt="arena" />
       </div>
     </div>
   </div>

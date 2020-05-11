@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BlogCard from '../BlogCard/BlogCard';
 
-const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute }) => {
+const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute = false }) => {
   const BlogsArray = blogs.map(blog => (
     <BlogCard
       setSnackbarMessage={setSnackbarMessage}

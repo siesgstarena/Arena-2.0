@@ -16,7 +16,9 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 
 const BlogCard = ({
-  isSuperuserRoute, tags, id, createdAt, title, timeToRead, authorId, author, updatedAt, ratings, setSnackbarMessage,
+  isSuperuserRoute = false, tags, id, createdAt, title,
+  timeToRead, authorId, author, updatedAt, ratings,
+  setSnackbarMessage,
 }) => {
   const tagsArray = tags.map(tag => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">

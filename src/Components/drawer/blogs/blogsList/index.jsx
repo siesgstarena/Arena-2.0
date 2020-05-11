@@ -12,7 +12,7 @@ import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../../common/Snackbar/index';
 import LoadingCardArray from '../../../common/LoadingCardArray';
 
-const AllBlogsPageContainer = ({ isSuperuserRoute }) => {
+const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = 15;
   const location = useLocation();

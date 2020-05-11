@@ -189,6 +189,7 @@ query Blogs($limit: Int, $skip: Int) {
         _id
       }
       title
+      pinned
       tags
       createdAt
       updatedAt

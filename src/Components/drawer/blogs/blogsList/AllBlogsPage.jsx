@@ -9,6 +9,7 @@ const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute = false }) =
       key={blog._id}
       tags={blog.tags}
       id={blog._id}
+      pinned={blog.pinned}
       createdAt={blog.createdAt}
       title={blog.title}
       timeToRead={blog.timeToRead}

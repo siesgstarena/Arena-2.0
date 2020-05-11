@@ -18,7 +18,7 @@ import './BlogCard.scss';
 const BlogCard = ({
   isSuperuserRoute = false, tags, id, createdAt, title,
   timeToRead, authorId, author, updatedAt, ratings,
-  setSnackbarMessage,
+  setSnackbarMessage, pinned,
 }) => {
   const tagsArray = tags.map(tag => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">
@@ -41,7 +41,7 @@ const BlogCard = ({
   );
 
   // Pin Blog Feature ( only for superuser )
-  const [isPinned, setPinned] = useState(false);
+  const [isPinned, setPinned] = useState(pinned);
   const pinImageOptions = ['https://img.icons8.com/material-outlined/24/6200ee/pin.png', 'https://img.icons8.com/material/24/6200ee/pin.png'];
   const pinMessage = (isPinned) ? 'Unpin' : 'Pin';
   const pinIcon = (isPinned) ? pinImageOptions[1] : pinImageOptions[0];
@@ -198,6 +198,7 @@ BlogCard.propTypes = {
   updatedAt: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
   ratings: PropTypes.number.isRequired,
+  pinned: PropTypes.bool.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 

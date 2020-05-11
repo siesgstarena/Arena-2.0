@@ -271,3 +271,23 @@ mutation Logout($id: ID!){
   }
 }
 `;
+
+export const PIN_BLOG = gql`
+mutation PinBlog($postId: ID!){
+  pinBlog(postId: $postId) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const UNPIN_BLOG = gql`
+mutation UnpinBlog($postId: ID!){
+  unpinBlog(postId: $postId) {
+    code
+    success
+    message
+  }
+}
+`;

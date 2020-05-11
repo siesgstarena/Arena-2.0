@@ -16,7 +16,7 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 
 const BlogCard = ({
-  tags, id, createdAt, title, timeToRead, authorId, author, updatedAt, ratings, setSnackbarMessage,
+  isSuperuserRoute, tags, id, createdAt, title, timeToRead, authorId, author, updatedAt, ratings, setSnackbarMessage,
 }) => {
   const tagsArray = tags.map(tag => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">
@@ -38,6 +38,17 @@ const BlogCard = ({
     currentDateInMilliseconds, updatedAt,
   );
 
+  // Pin Blog Feature ( only for superuser )
+  const [isPinned, setPinned] = useState(false);
+  const pinImageOptions = ['https://img.icons8.com/material-outlined/24/6200ee/pin.png', 'https://img.icons8.com/material/24/6200ee/pin.png'];
+  const pinMessage = (isPinned) ? 'Unpin' : 'Pin';
+  const pinIcon = (isPinned) ? pinImageOptions[1] : pinImageOptions[0];
+  const onPinClick = () => {
+    setPinned(!isPinned);
+    setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
+  };
+  // end Pin
+
   const handleEdit = () => {
     history.push({
       pathname: `/blogs/${id}/edit`,
@@ -46,6 +57,8 @@ const BlogCard = ({
       },
     });
   };
+
+
   const handleDelete = () => {
     setIsAlertOpen(true);
   };
@@ -81,20 +94,45 @@ const BlogCard = ({
 
   return (
     <Card className="ma0 mb4" style={{ borderRadius: '5px' }} key={id}>
-      <div
-        className="pa1"
-        style={{
-          background: '#F0E8FF',
-          borderTopLeftRadius: '5px',
-          borderTopRightRadius: '5px',
-        }}
-      >
-        <Link to={`/blogs/${id}`} className="no-underline black">
-          <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
-            {title}
-          </Headline6>
-        </Link>
-      </div>
+      {
+        (isSuperuserRoute) ? (
+          <div
+            className="pa1 flex justify-between items-center"
+            style={{
+              background: '#F0E8FF',
+              borderTopLeftRadius: '5px',
+              borderTopRightRadius: '5px',
+            }}
+          >
+            <Link to={`/blogs/${id}`} className="no-underline black">
+              <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
+                {title}
+              </Headline6>
+            </Link>
+            <Button
+              onClick={onPinClick}
+            >
+              <img alt="pin" src={pinIcon} />
+              {/* {`${pinMessage} blog`} */}
+            </Button>
+          </div>
+        ) : (
+          <div
+            className="pa1"
+            style={{
+              background: '#F0E8FF',
+              borderTopLeftRadius: '5px',
+              borderTopRightRadius: '5px',
+            }}
+          >
+            <Link to={`/blogs/${id}`} className="no-underline black">
+              <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
+                {title}
+              </Headline6>
+            </Link>
+          </div>
+        )
+      }
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row style={{ padding: '0px', margin: '0px' }}>
           <Cell className="ma0 pa0" style={{ padding: '0px', margin: '0px' }} desktopColumns={6} tabletColumns={4} phoneColumns={4}>
@@ -162,6 +200,7 @@ const BlogCard = ({
 };
 
 BlogCard.propTypes = {
+  isSuperuserRoute: PropTypes.bool,
   tags: PropTypes.array.isRequired,
   id: PropTypes.any.isRequired,
   createdAt: PropTypes.string.isRequired,

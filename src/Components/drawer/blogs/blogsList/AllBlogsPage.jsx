@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import BlogCard from '../BlogCard/BlogCard';
 
-const AllBlogsPage = ({ blogs, setSnackbarMessage }) => {
+const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute }) => {
   const BlogsArray = blogs.map(blog => (
     <BlogCard
       setSnackbarMessage={setSnackbarMessage}
@@ -16,6 +16,7 @@ const AllBlogsPage = ({ blogs, setSnackbarMessage }) => {
       authorId={blog.userId._id}
       updatedAt={blog.updatedAt}
       ratings={blog.userId.ratings}
+      isSuperuserRoute={isSuperuserRoute}
     />
   ));
   return (
@@ -28,6 +29,7 @@ const AllBlogsPage = ({ blogs, setSnackbarMessage }) => {
 AllBlogsPage.propTypes = {
   blogs: PropTypes.array.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
+  isSuperuserRoute: PropTypes.bool,
 };
 
 export default AllBlogsPage;

@@ -16,7 +16,9 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 
 const BlogCard = ({
-  tags, id, createdAt, title, timeToRead, authorId, author, updatedAt, ratings, setSnackbarMessage,
+  isSuperuserRoute = false, tags, id, createdAt, title,
+  timeToRead, authorId, author, updatedAt, ratings,
+  setSnackbarMessage,
 }) => {
   const tagsArray = tags.map(tag => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">
@@ -38,6 +40,18 @@ const BlogCard = ({
     currentDateInMilliseconds, updatedAt,
   );
 
+  // Pin Blog Feature ( only for superuser )
+  const [isPinned, setPinned] = useState(false);
+  const pinImageOptions = ['https://img.icons8.com/material-outlined/24/6200ee/pin.png', 'https://img.icons8.com/material/24/6200ee/pin.png'];
+  const pinMessage = (isPinned) ? 'Unpin' : 'Pin';
+  const pinIcon = (isPinned) ? pinImageOptions[1] : pinImageOptions[0];
+  const onPinClick = () => {
+    setPinned(!isPinned);
+    setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
+  };
+  const pinClassName = (isSuperuserRoute) ? 'flex justify-between items-center' : '';
+  // end Pin
+
   const handleEdit = () => {
     history.push({
       pathname: `/blogs/${id}/edit`,
@@ -46,6 +60,8 @@ const BlogCard = ({
       },
     });
   };
+
+
   const handleDelete = () => {
     setIsAlertOpen(true);
   };
@@ -82,7 +98,7 @@ const BlogCard = ({
   return (
     <Card className="ma0 mb4" style={{ borderRadius: '5px' }} key={id}>
       <div
-        className="pa1"
+        className={`pa1 ${pinClassName}`}
         style={{
           background: '#F0E8FF',
           borderTopLeftRadius: '5px',
@@ -94,6 +110,16 @@ const BlogCard = ({
             {title}
           </Headline6>
         </Link>
+        {
+        (isSuperuserRoute) ? (
+
+          <Button
+            onClick={onPinClick}
+          >
+            <img alt="pin" src={pinIcon} />
+          </Button>
+        ) : ('')
+      }
       </div>
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row style={{ padding: '0px', margin: '0px' }}>
@@ -162,6 +188,7 @@ const BlogCard = ({
 };
 
 BlogCard.propTypes = {
+  isSuperuserRoute: PropTypes.bool,
   tags: PropTypes.array.isRequired,
   id: PropTypes.any.isRequired,
   createdAt: PropTypes.string.isRequired,

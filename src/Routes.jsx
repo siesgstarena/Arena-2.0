@@ -66,6 +66,7 @@ const AdminTestProblem = lazy(() => import('./Components/admin/testProblem/index
 const SuperuserRatings = lazy(() => import('./Components/superuser/ratings/index'));
 const SuperuserUpdateRatings = lazy(() => import('./Components/superuser/updateRatings/index'));
 const SuperuserContests = lazy(() => import('./Components/superuser/contests/index'));
+const SuperuserBlogs = lazy(() => import('./Components/superuser/blogs/index'));
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
@@ -161,6 +162,7 @@ const Routes = () => {
                   <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
                   <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
                   <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
+                  <PrivateRoute path="/superuser/blogs" exact component={SuperuserBlogs} />
                   <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
                   <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
                   <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />

@@ -49,6 +49,7 @@ const BlogCard = ({
     setPinned(!isPinned);
     setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
   };
+  const pinClassName = (isSuperuserRoute) ? 'flex justify-between items-center' : '';
   // end Pin
 
   const handleEdit = () => {
@@ -96,45 +97,30 @@ const BlogCard = ({
 
   return (
     <Card className="ma0 mb4" style={{ borderRadius: '5px' }} key={id}>
-      {
+      <div
+        className={`pa1 ${pinClassName}`}
+        style={{
+          background: '#F0E8FF',
+          borderTopLeftRadius: '5px',
+          borderTopRightRadius: '5px',
+        }}
+      >
+        <Link to={`/blogs/${id}`} className="no-underline black">
+          <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
+            {title}
+          </Headline6>
+        </Link>
+        {
         (isSuperuserRoute) ? (
-          <div
-            className="pa1 flex justify-between items-center"
-            style={{
-              background: '#F0E8FF',
-              borderTopLeftRadius: '5px',
-              borderTopRightRadius: '5px',
-            }}
+
+          <Button
+            onClick={onPinClick}
           >
-            <Link to={`/blogs/${id}`} className="no-underline black">
-              <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
-                {title}
-              </Headline6>
-            </Link>
-            <Button
-              onClick={onPinClick}
-            >
-              <img alt="pin" src={pinIcon} />
-              {/* {`${pinMessage} blog`} */}
-            </Button>
-          </div>
-        ) : (
-          <div
-            className="pa1"
-            style={{
-              background: '#F0E8FF',
-              borderTopLeftRadius: '5px',
-              borderTopRightRadius: '5px',
-            }}
-          >
-            <Link to={`/blogs/${id}`} className="no-underline black">
-              <Headline6 style={{ color: 'purple' }} className="ma0 tc ma2">
-                {title}
-              </Headline6>
-            </Link>
-          </div>
-        )
+            <img alt="pin" src={pinIcon} />
+          </Button>
+        ) : ('')
       }
+      </div>
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row style={{ padding: '0px', margin: '0px' }}>
           <Cell className="ma0 pa0" style={{ padding: '0px', margin: '0px' }} desktopColumns={6} tabletColumns={4} phoneColumns={4}>

@@ -3,7 +3,9 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
+// import { useApolloClient } from '@apollo/react-hooks';
 import ProblemDetails from '../createProblem/ProblemDetails';
+// import { GET_ADMIN_DASHBOARD_DETAILS, GET_PROBLEM_DETAILS } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import useSentry from '../../../customHooks/useSentry';
@@ -13,6 +15,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
   const history = useHistory();
   const [formDetails, setFormDetails] = useState(intialFormDetails);
   const [messageType, setMessageType] = useState('');
+  // const client = useApolloClient();
   const { logError } = useSentry();
   const [message, setMessage] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
@@ -45,6 +48,64 @@ const EditProblemForm = ({ intialFormDetails }) => {
           return;
         }
         if (jsonResponse.data.restAPI.success === true) {
+          // try {
+          //   const { adminDashboard } = client.readQuery({
+          //     query: GET_ADMIN_DASHBOARD_DETAILS,
+          //     variables: { code: contestId },
+          //   });
+          //   const problemsArray = adminDashboard.problems;
+          //   const problemIndex = problemsArray.findIndex((obj => obj.code === problemId));
+          //   problemsArray[problemIndex] = {
+          //     ...problemsArray[problemIndex],
+          //     code: formDetails.code,
+          //     name: formDetails.name,
+          //     points: formDetails.points,
+          //   };
+          //   console.log(problemsArray);
+          //   client.writeQuery({
+          //     query: GET_ADMIN_DASHBOARD_DETAILS,
+          //     variables: { code: contestId },
+          //     data: {
+          //       adminDashboard: {
+          //         ...adminDashboard,
+          //         problems: {
+          //           ...adminDashboard.problems,
+          //           ...problemsArray,
+          //         },
+          //       },
+          //     },
+          //   });
+          // } catch (e) {
+          //   console.log(e);
+          //   // We should always catch here,
+          //   // as the cache may be empty or the query may fail
+          // }
+          // const { problemByCode } = client.readQuery({
+          //   query: GET_PROBLEM_DETAILS,
+          //   variables: { code: problemId },
+          // });
+          // console.log(problemByCode);
+          // client.writeQuery({
+          //   query: GET_PROBLEM_DETAILS,
+          //   variables: { code: problemId },
+          //   data: {
+          //     problemByCode: {
+          //       ...problemByCode,
+          //       code: formDetails.code,
+          //       points: formDetails.points,
+          //       name: formDetails.name,
+          //       description: formDetails.description,
+          //       explainInput: formDetails.input,
+          //       explainOutput: formDetails.output,
+          //       constraints: formDetails.constraints,
+          //       example: formDetails.examples,
+          //       explanation: formDetails.explanation,
+          //       tags: formDetails.tags,
+          //       inputFile: formDetails.inputFile,
+          //       outputFile: formDetails.outputFile,
+          //     },
+          //   },
+          // });
           history.push({
             pathname: `/admin/${contestId}`,
             state: {

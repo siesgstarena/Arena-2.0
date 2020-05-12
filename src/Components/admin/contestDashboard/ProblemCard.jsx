@@ -11,7 +11,7 @@ import useSessionExpired from '../../../customHooks/useSessionExpired';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const ProblemCard = ({
-  name, code, points, setSnackbarMessage, id,
+  name, code, points, setSnackbarMessage,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -49,7 +49,7 @@ const ProblemCard = ({
             data: {
               adminDashboard: {
                 ...oldAdminDashboard,
-                problems: oldAdminDashboard.problems.filter(problem => problem._id !== id),
+                problems: oldAdminDashboard.problems.filter(problem => problem.code !== code),
               },
             },
           });
@@ -116,7 +116,6 @@ const ProblemCard = ({
 
 ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
   setSnackbarMessage: PropTypes.func,
   code: PropTypes.string.isRequired,

@@ -61,7 +61,6 @@ query AdminDashboard($code: String!) {
       announcement
     }
     problems{
-      _id
       name
       points
       code

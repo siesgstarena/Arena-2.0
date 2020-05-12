@@ -123,6 +123,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
         setMessage('An unexpected error has been encountered');
       });
   };
+  // console.log(intialFormDetails);
   return (
     <div className="mw7 center pa2">
       <Headline4 className="ma0 mt3 purple mb1">Edit Problem</Headline4>
@@ -132,6 +133,10 @@ const EditProblemForm = ({ intialFormDetails }) => {
         {problemId}
       </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
+      <Body2 className="mid-gray ma0 mb2">
+        Note: To edit a problem you manually have to download the
+        input and output files and re-upload them
+      </Body2>
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button raised onClick={handleEditProblem}>
         Edit Problem

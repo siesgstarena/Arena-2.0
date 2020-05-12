@@ -29,9 +29,8 @@ const ResetSubmissionStatus = () => {
   }
   if (data.submissionsByContestCode) {
     const response = data.submissionsByContestCode.submissions;
-    // console.log(response);
     return (
-      <div className="pl5-ns pr5-ns pl2 pr2">
+      <div className="pl5-l pr5-l pl2 pr2">
         <Headline4 className="purple mb0">Update Submission Status</Headline4>
         <Body1 className="mt2">
           Problem:

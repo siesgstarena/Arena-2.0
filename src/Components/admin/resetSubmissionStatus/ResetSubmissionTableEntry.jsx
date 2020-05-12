@@ -24,6 +24,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
       variables: {
         id: data._id, status: problemStatus,
       },
+      // refetchQueries: ['submissionsByContestCode'],
     });
     if (error) {
       setSnackbarMessage('An error has been encountered');
@@ -42,7 +43,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   return (
     <tr className="tc">
       <td className="pa3 tc">
-        <Link className="no-underline blue" to={`/contest/${contestId}/submission/${data._id}`}>
+        <Link className="no-underline blue" to={`/contests/${contestId}/submission/${data._id}`}>
           {data._id.slice(-6)}
         </Link>
       </td>

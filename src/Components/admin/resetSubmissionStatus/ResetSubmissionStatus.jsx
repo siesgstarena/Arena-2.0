@@ -16,25 +16,12 @@ const ResetSubmissionStatus = () => {
   const limit = 15;
   const activePageNumber = useActivePageState();
   const {
-    loading, error, data, networkStatus,
+    loading, error, data,
   } = useQuery(GET_RESET_SUBMISSION_DETAILS, {
     variables: {
       contestCode: contestId, problemCode: problemId, limit, skip: ((activePageNumber - 1) * limit),
     },
-    notifyOnNetworkStatusChange: true,
   });
-  // const onLoadMore = (amountOfEntiresToBeSkipped) => {
-  //   fetchMore({
-  //     variables: {
-  //       skip: amountOfEntiresToBeSkipped,
-  //     },
-  //     updateQuery: (prev, { fetchMoreResult }) => {
-  //       if (!fetchMoreResult) return prev;
-  //       return Object.assign({}, prev, fetchMoreResult);
-  //     },
-  //   });
-  // };
-  if (networkStatus === 3) return <Spinner />;
   if (loading) return <Spinner />;
   if (error) {
     logError('submission by contest code query', { ...data, ...error });

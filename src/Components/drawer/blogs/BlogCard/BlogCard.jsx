@@ -6,7 +6,8 @@ import Card from '@material/react-card';
 import Button from '@material/react-button';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { DELETE_BLOG } from '../../../../graphql/mutations';
+import { DELETE_BLOG, CHANGE_BLOG_PIN_STATUS } from '../../../../graphql/mutations';
+// import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import AlertBox from '../../../common/AlertBox/index';
 import Pill from '../../../common/Pill/index';
 import {
@@ -14,6 +15,8 @@ import {
 } from '../../../../commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
+import useSentry from '../../../../customHooks/useSentry';
 
 const BlogCard = ({
   isSuperuserRoute = false, tags, id, createdAt, title,
@@ -26,6 +29,7 @@ const BlogCard = ({
     </Link>
   ));
   const { authState } = useContext(AuthContext);
+  const client = useApolloClient();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const alertTitle = 'Delete Confirmation';
   const alertContent = `Are you sure you want to delete the blog - "${title}"`;
@@ -39,15 +43,64 @@ const BlogCard = ({
   const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInTwoDates(
     currentDateInMilliseconds, updatedAt,
   );
+  const { logError } = useSentry();
+  const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
 
   // Pin Blog Feature ( only for superuser )
   const [isPinned, setPinned] = useState(pinned);
   const pinImageOptions = ['https://img.icons8.com/material-outlined/24/6200ee/pin.png', 'https://img.icons8.com/material/24/6200ee/pin.png'];
   const pinMessage = (isPinned) ? 'Unpin' : 'Pin';
   const pinIcon = (isPinned) ? pinImageOptions[1] : pinImageOptions[0];
-  const onPinClick = () => {
-    setPinned(!isPinned);
-    setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
+  const onPinClick = async () => {
+    const { data, error } = await client.mutate({
+      mutation: CHANGE_BLOG_PIN_STATUS,
+      variables: {
+        postId: id,
+      },
+      // update: (cache, { data: mutationResponse }) => {
+      //   if (mutationResponse.changeBlogPinStatus.success) {
+      //     try {
+      //       const { blogs } = cache.readQuery({
+      //         query: GET_ALL_BLOGS,
+      //       });
+      //       console.log(blogs);
+      //       // cache.writeQuery({
+      //       //   query: GET_ALL_BLOGS,
+      //       //   variables: { code: contestId },
+      //       //   data: {
+      //       //     adminDashboard,
+      //       //   },
+      //       // });
+      //     } catch (e) {
+      //       console.log(e);
+      //       // We should always catch here,
+      //       // as the cache may be empty or the query may fail
+      //     }
+      //   }
+      // },
+      // refetchQueries: [
+      //   {
+      //     query: GET_ADMIN_DASHBOARD_DETAILS,
+      //     variables: { code: contestId },
+      //   },
+      // ],
+    });
+    if (error) {
+      logError('changeBlogPinStatus query', { ...data, ...error });
+      setSnackbarMessage('An error has been encountered');
+      return;
+    }
+    if (isSessionExpired(data.changeBlogPinStatus)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.changeBlogPinStatus.success) {
+      setPinned(!isPinned);
+      setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
+    } else {
+      setSnackbarMessage('An unexpected error has been encountered');
+      logError('changeBlogPinStatus query', { ...data, ...error });
+    }
   };
   const pinClassName = (isSuperuserRoute) ? 'flex justify-between items-center' : '';
   // end Pin
@@ -66,7 +119,6 @@ const BlogCard = ({
     setIsAlertOpen(true);
   };
 
-  const client = useApolloClient();
   const deleteBlog = async () => {
     setSnackbarMessage('Deleting Blog, Please wait');
     const { data, error } = await client.mutate({

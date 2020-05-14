@@ -1,0 +1,28 @@
+.talk-bubble {
+	margin: 0.2em 0em 0.5em 0.6em;
+    display: inline-block;
+    width: 95%;
+    position: relative;
+    height: auto;
+    background-color: #eeeeee;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.round{
+    border-radius: 0.5em;
+      -webkit-border-radius: 0.5em;
+      -moz-border-radius: 0.5em;
+}
+.tri-right.right-top:before {
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+    left: auto;
+	left: -10px;
+    top: -0px;
+	bottom: auto;
+	border: 15px solid;
+	border-color: #eeeeee transparent transparent transparent;
+}

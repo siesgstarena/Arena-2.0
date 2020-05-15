@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Headline6 } from '@material/react-typography';
+import { Headline6, Body2 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
@@ -21,12 +21,12 @@ const FeedbackCard = ({
   };
 
   return (
-    <div className="b--light-gray ba br3 mb3 shadow-4">
+    <div className="b--light-gray ba br3 mb3">
       <div className="flex justify-between items-center mb2">
         <div className="flex flex-column mt2">
-          <Headline6 style={{ margin: '0em 0em 0em 0.6em', lineHeight: '1.5rem' }}>{user}</Headline6>
-          <small style={{ margin: '0.1em 0em 0.1em 1em' }} className="pointer">{email}</small>
-          <small style={{ margin: '0.1em 1em' }} className="pointer">{`${responseTime}, ${responseDate}`}</small>
+          <Headline6 style={{ lineHeight: '1.5rem' }} className="ma0 ml3">{user}</Headline6>
+          <Body2 className="ma0 ml3 mid-gray pointer">{email}</Body2>
+          <Body2 className="ma0 ml3 mid-gray pointer">{`${responseTime}, ${responseDate}`}</Body2>
         </div>
         <Button
           className="mr3 pa2"
@@ -60,7 +60,7 @@ const FeedbackCard = ({
               />
             )
               : (
-                <div className="w-100 flex-column">
+                <div className="ml2 w-100 flex-column">
                   <TextField
                     label="Reply"
                     className="text-area-width-100"
@@ -95,6 +95,8 @@ FeedbackCard.propTypes = {
   email: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   isReplied: PropTypes.bool.isRequired,
+  responseDate: PropTypes.string.isRequired,
+  responseTime: PropTypes.string.isRequired,
   replyVal: PropTypes.string.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };

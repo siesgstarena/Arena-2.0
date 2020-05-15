@@ -7,7 +7,7 @@ const CustomBubble = ({ content, className, bubbleType }) => {
   const chatClass = (bubbleType === 'chat') ? 'tri-right right-top' : '';
   return (
     <div className={`talk-bubble ${chatClass} ${className}`}>
-      <Body2 className="" style={{ margin: '0em' }}>{content}</Body2>
+      <Body2 className="ma0 black-60">{content}</Body2>
     </div>
   );
 };

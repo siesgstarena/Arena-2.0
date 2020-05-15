@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
+import { Headline5, Body2 } from '@material/react-typography';
 import feedbacks from './feedbacks';
 import FeedbackCard from './FeedbackCard/FeedbackCard';
 import CustomSnackbar from '../../common/Snackbar/index';
-import { Headline5 } from '@material/react-typography';
 
 const FeedbackContainer = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   return (
     <div className="mw7 pa2 center">
-      <Headline5 style={{margin: '0.2em'}}>Feedbacks</Headline5>
+      <Headline5 className="purple ma0 ml1 mb2">Feedbacks</Headline5>
+      <Body2 className="purple ma0 ml1 mb2">View and Send replies to feedbacks</Body2>
       {feedbacks.map(
-        (feedback, index) => {
+        (feedback) => {
           const {
-            name, email, message,
+            id, name, email, message,
             isReplied, replyVal, responseTime, responseDate,
           } = feedback;
           return (
-            <div key={index.toString()}>
+            <div key={id}>
               <FeedbackCard
                 user={name}
                 email={email}

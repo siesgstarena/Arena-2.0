@@ -6,7 +6,7 @@ import { useApolloClient } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import Switch from '@material/react-switch';
 import '../../user/settings/settings.scss';
-import { RESET_SUBMISSION } from '../../../graphql/mutations';
+import { RESET_SUBMISSION, CHANGE_PLAGIARISM_STATUS } from '../../../graphql/mutations';
 import { convertDate, convertTime, getSubmissionColor } from '../../../commonFunctions';
 
 const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
@@ -42,13 +42,32 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
     }
   };
 
-  const handlePlagiarismStatusChange = () => {
-    setPlagiarismStatus(!plagiarismStatus);
+  const handlePlagiarismStatusChange = async () => {
+    setSnackbarMessage('Updating status, Please wait.');
+    const { data: updationResponse, error } = await client.mutate({
+      mutation: CHANGE_PLAGIARISM_STATUS,
+      variables: {
+        id: data._id,
+      },
+    });
+    if (error) {
+      setSnackbarMessage('An error has been encountered');
+      return;
+    }
+    // console.log(updationResponse);
+    if (updationResponse.changePlagiarismStatus.success) {
+      setSnackbarMessage('Successfully updated the plagiarism status.');
+      // setStatus(problemStatus);
+      setPlagiarismStatus(!plagiarismStatus);
+      // setStatuscolor(getSubmissionColor(problemStatus));
+    } else {
+      setSnackbarMessage(updationResponse.changePlagiarismStatus.message);
+    }
   };
 
   return (
     <tr className="tc">
-      <td className="pa3 tc">
+      <td className="pa2 tc">
         <Link className="no-underline blue" to={`/contests/${contestId}/submission/${data._id}`}>
           {data._id.slice(-6)}
         </Link>
@@ -58,19 +77,30 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
         <br />
         {createdAtTime}
       </td>
-      <td className="pa3 tc">
+      <td className="pa2 tc">
         <Link className="no-underline blue" to={`/profile/${data.userId._id}`}>
           {data.userId.username}
         </Link>
       </td>
       <td
         style={{ color: `${statusColor}` }}
-        className="pa3 tc"
+        className="pa2 tc"
       >
-        {status}
+        {
+          data.plagiarism
+            ? (
+              <>
+                <s>{status}</s>
+                <div className="red">
+                  (Plagiarised)
+                </div>
+              </>
+            )
+            : status
+        }
       </td>
-      <td className="pa3 tc">{data.language}</td>
-      <td className="pa3 tc">
+      <td className="pa2 tc">{data.language}</td>
+      <td className="pa2 tc">
         <Select
           className=""
           label="Status"
@@ -87,7 +117,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
           Update
         </Button>
       </td>
-      <td className="pa3 tc">
+      <td className="tc">
         <Switch
           className="react-switch-alternate"
           nativeControlId="my-switch"

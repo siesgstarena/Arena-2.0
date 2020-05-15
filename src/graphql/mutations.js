@@ -281,3 +281,13 @@ mutation ChangeBlogPinStatus($postId: ID!){
   }
 }
 `;
+
+export const CHANGE_PLAGIARISM_STATUS = gql`
+mutation ChangePlagiarismStatus($id: String!){
+  changePlagiarismStatus(_id: $id) {
+    code
+    success
+    message
+  }
+}
+`;

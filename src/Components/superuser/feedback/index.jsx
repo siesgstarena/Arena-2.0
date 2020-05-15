@@ -9,7 +9,7 @@ const FeedbackContainer = () => {
   return (
     <div className="mw7 pa2 center">
       <Headline5 className="purple ma0 ml1 mb2">Feedbacks</Headline5>
-      <Body2 className="purple ma0 ml1 mb2">View and Send replies to feedbacks</Body2>
+      <Body2 className="mid-gray ma0 ml1 mb2">View and Send replies to feedbacks</Body2>
       {feedbacks.map(
         (feedback) => {
           const {

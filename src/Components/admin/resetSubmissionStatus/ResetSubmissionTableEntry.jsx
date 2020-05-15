@@ -4,6 +4,8 @@ import Button from '@material/react-button';
 import { Link, useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
+import Switch from '@material/react-switch';
+import '../../user/settings/settings.scss';
 import { RESET_SUBMISSION } from '../../../graphql/mutations';
 import { convertDate, convertTime, getSubmissionColor } from '../../../commonFunctions';
 
@@ -14,7 +16,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   const [problemStatus, setProblemStatus] = useState(data.status);
   const [status, setStatus] = useState(data.status);
   const client = useApolloClient();
-
+  const [plagiarismStatus, setPlagiarismStatus] = useState(data.plagiarism);
   const [statusColor, setStatuscolor] = useState(getSubmissionColor(data.status));
 
   const onUpdateClick = async () => {
@@ -38,6 +40,10 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
     } else {
       setSnackbarMessage(updationResponse.resetSubmission.message);
     }
+  };
+
+  const handlePlagiarismStatusChange = () => {
+    setPlagiarismStatus(!plagiarismStatus);
   };
 
   return (
@@ -81,6 +87,14 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
           Update
         </Button>
       </td>
+      <td className="pa3 tc">
+        <Switch
+          className="react-switch-alternate"
+          nativeControlId="my-switch"
+          checked={plagiarismStatus}
+          onChange={handlePlagiarismStatusChange}
+        />
+      </td>
     </tr>
   );
 };
@@ -91,4 +105,4 @@ ResetSubmissionTableEntry.propTypes = {
 };
 
 
-export default ResetSubmissionTableEntry;
+export default React.memo(ResetSubmissionTableEntry);

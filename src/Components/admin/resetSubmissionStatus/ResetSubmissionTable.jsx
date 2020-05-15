@@ -5,7 +5,7 @@ import CustomSnackbar from '../../common/Snackbar';
 import ResetSubmissionTableEntry from './ResetSubmissionTableEntry';
 
 const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
-  const tableHeadings = ['#', 'When', 'Who', 'Status', 'Language', 'Action'];
+  const tableHeadings = ['#', 'When', 'Who', 'Status', 'Language', 'Action', 'Plagiarism'];
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const tableData = resetSubmissionTableData.map(data => (
     <ResetSubmissionTableEntry

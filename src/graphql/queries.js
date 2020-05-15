@@ -124,6 +124,7 @@ query SubmssionsByContestCode($contestCode: String!, $problemCode: String, $limi
       language
       createdAt
       _id
+      plagiarism
     }
     code
     message
@@ -312,6 +313,7 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
       language
       time
       memory
+      plagiarism
     }
   }
   problemsByContestCode(contestCode: $contestCode) {
@@ -354,6 +356,7 @@ query SubmissionById($id: ID!) {
       fileContent
       output
       duringContest
+      plagiarism
     }
     outputLink
     expectedOutputLink
@@ -510,6 +513,7 @@ export const GET_SUBMISSION_BY_USER_ID = gql`
         }
         language
         status
+        plagiarism
       }
     }
   }

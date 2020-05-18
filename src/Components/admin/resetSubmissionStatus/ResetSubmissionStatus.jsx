@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
 import ResetSubmissionTable from './ResetSubmissionTable';
 import Spinner from '../../common/Spinner/index';
-import { GET_RESET_SUBMISSION_DETAILS } from '../../../graphql/queries';
+import { GET_SUBMISSION_BY_CONTEST_CODE } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
@@ -17,7 +17,7 @@ const ResetSubmissionStatus = () => {
   const activePageNumber = useActivePageState();
   const {
     loading, error, data,
-  } = useQuery(GET_RESET_SUBMISSION_DETAILS, {
+  } = useQuery(GET_SUBMISSION_BY_CONTEST_CODE, {
     variables: {
       contestCode: contestId, problemCode: problemId, limit, skip: ((activePageNumber - 1) * limit),
     },

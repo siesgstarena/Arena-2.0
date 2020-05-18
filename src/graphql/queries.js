@@ -105,35 +105,6 @@ query ProblemByCode($code: ID!) {
 }
 `;
 
-export const GET_RESET_SUBMISSION_DETAILS = gql`
-query SubmssionsByContestCode($contestCode: String!, $problemCode: String, $limit: Int, $skip: Int) {
-  submissionsByContestCode(contestCode:$contestCode, where:{problemCode:$problemCode}, limit: $limit, skip: $skip){
-    submissions {
-      userId{
-        username
-        _id
-      }
-      contestId {
-        name
-      }
-      problemId {
-        _id
-        name
-      }
-      status
-      language
-      createdAt
-      _id
-      plagiarism
-    }
-    code
-    message
-    success
-    pages
-  }
-}
-`;
-
 export const GET_ALL_RATINGS = gql`
 query Ratings($limit: Int, $skip: Int) {
   ratings(limit: $limit, skip: $skip) {
@@ -284,7 +255,7 @@ query ProblemsByContestCode($contestCode: String!) {
 }
 `;
 
-export const GET_CONTEST_STATUS = gql`
+export const GET_SUBMISSION_BY_CONTEST_CODE = gql`
 query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $userId: String, $problemCode: String, $status: String, $language: String) {
   submissionsByContestCode(contestCode: $contestCode, limit: $limit, skip: $skip, where: { userId: $userId, problemCode: $problemCode, status: $status, language: $language }){
     code

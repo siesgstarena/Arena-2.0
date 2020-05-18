@@ -46,6 +46,7 @@ const PlaylistsUNI05 = lazy(() => import('./Components/drawer/playlists/topicExp
 const PlaylistsUNI06 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI06'));
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
+const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
 const Settings = lazy(() => import('./Components/user/settings/index'));
 const About = lazy(() => import('./Components/footerPages/about/index'));
 const Competitions = lazy(() => import('./Components/footerPages/competitions/index'));
@@ -145,6 +146,7 @@ const Routes = () => {
                   <Route path="/goodies" exact component={Goodies} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
+                  <Route path="/@:username" exact component={ProfileByUsername} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />
                   <Route path="/contact" exact component={Contact} />

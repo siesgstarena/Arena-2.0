@@ -443,8 +443,8 @@ query CalculateNewRatings($code: String!) {
 `;
 
 export const GET_PROFILE_DETAILS = gql`
-query ProfilePage($id: ID!){
-  profilePage (_id: $id){
+query ProfilePage($findBy:FindBy!, $id:ID, $username:String){
+  profilePage(findBy: $findBy, _id: $id, username: $username){
     user {
       name
       ratings

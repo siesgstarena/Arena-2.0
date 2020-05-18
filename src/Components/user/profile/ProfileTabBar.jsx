@@ -43,7 +43,7 @@ const ProfileTabBar = ({ user }) => {
         </Tab>
       </TabBar>
       {
-        (tab === 'submissions') ? <SubmissionsContainer /> : <Posts user={user} />
+        (tab === 'submissions') ? <SubmissionsContainer user={user} /> : <Posts user={user} />
       }
 
     </div>

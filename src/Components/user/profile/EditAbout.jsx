@@ -28,11 +28,11 @@ const EditAbout = ({ about, setMessage, setMessageType }) => {
           try {
             const { profilePage } = cache.readQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: userId },
+              variables: { id: userId, findBy: 'ID' },
             });
             cache.writeQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: userId },
+              variables: { id: userId, findBy: 'ID' },
               data: {
                 profilePage: {
                   ...profilePage,

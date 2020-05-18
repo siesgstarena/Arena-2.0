@@ -229,17 +229,19 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
             {
               profilePageByUsername
                 ? null
-                : (loggedInUser && loggedInUser.userId === user._id
-                  ? (
-                    <EditAbout
-                      about={user.about}
-                      setMessage={setMessage}
-                      setMessageType={setMessageType}
-                    />
-                  )
-                  : user.followers.includes(loggedInUser.userId)
-                    ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
-                    : <Button onClick={handleFollow} raised>Follow</Button>
+                : (loggedInUser
+                  ? loggedInUser.userId === user._id
+                    ? (
+                      <EditAbout
+                        about={user.about}
+                        setMessage={setMessage}
+                        setMessageType={setMessageType}
+                      />
+                    )
+                    : user.followers.includes(loggedInUser.userId)
+                      ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
+                      : <Button onClick={handleFollow} raised>Follow</Button>
+                  : null
                 )}
           </div>
         </Cell>

@@ -159,6 +159,7 @@ query Blogs($limit: Int, $skip: Int) {
         ratings
         _id
       }
+      pinned
       title
       tags
       createdAt
@@ -592,6 +593,18 @@ query GetSearchResults($text: String!) {
       tags
       points
     }
+  }
+}
+`;
+
+export const GET_ALL_FEEDBACKS = gql`
+query {
+  feedbacks{
+    _id
+    name
+    email
+    message
+    replied
   }
 }
 `;

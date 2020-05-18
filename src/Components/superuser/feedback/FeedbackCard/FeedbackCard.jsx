@@ -7,20 +7,24 @@ import { useApolloClient } from '@apollo/react-hooks';
 import CustomBubble from '../../../common/CustomBubble/CustomBubble';
 import { GET_ALL_FEEDBACKS } from '../../../../graphql/queries';
 import { REPLY_TO_FEEDBACK } from '../../../../graphql/mutations';
+import MessageCard from '../../../common/MessageCard/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const FeedbackCard = ({
-  user, email, message, isReplied, createdAt, setSnackbarMessage, id,
+  user, email, message: feedback, isReplied, createdAt, id,
 }) => {
   const [reply, setReply] = useState(''); // string state var to store reply
   const [isOpen, setOpen] = useState(false); //  bool to show reply space
   const client = useApolloClient();
   const toggleOpen = () => setOpen(!isOpen);
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState('');
   const replyStatus = (isReplied) ? 'https://img.icons8.com/material-rounded/24/6200ee/double-tick.png' : 'https://img.icons8.com/ios-glyphs/24/6200ee/paper-plane.png';
 
   const addReply = async () => {
-    setSnackbarMessage('Replying user, please wait. It may take some time.');
+    setMessageType('loading');
+    setMessage('Replying user, please wait. It may take some time');
     const { data, error } = await client.mutate({
       mutation: REPLY_TO_FEEDBACK,
       variables: {
@@ -33,7 +37,7 @@ const FeedbackCard = ({
             const { feedbacks } = cache.readQuery({
               query: GET_ALL_FEEDBACKS,
             });
-            const feedbackIndex = feedbacks.findIndex((feedback => feedback._id === id));
+            const feedbackIndex = feedbacks.findIndex((obj => obj._id === id));
             feedbacks[feedbackIndex] = {
               ...feedbacks[feedbackIndex],
               replied: true,
@@ -53,7 +57,8 @@ const FeedbackCard = ({
       },
     });
     if (error) {
-      setSnackbarMessage('Database error encountered');
+      setMessageType('error');
+      setMessage('Database error encountered');
       return;
     }
     if (isSessionExpired(data.replyToFeedback)) {
@@ -62,9 +67,11 @@ const FeedbackCard = ({
     }
     if (data.replyToFeedback.success) {
       setOpen(false);
-      setSnackbarMessage('Replied successfully');
+      setMessageType('success');
+      setMessage('Replied successfully');
     } else {
-      setSnackbarMessage('An unexpected error has been encountered');
+      setMessageType('error');
+      setMessage('An unexpected error has been encountered');
     }
   };
 
@@ -85,8 +92,15 @@ const FeedbackCard = ({
         </Button>
       </div>
       <CustomBubble
-        content={message}
+        content={feedback}
       />
+      <div className="ma2">
+        <MessageCard
+          messageType={messageType}
+          message={message}
+          setMessageType={setMessageType}
+        />
+      </div>
       {
       (isOpen) && (
       <div className="pa3 flex mr2">
@@ -152,7 +166,6 @@ FeedbackCard.propTypes = {
   isReplied: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired,
   // replyVal: PropTypes.string.isRequired,
-  setSnackbarMessage: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 export default FeedbackCard;

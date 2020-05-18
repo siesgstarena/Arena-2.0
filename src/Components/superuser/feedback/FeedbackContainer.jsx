@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Headline4, Body2 } from '@material/react-typography';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_FEEDBACKS } from '../../../graphql/queries';
@@ -6,16 +6,13 @@ import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import LoadingCardArray from '../../common/LoadingCardArray';
 import FeedbackCard from './FeedbackCard/FeedbackCard';
-import CustomSnackbar from '../../common/Snackbar/index';
 
 
 const FeedbackContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const [snackbarMessage, setSnackbarMessage] = useState('');
   const {
     loading, error, data,
   } = useQuery(GET_ALL_FEEDBACKS);
-
   if (loading) {
     return (
       <div className="mw7 pa2 center">
@@ -47,16 +44,11 @@ const FeedbackContainer = () => {
                   message={message}
                   isReplied={replied}
                   createdAt={createdAt}
-                  setSnackbarMessage={setSnackbarMessage}
                 />
               </div>
             );
           },
         )}
-        <CustomSnackbar
-          setSnackbarMessage={setSnackbarMessage}
-          snackbarMessage={snackbarMessage}
-        />
       </div>
     );
   }

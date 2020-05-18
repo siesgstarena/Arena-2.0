@@ -250,7 +250,7 @@ BlogCard.propTypes = {
   updatedAt: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
   ratings: PropTypes.number.isRequired,
-  pinned: PropTypes.bool.isRequired,
+  pinned: PropTypes.bool,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
 

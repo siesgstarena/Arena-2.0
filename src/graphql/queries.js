@@ -189,7 +189,6 @@ query Blogs($limit: Int, $skip: Int) {
         _id
       }
       title
-      pinned
       tags
       createdAt
       updatedAt
@@ -530,6 +529,7 @@ query BlogByUser($id: String!, $limit: Int, $skip: Int) {
       createdAt
       updatedAt
       userId {
+        _id
         ratings
       }
     }

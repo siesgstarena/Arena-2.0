@@ -59,7 +59,18 @@ const ProblemsubmissionTable = ({
           </Link>
         </td>
         <td className="tc pa3" style={{ color }}>
-          {submission.status}
+          {
+            submission.plagiarism
+              ? (
+                <>
+                  <s>{submission.status}</s>
+                  <div className="red">
+                    (Plagiarised)
+                  </div>
+                </>
+              )
+              : submission.status
+          }
         </td>
         <td className="tc pa3">
           {submission.language}

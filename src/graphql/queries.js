@@ -61,7 +61,6 @@ query AdminDashboard($code: String!) {
       announcement
     }
     problems{
-      _id
       name
       points
       code
@@ -102,34 +101,6 @@ query ProblemByCode($code: ID!) {
     inputFile
     outputFile
     tags
-  }
-}
-`;
-
-export const GET_RESET_SUBMISSION_DETAILS = gql`
-query SubmssionsByContestCode($contestCode: String!, $problemCode: String, $limit: Int, $skip: Int) {
-  submissionsByContestCode(contestCode:$contestCode, where:{problemCode:$problemCode}, limit: $limit, skip: $skip){
-    submissions {
-      userId{
-        username
-        _id
-      }
-      contestId {
-        name
-      }
-      problemId {
-        _id
-        name
-      }
-      status
-      language
-      createdAt
-      _id
-    }
-    code
-    message
-    success
-    pages
   }
 }
 `;
@@ -188,6 +159,7 @@ query Blogs($limit: Int, $skip: Int) {
         ratings
         _id
       }
+      pinned
       title
       tags
       createdAt
@@ -284,7 +256,7 @@ query ProblemsByContestCode($contestCode: String!) {
 }
 `;
 
-export const GET_CONTEST_STATUS = gql`
+export const GET_SUBMISSION_BY_CONTEST_CODE = gql`
 query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $userId: String, $problemCode: String, $status: String, $language: String) {
   submissionsByContestCode(contestCode: $contestCode, limit: $limit, skip: $skip, where: { userId: $userId, problemCode: $problemCode, status: $status, language: $language }){
     code
@@ -312,6 +284,7 @@ query SubmissionByContestCode($contestCode: String!, $limit: Int, $skip: Int, $u
       language
       time
       memory
+      plagiarism
     }
   }
   problemsByContestCode(contestCode: $contestCode) {
@@ -354,6 +327,7 @@ query SubmissionById($id: ID!) {
       fileContent
       output
       duringContest
+      plagiarism
     }
     outputLink
     expectedOutputLink
@@ -469,8 +443,8 @@ query CalculateNewRatings($code: String!) {
 `;
 
 export const GET_PROFILE_DETAILS = gql`
-query ProfilePage($id: ID!){
-  profilePage (_id: $id){
+query ProfilePage($findBy:FindBy!, $id:ID, $username:String){
+  profilePage(findBy: $findBy, _id: $id, username: $username){
     user {
       name
       ratings
@@ -510,6 +484,7 @@ export const GET_SUBMISSION_BY_USER_ID = gql`
         }
         language
         status
+        plagiarism
       }
     }
   }
@@ -526,6 +501,7 @@ query BlogByUser($id: String!, $limit: Int, $skip: Int) {
       createdAt
       updatedAt
       userId {
+        _id
         ratings
       }
     }
@@ -617,6 +593,18 @@ query GetSearchResults($text: String!) {
       tags
       points
     }
+  }
+}
+`;
+
+export const GET_ALL_FEEDBACKS = gql`
+query {
+  feedbacks{
+    _id
+    name
+    email
+    message
+    replied
   }
 }
 `;

@@ -1,23 +1,23 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import Info from './Info';
-import RatingsGraph from './RatingsGraph';
-import ProfileTabBar from './ProfileTabBar';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
-import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import useSessionExpired from '../../../customHooks/useSessionExpired';
-import ProfileLoadingSkeleton from './ProfileLoadingSkeleton';
+import Info from './profile/Info';
+import RatingsGraph from './profile/RatingsGraph';
+import ProfileTabBar from './profile/ProfileTabBar';
+import { GET_PROFILE_DETAILS } from '../../graphql/queries';
+import SomethingWentWrong from '../common/SomethingWentWrong/index';
+import useSessionExpired from '../../customHooks/useSessionExpired';
+import ProfileLoadingSkeleton from './profile/ProfileLoadingSkeleton';
 
-const ProfileContainer = () => {
+const ProfileContainerWithUsername = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const { userId } = useParams();
+  const { username } = useParams();
   const {
     loading, error, data,
   } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
-      findBy: 'ID',
-      id: userId,
+      findBy: 'username',
+      username,
     },
   });
   if (loading) return <ProfileLoadingSkeleton />;
@@ -31,7 +31,7 @@ const ProfileContainer = () => {
 
     return (
       <div className="mw7 pa2 center pt0">
-        <Info userDetails={userDetails} />
+        <Info userDetails={userDetails} profilePageByUsername />
         <RatingsGraph contests={contests} ratingChanges={ratingChanges} />
         <ProfileTabBar
           user={userDetails}
@@ -48,4 +48,4 @@ const ProfileContainer = () => {
   return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
-export default ProfileContainer;
+export default ProfileContainerWithUsername;

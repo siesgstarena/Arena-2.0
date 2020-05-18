@@ -17,6 +17,7 @@ const SettingsDetailsContainer = () => {
   } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
       id: userId,
+      findBy: 'ID',
     },
   });
   if (loading) return <LoadingInfoArray count={3} />;

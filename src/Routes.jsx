@@ -46,6 +46,7 @@ const PlaylistsUNI05 = lazy(() => import('./Components/drawer/playlists/topicExp
 const PlaylistsUNI06 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI06'));
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
+const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
 const Settings = lazy(() => import('./Components/user/settings/index'));
 const About = lazy(() => import('./Components/footerPages/about/index'));
 const Competitions = lazy(() => import('./Components/footerPages/competitions/index'));
@@ -66,6 +67,8 @@ const AdminTestProblem = lazy(() => import('./Components/admin/testProblem/index
 const SuperuserRatings = lazy(() => import('./Components/superuser/ratings/index'));
 const SuperuserUpdateRatings = lazy(() => import('./Components/superuser/updateRatings/index'));
 const SuperuserContests = lazy(() => import('./Components/superuser/contests/index'));
+const SuperuserFeedbacks = lazy(() => import('./Components/superuser/feedback/index'));
+const SuperuserBlogs = lazy(() => import('./Components/superuser/blogs/index'));
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
@@ -143,6 +146,7 @@ const Routes = () => {
                   <Route path="/goodies" exact component={Goodies} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
+                  <Route path="/@:username" exact component={ProfileByUsername} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />
                   <Route path="/contact" exact component={Contact} />
@@ -161,6 +165,8 @@ const Routes = () => {
                   <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
                   <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
                   <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
+                  <PrivateRoute path="/superuser/blogs" exact component={SuperuserBlogs} />
+                  <PrivateRoute path="/superuser/feedbacks" exact component={SuperuserFeedbacks} />
                   <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
                   <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
                   <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />

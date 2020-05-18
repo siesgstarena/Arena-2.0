@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
+import { GET_SUBMISSION_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
@@ -19,7 +19,7 @@ const MySubmissionsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const {
     loading, error, data,
-  } = useQuery(GET_CONTEST_STATUS, {
+  } = useQuery(GET_SUBMISSION_BY_CONTEST_CODE, {
     variables: {
       limit,
       skip: ((activePageNumber - 1) * limit),

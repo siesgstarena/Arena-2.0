@@ -13,10 +13,9 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage }) => {
   const problemsArray = problems.map(problem => (
     <ProblemCard
       setSnackbarMessage={setSnackbarMessage}
-      key={problem._id}
+      key={problem.code}
       name={problem.name}
       code={problem.code}
-      id={problem._id}
       points={problem.points}
     />
   ));

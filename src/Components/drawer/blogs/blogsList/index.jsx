@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Headline5 } from '@material/react-typography';
 import { useLocation, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
@@ -11,7 +12,7 @@ import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../../common/Snackbar/index';
 import LoadingCardArray from '../../../common/LoadingCardArray';
 
-const AllBlogsPageContainer = () => {
+const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = 15;
   const location = useLocation();
@@ -51,6 +52,7 @@ const AllBlogsPageContainer = () => {
         <AllBlogsPage
           blogs={blogs}
           setSnackbarMessage={setSnackbarMessage}
+          isSuperuserRoute={isSuperuserRoute}
         />
         <div>
           <PageCountDisplayer
@@ -72,6 +74,10 @@ const AllBlogsPageContainer = () => {
   }
   // case for the user not being admin or superuser
   return <SomethingWentWrong message="An unexpected error has been encountered" />;
+};
+
+AllBlogsPageContainer.propTypes = {
+  isSuperuserRoute: PropTypes.bool,
 };
 
 export default AllBlogsPageContainer;

@@ -11,7 +11,7 @@ import useSessionExpired from '../../../customHooks/useSessionExpired';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
 const ProblemCard = ({
-  name, code, points, setSnackbarMessage, id,
+  name, code, points, setSnackbarMessage,
 }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
@@ -23,8 +23,8 @@ const ProblemCard = ({
   const client = useApolloClient();
   const { contestId } = useParams();
 
-  // onAlertAccept runs when the user clicks on the accept button on the alert box
-  const onAlertAccept = () => {
+  // deleteProblem runs when the user clicks on the accept button on the alert box
+  const deleteProblem = () => {
     setSnackbarMessage('Deleting problem, please wait');
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${code}/delete`, {
       method: 'GET',
@@ -42,14 +42,15 @@ const ProblemCard = ({
             query: GET_ADMIN_DASHBOARD_DETAILS,
             variables: { code: contestId },
           });
-          // updating the problems in the cache
+          // updating the cache
           client.writeQuery({
             query: GET_ADMIN_DASHBOARD_DETAILS,
             variables: { code: contestId },
             data: {
               adminDashboard: {
                 ...oldAdminDashboard,
-                problems: oldAdminDashboard.problems.filter(problem => problem._id !== id),
+                // removing the deleted problem
+                problems: oldAdminDashboard.problems.filter(problem => problem.code !== code),
               },
             },
           });
@@ -108,7 +109,7 @@ const ProblemCard = ({
         setIsOpen={setIsAlertOpen}
         title={alertTitle}
         content={alertContent}
-        onAccept={onAlertAccept}
+        onAccept={deleteProblem}
       />
     </div>
   );
@@ -116,7 +117,6 @@ const ProblemCard = ({
 
 ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
   setSnackbarMessage: PropTypes.func,
   code: PropTypes.string.isRequired,

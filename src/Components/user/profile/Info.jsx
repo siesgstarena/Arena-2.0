@@ -15,7 +15,7 @@ import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
-const Info = ({ userDetails: user }) => {
+const Info = ({ userDetails: user, profilePageByUsername }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = (width > 625);
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
@@ -49,11 +49,11 @@ const Info = ({ userDetails: user }) => {
             // Adding logged in user in the array of followers for the user
             const { profilePage } = cache.readQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: user._id },
+              variables: { id: user._id, findBy: 'ID' },
             });
             cache.writeQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: user._id },
+              variables: { id: user._id, findBy: 'ID' },
               data: {
                 profilePage: {
                   ...profilePage,
@@ -71,11 +71,11 @@ const Info = ({ userDetails: user }) => {
             // Adding the person followed by the loggedIn user in his array of following
             const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId },
+              variables: { id: loggedInUser.userId, findBy: 'ID' },
             });
             cache.writeQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId },
+              variables: { id: loggedInUser.userId, findBy: 'ID' },
               data: {
                 profilePage: {
                   ...profilePageOfLoggedInUser,
@@ -123,11 +123,11 @@ const Info = ({ userDetails: user }) => {
             // Removing logged in user from the array of followers for the user
             const { profilePage } = cache.readQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: user._id },
+              variables: { id: user._id, findBy: 'ID' },
             });
             cache.writeQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: user._id },
+              variables: { id: user._id, findBy: 'ID' },
               data: {
                 profilePage: {
                   ...profilePage,
@@ -145,11 +145,11 @@ const Info = ({ userDetails: user }) => {
             // Reoving the person followed by the loggedIn user from his array of following
             const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId },
+              variables: { id: loggedInUser.userId, findBy: 'ID' },
             });
             cache.writeQuery({
               query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId },
+              variables: { id: loggedInUser.userId, findBy: 'ID' },
               data: {
                 profilePage: {
                   ...profilePageOfLoggedInUser,
@@ -227,8 +227,9 @@ const Info = ({ userDetails: user }) => {
               setMessageType={setMessageType}
             />
             {
-              loggedInUser
-                ? loggedInUser.userId === user._id
+              profilePageByUsername
+                ? null
+                : (loggedInUser && loggedInUser.userId === user._id
                   ? (
                     <EditAbout
                       about={user.about}
@@ -239,8 +240,7 @@ const Info = ({ userDetails: user }) => {
                   : user.followers.includes(loggedInUser.userId)
                     ? <Button onClick={handleUnfollow} outlined>Unfollow</Button>
                     : <Button onClick={handleFollow} raised>Follow</Button>
-                : null
-            }
+                )}
           </div>
         </Cell>
       </Row>
@@ -306,6 +306,7 @@ const Info = ({ userDetails: user }) => {
 
 Info.propTypes = {
   userDetails: PropTypes.object.isRequired,
+  profilePageByUsername: PropTypes.bool,
 };
 
 export default Info;

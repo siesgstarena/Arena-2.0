@@ -271,3 +271,33 @@ mutation Logout($id: ID!){
   }
 }
 `;
+
+export const CHANGE_BLOG_PIN_STATUS = gql`
+mutation ChangeBlogPinStatus($postId: ID!){
+  changeBlogPinStatus(postId: $postId) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const CHANGE_PLAGIARISM_STATUS = gql`
+mutation ChangePlagiarismStatus($id: String!){
+  changePlagiarismStatus(_id: $id) {
+    code
+    success
+    message
+  }
+}
+`;
+
+export const REPLY_TO_FEEDBACK = gql`
+mutation ReplyToFeedback($id: ID!, $response: String!) {
+  replyToFeedback(_id: $id,response: $response) {
+    code
+    success
+    message
+  }
+}
+`;

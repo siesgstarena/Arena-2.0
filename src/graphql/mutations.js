@@ -291,3 +291,13 @@ mutation ChangePlagiarismStatus($id: String!){
   }
 }
 `;
+
+export const REPLY_TO_FEEDBACK = gql`
+mutation ReplyToFeedback($id: ID!, $response: String!) {
+  replyToFeedback(_id: $id,response: $response) {
+    code
+    success
+    message
+  }
+}
+`;

@@ -41,6 +41,7 @@ const FeedbackContainer = () => {
             return (
               <div key={_id}>
                 <FeedbackCard
+                  id={_id}
                   user={name}
                   email={email}
                   message={message}

@@ -3,18 +3,69 @@ import { Headline6, Body2 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
+import { useApolloClient } from '@apollo/react-hooks';
 import CustomBubble from '../../../common/CustomBubble/CustomBubble';
+import { GET_ALL_FEEDBACKS } from '../../../../graphql/queries';
+import { REPLY_TO_FEEDBACK } from '../../../../graphql/mutations';
+import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const FeedbackCard = ({
-  user, email, message, isReplied, createdAt, setSnackbarMessage,
+  user, email, message, isReplied, createdAt, setSnackbarMessage, id,
 }) => {
   const [reply, setReply] = useState(''); // string state var to store reply
   const [isOpen, setOpen] = useState(false); //  bool to show reply space
-
+  const client = useApolloClient();
   const toggleOpen = () => setOpen(!isOpen);
+  const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const replyStatus = (isReplied) ? 'https://img.icons8.com/material-rounded/24/6200ee/double-tick.png' : 'https://img.icons8.com/ios-glyphs/24/6200ee/paper-plane.png';
-  const addReply = () => {
-    setSnackbarMessage('Replied Successfully');
+
+  const addReply = async () => {
+    setSnackbarMessage('Replying user, please wait. It may take some time.');
+    const { data, error } = await client.mutate({
+      mutation: REPLY_TO_FEEDBACK,
+      variables: {
+        response: reply,
+        id,
+      },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.replyToFeedback.success) {
+          try {
+            const { feedbacks } = cache.readQuery({
+              query: GET_ALL_FEEDBACKS,
+            });
+            const feedbackIndex = feedbacks.findIndex((feedback => feedback._id === id));
+            feedbacks[feedbackIndex] = {
+              ...feedbacks[feedbackIndex],
+              replied: true,
+            };
+            cache.writeQuery({
+              query: GET_ALL_FEEDBACKS,
+              data: {
+                feedbacks: {
+                  ...feedbacks,
+                },
+              },
+            });
+          } catch {
+            console.log('No entry found in the cache.');
+          }
+        }
+      },
+    });
+    if (error) {
+      setSnackbarMessage('Database error encountered');
+      return;
+    }
+    if (isSessionExpired(data.replyToFeedback)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (data.replyToFeedback.success) {
+      setOpen(false);
+      setSnackbarMessage('Replied successfully');
+    } else {
+      setSnackbarMessage('An unexpected error has been encountered');
+    }
   };
 
   return (
@@ -102,5 +153,6 @@ FeedbackCard.propTypes = {
   createdAt: PropTypes.string.isRequired,
   // replyVal: PropTypes.string.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 export default FeedbackCard;

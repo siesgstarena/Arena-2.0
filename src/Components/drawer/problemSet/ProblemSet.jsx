@@ -4,7 +4,7 @@ import { Headline4, Body1 } from '@material/react-typography';
 import ProblemSetTable from './ProblemSetTable';
 import LoadingTable from '../../common/LoadingTable/index';
 
-const ProblemSet = ({ problems, loading }) => (
+const ProblemSet = ({ problems, loading = false }) => (
   <div className="mw7 center pa1 pt0">
     <Headline4 className="purple mb0">Problems</Headline4>
     <Body1 className="mid-gray">Problems from previous contests</Body1>

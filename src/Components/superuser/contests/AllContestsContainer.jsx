@@ -3,7 +3,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
-import Spinner from '../../common/Spinner/index';
 import AllContestPage from './AllContests';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
@@ -31,7 +30,13 @@ const AllContestsContainer = () => {
     }
   }, [history, location, state]);
 
-  if (loading) return <Spinner />;
+  if (loading) {
+    return (
+      <div className="mw7 center pa2">
+        <AllContestPage loading setSnackbarMessage={setSnackbarMessage} />
+      </div>
+    );
+  }
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.allContests) {
     const { contests } = data.allContests;

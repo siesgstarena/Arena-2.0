@@ -19,7 +19,9 @@ const Editor = ({ value, setValue }) => {
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value;
-        } catch (__) { return ''; }
+        } catch (__) {
+          return '';
+        }
       }
       return '';
     },
@@ -30,7 +32,7 @@ const Editor = ({ value, setValue }) => {
     setValue(text);
   };
 
-  const renderHTML = text => mdParser.render(text);
+  const renderHTML = (text) => mdParser.render(text);
 
   return (
     <MdEditor
@@ -40,10 +42,16 @@ const Editor = ({ value, setValue }) => {
       onChange={handleEditorChange}
       config={{
         view: {
-          menu: true, md: true, html: true,
+          menu: true,
+          md: true,
+          html: true,
         },
         canView: {
-          hideMenu: true, menu: true, md: true, html: true, fullScreen: true,
+          hideMenu: true,
+          menu: true,
+          md: true,
+          html: true,
+          fullScreen: true,
         },
         // imageAccept: '.jpg,.png,.jpeg',
         // htmlClass: 'custom-html-style',

@@ -28,7 +28,8 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
     const { data, error } = await client.mutate({
       mutation: UPDATE_ANNOUNCEMENT,
       variables: {
-        code: contestId, announcement,
+        code: contestId,
+        announcement,
       },
       update: (cache, { data: updatedData }) => {
         if (updatedData.updateAnnouncement.success) {
@@ -99,10 +100,8 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
   );
 };
 
-
 AnnouncementEditor.propTypes = {
   announcement: PropTypes.string.isRequired,
 };
-
 
 export default AnnouncementEditor;

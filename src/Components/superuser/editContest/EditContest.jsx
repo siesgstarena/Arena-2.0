@@ -10,11 +10,11 @@ import { subtracting330Minutes } from '../../../commonFunctions';
 import { EDIT_CONTEST } from '../../../graphql/mutations';
 
 const EditContest = ({ contestData, users }) => {
-  const mappedAdmins = contestData.contestAdmin.map(admin => ({
+  const mappedAdmins = contestData.contestAdmin.map((admin) => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
-  const mappedUsers = users.map(admin => ({
+  const mappedUsers = users.map((admin) => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
@@ -38,7 +38,7 @@ const EditContest = ({ contestData, users }) => {
   const updateDB = async () => {
     setMessageType('loading');
     setMessage('Updating Contest, Please wait');
-    const selectedAdmins = formDetails.admins.map(admin => admin.value);
+    const selectedAdmins = formDetails.admins.map((admin) => admin.value);
 
     const { data, error } = await client.mutate({
       mutation: EDIT_CONTEST,
@@ -77,16 +77,8 @@ const EditContest = ({ contestData, users }) => {
         setFormDetails={setFormDetails}
         adminOptions={mappedUsers}
       />
-      <MessageCard
-        messageType={messageType}
-        message={message}
-        setMessageType={setMessageType}
-      />
-      <Button
-        className="ma1 mt3"
-        raised
-        onClick={updateDB}
-      >
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
+      <Button className="ma1 mt3" raised onClick={updateDB}>
         Edit Contest
       </Button>
     </div>

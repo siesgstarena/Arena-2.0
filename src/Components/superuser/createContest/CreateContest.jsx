@@ -9,7 +9,7 @@ import MessageCard from '../../common/MessageCard/index';
 import { CREATE_CONTEST } from '../../../graphql/mutations';
 
 const CreateContest = ({ users }) => {
-  const mappedUsers = users.map(admin => ({
+  const mappedUsers = users.map((admin) => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
@@ -33,7 +33,7 @@ const CreateContest = ({ users }) => {
     setMessageType('loading');
     setMessage('Creating Contest, Please wait');
     // console.log(String(formDetails.type).substring(1).slice(0,-1));
-    const selectedAdmins = formDetails.admins.map(admin => admin.value);
+    const selectedAdmins = formDetails.admins.map((admin) => admin.value);
 
     const { data, error } = await client.mutate({
       mutation: CREATE_CONTEST,
@@ -74,16 +74,8 @@ const CreateContest = ({ users }) => {
         setFormDetails={setFormDetails}
         adminOptions={mappedUsers}
       />
-      <MessageCard
-        messageType={messageType}
-        message={message}
-        setMessageType={setMessageType}
-      />
-      <Button
-        className="ma1 ml0 mt3"
-        raised
-        onClick={updateDB}
-      >
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
+      <Button className="ma1 ml0 mt3" raised onClick={updateDB}>
         Create Contest
       </Button>
     </div>

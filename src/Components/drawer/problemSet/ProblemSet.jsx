@@ -15,5 +15,4 @@ ProblemSet.propTypes = {
   problems: PropTypes.array.isRequired,
 };
 
-
 export default ProblemSet;

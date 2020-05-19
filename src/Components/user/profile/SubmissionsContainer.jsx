@@ -13,31 +13,25 @@ const SubmissionsContainer = ({ user }) => {
   const limit = 10;
   const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_SUBMISSION_BY_USER_ID, {
-    variables: { limit, skip: ((activePageNumber - 1) * limit), id: user._id },
+  const { loading, error, data } = useQuery(GET_SUBMISSION_BY_USER_ID, {
+    variables: { limit, skip: (activePageNumber - 1) * limit, id: user._id },
   });
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByUserId) {
     const { pages } = data.submissionsByUserId;
     const { submissions } = data.submissionsByUserId;
-    return (
-      submissions.length !== 0
-        ? (
-          <div>
-            <Submissions submissionPages={pages} submissions={submissions} />
-            <div className="pt3">
-              <PageCountDisplayer
-                pageCount={data.submissionsByUserId.pages}
-                activePageNumber={activePageNumber}
-              />
-            </div>
-          </div>
-        )
-        : null
-    );
+    return submissions.length !== 0 ? (
+      <div>
+        <Submissions submissionPages={pages} submissions={submissions} />
+        <div className="pt3">
+          <PageCountDisplayer
+            pageCount={data.submissionsByUserId.pages}
+            activePageNumber={activePageNumber}
+          />
+        </div>
+      </div>
+    ) : null;
   }
   if (isSessionExpired(data.submissionsByUserId)) {
     // since the component hasn't rendered or returned anything,

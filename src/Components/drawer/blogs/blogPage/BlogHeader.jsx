@@ -3,22 +3,29 @@ import { Link } from 'react-router-dom';
 import { Headline4, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Pill from '../../../common/Pill/index';
-import {
-  userColor, getDate, getMonth, getYear, convertTime,
-} from '../../../../commonFunctions';
+import { userColor, getDate, getMonth, getYear, convertTime } from '../../../../commonFunctions';
 
-const tagsArray = tags => (tags.map(tag => (
-  <Link key={tag} to={`/search?q=${tag}`} className="pointer dim mr2">
-    <Pill content={tag} />
-  </Link>
-)));
-
+const tagsArray = (tags) =>
+  tags.map((tag) => (
+    <Link key={tag} to={`/search?q=${tag}`} className="pointer dim mr2">
+      <Pill content={tag} />
+    </Link>
+  ));
 
 const BlogHeader = ({
-  author, authorId, title, lastEdited, tags, postedOn, timeToRead, authorRating,
+  author,
+  authorId,
+  title,
+  lastEdited,
+  tags,
+  postedOn,
+  timeToRead,
+  authorRating,
 }) => (
   <div className="flex flex-column ba b--transparent br--top br4" style={{ alignItems: 'center' }}>
-    <Headline4 className="pa1 purple ma0 mt2" style={{ textAlign: 'center', fontWeight: 'bolder' }}>{title}</Headline4>
+    <Headline4 className="pa1 purple ma0 mt2" style={{ textAlign: 'center', fontWeight: 'bolder' }}>
+      {title}
+    </Headline4>
     <div className="flex pa3 items-center ba b--transparent br4 mb3">
       <img
         src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp"
@@ -37,17 +44,19 @@ const BlogHeader = ({
           </Link>
         </Headline6>
         <span className="" style={{ margin: '0px 10px 4px 10px' }}>
-          {`Created: ${getDate(postedOn)} ${getMonth(postedOn)} ${getYear(postedOn)}, ${convertTime(postedOn)}`}
+          {`Created: ${getDate(postedOn)} ${getMonth(postedOn)} ${getYear(postedOn)}, ${convertTime(
+            postedOn
+          )}`}
         </span>
         <span className="" style={{ margin: '0px 10px 4px 10px' }}>
-          {`Edited: ${getDate(lastEdited)} ${getMonth(lastEdited)} ${getYear(lastEdited)}, ${convertTime(lastEdited)}`}
+          {`Edited: ${getDate(lastEdited)} ${getMonth(lastEdited)} ${getYear(
+            lastEdited
+          )}, ${convertTime(lastEdited)}`}
         </span>
         <span style={{ margin: '2px 10px' }}>{`${timeToRead} min read`}</span>
       </div>
     </div>
-    <span className="mb3">
-      { tagsArray(tags) }
-    </span>
+    <span className="mb3">{tagsArray(tags)}</span>
   </div>
 );
 

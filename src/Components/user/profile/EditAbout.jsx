@@ -8,7 +8,6 @@ import { UPDATE_ABOUT } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
-
 const EditAbout = ({ about, setMessage, setMessageType }) => {
   const [showTextBox, setShowTextBox] = useState(false);
   const [editedAbout, setEditedAbout] = useState(about);
@@ -69,46 +68,25 @@ const EditAbout = ({ about, setMessage, setMessageType }) => {
   };
   return (
     <div>
-      {
-        showTextBox
-          ? (
-            <div>
-              <TextField
-                label="About"
-                className="mb2 text-area-width-100"
-                textarea
-                rows="20"
-              >
-                <Input
-                  value={editedAbout}
-                  onChange={e => setEditedAbout(e.currentTarget.value)}
-                />
-              </TextField>
-              <Button
-                raised
-                className="mr2"
-                onClick={() => handleAboutSubmit()}
-              >
-                Submit
-              </Button>
-              <Button
-                outlined
-                onClick={() => setShowTextBox(false)}
-              >
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <div>
-              <Button
-                raised
-                onClick={() => setShowTextBox(true)}
-              >
-                Edit
-              </Button>
-            </div>
-          )
-      }
+      {showTextBox ? (
+        <div>
+          <TextField label="About" className="mb2 text-area-width-100" textarea rows="20">
+            <Input value={editedAbout} onChange={(e) => setEditedAbout(e.currentTarget.value)} />
+          </TextField>
+          <Button raised className="mr2" onClick={() => handleAboutSubmit()}>
+            Submit
+          </Button>
+          <Button outlined onClick={() => setShowTextBox(false)}>
+            Cancel
+          </Button>
+        </div>
+      ) : (
+        <div>
+          <Button raised onClick={() => setShowTextBox(true)}>
+            Edit
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

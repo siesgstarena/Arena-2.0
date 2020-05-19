@@ -6,12 +6,9 @@ import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
 import Ratings from './Ratings';
 
-
 const RatingsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_ALL_CONTEST_DETAILS, {
+  const { loading, error, data } = useQuery(GET_ALL_CONTEST_DETAILS, {
     variables: { limit: 150, skip: 0 },
   });
 

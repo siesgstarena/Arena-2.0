@@ -6,18 +6,18 @@ const UNI04 = () => {
   const gettingStartedContent = (
     <div>
       <Headline4 className="purple">Getting Started</Headline4>
-      <Body1 className="ma0">So here we are! If you&apos;re ready to start the playlist let&apos;s get started!</Body1>
       <Body1 className="ma0">
-        If you are a beginner and this is your first playlist,
-        don&apos;t worry you are at the right place!
+        So here we are! If you&apos;re ready to start the playlist let&apos;s get started!
       </Body1>
       <Body1 className="ma0">
-        We are going to use a problem from the Universe of arena,
-        where all the problems are kept open for submission for a long span of time.
+        If you are a beginner and this is your first playlist, don&apos;t worry you are at the right
+        place!
       </Body1>
-      <Body1 className="mt3">
-        We are going to choose the fourth problem Tug Of War.
+      <Body1 className="ma0">
+        We are going to use a problem from the Universe of arena, where all the problems are kept
+        open for submission for a long span of time.
       </Body1>
+      <Body1 className="mt3">We are going to choose the fourth problem Tug Of War.</Body1>
     </div>
   );
 
@@ -28,12 +28,10 @@ const UNI04 = () => {
         There is a very straightforward description for this problem.
       </Body1>
       <Body1 className="ma0 mb3">
-        Understand the input output and the pattern for it, which
-        is very important especially for this problem.
+        Understand the input output and the pattern for it, which is very important especially for
+        this problem.
       </Body1>
-      <Body1 className="ma0">
-        Notice that the powers are taken in an alternate fashion.
-      </Body1>
+      <Body1 className="ma0">Notice that the powers are taken in an alternate fashion.</Body1>
     </div>
   );
 
@@ -41,11 +39,16 @@ const UNI04 = () => {
     <div>
       <Headline4 className="purple">Creating a Pseudo Code</Headline4>
       <Body1 className="ma0">
-        We know how to create a pseudo code! It&apos;s just a bunch of
-        arrows and block which do the processing.
-        To know more about pseudo code visit
-        {' '}
-        <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
+        We know how to create a pseudo code! It&apos;s just a bunch of arrows and block which do the
+        processing. To know more about pseudo code visit{' '}
+        <a
+          className="dim blue no-underline"
+          href="https://en.wikipedia.org/wiki/Pseudocode"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          here
+        </a>
         .
       </Body1>
       <Headline5 className="black mb3 mt3">Let&apos;s write our pseudo code!</Headline5>
@@ -53,26 +56,25 @@ const UNI04 = () => {
         This is a simple set of steps written for our understanding.
       </Body1>
       <Body1 className="ma0">
-        Now you need to think about it and maybe even write it down,
-        with enough practice you will be able to map all these instructions
-        at once and follow the flow of the program.
+        Now you need to think about it and maybe even write it down, with enough practice you will
+        be able to map all these instructions at once and follow the flow of the program.
       </Body1>
       <Headline5 className="black mb3 mt3">Let&apos;s start!</Headline5>
       <Body1 className="ma0 mb2">
-        We take input for the number of members in one team, and powers of each
-        member of both the teams.
+        We take input for the number of members in one team, and powers of each member of both the
+        teams.
       </Body1>
       <Body1 className="ma0 mb2">
-        We consider kind of a balanced integer at the start which moves either
-        towards the right or left (on the number line) based on the alternate pattern of input.
+        We consider kind of a balanced integer at the start which moves either towards the right or
+        left (on the number line) based on the alternate pattern of input.
       </Body1>
       <Body1 className="ma0 mb2">
-        That means we will be adding the powers of team 1 members and subtracting the powers
-        of team 2 members starting with ‘0&apos;.
+        That means we will be adding the powers of team 1 members and subtracting the powers of team
+        2 members starting with ‘0&apos;.
       </Body1>
       <Body1 className="ma0">
-        If we end at 0, means the powers are balanced. If we move towards the
-        positive end, team 1 wins or else team 2 wins!
+        If we end at 0, means the powers are balanced. If we move towards the positive end, team 1
+        wins or else team 2 wins!
       </Body1>
     </div>
   );
@@ -88,8 +90,7 @@ const UNI04 = () => {
               <span className="blue">&lt;bits/stdc++.h&gt;</span>
               <div className="black">
                 using namespace&nbsp;
-                <span className="dark-green">std</span>
-                ;
+                <span className="dark-green">std</span>;
               </div>
             </div>
 
@@ -102,24 +103,19 @@ const UNI04 = () => {
             <div className="ml3">
               <div className="mb1">int t, i, T, g;</div>
               <div className="mb3">
-                <span className="dark-green">scanf</span>
-                (
-                <span className="dark-red">&quot;%d&quot;</span>
-                , &T);
+                <span className="dark-green">scanf</span>(
+                <span className="dark-red">&quot;%d&quot;</span>, &T);
               </div>
 
               <div className="mb3">
-                while (T--) &#123;
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                while (T--) &#123; &nbsp;&nbsp;&nbsp;&nbsp;
                 <span className="gray">&#47;&#47; Peform the same task T times</span>
               </div>
 
               <div className="ml4">
                 <div className="mb1">
-                  <span className="dark-green">scanf</span>
-                  (
-                  <span className="dark-red">&quot;%d&quot;</span>
-                  , &t);
+                  <span className="dark-green">scanf</span>(
+                  <span className="dark-red">&quot;%d&quot;</span>, &t);
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="gray">
                     &#47;&#47; input the number of integers to be taken next
@@ -128,49 +124,37 @@ const UNI04 = () => {
 
                 <div className="mb3">
                   int tot=
-                  <span className="dark-red">0</span>
-                  ;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;
+                  <span className="dark-red">0</span>;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
                   <span className="gray">&#47;&#47; intializing tot as 0</span>
                 </div>
 
                 <div className="mb3">
                   for (i =&nbsp;
-                  <span className="dark-red">0</span>
-                  ; i &lt; t;
-                  &nbsp;i++) &#123;
+                  <span className="dark-red">0</span>; i &lt; t; &nbsp;i++) &#123;
                 </div>
 
                 <div className="ml3">
                   <div className="mb1">
-                    <span className="dark-green">scanf</span>
-                    (
-                    <span className="dark-red">&quot;%d&quot;</span>
-                    , &g);
-                    &nbsp;&nbsp;&nbsp;
+                    <span className="dark-green">scanf</span>(
+                    <span className="dark-red">&quot;%d&quot;</span>, &g); &nbsp;&nbsp;&nbsp;
                     <span className="gray">
-                      &#47;&#47; input the number which actually
-                      needs to be checked
+                      &#47;&#47; input the number which actually needs to be checked
                     </span>
                   </div>
 
                   <div className="mb1">
-                    tot = tot + g;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    tot = tot + g; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span className="gray">&#47;&#47; adding team 1 members&apos; powers</span>
                   </div>
 
                   <div className="mb1">
-                    <span className="dark-green">scanf</span>
-                    (
-                    <span className="dark-red">&quot;%d&quot;</span>
-                    , &g);
+                    <span className="dark-green">scanf</span>(
+                    <span className="dark-red">&quot;%d&quot;</span>, &g);
                   </div>
 
                   <div className="mb3">
-                    tot = tot + g;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    tot = tot + g; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span className="gray">&#47;&#47; subtracting team 2 members&apos; powers</span>
                   </div>
                 </div>
@@ -179,35 +163,28 @@ const UNI04 = () => {
 
                 <div className="mb3">
                   if (tot&nbsp;&gt;&nbsp;
-                  <span className="dark-red">0</span>
-                  ) &#123;
+                  <span className="dark-red">0</span>) &#123;
                 </div>
                 <div className="mb3 ml3">
-                  <span className="dark-green">printf</span>
-                  (
+                  <span className="dark-green">printf</span>(
                   <span className="dark-red">&quot;1&quot;</span>
-                  );
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  ); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="gray">&#47;&#47; Team 1 wins</span>
                 </div>
 
                 <div className="mb3">&#125; else if (tot&nbsp;&lt;&nbsp;0) &#123;</div>
                 <div className="mb3 ml3">
-                  <span className="dark-green">printf</span>
-                  (
+                  <span className="dark-green">printf</span>(
                   <span className="dark-red">&quot;2&quot;</span>
-                  );
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  ); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="gray">&#47;&#47; Team 2 wins</span>
                 </div>
 
                 <div className="mb3">&#125; else &#123;</div>
                 <div className="mb3 ml3">
-                  <span className="dark-green">printf</span>
-                  (
+                  <span className="dark-green">printf</span>(
                   <span className="dark-red">&quot;0&quot;</span>
-                  );
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  ); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <span className="gray">&#47;&#47; Draw</span>
                 </div>
                 <div className="mb3">&#125;</div>
@@ -216,8 +193,7 @@ const UNI04 = () => {
               <div className="mb3">&#125;</div>
               <div className="mb3">
                 return&nbsp;
-                <span className="dark-red">0</span>
-                ;
+                <span className="dark-red">0</span>;
               </div>
             </div>
             <div>&#125;</div>

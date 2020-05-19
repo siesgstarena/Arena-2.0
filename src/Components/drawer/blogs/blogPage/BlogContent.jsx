@@ -6,7 +6,13 @@ import BlogHeader from './BlogHeader';
 
 const BlogContent = ({ blog }) => {
   const {
-    content, userId, createdAt: postedOn, updatedAt: lastEdited, title, tags, timeToRead,
+    content,
+    userId,
+    createdAt: postedOn,
+    updatedAt: lastEdited,
+    title,
+    tags,
+    timeToRead,
   } = blog;
   const { name: author, _id: authorId, ratings: authorRating } = userId;
   return (

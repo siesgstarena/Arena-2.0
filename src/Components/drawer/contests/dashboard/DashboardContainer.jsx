@@ -10,13 +10,18 @@ import LoadingTable from '../../../common/LoadingTable/index';
 const DashboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_CONTEST_DASHBOARD, {
+  const { loading, error, data } = useQuery(GET_CONTEST_DASHBOARD, {
     variables: { code: contestId },
   });
 
-  if (loading) return <LoadingTable tableHeadings={['#', 'Points', 'Problem Name']} count={10} tableHeadingClassName="" />;
+  if (loading)
+    return (
+      <LoadingTable
+        tableHeadings={['#', 'Points', 'Problem Name']}
+        count={10}
+        tableHeadingClassName=""
+      />
+    );
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.dashboard) {
     const problems = data.dashboard;

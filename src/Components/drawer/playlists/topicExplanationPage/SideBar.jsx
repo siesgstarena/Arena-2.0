@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import './SideBar.scss';
 
 const SideBar = ({
-  gettingStartedContent, dissectingProblemContent, pseudoCodeContent, writingCodeContent, topic,
+  gettingStartedContent,
+  dissectingProblemContent,
+  pseudoCodeContent,
+  writingCodeContent,
+  topic,
 }) => {
   const [isGettingStarted, setIsGettingStarted] = useState(true);
   const [isDissectingProblem, setIsDissectingProblem] = useState(false);
@@ -32,7 +36,11 @@ const SideBar = ({
           Topic:&nbsp;
           {topic}
         </Headline5>
-        <div role="presentation" onClick={() => handleItemClick(setIsGettingStarted)} className={gettingStartedClass}>
+        <div
+          role="presentation"
+          onClick={() => handleItemClick(setIsGettingStarted)}
+          className={gettingStartedClass}
+        >
           Getting Started
         </div>
         <div
@@ -42,36 +50,27 @@ const SideBar = ({
         >
           Dissecting the problem
         </div>
-        <div role="presentation" onClick={() => handleItemClick(setIsPseudoCode)} className={pseudoCodeClass}>
+        <div
+          role="presentation"
+          onClick={() => handleItemClick(setIsPseudoCode)}
+          className={pseudoCodeClass}
+        >
           Creating a Pseudo Code
         </div>
-        <div role="presentation" onClick={() => handleItemClick(setIsWritingCode)} className={writingCodeClass}>
+        <div
+          role="presentation"
+          onClick={() => handleItemClick(setIsWritingCode)}
+          className={writingCodeClass}
+        >
           Writing Code
         </div>
       </div>
 
       <div className="content">
-        {
-          isGettingStarted
-            ? gettingStartedContent
-            : <span />
-        }
-        {
-          isDissectingProblem
-            ? dissectingProblemContent
-            : <span />
-        }
-        {
-          isPseudoCode
-            ? pseudoCodeContent
-            : <span />
-        }
-        {
-          isWritingCode
-            ? writingCodeContent
-            : <span />
-        }
-
+        {isGettingStarted ? gettingStartedContent : <span />}
+        {isDissectingProblem ? dissectingProblemContent : <span />}
+        {isPseudoCode ? pseudoCodeContent : <span />}
+        {isWritingCode ? writingCodeContent : <span />}
       </div>
     </div>
   );

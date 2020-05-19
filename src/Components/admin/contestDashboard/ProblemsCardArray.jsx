@@ -10,7 +10,7 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage }) => {
   const history = useHistory();
   const { contestId } = useParams();
 
-  const problemsArray = problems.map(problem => (
+  const problemsArray = problems.map((problem) => (
     <ProblemCard
       setSnackbarMessage={setSnackbarMessage}
       key={problem.code}
@@ -26,12 +26,8 @@ const ProblemsCardArray = ({ problems, setSnackbarMessage }) => {
 
   return (
     <div>
-      <Headline6 className="mid-gray mt4 mb0">
-        Problems in the contest
-      </Headline6>
-      <Button onClick={onCreateProblemClick}>
-        Create a new problem
-      </Button>
+      <Headline6 className="mid-gray mt4 mb0">Problems in the contest</Headline6>
+      <Button onClick={onCreateProblemClick}>Create a new problem</Button>
       {problemsArray}
     </div>
   );

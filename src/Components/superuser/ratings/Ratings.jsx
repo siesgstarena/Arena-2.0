@@ -8,11 +8,9 @@ import Button from '@material/react-button';
 const SuperuserRatings = ({ contests }) => {
   const history = useHistory();
   const [contest, setContest] = useState(contests[0].code);
-  const onContestChange = (index, item) => (
-    setContest(item.getAttribute('data-value'))
-  );
+  const onContestChange = (index, item) => setContest(item.getAttribute('data-value'));
 
-  const contestOptions = contests.map(contestOption => ({
+  const contestOptions = contests.map((contestOption) => ({
     value: contestOption.code,
     label: `${contestOption.name} (${contestOption.code})`,
   }));
@@ -20,7 +18,9 @@ const SuperuserRatings = ({ contests }) => {
   return (
     <div className="mw7 center ma1">
       <Headline4 className="purple mt4 mb0 ml1"> Update Ratings</Headline4>
-      <Body2 className="mid-gray mt2 mb4 ml1">Ratings will be changed using Elo Ratings Algorithm</Body2>
+      <Body2 className="mid-gray mt2 mb4 ml1">
+        Ratings will be changed using Elo Ratings Algorithm
+      </Body2>
       <Select
         className="w-100"
         notchedOutlineClassName="pa1"

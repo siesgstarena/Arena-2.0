@@ -11,7 +11,11 @@ import { DELETE_BLOG, CHANGE_BLOG_PIN_STATUS } from '../../../../graphql/mutatio
 import AlertBox from '../../../common/AlertBox/index';
 import Pill from '../../../common/Pill/index';
 import {
-  convertDate, convertTime, userColor, differenceInTwoDates, adding330Minutes,
+  convertDate,
+  convertTime,
+  userColor,
+  differenceInTwoDates,
+  adding330Minutes,
 } from '../../../../commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
@@ -19,11 +23,20 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../customHooks/useSentry';
 
 const BlogCard = ({
-  isSuperuserRoute = false, tags, id, createdAt, title,
-  timeToRead, authorId, author, updatedAt, ratings,
-  setSnackbarMessage, pinned,
+  isSuperuserRoute = false,
+  tags,
+  id,
+  createdAt,
+  title,
+  timeToRead,
+  authorId,
+  author,
+  updatedAt,
+  ratings,
+  setSnackbarMessage,
+  pinned,
 }) => {
-  const tagsArray = tags.map(tag => (
+  const tagsArray = tags.map((tag) => (
     <Link key={tag} to={`/search?q=${tag}`} className="pointer">
       <Pill content={tag} />
     </Link>
@@ -41,16 +54,20 @@ const BlogCard = ({
   const currentDateInMilliseconds = currentDateObject.getTime();
   // currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
   const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInTwoDates(
-    currentDateInMilliseconds, updatedAt,
+    currentDateInMilliseconds,
+    updatedAt
   );
   const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
 
   // Pin Blog Feature ( only for superuser )
   const [isPinned, setPinned] = useState(pinned);
-  const pinImageOptions = ['https://img.icons8.com/material-outlined/24/6200ee/pin.png', 'https://img.icons8.com/material/24/6200ee/pin.png'];
-  const pinMessage = (isPinned) ? 'Unpin' : 'Pin';
-  const pinIcon = (isPinned) ? pinImageOptions[1] : pinImageOptions[0];
+  const pinImageOptions = [
+    'https://img.icons8.com/material-outlined/24/6200ee/pin.png',
+    'https://img.icons8.com/material/24/6200ee/pin.png',
+  ];
+  const pinMessage = isPinned ? 'Unpin' : 'Pin';
+  const pinIcon = isPinned ? pinImageOptions[1] : pinImageOptions[0];
   const onPinClick = async () => {
     const { data, error } = await client.mutate({
       mutation: CHANGE_BLOG_PIN_STATUS,
@@ -102,7 +119,7 @@ const BlogCard = ({
       logError('changeBlogPinStatus query', { ...data, ...error });
     }
   };
-  const pinClassName = (isSuperuserRoute) ? 'flex justify-between items-center' : '';
+  const pinClassName = isSuperuserRoute ? 'flex justify-between items-center' : '';
   // end Pin
 
   const handleEdit = () => {
@@ -113,7 +130,6 @@ const BlogCard = ({
       },
     });
   };
-
 
   const handleDelete = () => {
     setIsAlertOpen(true);
@@ -162,69 +178,69 @@ const BlogCard = ({
             {title}
           </Headline6>
         </Link>
-        {
-        (isSuperuserRoute) ? (
-
-          <Button
-            onClick={onPinClick}
-          >
+        {isSuperuserRoute ? (
+          <Button onClick={onPinClick}>
             <img alt="pin" src={pinIcon} />
           </Button>
-        ) : ('')
-      }
+        ) : (
+          ''
+        )}
       </div>
       <Grid className="" style={{ padding: 0, margin: '0px 20px 0px 20px' }}>
         <Row style={{ padding: '0px', margin: '0px' }}>
-          <Cell className="ma0 pa0" style={{ padding: '0px', margin: '0px' }} desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-            <Link to={`/profile/${authorId}`} className="no-underline" style={{ color: userColor(ratings, authorId) }}>
-              <Body1 className="mb1">
-                {author}
-              </Body1>
+          <Cell
+            className="ma0 pa0"
+            style={{ padding: '0px', margin: '0px' }}
+            desktopColumns={6}
+            tabletColumns={4}
+            phoneColumns={4}
+          >
+            <Link
+              to={`/profile/${authorId}`}
+              className="no-underline"
+              style={{ color: userColor(ratings, authorId) }}
+            >
+              <Body1 className="mb1">{author}</Body1>
             </Link>
-            <div className="">
-              {tagsArray}
-            </div>
+            <div className="">{tagsArray}</div>
           </Cell>
-          <Cell className="ma0 pa0" style={{ padding: '0px', margin: '0px' }} desktopColumns={6} tabletColumns={4} phoneColumns={4}>
+          <Cell
+            className="ma0 pa0"
+            style={{ padding: '0px', margin: '0px' }}
+            desktopColumns={6}
+            tabletColumns={4}
+            phoneColumns={4}
+          >
             <Body2 className="gray text-alignment">
-              Posted on:
-              &nbsp;
-              {createdAtDate}
-              ,
-              &nbsp;
+              Posted on: &nbsp;
+              {createdAtDate}, &nbsp;
               {createdAtTime}
               <br />
               <span className="">
-                Recent Activity:
-                &nbsp;
+                Recent Activity: &nbsp;
                 {convertedUpdatedAt}
                 &nbsp;
                 {convertedUpdatedAtType}
-                &nbsp;
-                ago
+                &nbsp; ago
               </span>
               <br />
               {timeToRead}
-              &nbsp;
-              min read
+              &nbsp; min read
             </Body2>
           </Cell>
         </Row>
-        {
-          authState.user && authState.user.userId === authorId
-            ? (
-              <Row>
-                <Cell className="pa0">
-                  <Button style={{ color: '#555555' }} className="mb2" onClick={handleEdit}>
-                    edit blog
-                  </Button>
-                  <Button style={{ color: '#555555' }} className="mb2" onClick={handleDelete}>
-                    delete blog
-                  </Button>
-                </Cell>
-              </Row>
-            ) : null
-        }
+        {authState.user && authState.user.userId === authorId ? (
+          <Row>
+            <Cell className="pa0">
+              <Button style={{ color: '#555555' }} className="mb2" onClick={handleEdit}>
+                edit blog
+              </Button>
+              <Button style={{ color: '#555555' }} className="mb2" onClick={handleDelete}>
+                delete blog
+              </Button>
+            </Cell>
+          </Row>
+        ) : null}
         <Row>
           <AlertBox
             isOpen={isAlertOpen}

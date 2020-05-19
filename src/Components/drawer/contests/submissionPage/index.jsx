@@ -18,55 +18,48 @@ const SubmitContainer = () => {
   const history = useHistory();
   const location = useLocation();
   const { state } = location;
-  const {
-    loading, error, data,
-  } = useQuery(GET_SUBMISSION_PAGE_DETAILS, {
+  const { loading, error, data } = useQuery(GET_SUBMISSION_PAGE_DETAILS, {
     variables: { id: submissionId },
   });
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionById.success) {
-    const {
-      submission, showOutput, outputLink, expectedOutputLink,
-    } = data.submissionById;
-    const {
-      fileContent, output, problemId, status, duringContest, language,
-    } = submission;
+    const { submission, showOutput, outputLink, expectedOutputLink } = data.submissionById;
+    const { fileContent, output, problemId, status, duringContest, language } = submission;
     const { inputFile, outputFile } = problemId;
     const submissionArray = [submission];
     return (
       <div>
-        <Button className="mb2" onClick={() => (state && state.from ? history.push(state.from) : history.push(`/contests/${contestId}`))}>Go Back</Button>
+        <Button
+          className="mb2"
+          onClick={() =>
+            state && state.from ? history.push(state.from) : history.push(`/contests/${contestId}`)
+          }
+        >
+          Go Back
+        </Button>
         <ProblemStatusTable submissions={submissionArray} contestId={contestId} onSubmissionPage />
         <Headline6 className="mt2 mb1 purple">CODE:</Headline6>
         <div className="mb3">
           <Viewer value={languageCodeAppender(fileContent, language)} />
         </div>
-        {
-          status === 'Wrong Answer' && !duringContest
-            ? (
-              <WrongAnswerContent
-                inputFile={inputFile}
-                output={output}
-                outputFile={outputFile}
-                showOutput={showOutput}
-                outputFileLink={outputLink}
-                expectedOutputLink={expectedOutputLink}
-              />
-            )
-            : null
-        }
-        {
-          status === 'Compilation Error' || status === 'Runtime Error'
-            ? (
-              <div>
-                <Headline6 className="mt2 mb1 purple">OUTPUT:</Headline6>
-                <Viewer value={languageCodeAppender(output, language)} />
-              </div>
-            )
-            : null
-        }
+        {status === 'Wrong Answer' && !duringContest ? (
+          <WrongAnswerContent
+            inputFile={inputFile}
+            output={output}
+            outputFile={outputFile}
+            showOutput={showOutput}
+            outputFileLink={outputLink}
+            expectedOutputLink={expectedOutputLink}
+          />
+        ) : null}
+        {status === 'Compilation Error' || status === 'Runtime Error' ? (
+          <div>
+            <Headline6 className="mt2 mb1 purple">OUTPUT:</Headline6>
+            <Viewer value={languageCodeAppender(output, language)} />
+          </div>
+        ) : null}
       </div>
     );
   }

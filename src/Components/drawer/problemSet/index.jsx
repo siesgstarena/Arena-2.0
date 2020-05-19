@@ -8,19 +8,14 @@ import ProblemSet from './ProblemSet';
 
 const ProblemSetContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_PROBLEM_SET);
+  const { loading, error, data } = useQuery(GET_PROBLEM_SET);
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.problemSet) {
     const problems = data.problemSet;
     return (
-
       <div className="mw7 pa1 center">
-        <ProblemSet
-          problems={problems}
-        />
+        <ProblemSet problems={problems} />
       </div>
     );
   }

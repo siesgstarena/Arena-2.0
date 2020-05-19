@@ -12,9 +12,7 @@ import ProfileLoadingSkeleton from './profile/ProfileLoadingSkeleton';
 const ProfileContainerWithUsername = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { username } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_PROFILE_DETAILS, {
+  const { loading, error, data } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
       findBy: 'username',
       username,
@@ -33,9 +31,7 @@ const ProfileContainerWithUsername = () => {
       <div className="mw7 pa2 center pt0">
         <Info userDetails={userDetails} profilePageByUsername />
         <RatingsGraph contests={contests} ratingChanges={ratingChanges} />
-        <ProfileTabBar
-          user={userDetails}
-        />
+        <ProfileTabBar user={userDetails} />
       </div>
     );
   }

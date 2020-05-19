@@ -19,13 +19,15 @@ const Viewer = ({ value }) => {
       if (lang && hljs.getLanguage(lang)) {
         try {
           return hljs.highlight(lang, str).value;
-        } catch (__) { return ''; }
+        } catch (__) {
+          return '';
+        }
       }
       return '';
     },
   });
 
-  const renderHTML = enteredText => mdParser.render(enteredText);
+  const renderHTML = (enteredText) => mdParser.render(enteredText);
 
   return (
     <MdEditor
@@ -33,10 +35,16 @@ const Viewer = ({ value }) => {
       renderHTML={renderHTML}
       config={{
         view: {
-          menu: false, md: false, html: true,
+          menu: false,
+          md: false,
+          html: true,
         },
         canView: {
-          hideMenu: false, menu: true, md: true, html: true, fullScreen: true,
+          hideMenu: false,
+          menu: true,
+          md: true,
+          html: true,
+          fullScreen: true,
         },
         // htmlClass: "custom-html-style",
         // markdownClass: "ba bw2 ma0 pa0",

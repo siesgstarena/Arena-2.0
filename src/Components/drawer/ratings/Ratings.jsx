@@ -4,13 +4,10 @@ import PropTypes from 'prop-types';
 import RatingsTable from './RatingsTable';
 import 'tachyons';
 
-const Ratings = ({
-  users, activePageNumber, limit, ratingsUpdatedTill,
-}) => (
+const Ratings = ({ users, activePageNumber, limit, ratingsUpdatedTill }) => (
   <div>
     <Body2 className="mid-gray ml1 mt2">
-      Ratings have been updated till
-      &nbsp;
+      Ratings have been updated till &nbsp;
       {ratingsUpdatedTill}
     </Body2>
     <RatingsTable users={users} activePageNumber={activePageNumber} limit={limit} />

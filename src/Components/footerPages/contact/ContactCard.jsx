@@ -1,8 +1,6 @@
 import React from 'react';
 import Card from '@material/react-card';
-import {
-  Body1,
-} from '@material/react-typography';
+import { Body1 } from '@material/react-typography';
 import { SocialIcon } from 'react-social-icons';
 import 'tachyons';
 
@@ -10,19 +8,15 @@ import 'tachyons';
 
 const ContactCard = () => (
   <Card className="tc">
-    {
-      /*
+    {/*
         pl3 -> PaddingLeft3
         pr3 -> PaddingRight3
         tc -> TextCenter
         ms2 -> MarginAll2
         dim -> Dims the element on hover
-      */
-    }
+      */}
     <div className="pl3 pr3">
-      <Body1>
-        Our social media links
-      </Body1>
+      <Body1>Our social media links</Body1>
       <div className="tc ma2">
         <span className="ma2 dim">
           <SocialIcon
@@ -56,6 +50,5 @@ const ContactCard = () => (
     </div>
   </Card>
 );
-
 
 export default ContactCard;

@@ -14,9 +14,7 @@ const Announcements = ({ announcement }) => {
 
   return (
     <div className="ba br4 b--black-20 pa2 mt4">
-      <Headline6 className="mid-gray ma0 tc">
-        Announcements
-      </Headline6>
+      <Headline6 className="mid-gray ma0 tc">Announcements</Headline6>
       <hr className="" />
       <div style={{ height: '80px', overflow: 'auto' }}>
         <div className="mid-gray ma0">

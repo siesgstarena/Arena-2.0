@@ -12,7 +12,7 @@ import Uploading from '../submit/Uploading';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const SubmitOnProblemPage = () => {
-// initial State declaration
+  // initial State declaration
   const history = useHistory();
   const { contestId, problemId } = useParams();
   const [uploadMethod, setUploadMethod] = useState('file');
@@ -33,7 +33,7 @@ const SubmitOnProblemPage = () => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
@@ -48,7 +48,8 @@ const SubmitOnProblemPage = () => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         setIsUploading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
@@ -65,7 +66,7 @@ const SubmitOnProblemPage = () => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
@@ -80,16 +81,17 @@ const SubmitOnProblemPage = () => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         setIsUploading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
   };
   // functions to update state
-  const onLangChange = (_, item) => (setLang(item.getAttribute('data-value')));
+  const onLangChange = (_, item) => setLang(item.getAttribute('data-value'));
 
-  const onMethodChange = (_, item) => (setUploadMethod(item.getAttribute('data-value')));
+  const onMethodChange = (_, item) => setUploadMethod(item.getAttribute('data-value'));
   // function to check validation
   const validationCheck = () => {
     if (lang !== 'None' && (file.length !== 0 || code.length !== 0)) {
@@ -119,11 +121,7 @@ const SubmitOnProblemPage = () => {
       <Body1 className="tc mt1 mb1">Submit Solution</Body1>
       <hr className="mid-gray w-100 h-100" />
       <div className="w-100">
-        <MessageCard
-          message={message}
-          messageType={messageType}
-          setMessageType={setMessageType}
-        />
+        <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
       </div>
       <div className="" style={{ overflow: 'hidden' }}>
         <Select
@@ -153,35 +151,33 @@ const SubmitOnProblemPage = () => {
           <Option value="code">Insert Source Code</Option>
         </Select>
       </div>
-      {
-      (uploadMethod === 'file')
-        ? (
-          <div className="mt2">
-            <FileUpload id="file" label="Upload Solution" file={file} onChangeFunction={e => setFile(e.currentTarget.files[0])} />
-          </div>
-        )
-        : (
-          <div className=" mt2 mb1">
-            <TextField
-              label="Enter your code here"
-              className="text-area-width-100"
-              textarea
-              required
-            >
-              <Input
-                className=""
-                rows="10"
-                value={code}
-                onChange={e => setCode(e.currentTarget.value)}
-              />
-            </TextField>
-          </div>
-        )
-    }
+      {uploadMethod === 'file' ? (
+        <div className="mt2">
+          <FileUpload
+            id="file"
+            label="Upload Solution"
+            file={file}
+            onChangeFunction={(e) => setFile(e.currentTarget.files[0])}
+          />
+        </div>
+      ) : (
+        <div className=" mt2 mb1">
+          <TextField label="Enter your code here" className="text-area-width-100" textarea required>
+            <Input
+              className=""
+              rows="10"
+              value={code}
+              onChange={(e) => setCode(e.currentTarget.value)}
+            />
+          </TextField>
+        </div>
+      )}
       <Button
         raised
         className="mt1"
-        onClick={() => { validationCheck(); }}
+        onClick={() => {
+          validationCheck();
+        }}
       >
         Submit
       </Button>

@@ -4,9 +4,7 @@ import { Headline6, Body2 } from '@material/react-typography';
 
 const Statistics = ({ stats }) => (
   <div className="ba br4 b--black-20 pa2 mt4">
-    <Headline6 className="mid-gray ma0 tc">
-      Statistics
-    </Headline6>
+    <Headline6 className="mid-gray ma0 tc">Statistics</Headline6>
     <div
       className="tc mt2"
       style={{

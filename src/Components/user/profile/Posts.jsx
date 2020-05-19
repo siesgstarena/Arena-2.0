@@ -20,10 +20,8 @@ const PostsContainer = ({ user }) => {
   const { authState } = useContext(AuthContext);
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const {
-    loading, error, data,
-  } = useQuery(GET_BLOGS_BY_USER, {
-    variables: { limit, skip: ((activePageNumber - 1) * limit), id: user._id },
+  const { loading, error, data } = useQuery(GET_BLOGS_BY_USER, {
+    variables: { limit, skip: (activePageNumber - 1) * limit, id: user._id },
   });
   if (loading) return <Spinner />;
   if (error) {
@@ -34,41 +32,37 @@ const PostsContainer = ({ user }) => {
     const { blogs } = data.blogByUser;
     return (
       <div className="pt3">
-        {
-          blogs.length !== 0
-            ? (
-              <div>
-                {
-                  blogs.map(blog => (
-                    <BlogCard
-                      key={blog._id}
-                      tags={blog.tags}
-                      id={blog._id}
-                      author={user.name}
-                      authorId={user._id}
-                      createdAt={blog.createdAt}
-                      updatedAt={blog.updatedAt}
-                      timeToRead={blog.timeToRead}
-                      title={blog.title}
-                      ratings={blog.userId.ratings}
-                      setSnackbarMessage={setSnackbarMessage}
-                    />
-                  ))
-                }
-                <CustomSnackbar
-                  setSnackbarMessage={setSnackbarMessage}
-                  snackbarMessage={snackbarMessage}
-                />
-                <div className="pt3">
-                  <PageCountDisplayer
-                    pageCount={data.blogByUser.pages}
-                    activePageNumber={activePageNumber}
-                  />
-                </div>
-              </div>
-            )
-            : <NoBlogs showCreateButton={authState.user && authState.user.userId === user._id} />
-        }
+        {blogs.length !== 0 ? (
+          <div>
+            {blogs.map((blog) => (
+              <BlogCard
+                key={blog._id}
+                tags={blog.tags}
+                id={blog._id}
+                author={user.name}
+                authorId={user._id}
+                createdAt={blog.createdAt}
+                updatedAt={blog.updatedAt}
+                timeToRead={blog.timeToRead}
+                title={blog.title}
+                ratings={blog.userId.ratings}
+                setSnackbarMessage={setSnackbarMessage}
+              />
+            ))}
+            <CustomSnackbar
+              setSnackbarMessage={setSnackbarMessage}
+              snackbarMessage={snackbarMessage}
+            />
+            <div className="pt3">
+              <PageCountDisplayer
+                pageCount={data.blogByUser.pages}
+                activePageNumber={activePageNumber}
+              />
+            </div>
+          </div>
+        ) : (
+          <NoBlogs showCreateButton={authState.user && authState.user.userId === user._id} />
+        )}
       </div>
     );
   }

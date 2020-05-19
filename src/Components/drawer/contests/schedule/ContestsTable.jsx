@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  userColor, convertDate, convertTime, differenceInTwoDates, adding330Minutes,
+  userColor,
+  convertDate,
+  convertTime,
+  differenceInTwoDates,
+  adding330Minutes,
 } from '../../../../commonFunctions';
 
 const ContestsTable = ({ contests }) => {
@@ -12,14 +16,16 @@ const ContestsTable = ({ contests }) => {
   const hidden = width < 900;
 
   useEffect(() => {
-    const updateWidthOnResize = () => { setWidth(window.innerWidth); };
+    const updateWidthOnResize = () => {
+      setWidth(window.innerWidth);
+    };
     // Adding a resize event listener on mount
     window.addEventListener('resize', updateWidthOnResize);
-    return (() => {
+    return () => {
       // Removing the listener when the component unmounts so that
       // no state updates happen when the component is unmounted
       window.removeEventListener('resize', updateWidthOnResize);
-    });
+    };
   }, []);
 
   const rows = contests.map((contest) => {
@@ -33,39 +39,28 @@ const ContestsTable = ({ contests }) => {
     return (
       <tr key={contest.code}>
         <td>
-          <Link
-            className="no-underline pointer dim blue"
-            to={`/contests/${contest.code}`}
-          >
+          <Link className="no-underline pointer dim blue" to={`/contests/${contest.code}`}>
             {contest.name}
           </Link>
         </td>
-        {
-          hidden
-            ? <td className="pa0" />
-            : (
-              <td>
-                {
-                  contest.contestAdmin.map(setter => (
-                    <Link
-                      className="no-underline pointer"
-                      to={`/profile/${setter._id}`}
-                      style={{ color: userColor(setter.ratings, setter._id) }}
-                      key={setter._id}
-                    >
-                      <div className="ma1 dim">
-                        {setter.name}
-                      </div>
-                    </Link>
-                  ))
-                }
-              </td>
-            )
-        }
+        {hidden ? (
+          <td className="pa0" />
+        ) : (
+          <td>
+            {contest.contestAdmin.map((setter) => (
+              <Link
+                className="no-underline pointer"
+                to={`/profile/${setter._id}`}
+                style={{ color: userColor(setter.ratings, setter._id) }}
+                key={setter._id}
+              >
+                <div className="ma1 dim">{setter.name}</div>
+              </Link>
+            ))}
+          </td>
+        )}
         <td>
-          {startsAtDate}
-          ,
-          &nbsp;
+          {startsAtDate}, &nbsp;
           {startsAtTime}
         </td>
         <td>
@@ -73,19 +68,23 @@ const ContestsTable = ({ contests }) => {
           &nbsp;
           {lengthType}
         </td>
-        {
-          currentDateInMilliseconds > contest.endsAt
-            ? <td><Link className="no-underline pointer dim blue" to={`/contests/${contest.code}/scoreboard`}>Scoreboard</Link></td>
-            : (
-              <td>
-                Ends in
-                &nbsp;
-                {endsIn}
-                &nbsp;
-                {endsInType}
-              </td>
-            )
-        }
+        {currentDateInMilliseconds > contest.endsAt ? (
+          <td>
+            <Link
+              className="no-underline pointer dim blue"
+              to={`/contests/${contest.code}/scoreboard`}
+            >
+              Scoreboard
+            </Link>
+          </td>
+        ) : (
+          <td>
+            Ends in &nbsp;
+            {endsIn}
+            &nbsp;
+            {endsInType}
+          </td>
+        )}
       </tr>
     );
   });
@@ -96,11 +95,7 @@ const ContestsTable = ({ contests }) => {
         <tbody className="">
           <tr className="">
             <th>Contest name</th>
-            {
-              hidden
-                ? <th className="pa0" />
-                : <th>Setter</th>
-            }
+            {hidden ? <th className="pa0" /> : <th>Setter</th>}
             <th>Start</th>
             <th>Length</th>
             <th>More details</th>

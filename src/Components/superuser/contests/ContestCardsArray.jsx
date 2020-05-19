@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import ContestCard from './ContestCard';
 import { convertDate, convertTime, differenceInTwoDates } from '../../../commonFunctions';
 
-
 const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
-  const contestsArray = contests.map(contest => (
+  const contestsArray = contests.map((contest) => (
     <ContestCard
       code={contest.code}
       key={contest._id}
@@ -17,11 +16,7 @@ const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
     />
   ));
 
-  return (
-    <div>
-      {contestsArray}
-    </div>
-  );
+  return <div>{contestsArray}</div>;
 };
 
 ContestCardsArray.propTypes = {

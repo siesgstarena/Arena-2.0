@@ -7,13 +7,10 @@ import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Spinner from '../../common/Spinner/index';
 import EditContest from './EditContest';
 
-
 const EditcontestContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_CONTEST_EDIT_DETAILS, {
+  const { loading, error, data } = useQuery(GET_CONTEST_EDIT_DETAILS, {
     variables: { code: contestId },
   });
 
@@ -22,9 +19,7 @@ const EditcontestContainer = () => {
   if (data.contestCode) {
     const contestData = data.contestCode;
     const { users } = data;
-    return (
-      <EditContest contestData={contestData} users={users} />
-    );
+    return <EditContest contestData={contestData} users={users} />;
   }
   if (isSessionExpired(data.contestCode)) {
     // since the component hasn't rendered or returned anything,

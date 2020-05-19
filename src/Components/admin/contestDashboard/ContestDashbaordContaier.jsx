@@ -13,7 +13,9 @@ const ContestDashboardContainer = () => {
   const { state } = location;
   const history = useHistory();
   const { logError } = useSentry();
-  const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
+  const [snackbarMessage, setSnackbarMessage] = useState(
+    state && state.snackbarMessage ? state.snackbarMessage : ''
+  );
   // Deleting the snackbarMessage so that it is not displayed on every refresh
   useEffect(() => {
     if (state && state.snackbarMessage) {
@@ -21,9 +23,7 @@ const ContestDashboardContainer = () => {
       history.replace({ location, state });
     }
   }, [history, location, state]);
-  const {
-    loading, error, data,
-  } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
+  const { loading, error, data } = useQuery(GET_ADMIN_DASHBOARD_DETAILS, {
     variables: { code: contestId },
   });
 

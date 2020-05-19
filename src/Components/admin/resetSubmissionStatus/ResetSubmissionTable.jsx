@@ -7,7 +7,7 @@ import ResetSubmissionTableEntry from './ResetSubmissionTableEntry';
 const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
   const tableHeadings = ['#', 'When', 'Who', 'Status', 'Language', 'Action', 'Plagiarism'];
   const [snackbarMessage, setSnackbarMessage] = useState('');
-  const tableData = resetSubmissionTableData.map(data => (
+  const tableData = resetSubmissionTableData.map((data) => (
     <ResetSubmissionTableEntry
       key={data.createdAt}
       data={data}
@@ -17,10 +17,7 @@ const ResetSubmissionStatus = ({ resetSubmissionTableData }) => {
   return (
     <div className="">
       <Table tableHeadings={tableHeadings} tableData={tableData} tableHeadingClassName="tc" />
-      <CustomSnackbar
-        setSnackbarMessage={setSnackbarMessage}
-        snackbarMessage={snackbarMessage}
-      />
+      <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} />
     </div>
   );
 };

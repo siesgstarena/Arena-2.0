@@ -14,17 +14,16 @@ const ProblemPage = ({ problemDetails, isAdminPage = false }) => (
     <DataBlock title="Output" content={problemDetails.explainOutput} />
     <DataBlock title="Constraints" content={problemDetails.constraints} />
     <DataBlock title="Example" content={problemDetails.example} />
-    <DataBlock title="Explanation" content={problemDetails.explanation ? problemDetails.explanation : 'No explanation available'} />
-    {
-      isAdminPage
-        ? (
-          <>
-            <FileDataBlock title="Input File" fileLink={problemDetails.inputFile} />
-            <FileDataBlock title="Output File" fileLink={problemDetails.outputFile} />
-          </>
-        )
-        : null
-    }
+    <DataBlock
+      title="Explanation"
+      content={problemDetails.explanation ? problemDetails.explanation : 'No explanation available'}
+    />
+    {isAdminPage ? (
+      <>
+        <FileDataBlock title="Input File" fileLink={problemDetails.inputFile} />
+        <FileDataBlock title="Output File" fileLink={problemDetails.outputFile} />
+      </>
+    ) : null}
   </div>
 );
 

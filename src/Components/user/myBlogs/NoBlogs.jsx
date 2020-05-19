@@ -14,11 +14,11 @@ const NoBlogs = ({ showCreateButton }) => {
         style={{ width: '16em', height: 'auto' }}
       />
       <Body1 className="mid-gray">There are no blog posts</Body1>
-      {
-        showCreateButton
-          ? <Button onClick={() => history.push('/blogs/create')} raised>Create Blog</Button>
-          : null
-      }
+      {showCreateButton ? (
+        <Button onClick={() => history.push('/blogs/create')} raised>
+          Create Blog
+        </Button>
+      ) : null}
     </div>
   );
 };

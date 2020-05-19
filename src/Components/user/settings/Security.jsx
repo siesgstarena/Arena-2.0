@@ -12,12 +12,16 @@ const Security = () => {
       <Button
         className="fr"
         outlined
-        onClick={() => { setOpen(true); }}
+        onClick={() => {
+          setOpen(true);
+        }}
       >
         Change Password
       </Button>
       <PasswordChange isOpen={isOpen} setOpen={setOpen} />
-      <Body1 className="mt0 mb0 mid-gray">It&apos;s been a while since you have changed your password?</Body1>
+      <Body1 className="mt0 mb0 mid-gray">
+        It&apos;s been a while since you have changed your password?
+      </Body1>
       <Body1 className="mt0 mid-gray">Change it now.</Body1>
     </div>
   );

@@ -28,7 +28,11 @@ const ProblemPageContainer = () => {
         <Button outlined className="mt3 mb3" onClick={() => history.push(`/admin/${contestId}`)}>
           Go back
         </Button>
-        <Button outlined className="fr mt3 mb3" onClick={() => history.push(`${location.pathname}/test`)}>
+        <Button
+          outlined
+          className="fr mt3 mb3"
+          onClick={() => history.push(`${location.pathname}/test`)}
+        >
           Submit Test Solution
         </Button>
         <ProblemPage problemDetails={data.problemByCode} isAdminPage />

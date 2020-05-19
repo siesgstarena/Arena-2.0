@@ -16,9 +16,7 @@ const ResultsContainer = () => {
   const { q } = searchParams;
   const { logError } = useSentry();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_SEARCH_RESULTS, {
+  const { loading, error, data } = useQuery(GET_SEARCH_RESULTS, {
     variables: {
       text: q,
     },
@@ -33,15 +31,16 @@ const ResultsContainer = () => {
     const { users, blogs, problems } = data.search;
     return (
       <div className="">
-        {
-          (users && users.length !== 0) || (blogs && blogs.length !== 0)
-          || (problems && problems.length !== 0)
-            ? (
-              <Results users={users} blogs={blogs} problems={problems} />
-            )
-            : <EmptyData message="No Results found" imageUrl="https://res.cloudinary.com/ashokc/image/upload/f_auto,q_auto/v1589000427/arena/assets/undraw_web_search_eetr_ja4d57.svg" />
-        }
-
+        {(users && users.length !== 0) ||
+        (blogs && blogs.length !== 0) ||
+        (problems && problems.length !== 0) ? (
+          <Results users={users} blogs={blogs} problems={problems} />
+        ) : (
+          <EmptyData
+            message="No Results found"
+            imageUrl="https://res.cloudinary.com/ashokc/image/upload/f_auto,q_auto/v1589000427/arena/assets/undraw_web_search_eetr_ja4d57.svg"
+          />
+        )}
       </div>
     );
   }

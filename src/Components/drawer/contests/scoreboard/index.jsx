@@ -11,9 +11,7 @@ import EmptyData from '../../../common/EmptyData';
 const ScoreboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_SCOREBOARD_BY_CONTEST_CODE, {
+  const { loading, error, data } = useQuery(GET_SCOREBOARD_BY_CONTEST_CODE, {
     variables: { code: contestId },
   });
   const tableHeadings = ['#', 'Who', '=', 'Time'];
@@ -26,16 +24,11 @@ const ScoreboardContainer = () => {
     // console.log(data.scoreboard.problems, problems);
     return (
       <div>
-        {
-          scoreboard.length !== 0
-            ? (
-              <Scoreboard
-                scoreboardDetails={scoreboard}
-                problems={problems}
-              />
-            )
-            : <EmptyData message="The scoreboard is empty" />
-        }
+        {scoreboard.length !== 0 ? (
+          <Scoreboard scoreboardDetails={scoreboard} problems={problems} />
+        ) : (
+          <EmptyData message="The scoreboard is empty" />
+        )}
       </div>
     );
   }

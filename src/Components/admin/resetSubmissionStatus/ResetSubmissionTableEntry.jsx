@@ -24,7 +24,8 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
     const { data: updationResponse, error } = await client.mutate({
       mutation: RESET_SUBMISSION,
       variables: {
-        id: data._id, status: problemStatus,
+        id: data._id,
+        status: problemStatus,
       },
       // refetchQueries: ['submissionsByContestCode'],
     });
@@ -82,22 +83,15 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
           {data.userId.username}
         </Link>
       </td>
-      <td
-        style={{ color: `${statusColor}` }}
-        className="pa2 tc"
-      >
-        {
-          data.plagiarism
-            ? (
-              <>
-                <s>{status}</s>
-                <div className="red">
-                  (Plagiarised)
-                </div>
-              </>
-            )
-            : status
-        }
+      <td style={{ color: `${statusColor}` }} className="pa2 tc">
+        {data.plagiarism ? (
+          <>
+            <s>{status}</s>
+            <div className="red">(Plagiarised)</div>
+          </>
+        ) : (
+          status
+        )}
       </td>
       <td className="pa2 tc">{data.language}</td>
       <td className="pa2 tc">
@@ -105,7 +99,7 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
           className=""
           label="Status"
           value={problemStatus}
-          onChange={evt => setProblemStatus(evt.target.value)}
+          onChange={(evt) => setProblemStatus(evt.target.value)}
         >
           <Option value="Accepted">Accepted</Option>
           <Option value="Wrong Answer">Wrong Answer</Option>
@@ -113,7 +107,11 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
           <Option value="Compilation Error">Compilation Error</Option>
           <Option value="Runtime Error">Runtime Error</Option>
         </Select>
-        <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={() => onUpdateClick(data, problemStatus, setStatus, setStatuscolor)}>
+        <Button
+          className="mt2-m ml2-l mt2 mt0-l"
+          outlined
+          onClick={() => onUpdateClick(data, problemStatus, setStatus, setStatuscolor)}
+        >
           Update
         </Button>
       </td>
@@ -133,6 +131,5 @@ ResetSubmissionTableEntry.propTypes = {
   data: PropTypes.object.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,
 };
-
 
 export default React.memo(ResetSubmissionTableEntry);

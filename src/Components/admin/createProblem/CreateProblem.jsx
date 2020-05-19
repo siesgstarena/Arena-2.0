@@ -55,7 +55,7 @@ const CreateProblem = () => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
@@ -104,7 +104,8 @@ const CreateProblem = () => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         logError('REST APT, createProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
@@ -115,8 +116,7 @@ const CreateProblem = () => {
     <div className="mw7 center pa2">
       <Headline4 className="ma0 mt3 purple mb1">Create Problem</Headline4>
       <Body2 className="ma0 ml1  mid-gray mb4">
-        Create Problem for
-        &nbsp;
+        Create Problem for &nbsp;
         {contestId}
       </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />

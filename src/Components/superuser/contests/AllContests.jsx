@@ -10,9 +10,14 @@ const AllContests = ({ contests, setSnackbarMessage }) => {
     <div>
       <Headline4 className="purple mt4 mb0 ml0">Contests</Headline4>
       <Body2 className="ml0 mid-gray">
-        Single Round Matches and Long Contest |
-        &nbsp;
-        <span className="dim pointer" role="presentation" onClick={() => history.push('/superuser/contests/create')}>Create a new contest</span>
+        Single Round Matches and Long Contest | &nbsp;
+        <span
+          className="dim pointer"
+          role="presentation"
+          onClick={() => history.push('/superuser/contests/create')}
+        >
+          Create a new contest
+        </span>
       </Body2>
       <ContestCardsArray contests={contests} setSnackbarMessage={setSnackbarMessage} />
     </div>

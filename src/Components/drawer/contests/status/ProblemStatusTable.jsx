@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Table from '../../../common/Table/index';
 import {
   getSubmissionColor,
@@ -19,7 +19,6 @@ const ProblemsubmissionTable = ({
 }) => {
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   const { authState } = useContext(AuthContext);
-  const location = useLocation();
   const problemsubmissionArray = submissions.map((submission) => {
     const color = getSubmissionColor(submission.status);
     const addedCreatedAt = adding330Minutes(submission.createdAt);
@@ -36,9 +35,6 @@ const ProblemsubmissionTable = ({
               className="no-underline dim blue pointer"
               to={{
                 pathname: `/contests/${contestId}/submission/${submission._id}`,
-                state: {
-                  from: location.pathname,
-                },
               }}
             >
               {submission._id.slice(-6)}

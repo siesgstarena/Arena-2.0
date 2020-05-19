@@ -48,7 +48,7 @@ Also, make sure to indicate the earliest version that has the issue being report
   npm run format
   ```
   4.  Push the code to your forked repository on GitHub.
-      Note: The commit and push may fail due to any linting errors. So make sure to fix all of them before commiting and pushing the code. Most of the linting errors can be resolved by running `npm run lint-fix` commmand but for some errors, you have to manually fix them.
+      Note: The commit and push may fail due to any linting errors. So make sure to fix all of them before commiting and pushing the code. Most of the linting errors can be resolved by running `npm run format` commmand but for some errors, you have to manually fix them.
   5.  Generate a pull request on Arena 2.0 repository (our repository). Use our [Pull Request Template](https://github.com/siesgstarena/Arena-2.0/blob/master/.github/PULL_REQUEST_TEMPLATE.md) for making a new pull request.
   6.  Once the code changes are thoroughly tested, they will be merged into the master of our repository.
       Code changes are welcome and should follow the guidelines given below.

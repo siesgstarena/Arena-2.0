@@ -6,15 +6,11 @@ import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import DatePicker from '../../common/DatePicker/index';
 import TimePicker from '../../common/TimePicker/index';
-import MultiSelect from '../../common/MultiSelect/index';
+import UsersSelect from './UsersSelect';
 import Editor from '../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 
-const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
-  // const options = [
-  //   {label: 'ac030540@gmail.com', value: '1' }, { label: 'ninadc32@gmail.com', value: '2'}];
-
-  // console.log(formDetails.admins);
+const ContestDetails = ({ formDetails, setFormDetails }) => {
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
     return setFormDetails((previousFormDetails) => {
@@ -49,7 +45,6 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       return { ...previousFormDetails };
     });
   };
-  // console.log(formDetails);
 
   return (
     <Grid style={{ padding: '0px' }}>
@@ -101,8 +96,7 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <MultiSelect
-            options={adminOptions}
+          <UsersSelect
             selectedOptions={formDetails.admins}
             updateSelectedOptions={onAdminsChange}
           />
@@ -168,7 +162,6 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
 ContestDetails.propTypes = {
   formDetails: PropTypes.object.isRequired,
   setFormDetails: PropTypes.func.isRequired,
-  adminOptions: PropTypes.array.isRequired,
 };
 
 export default ContestDetails;

@@ -397,11 +397,6 @@ export const GET_CONTEST_EDIT_DETAILS = gql`
         username
       }
     }
-    users {
-      _id
-      name
-      username
-    }
   }
 `;
 

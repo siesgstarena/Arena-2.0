@@ -18,8 +18,7 @@ const EditcontestContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.contestCode) {
     const contestData = data.contestCode;
-    const { users } = data;
-    return <EditContest contestData={contestData} users={users} />;
+    return <EditContest contestData={contestData} />;
   }
   if (isSessionExpired(data.contestCode)) {
     // since the component hasn't rendered or returned anything,

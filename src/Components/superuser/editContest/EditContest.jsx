@@ -9,12 +9,9 @@ import MessageCard from '../../common/MessageCard/index';
 import { subtracting330Minutes } from '../../../commonFunctions';
 import { EDIT_CONTEST } from '../../../graphql/mutations';
 
-const EditContest = ({ contestData, users }) => {
+const EditContest = ({ contestData }) => {
+  // converting data in the format which is supported by MultiSelect component
   const mappedAdmins = contestData.contestAdmin.map((admin) => ({
-    label: `${admin.name} (${admin.username})`,
-    value: admin._id,
-  }));
-  const mappedUsers = users.map((admin) => ({
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
@@ -72,11 +69,7 @@ const EditContest = ({ contestData, users }) => {
     <div className="mw7 center pa2">
       <Headline4 className="purple mb1 mt3">Edit Contest</Headline4>
       <Body2 className="mt0 mid-gray mb4">Edit a Single Round Match or Long Queue Contest</Body2>
-      <ContestDetails
-        formDetails={formDetails}
-        setFormDetails={setFormDetails}
-        adminOptions={mappedUsers}
-      />
+      <ContestDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button className="ma1 mt3" raised onClick={updateDB}>
         Edit Contest
@@ -86,7 +79,6 @@ const EditContest = ({ contestData, users }) => {
 };
 
 EditContest.propTypes = {
-  users: PropTypes.array.isRequired,
   contestData: PropTypes.object.isRequired,
 };
 

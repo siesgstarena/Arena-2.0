@@ -527,6 +527,7 @@ export const GET_BLOG_BY_BLOG_ID = gql`
   query BlogById($id: ID!) {
     blogById(_id: $id) {
       blog {
+        _id
         userId {
           name
           _id

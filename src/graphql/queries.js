@@ -415,6 +415,18 @@ export const GET_ALL_CONTEST_DETAILS = gql`
   }
 `;
 
+export const GET_ALL_CONTEST_NAMES = gql`
+  query AllContests($skip: Int, $limit: Int) {
+    allContests(skip: $skip, limit: $limit) {
+      contests {
+        name
+        code
+        _id
+      }
+    }
+  }
+`;
+
 export const GET_ALL_USERS = gql`
   query Users {
     users {

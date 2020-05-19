@@ -90,7 +90,7 @@ const Social = ({ socialDetails }) => {
       <Headline4 className="purple mb2">Social</Headline4>
       <Headline6 className="mt3 mb0">CodeChef</Headline6>
       <LinkGenerator
-        id="1"
+        id={profileLink[0]}
         profileLink={profileLink[0]}
         siteName={codeChef}
         setValue={setCC}
@@ -98,7 +98,7 @@ const Social = ({ socialDetails }) => {
       />
       <Headline6 className="mt3 mb0">CodeForces</Headline6>
       <LinkGenerator
-        id="2"
+        id={profileLink[1]}
         profileLink={profileLink[1]}
         siteName={codeForces}
         setValue={setCF}
@@ -106,7 +106,7 @@ const Social = ({ socialDetails }) => {
       />
       <Headline6 className="mt3 mb0">GitHub</Headline6>
       <LinkGenerator
-        id="3"
+        id={profileLink[2]}
         profileLink={profileLink[2]}
         siteName={gitHub}
         setValue={setGH}

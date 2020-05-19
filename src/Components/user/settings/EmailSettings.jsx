@@ -106,7 +106,9 @@ const EmailSettings = ({ notifications, email }) => {
         checked={notifications.activities}
         onChange={handleActivitiesChange}
       />
-      <Body1 className="mt0 mid-gray">We’ll email you when there are notifications on your posts</Body1>
+      <Body1 className="mt0 mid-gray">
+        We’ll email you when there are notifications on your posts
+      </Body1>
       <hr className="ma0" style={{ borderColor: '#FFFFFF' }} />
       <Headline6 className="mt3 mb0">Product and editorial announcements</Headline6>
       <Switch
@@ -115,7 +117,10 @@ const EmailSettings = ({ notifications, email }) => {
         checked={notifications.updates}
         onChange={handleUpdatesChange}
       />
-      <Body1 className="mt0 mid-gray">We’ll email you when we have news to share about content and product features on SIESGST arena, or questions related to user research.</Body1>
+      <Body1 className="mt0 mid-gray">
+        We’ll email you when we have news to share about content and product features on SIESGST
+        arena, or questions related to user research.
+      </Body1>
       <hr className="ba mt3" style={{ borderColor: '#5E2CA5' }} />
     </div>
   );

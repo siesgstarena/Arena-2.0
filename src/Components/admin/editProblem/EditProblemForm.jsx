@@ -40,7 +40,7 @@ const EditProblemForm = ({ intialFormDetails }) => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
@@ -117,7 +117,8 @@ const EditProblemForm = ({ intialFormDetails }) => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         logError('REST APT, editProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
@@ -128,14 +129,13 @@ const EditProblemForm = ({ intialFormDetails }) => {
     <div className="mw7 center pa2">
       <Headline4 className="ma0 mt3 purple mb1">Edit Problem</Headline4>
       <Body2 className="ma0 ml1  mid-gray mb4">
-        Edit Problem -
-        &nbsp;
+        Edit Problem - &nbsp;
         {problemId}
       </Body2>
       <ProblemDetails formDetails={formDetails} setFormDetails={setFormDetails} />
       <Body2 className="mid-gray ma0 mb2">
-        Note: To edit a problem you manually have to download the
-        input and output files and re-upload them
+        Note: To edit a problem you manually have to download the input and output files and
+        re-upload them
       </Body2>
       <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button raised onClick={handleEditProblem}>

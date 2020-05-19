@@ -20,14 +20,16 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const mobileDevice = width < 480;
   useEffect(() => {
-    const updateWidthOnResize = () => { setWidth(window.innerWidth); };
+    const updateWidthOnResize = () => {
+      setWidth(window.innerWidth);
+    };
     // Adding a resize event listener on mount
     window.addEventListener('resize', updateWidthOnResize);
-    return (() => {
+    return () => {
       // Removing the listener when the component unmounts so that
       // no state updates happen when the component is unmounted
       window.removeEventListener('resize', updateWidthOnResize);
-    });
+    };
   }, []);
   const { authState } = useContext(AuthContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -43,7 +45,11 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
         <TopAppBarRow>
           <TopAppBarSection align="start">
             <TopAppBarIcon navIcon tabIndex={0}>
-              <MaterialIcon hasRipple icon="menu" onClick={() => setDrawerOpen(previousValue => !previousValue)} />
+              <MaterialIcon
+                hasRipple
+                icon="menu"
+                onClick={() => setDrawerOpen((previousValue) => !previousValue)}
+              />
             </TopAppBarIcon>
             <TopAppBarTitle>
               <Link to="/" className="noselect" style={{ color: 'black', textDecoration: 'none' }}>
@@ -60,76 +66,67 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
             <Link to="/search?q=" className="no-underline mr2">
               <MaterialIcon icon="search" className="noselect" style={{ color: '#6200EE' }} />
             </Link>
-            {
-              !mobileDevice && !authState.user.name
-                ? (
-                  <div>
-                    <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
-                      <Button
-                        className="mr2"
-                        outlined
-                        style={{ textTransform: 'capitalize' }}
-                      >
-                        Sign In
-                      </Button>
-                    </Link>
-                    <Link to="/auth/signup" style={{ textDecoration: 'none' }}>
-                      <Button
-                        raised
-                      >
-                        Sign Up
-                      </Button>
-                    </Link>
-                  </div>
-                ) : null
-            }
-            {
-              !mobileDevice && authState.user.name
-                ? (
-                  <Body1 className="flex items-center">
-                    <Link to={`/profile/${authState.user.userId}`} style={{ textDecoration: 'none', color: 'black' }}>
-                      <span className="mr2 pointer" role="presentation">{authState.user.name}</span>
-                    </Link>
-                    <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
-                    <UserMenu
-                      setSnackbarMessage={setSnackbarMessage}
-                      setIsUserMenuOpen={setIsUserMenuOpen}
-                      isUserMenuOpen={isUserMenuOpen}
-                      coordinatesOfUserMenu={coordinatesOfUserMenu}
-                    />
-                  </Body1>
-                )
-                : null
-            }
-            {
-              mobileDevice && authState.user.name
-                ? (
-                  <div>
-                    <MaterialIcon icon="account_circle" className="pointer noselect" style={{ color: '#6200EE' }} onClick={event => onUserIconClick(event)} />
-                    <UserMenu
-                      setSnackbarMessage={setSnackbarMessage}
-                      setIsUserMenuOpen={setIsUserMenuOpen}
-                      isUserMenuOpen={isUserMenuOpen}
-                      coordinatesOfUserMenu={coordinatesOfUserMenu}
-                    />
-                  </div>
-                )
-                : null
-            }
-            {
-              mobileDevice && !authState.user.name
-                ? (
-                  <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
-                    <Button
-                      className="mr2"
-                      raised
-                    >
-                      Sign In
-                    </Button>
-                  </Link>
-                )
-                : <span />
-            }
+            {!mobileDevice && !authState.user.name ? (
+              <div>
+                <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
+                  <Button className="mr2" outlined style={{ textTransform: 'capitalize' }}>
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/auth/signup" style={{ textDecoration: 'none' }}>
+                  <Button raised>Sign Up</Button>
+                </Link>
+              </div>
+            ) : null}
+            {!mobileDevice && authState.user.name ? (
+              <Body1 className="flex items-center">
+                <Link
+                  to={`/profile/${authState.user.userId}`}
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <span className="mr2 pointer" role="presentation">
+                    {authState.user.name}
+                  </span>
+                </Link>
+                <MaterialIcon
+                  icon="account_circle"
+                  className="pointer noselect"
+                  style={{ color: '#6200EE' }}
+                  onClick={(event) => onUserIconClick(event)}
+                />
+                <UserMenu
+                  setSnackbarMessage={setSnackbarMessage}
+                  setIsUserMenuOpen={setIsUserMenuOpen}
+                  isUserMenuOpen={isUserMenuOpen}
+                  coordinatesOfUserMenu={coordinatesOfUserMenu}
+                />
+              </Body1>
+            ) : null}
+            {mobileDevice && authState.user.name ? (
+              <div>
+                <MaterialIcon
+                  icon="account_circle"
+                  className="pointer noselect"
+                  style={{ color: '#6200EE' }}
+                  onClick={(event) => onUserIconClick(event)}
+                />
+                <UserMenu
+                  setSnackbarMessage={setSnackbarMessage}
+                  setIsUserMenuOpen={setIsUserMenuOpen}
+                  isUserMenuOpen={isUserMenuOpen}
+                  coordinatesOfUserMenu={coordinatesOfUserMenu}
+                />
+              </div>
+            ) : null}
+            {mobileDevice && !authState.user.name ? (
+              <Link to="/auth/signin" style={{ textDecoration: 'none' }}>
+                <Button className="mr2" raised>
+                  Sign In
+                </Button>
+              </Link>
+            ) : (
+              <span />
+            )}
           </TopAppBarSection>
         </TopAppBarRow>
       </TopAppBar>
@@ -142,6 +139,5 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
 CustomTopAppBar.propTypes = {
   setDrawerOpen: PropTypes.func.isRequired,
 };
-
 
 export default React.memo(CustomTopAppBar);

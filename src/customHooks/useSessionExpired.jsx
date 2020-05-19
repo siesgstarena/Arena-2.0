@@ -33,7 +33,6 @@ const useSessionExpired = () => {
     );
   };
 
-
   // the following functin can be used in components where
   // the user has to be redirected a query is made by the user from
   // a component which is already been rendered. e.g onClick queries

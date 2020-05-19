@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { useHistory, useParams } from 'react-router-dom';
-import Button from '@material/react-button';
+import { useParams } from 'react-router-dom';
 import ProblemPage from '../../../admin/problemPage/ProblemPage';
 import { GET_PROBLEM_DETAILS } from '../../../../graphql/queries';
 import Spinner from '../../../common/Spinner/index';
@@ -9,8 +8,7 @@ import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const ProblemPageContainer = () => {
-  const { problemId, contestId } = useParams();
-  const history = useHistory();
+  const { problemId } = useParams();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { loading, error, data } = useQuery(GET_PROBLEM_DETAILS, {
     variables: { code: problemId },
@@ -21,9 +19,6 @@ const ProblemPageContainer = () => {
   if (data && data.problemByCode && data.problemByCode._id) {
     return (
       <div>
-        <Button outlined className="" onClick={() => history.push(`/contests/${contestId}`)}>
-          Go back
-        </Button>
         <ProblemPage problemDetails={data.problemByCode} />
       </div>
     );

@@ -2,9 +2,7 @@ import React from 'react';
 import Select, { Option } from '@material/react-select';
 import PropTypes from 'prop-types';
 
-const DynamicSelect = ({
-  label, value, onValueChange, valueList, isValRequired,
-}) => (
+const DynamicSelect = ({ label, value, onValueChange, valueList, isValRequired }) => (
   <Select
     required={isValRequired}
     className="w-100"
@@ -16,11 +14,12 @@ const DynamicSelect = ({
     onEnhancedChange={onValueChange}
   >
     <Option value="None">{`Choose ${label}`}</Option>
-    {valueList.map(val => (
-      <Option key={val} value={val}>{val}</Option>
+    {valueList.map((val) => (
+      <Option key={val} value={val}>
+        {val}
+      </Option>
     ))}
   </Select>
-
 );
 
 DynamicSelect.propTypes = {

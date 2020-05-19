@@ -28,7 +28,10 @@ const EditBlog = ({ blogDetails }) => {
     const { data, error } = await client.mutate({
       mutation: EDIT_BLOG,
       variables: {
-        id: blogId, title: blogTitle, content: blogContent, tags: blogTags,
+        id: blogId,
+        title: blogTitle,
+        content: blogContent,
+        tags: blogTags,
       },
     });
     if (error) {
@@ -51,11 +54,7 @@ const EditBlog = ({ blogDetails }) => {
   };
   return (
     <div className="mw7 pa2 center">
-      <Headline4 className="purple">
-        Edit blog
-        -
-        {title}
-      </Headline4>
+      <Headline4 className="purple">Edit blog -{title}</Headline4>
       <BlogDetails
         blogTitle={blogTitle}
         blogContent={blogContent}

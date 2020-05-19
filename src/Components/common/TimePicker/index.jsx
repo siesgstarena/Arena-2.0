@@ -2,15 +2,10 @@ import 'date-fns';
 import React from 'react';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/pickers';
 
 const MaterialUITimePicker = (props) => {
-  const {
-    label, id, value, onChangeFunction,
-  } = props;
+  const { label, id, value, onChangeFunction } = props;
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

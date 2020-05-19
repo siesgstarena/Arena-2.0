@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogContent,
-  DialogButton,
-  DialogTitle,
-} from '@material/react-dialog';
+import Dialog, { DialogContent, DialogButton, DialogTitle } from '@material/react-dialog';
 import { useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import Button from '@material/react-button';
@@ -49,7 +45,8 @@ const PasswordChange = ({ isOpen, setOpen }) => {
         pathname: '/auth/signin',
         state: {
           messageType: 'success',
-          message: 'Your password has been updated successfully. You can now login with your new credentials.',
+          message:
+            'Your password has been updated successfully. You can now login with your new credentials.',
           isSessionExpired: true,
         },
       });
@@ -63,17 +60,27 @@ const PasswordChange = ({ isOpen, setOpen }) => {
     <Dialog
       className=""
       open={isOpen}
-      onClose={() => { setOpen(false); }}
+      onClose={() => {
+        setOpen(false);
+      }}
     >
-      <DialogTitle className="tc">
-        Change Password
-      </DialogTitle>
+      <DialogTitle className="tc">Change Password</DialogTitle>
       <DialogContent>
         <div className="pl2 pr2 pt2">
-          <PasswordField id="Old Password" label="Old Password" password={oldPassword} setPassword={setOldPassword} />
+          <PasswordField
+            id="Old Password"
+            label="Old Password"
+            password={oldPassword}
+            setPassword={setOldPassword}
+          />
         </div>
         <div className="pl2 pr2 pt2">
-          <PasswordField id="New Password" label="New Password" password={newPassword} setPassword={setNewPassword} />
+          <PasswordField
+            id="New Password"
+            label="New Password"
+            password={newPassword}
+            setPassword={setNewPassword}
+          />
         </div>
         <div className="pl2 pr2 pt2">
           <MessageCard
@@ -82,18 +89,10 @@ const PasswordChange = ({ isOpen, setOpen }) => {
             setMessageType={setMessageType}
           />
         </div>
-        <Button
-          className="ma2"
-          raised
-          action="submit"
-          onClick={handlePasswordChange}
-        >
+        <Button className="ma2" raised action="submit" onClick={handlePasswordChange}>
           update
         </Button>
-        <DialogButton
-          outlined
-          action="cancel"
-        >
+        <DialogButton outlined action="cancel">
           cancel
         </DialogButton>
       </DialogContent>

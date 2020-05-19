@@ -21,7 +21,6 @@ const client = new ApolloClient({
   cache,
 });
 
-
 const App = () => (
   <ApolloProvider client={client}>
     <ApolloHooksProvider client={client}>

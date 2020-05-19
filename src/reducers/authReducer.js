@@ -4,7 +4,10 @@ const authReducer = (state, action) => {
     case 'LOGIN':
       localStorage.setItem('user', JSON.stringify(action.payload.user));
       // setting the expiry of session for 7 days from now
-      localStorage.setItem('sessionExpiry', JSON.stringify(now.getTime() + (7 * 24 * 60 * 60 * 1000)));
+      localStorage.setItem(
+        'sessionExpiry',
+        JSON.stringify(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+      );
       return {
         ...state,
         user: action.payload.user,

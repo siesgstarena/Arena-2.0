@@ -10,9 +10,7 @@ import useSentry from '../../../customHooks/useSentry';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
-const ProblemCard = ({
-  name, code, points, setSnackbarMessage,
-}) => {
+const ProblemCard = ({ name, code, points, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { logError } = useSentry();
@@ -30,7 +28,7 @@ const ProblemCard = ({
       method: 'GET',
       credentials: 'include',
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
@@ -50,7 +48,7 @@ const ProblemCard = ({
               adminDashboard: {
                 ...oldAdminDashboard,
                 // removing the deleted problem
-                problems: oldAdminDashboard.problems.filter(problem => problem.code !== code),
+                problems: oldAdminDashboard.problems.filter((problem) => problem.code !== code),
               },
             },
           });
@@ -59,7 +57,8 @@ const ProblemCard = ({
           logError('REST API, deleteProblem', { ...jsonResponse.data });
           setSnackbarMessage('Unable to delete the problem');
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         logError('REST API, deleteProblem', { ...error });
         setSnackbarMessage('An unexpected error has been encountered.');
         // setSnackbarMessage('An unexpected error has been encountered');
@@ -83,12 +82,12 @@ const ProblemCard = ({
 
   return (
     <div className="ba br4 b--black-20 pa3 mt2">
-      <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>{name}</Headline6>
+      <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>
+        {name}
+      </Headline6>
       <Body1 className="mid-gray">
         {code}
-        &nbsp;
-        -
-        &nbsp;
+        &nbsp; - &nbsp;
         {points}
       </Body1>
       <Button style={{ color: '#555555' }} onClick={onTestClick}>

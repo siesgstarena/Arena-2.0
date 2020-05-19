@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Dialog, {
-  DialogContent,
-  DialogButton,
-  DialogTitle,
-} from '@material/react-dialog';
+import Dialog, { DialogContent, DialogButton, DialogTitle } from '@material/react-dialog';
 import Select from '@material/react-select';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button } from '@material/react-button';
@@ -14,7 +10,10 @@ import Fab from '@material/react-fab';
 import { languageOptions, typeOptions } from './options';
 
 const FilterButton = ({
-  problems, problemCode = 'None', type: initialType = 'None', language: initialLanguage = 'None',
+  problems,
+  problemCode = 'None',
+  type: initialType = 'None',
+  language: initialLanguage = 'None',
 }) => {
   // State
   const [isOpen, setOpen] = useState(false);
@@ -32,7 +31,7 @@ const FilterButton = ({
   }, [initialLanguage, initialType, problemCode]);
 
   let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
-  const incomingProblemOptions = problems.map(problemOption => ({
+  const incomingProblemOptions = problems.map((problemOption) => ({
     value: problemOption.code,
     label: `${problemOption.name} (${problemOption.code})`,
   }));
@@ -41,9 +40,8 @@ const FilterButton = ({
   const history = useHistory();
   const location = useLocation();
 
-  const onVariableChange = setVariable => ((_, item) => (
-    setVariable(item.getAttribute('data-value')))
-  );
+  const onVariableChange = (setVariable) => (_, item) =>
+    setVariable(item.getAttribute('data-value'));
   // Functions to update State
   const onProblemChange = onVariableChange(setProblem);
   const onLanguageChange = onVariableChange(setLanguage);
@@ -57,23 +55,21 @@ const FilterButton = ({
         textLabel="Filter"
         className="center"
         style={{
-          backgroundColor: '#6200EE', position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 100,
+          backgroundColor: '#6200EE',
+          position: 'fixed',
+          bottom: '2rem',
+          right: '2rem',
+          zIndex: 100,
         }}
-        icon={(<MaterialIcon icon="filter_list" />)}
+        icon={<MaterialIcon icon="filter_list" />}
         onClick={toggleOpen}
       />
-      <Dialog
-        className=""
-        open={isOpen}
-        onClose={toggleOpen}
-      >
+      <Dialog className="" open={isOpen} onClose={toggleOpen}>
         <DialogTitle style={{ height: '30px' }}>
-          {
-            /*
+          {/*
             Here we have placed a dummy button which
             solves wierd foucs issues with select boxes
-            */
-          }
+            */}
           <Button
             style={{
               backgroundColor: 'white',

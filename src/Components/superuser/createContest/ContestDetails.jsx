@@ -6,44 +6,38 @@ import Select, { Option } from '@material/react-select';
 import TextField, { Input } from '@material/react-text-field';
 import DatePicker from '../../common/DatePicker/index';
 import TimePicker from '../../common/TimePicker/index';
-import MultiSelect from '../../common/MultiSelect/index';
+import UsersSelect from './UsersSelect';
 import Editor from '../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 
-const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
-  // const options = [
-  //   {label: 'ac030540@gmail.com', value: '1' }, { label: 'ninadc32@gmail.com', value: '2'}];
-
-  // console.log(formDetails.admins);
+const ContestDetails = ({ formDetails, setFormDetails }) => {
   const onTextFieldChange = (event, keyToBeUpdated) => {
     const { value } = event.target;
-    return (setFormDetails((previousFormDetails) => {
+    return setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = value;
       // we are making use of ... operator to return a completely new object
       // and thus making the component re-render since the state has changed.
       return { ...previousFormDetails };
-    }));
+    });
   };
 
-  const onAdminsChange = updatedOptions => setFormDetails((previousFormDetails) => {
-    previousFormDetails.admins = updatedOptions;
-    return { ...previousFormDetails };
-  });
+  const onAdminsChange = (updatedOptions) =>
+    setFormDetails((previousFormDetails) => {
+      previousFormDetails.admins = updatedOptions;
+      return { ...previousFormDetails };
+    });
 
-
-  const onSelectChange = (index, item, keyToBeUpdated) => (
+  const onSelectChange = (index, item, keyToBeUpdated) =>
     setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = item.getAttribute('data-value');
       return { ...previousFormDetails };
-    })
-  );
+    });
 
-  const updateEditorStates = (keyToBeUpdated, value) => (
+  const updateEditorStates = (keyToBeUpdated, value) =>
     setFormDetails((previousFormDetails) => {
       previousFormDetails[keyToBeUpdated] = value;
       return { ...previousFormDetails };
-    })
-  );
+    });
 
   const handleDateTimeChange = (date, keyToBeUpdated) => {
     setFormDetails((previousFormDetails) => {
@@ -51,21 +45,16 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       return { ...previousFormDetails };
     });
   };
-  // console.log(formDetails);
 
   return (
     <Grid style={{ padding: '0px' }}>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <TextField
-            label="Contest Code *"
-            className="mb3 w-100"
-            outlined
-          >
+          <TextField label="Contest Code *" className="mb3 w-100" outlined>
             <Input
               value={formDetails.code}
               id="contestCode"
-              onChange={e => onTextFieldChange(e, 'code')}
+              onChange={(e) => onTextFieldChange(e, 'code')}
             />
           </TextField>
         </Cell>
@@ -86,15 +75,11 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <TextField
-            label="Contest Name *"
-            className="mb3 w-100"
-            outlined
-          >
+          <TextField label="Contest Name *" className="mb3 w-100" outlined>
             <Input
               value={formDetails.name}
               id="contestName"
-              onChange={e => onTextFieldChange(e, 'name')}
+              onChange={(e) => onTextFieldChange(e, 'name')}
             />
           </TextField>
         </Cell>
@@ -102,14 +87,16 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <EditorContainer title="Description">
-            <Editor value={formDetails.description} setValue={value => updateEditorStates('description', value)} />
+            <Editor
+              value={formDetails.description}
+              setValue={(value) => updateEditorStates('description', value)}
+            />
           </EditorContainer>
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
-          <MultiSelect
-            options={adminOptions}
+          <UsersSelect
             selectedOptions={formDetails.admins}
             updateSelectedOptions={onAdminsChange}
           />
@@ -117,18 +104,38 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
       </Row>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <DatePicker value={formDetails.start} id="start-date" label="Contest Start Date" onChangeFunction={date => handleDateTimeChange(date, 'start')} />
+          <DatePicker
+            value={formDetails.start}
+            id="start-date"
+            label="Contest Start Date"
+            onChangeFunction={(date) => handleDateTimeChange(date, 'start')}
+          />
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <TimePicker value={formDetails.start} id="start-time" label="Contest Start Time" onChangeFunction={date => handleDateTimeChange(date, 'start')} />
+          <TimePicker
+            value={formDetails.start}
+            id="start-time"
+            label="Contest Start Time"
+            onChangeFunction={(date) => handleDateTimeChange(date, 'start')}
+          />
         </Cell>
       </Row>
       <Row>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <DatePicker value={formDetails.end} id="end-date" label="Contest End Date" onChangeFunction={date => handleDateTimeChange(date, 'end')} />
+          <DatePicker
+            value={formDetails.end}
+            id="end-date"
+            label="Contest End Date"
+            onChangeFunction={(date) => handleDateTimeChange(date, 'end')}
+          />
         </Cell>
         <Cell desktopColumns={6} tabletColumns={4} phoneColumns={4}>
-          <TimePicker value={formDetails.end} id="end-time" label="Contest End Time" onChangeFunction={date => handleDateTimeChange(date, 'end')} />
+          <TimePicker
+            value={formDetails.end}
+            id="end-time"
+            label="Contest End Time"
+            onChangeFunction={(date) => handleDateTimeChange(date, 'end')}
+          />
         </Cell>
       </Row>
       <Row>
@@ -155,7 +162,6 @@ const ContestDetails = ({ formDetails, setFormDetails, adminOptions }) => {
 ContestDetails.propTypes = {
   formDetails: PropTypes.object.isRequired,
   setFormDetails: PropTypes.func.isRequired,
-  adminOptions: PropTypes.array.isRequired,
 };
 
 export default ContestDetails;

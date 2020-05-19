@@ -6,15 +6,13 @@ import UpdateRatingsTableData from './UpdateRatingsTableData';
 const RatingsTable = ({ ratingsData, setUpdatedRatings }) => {
   const tableHeadings = ['Name', 'New Ratings', 'Manual Rating'];
 
-  const ratingsArray = ratingsData.map(
-    ratingData => (
-      <UpdateRatingsTableData
-        key={ratingData.user._id}
-        setUpdatedRatings={setUpdatedRatings}
-        ratingData={ratingData}
-      />
-    ),
-  );
+  const ratingsArray = ratingsData.map((ratingData) => (
+    <UpdateRatingsTableData
+      key={ratingData.user._id}
+      setUpdatedRatings={setUpdatedRatings}
+      ratingData={ratingData}
+    />
+  ));
 
   return (
     <Table tableHeadings={tableHeadings} tableData={ratingsArray} tableHeadingClassName="tc" />

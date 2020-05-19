@@ -10,9 +10,7 @@ import { REPLY_TO_FEEDBACK } from '../../../../graphql/mutations';
 import MessageCard from '../../../common/MessageCard/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
-const FeedbackCard = ({
-  user, email, message: feedback, isReplied, createdAt, id,
-}) => {
+const FeedbackCard = ({ user, email, message: feedback, isReplied, createdAt, id }) => {
   const [reply, setReply] = useState(''); // string state var to store reply
   const [isOpen, setOpen] = useState(false); //  bool to show reply space
   const client = useApolloClient();
@@ -20,7 +18,9 @@ const FeedbackCard = ({
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
-  const replyStatus = (isReplied) ? 'https://img.icons8.com/material-rounded/24/6200ee/double-tick.png' : 'https://img.icons8.com/ios-glyphs/24/6200ee/paper-plane.png';
+  const replyStatus = isReplied
+    ? 'https://img.icons8.com/material-rounded/24/6200ee/double-tick.png'
+    : 'https://img.icons8.com/ios-glyphs/24/6200ee/paper-plane.png';
 
   const addReply = async () => {
     setMessageType('loading');
@@ -37,7 +37,7 @@ const FeedbackCard = ({
             const { feedbacks } = cache.readQuery({
               query: GET_ALL_FEEDBACKS,
             });
-            const feedbackIndex = feedbacks.findIndex((obj => obj._id === id));
+            const feedbackIndex = feedbacks.findIndex((obj) => obj._id === id);
             feedbacks[feedbackIndex] = {
               ...feedbacks[feedbackIndex],
               replied: true,
@@ -83,36 +83,25 @@ const FeedbackCard = ({
           <Body2 className="ma0 ml3 mid-gray">{email}</Body2>
           <Body2 className="ma0 ml3 mid-gray">{`${createdAt}`}</Body2>
         </div>
-        <Button
-          className="mr3 pa2"
-          disabled={isReplied}
-          onClick={toggleOpen}
-        >
+        <Button className="mr3 pa2" disabled={isReplied} onClick={toggleOpen}>
           <img alt="reply" src={replyStatus} />
         </Button>
       </div>
-      <CustomBubble
-        content={feedback}
-      />
+      <CustomBubble content={feedback} />
       <div className="ma2">
-        <MessageCard
-          messageType={messageType}
-          message={message}
-          setMessageType={setMessageType}
-        />
+        <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       </div>
-      {
-      (isOpen) && (
-      <div className="pa3 flex mr2">
-        <img
-          className="mr1"
-          alt="user-icon"
-          style={{ borderRadius: '50%' }}
-          height="35vh"
-          width="auto"
-          src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp"
-        />
-        {
+      {isOpen && (
+        <div className="pa3 flex mr2">
+          <img
+            className="mr1"
+            alt="user-icon"
+            style={{ borderRadius: '50%' }}
+            height="35vh"
+            width="auto"
+            src="https://res.cloudinary.com/siesgstarena/image/upload/f_auto,q_auto/v1546283328/arena/assets_webp/gravatar.webp"
+          />
+          {
             // (isReplied) ? (
             //   <CustomBubble
             //     content={reply}
@@ -122,39 +111,22 @@ const FeedbackCard = ({
             // )
             //   : (
             // )
-        }
-        <div className="ml2 flex-column" style={{ width: '93%' }}>
-          <TextField
-            label="Reply"
-            className="text-area-width-100"
-            textarea
-            required
-          >
-            <Input
-              className=""
-              value={reply}
-              onChange={e => setReply(e.currentTarget.value)}
-            />
-          </TextField>
-          <div className="fr">
-            <Button
-              onClick={() => setOpen(false)}
-              className="mt2 mr3"
-            >
-              cancel
-            </Button>
-            <Button
-              onClick={addReply}
-              className="mt2"
-              raised
-            >
-              Reply
-            </Button>
+          }
+          <div className="ml2 flex-column" style={{ width: '93%' }}>
+            <TextField label="Reply" className="text-area-width-100" textarea required>
+              <Input className="" value={reply} onChange={(e) => setReply(e.currentTarget.value)} />
+            </TextField>
+            <div className="fr">
+              <Button onClick={() => setOpen(false)} className="mt2 mr3">
+                cancel
+              </Button>
+              <Button onClick={addReply} className="mt2" raised>
+                Reply
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-      )
-      }
+      )}
     </div>
   );
 };

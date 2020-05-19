@@ -4,15 +4,15 @@ about: Create a report to help us improve and fix a bug
 title: ''
 labels: bug
 assignees: ''
-
 ---
 
 **Short description**
 Description of the bug.
 
 **Environment information**
-* Device: [Mobile|Desktop|Tablet]
-* Operating System: <os>
+
+- Device: [Mobile|Desktop|Tablet]
+- Operating System: <os>
 
 **How to reproduce this bug?**
 

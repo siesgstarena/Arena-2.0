@@ -12,9 +12,7 @@ import LoadingInfoArray from '../../common/LoadingInfoArray';
 const SettingsDetailsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { userId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_PROFILE_DETAILS, {
+  const { loading, error, data } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
       id: userId,
       findBy: 'ID',

@@ -18,10 +18,13 @@ const EditAnnouncements = () => {
     logError('adminDashboad query in EditAnnoucements', { ...data, ...error });
     return <SomethingWentWrong message="An error has been encountered." />;
   }
-  if (data.adminDashboard
-    && data.adminDashboard.contest) {
+  if (data.adminDashboard && data.adminDashboard.contest) {
     return (
-      <AnnouncementEditor announcement={data.adminDashboard.contest.announcement ? data.adminDashboard.contest.announcement : ''} />
+      <AnnouncementEditor
+        announcement={
+          data.adminDashboard.contest.announcement ? data.adminDashboard.contest.announcement : ''
+        }
+      />
     );
   }
 

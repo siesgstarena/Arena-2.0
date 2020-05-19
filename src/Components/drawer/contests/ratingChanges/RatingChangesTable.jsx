@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Table from '../../../common/Table/index';
-import {
-  userColor,
-} from '../../../../commonFunctions';
+import { userColor } from '../../../../commonFunctions';
 
 const RatingChangesTable = ({ ratingChanges }) => {
   const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];
@@ -26,11 +24,13 @@ const RatingChangesTable = ({ ratingChanges }) => {
     }
     return (
       <tr key={user._id} style={{ fontSize: '.9em' }}>
+        <td className="tc pa3">{index + 1}</td>
         <td className="tc pa3">
-          {index + 1}
-        </td>
-        <td className="tc pa3">
-          <Link to={`/profile/${user._id}`} style={{ color: userColor(user.ratings, user._id) }} className="no-underline">
+          <Link
+            to={`/profile/${user._id}`}
+            style={{ color: userColor(user.ratings, user._id) }}
+            className="no-underline"
+          >
             {user.username}
           </Link>
         </td>
@@ -38,22 +38,13 @@ const RatingChangesTable = ({ ratingChanges }) => {
           {delta}
         </td>
         <td className="tc pa3">
-          {
-            change.oldRating
-              ? (
-                <>
-                  <span style={{ color: userColor(oldRating, change.user._id) }}>
-                    {oldRating}
-                  </span>
-                  &nbsp;
-                  -&gt;
-                  &nbsp;
-                </>
-              ) : null
-          }
-          <span style={{ color: userColor(newRating, change.user._id) }}>
-            {newRating}
-          </span>
+          {change.oldRating ? (
+            <>
+              <span style={{ color: userColor(oldRating, change.user._id) }}>{oldRating}</span>
+              &nbsp; -&gt; &nbsp;
+            </>
+          ) : null}
+          <span style={{ color: userColor(newRating, change.user._id) }}>{newRating}</span>
         </td>
       </tr>
     );
@@ -61,7 +52,11 @@ const RatingChangesTable = ({ ratingChanges }) => {
 
   return (
     <div>
-      <Table tableHeadings={tableHeadings} tableData={ratingChangesArray} tableHeadingClassName="tc" />
+      <Table
+        tableHeadings={tableHeadings}
+        tableData={ratingChangesArray}
+        tableHeadingClassName="tc"
+      />
     </div>
   );
 };

@@ -12,7 +12,7 @@ const ProblemPageContainer = () => {
   const location = useLocation();
   const history = useHistory();
   const { logError } = useSentry();
-  const { problemId, contestId } = useParams();
+  const { problemId } = useParams();
   const { loading, error, data } = useQuery(GET_PROBLEM_DETAILS, {
     variables: { code: problemId },
   });
@@ -25,10 +25,14 @@ const ProblemPageContainer = () => {
   if (data && data.problemByCode && data.problemByCode._id) {
     return (
       <div className="mw7 center pa2">
-        <Button outlined className="mt3 mb3" onClick={() => history.push(`/admin/${contestId}`)}>
+        <Button outlined className="mt3 mb3" onClick={() => history.goBack()}>
           Go back
         </Button>
-        <Button outlined className="fr mt3 mb3" onClick={() => history.push(`${location.pathname}/test`)}>
+        <Button
+          outlined
+          className="fr mt3 mb3"
+          onClick={() => history.push(`${location.pathname}/test`)}
+        >
           Submit Test Solution
         </Button>
         <ProblemPage problemDetails={data.problemByCode} isAdminPage />

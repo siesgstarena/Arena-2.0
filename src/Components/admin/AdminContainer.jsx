@@ -10,9 +10,7 @@ import useSentry from '../../customHooks/useSentry';
 const AdminContainer = ({ contestCode, loadingScreen = <Spinner />, component }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { logError } = useSentry();
-  const {
-    loading, error, data,
-  } = useQuery(GET_IS_USER_ADMIN, {
+  const { loading, error, data } = useQuery(GET_IS_USER_ADMIN, {
     variables: { code: contestCode },
   });
 

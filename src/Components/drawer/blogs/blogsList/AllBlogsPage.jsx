@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BlogCard from '../BlogCard/BlogCard';
 
 const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute = false }) => {
-  const BlogsArray = blogs.map(blog => (
+  const BlogsArray = blogs.map((blog) => (
     <BlogCard
       setSnackbarMessage={setSnackbarMessage}
       key={blog._id}
@@ -20,11 +20,7 @@ const AllBlogsPage = ({ blogs, setSnackbarMessage, isSuperuserRoute = false }) =
       isSuperuserRoute={isSuperuserRoute}
     />
   ));
-  return (
-    <div>
-      {BlogsArray}
-    </div>
-  );
+  return <div>{BlogsArray}</div>;
 };
 
 AllBlogsPage.propTypes = {

@@ -12,7 +12,7 @@ import Uploading from './Uploading';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 
 const SubmitSolution = ({ problems }) => {
-// initial State declaration
+  // initial State declaration
   const [problem, setProblem] = useState('None');
   const history = useHistory();
   const { contestId } = useParams();
@@ -26,12 +26,11 @@ const SubmitSolution = ({ problems }) => {
   const [messageType, setMessageType] = useState('');
 
   let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
-  const incomingProblemOptions = problems.map(problemOption => ({
+  const incomingProblemOptions = problems.map((problemOption) => ({
     value: problemOption.code,
     label: `${problemOption.name} (${problemOption.code})`,
   }));
   problemOptions = [...problemOptions, ...incomingProblemOptions];
-
 
   const submitFile = () => {
     const formData = new FormData();
@@ -42,7 +41,7 @@ const SubmitSolution = ({ problems }) => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
@@ -56,7 +55,8 @@ const SubmitSolution = ({ problems }) => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         setIsUploading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
@@ -73,7 +73,7 @@ const SubmitSolution = ({ problems }) => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
@@ -88,18 +88,19 @@ const SubmitSolution = ({ problems }) => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         setIsUploading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
   };
   // functions to update state
-  const onEnhancedChange = (_, item) => (setProblem(item.getAttribute('data-value')));
+  const onEnhancedChange = (_, item) => setProblem(item.getAttribute('data-value'));
 
-  const onLangChange = (_, item) => (setLang(item.getAttribute('data-value')));
+  const onLangChange = (_, item) => setLang(item.getAttribute('data-value'));
 
-  const onMethodChange = (_, item) => (setUploadMethod(item.getAttribute('data-value')));
+  const onMethodChange = (_, item) => setUploadMethod(item.getAttribute('data-value'));
   // function to check validation
   const validationCheck = () => {
     if (problem !== 'None' && lang !== 'None' && (file.length !== 0 || code.length !== 0)) {
@@ -117,9 +118,7 @@ const SubmitSolution = ({ problems }) => {
 
   // function to render loading page / the submit page
   if (isUploading) {
-    return (
-      <Uploading />
-    );
+    return <Uploading />;
   }
   return (
     <div className="">
@@ -187,31 +186,32 @@ const SubmitSolution = ({ problems }) => {
         </Row>
         <Row>
           <Cell desktopColumns="12" tabletColumns="9" phoneColumns="5">
-            {
-            (uploadMethod === 'file')
-              ? (
-                <div className="mt3">
-                  <FileUpload id="file" label="Upload Solution" file={file} onChangeFunction={e => setFile(e.currentTarget.files[0])} />
-                </div>
-              )
-              : (
-                <div className=" mt3 mb1">
-                  <TextField
-                    label="Enter your code here"
-                    className="text-area-width-100"
-                    textarea
-                    required
-                  >
-                    <Input
-                      className=""
-                      rows="10"
-                      value={code}
-                      onChange={e => setCode(e.currentTarget.value)}
-                    />
-                  </TextField>
-                </div>
-              )
-          }
+            {uploadMethod === 'file' ? (
+              <div className="mt3">
+                <FileUpload
+                  id="file"
+                  label="Upload Solution"
+                  file={file}
+                  onChangeFunction={(e) => setFile(e.currentTarget.files[0])}
+                />
+              </div>
+            ) : (
+              <div className=" mt3 mb1">
+                <TextField
+                  label="Enter your code here"
+                  className="text-area-width-100"
+                  textarea
+                  required
+                >
+                  <Input
+                    className=""
+                    rows="10"
+                    value={code}
+                    onChange={(e) => setCode(e.currentTarget.value)}
+                  />
+                </TextField>
+              </div>
+            )}
           </Cell>
         </Row>
         <Row>
@@ -219,7 +219,9 @@ const SubmitSolution = ({ problems }) => {
             <Button
               raised
               className="mt2"
-              onClick={() => { validationCheck(); }}
+              onClick={() => {
+                validationCheck();
+              }}
             >
               Submit
             </Button>

@@ -15,11 +15,12 @@ const ResetSubmissionStatus = () => {
   const { logError } = useSentry();
   const limit = 15;
   const activePageNumber = useActivePageState();
-  const {
-    loading, error, data,
-  } = useQuery(GET_SUBMISSION_BY_CONTEST_CODE, {
+  const { loading, error, data } = useQuery(GET_SUBMISSION_BY_CONTEST_CODE, {
     variables: {
-      contestCode: contestId, problemCode: problemId, limit, skip: ((activePageNumber - 1) * limit),
+      contestCode: contestId,
+      problemCode: problemId,
+      limit,
+      skip: (activePageNumber - 1) * limit,
     },
   });
   if (loading) return <Spinner />;
@@ -33,12 +34,9 @@ const ResetSubmissionStatus = () => {
       <div className="pl5-l pr5-l pl2 pr2">
         <Headline4 className="purple mb0">Update Submission Status</Headline4>
         <Body1 className="mt2">
-          Problem:
-          &nbsp;
+          Problem: &nbsp;
           {problemId}
-          &nbsp;
-          -
-          &nbsp;
+          &nbsp; - &nbsp;
           {response[0].problemId.name}
         </Body1>
         <ResetSubmissionTable resetSubmissionTableData={response} />

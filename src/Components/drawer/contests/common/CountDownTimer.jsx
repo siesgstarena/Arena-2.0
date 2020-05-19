@@ -8,7 +8,10 @@ const CountDownTimer = ({ countDownTill }) => {
   // console.log(seconds, hours, days, minutes);
   useEffect(() => {
     const {
-      seconds: updatedSeconds, minutes: updatedMinutes, days: updatedDays, hours: updatedHours,
+      seconds: updatedSeconds,
+      minutes: updatedMinutes,
+      days: updatedDays,
+      hours: updatedHours,
     } = countDownTimerValues(countDownTill);
     let timeout = '';
     if (updatedSeconds === null) {
@@ -21,17 +24,11 @@ const CountDownTimer = ({ countDownTill }) => {
     return () => clearInterval(timeout);
   }, [countDownTill, timer]);
 
-  return (
-    <div>
-      {timer}
-    </div>
-  );
+  return <div>{timer}</div>;
 };
-
 
 CountDownTimer.propTypes = {
   countDownTill: PropTypes.string.isRequired,
 };
-
 
 export default CountDownTimer;

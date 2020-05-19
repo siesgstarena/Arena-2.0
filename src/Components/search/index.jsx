@@ -15,12 +15,15 @@ const Search = () => {
       search: `?q=${query}`,
     });
   }, [query, history]);
-  const handleKeyDown = useCallback((e) => {
-    // checking for enter key
-    if (e.keyCode === 13) {
-      handleSearch();
-    }
-  }, [handleSearch]);
+  const handleKeyDown = useCallback(
+    (e) => {
+      // checking for enter key
+      if (e.keyCode === 13) {
+        handleSearch();
+      }
+    },
+    [handleSearch]
+  );
   // Adding event listener for keydown
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -35,18 +38,13 @@ const Search = () => {
         <Cell desktopColumns={12} tabletColumns={8} phoneColumns={4}>
           <Headline3 className="purple mt0 mb0">Search</Headline3>
           <Body2 className="mt1 mid-gray mb4">You can search for any user, blog or problem</Body2>
-          <TextField
-            label="Search SIESGSTarena"
-            className="mb4 w-100"
-            outlined
-          >
+          <TextField label="Search SIESGSTarena" className="mb4 w-100" outlined>
             <Input
               autoFocus
               value={query}
               onChange={(e) => {
                 setQuery(e.currentTarget.value);
-              }
-              }
+              }}
             />
           </TextField>
         </Cell>

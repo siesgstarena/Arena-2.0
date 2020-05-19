@@ -10,9 +10,7 @@ import ContestsTable from './ContestsTable';
 
 const ContestScheduleContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_CONTEST_HOMEPAGE_DETAILS);
+  const { loading, error, data } = useQuery(GET_CONTEST_HOMEPAGE_DETAILS);
 
   if (loading) {
     const tableHeadings = ['Contest name', 'Setter', 'Start', ' Length', 'More details'];

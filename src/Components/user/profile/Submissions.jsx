@@ -7,14 +7,14 @@ import Table from '../../common/Table';
 // SubmissionTab Content
 const Submissions = ({ submissions }) => {
   const tableHeading = ['#', 'Problem', 'Result', 'Lang'];
-  const SubmissionContent = submissions.map(submission => (
+  const SubmissionContent = submissions.map((submission) => (
     <tr key={submission._id} style={{ fontSize: '.9em' }}>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer blue"
           to={`/contests/${submission.problemId.contestCode}/submission/${submission._id}`}
         >
-          {(submission._id).slice(-6)}
+          {submission._id.slice(-6)}
         </Link>
       </td>
       <td className="tc pa3">
@@ -26,17 +26,12 @@ const Submissions = ({ submissions }) => {
         </Link>
       </td>
       <td className="tc pa3">
-        <span
-          className="b"
-          style={{ color: getSubmissionColor(submission.status) }}
-        >
+        <span className="b" style={{ color: getSubmissionColor(submission.status) }}>
           {submission.status}
         </span>
       </td>
       <td className="tc pa3">
-        <span>
-          {submission.language}
-        </span>
+        <span>{submission.language}</span>
       </td>
     </tr>
   ));

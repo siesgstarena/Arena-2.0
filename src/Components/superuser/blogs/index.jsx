@@ -3,9 +3,7 @@ import AllBlogsPageContainer from '../../drawer/blogs/blogsList';
 
 const SuperuserBlogContainer = () => (
   <div>
-    <AllBlogsPageContainer
-      isSuperuserRoute
-    />
+    <AllBlogsPageContainer isSuperuserRoute />
   </div>
 );
 

@@ -8,9 +8,7 @@ import Submit from './SubmitOnProblemPage';
 import ContestTabBar from './ContestTabBar';
 
 const ContestPageSkeleton = ({ children, contestDetails }) => {
-  const {
-    name, description, endsAt, announcement,
-  } = contestDetails;
+  const { name, description, endsAt, announcement } = contestDetails;
 
   return (
     <Grid className="">

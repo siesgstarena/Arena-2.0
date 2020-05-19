@@ -4,7 +4,6 @@ about: Ask a question or ask for some help
 title: ''
 labels: help wanted, question
 assignees: ''
-
 ---
 
 **What I need help with / What I was wondering**
@@ -18,5 +17,6 @@ Could we have done anything to make things better (documentation, etc.)?
 
 **Environment information**
 (if applicable)
-* Device: [Mobile|Desktop|Tablet]
-* Operating System: <os>
+
+- Device: [Mobile|Desktop|Tablet]
+- Operating System: <os>

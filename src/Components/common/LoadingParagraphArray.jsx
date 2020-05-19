@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 const LoadingParagraphArray = ({ count = 1, loadingParagraphClassname = 'ma3' }) => {
   const paragraphArray = [];
   for (let i = 0; i < count; i += 1) {
-    paragraphArray.push((
+    paragraphArray.push(
       <div key={i} className={loadingParagraphClassname}>
         <Skeleton count={5} />
         <div className="w-90">
@@ -18,13 +18,9 @@ const LoadingParagraphArray = ({ count = 1, loadingParagraphClassname = 'ma3' })
           <Skeleton />
         </div>
       </div>
-    ));
+    );
   }
-  return (
-    <div>
-      {paragraphArray}
-    </div>
-  );
+  return <div>{paragraphArray}</div>;
 };
 
 LoadingParagraphArray.propTypes = {

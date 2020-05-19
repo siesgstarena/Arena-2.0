@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './index.scss';
 
 const Table = ({ tableData, tableHeadings, tableHeadingClassName }) => {
-  const tableHeadingsArray = tableHeadings.map(tableHeading => (
+  const tableHeadingsArray = tableHeadings.map((tableHeading) => (
     <th
       key={tableHeading.props ? tableHeading.props.to : tableHeading}
       className={tableHeadingClassName}
@@ -16,9 +16,7 @@ const Table = ({ tableData, tableHeadings, tableHeadingClassName }) => {
     <div className="" style={{ overflowX: 'auto' }}>
       <table className="">
         <tbody className="">
-          <tr className="">
-            {tableHeadingsArray}
-          </tr>
+          <tr className="">{tableHeadingsArray}</tr>
           {tableData}
         </tbody>
       </table>

@@ -18,7 +18,9 @@ const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
   const location = useLocation();
   const { state } = location;
   const history = useHistory();
-  const [snackbarMessage, setSnackbarMessage] = useState(state && state.snackbarMessage ? state.snackbarMessage : '');
+  const [snackbarMessage, setSnackbarMessage] = useState(
+    state && state.snackbarMessage ? state.snackbarMessage : ''
+  );
 
   // This useEffect logic removes the snackbar message from the state
   // and thereby avoiding the snackbar message being showed everytime the user visits the website
@@ -29,10 +31,8 @@ const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
     }
   }, [history, location, state]);
   const activePageNumber = useActivePageState();
-  const {
-    loading, error, data,
-  } = useQuery(GET_ALL_BLOGS, {
-    variables: { limit, skip: ((activePageNumber - 1) * limit) },
+  const { loading, error, data } = useQuery(GET_ALL_BLOGS, {
+    variables: { limit, skip: (activePageNumber - 1) * limit },
   });
 
   if (loading) {
@@ -55,15 +55,9 @@ const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
           isSuperuserRoute={isSuperuserRoute}
         />
         <div>
-          <PageCountDisplayer
-            pageCount={data.blogs.pages}
-            activePageNumber={activePageNumber}
-          />
+          <PageCountDisplayer pageCount={data.blogs.pages} activePageNumber={activePageNumber} />
         </div>
-        <CustomSnackbar
-          setSnackbarMessage={setSnackbarMessage}
-          snackbarMessage={snackbarMessage}
-        />
+        <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} />
       </div>
     );
   }

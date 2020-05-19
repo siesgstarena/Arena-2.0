@@ -7,12 +7,9 @@ import useSessionExpired from '../../../customHooks/useSessionExpired';
 import LoadingCardArray from '../../common/LoadingCardArray';
 import FeedbackCard from './FeedbackCard/FeedbackCard';
 
-
 const FeedbackContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_ALL_FEEDBACKS);
+  const { loading, error, data } = useQuery(GET_ALL_FEEDBACKS);
   if (loading) {
     return (
       <div className="mw7 pa2 center">
@@ -29,26 +26,21 @@ const FeedbackContainer = () => {
       <div className="mw7 pa2 center">
         <Headline4 className="purple mt2 ml1 mb2">Feedbacks</Headline4>
         <Body2 className="mid-gray ma0 ml1 mb4">View and Send replies to feedbacks</Body2>
-        {feedbacks.map(
-          (feedback) => {
-            const {
-              _id, name, email, message,
-              replied, createdAt,
-            } = feedback;
-            return (
-              <div key={_id}>
-                <FeedbackCard
-                  id={_id}
-                  user={name}
-                  email={email}
-                  message={message}
-                  isReplied={replied}
-                  createdAt={createdAt}
-                />
-              </div>
-            );
-          },
-        )}
+        {feedbacks.map((feedback) => {
+          const { _id, name, email, message, replied, createdAt } = feedback;
+          return (
+            <div key={_id}>
+              <FeedbackCard
+                id={_id}
+                user={name}
+                email={email}
+                message={message}
+                isReplied={replied}
+                createdAt={createdAt}
+              />
+            </div>
+          );
+        })}
       </div>
     );
   }

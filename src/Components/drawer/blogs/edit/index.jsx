@@ -10,19 +10,13 @@ import EditBlog from './EditBlog';
 const EditContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { blogId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_BLOG_BY_ID, { variables: { id: blogId } });
+  const { loading, error, data } = useQuery(GET_BLOG_BY_ID, { variables: { id: blogId } });
 
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.blogById) {
     const response = data.blogById.blog;
-    return (
-      <EditBlog
-        blogDetails={response}
-      />
-    );
+    return <EditBlog blogDetails={response} />;
   }
   if (isSessionExpired(data.blogById)) {
     // since the component hasn't rendered or returned anything,

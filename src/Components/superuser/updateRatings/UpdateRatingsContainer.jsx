@@ -8,9 +8,7 @@ import UpdateRatings from './UpdateRatings';
 
 const UpdateRatingsContainer = () => {
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_NEW_RATINGS, {
+  const { loading, error, data } = useQuery(GET_NEW_RATINGS, {
     variables: { code: contestId },
   });
 
@@ -18,9 +16,7 @@ const UpdateRatingsContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.calculateNewRatings) {
     const ratingsData = data.calculateNewRatings;
-    return (
-      <UpdateRatings ratingsData={ratingsData} />
-    );
+    return <UpdateRatings ratingsData={ratingsData} />;
   }
 
   // case for random errors which are not handled by graphql

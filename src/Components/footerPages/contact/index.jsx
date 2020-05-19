@@ -13,14 +13,11 @@ const Contact = () => (
     <Row>
       <Cell className="" desktopColumns={6} phoneColumns={4} tabletColumns={4}>
         <Cell>
-          <Headline4 className="purple">
-            Contact
-          </Headline4>
+          <Headline4 className="purple">Contact</Headline4>
           <Body1 className="dark-gray">
-            You can follow us on our social media accounts to stay
-            updated about the stuff which is going on, on our platform.
-            Also feel free to mail us any issues you have regarding our platform,
-            we will try our best to resolve them.
+            You can follow us on our social media accounts to stay updated about the stuff which is
+            going on, on our platform. Also feel free to mail us any issues you have regarding our
+            platform, we will try our best to resolve them.
           </Body1>
         </Cell>
       </Cell>
@@ -35,6 +32,5 @@ const Contact = () => (
     </Row>
   </Grid>
 );
-
 
 export default Contact;

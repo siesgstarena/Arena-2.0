@@ -16,20 +16,22 @@ import { GET_BLOG_BY_BLOG_ID, GET_COMMENTS_OF_BLOG } from '../../../../../graphq
 import useSessionExpired from '../../../../../customHooks/useSessionExpired';
 import AuthContext from '../../../../../Contexts/AuthContext';
 
-
 const BlogFooter = ({ upvotes, downvotes }) => {
   const [comment, setComment] = useState('');
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const { authState } = useContext(AuthContext);
   const [upvote, setUpvote] = useState(authState.user && upvotes.includes(authState.user.userId));
-  const [downvote, setDownvote] = useState(authState.user
-    && downvotes.includes(authState.user.userId));
+  const [downvote, setDownvote] = useState(
+    authState.user && downvotes.includes(authState.user.userId)
+  );
   // Added separate states for disabling because we wanted to disable the button,
   // the moment user clicks.We can't wait for the response to come back from server and then disable
-  const [disableUpvote, setDisableUpvote] = useState(authState.user
-    && upvotes.includes(authState.user.userId));
-  const [disableDownvote, setDisableDownvote] = useState(authState.user
-    && downvotes.includes(authState.user.userId));
+  const [disableUpvote, setDisableUpvote] = useState(
+    authState.user && upvotes.includes(authState.user.userId)
+  );
+  const [disableDownvote, setDisableDownvote] = useState(
+    authState.user && downvotes.includes(authState.user.userId)
+  );
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
@@ -60,7 +62,7 @@ const BlogFooter = ({ upvotes, downvotes }) => {
                     // removing the current user from the list of downvotes
                     // I ma doing both the operations because the user cannot be
                     // in both lists at the same time
-                    downvote: blogById.blog.downvote.filter(id => id !== authState.user.userId),
+                    downvote: blogById.blog.downvote.filter((id) => id !== authState.user.userId),
                   },
                 },
               },
@@ -78,7 +80,10 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         redirectOnSessionExpiredAfterRender();
         return;
       }
-      if (data.upvoteBlog.success || data.upvoteBlog.message === 'You have already upvoted for this post') {
+      if (
+        data.upvoteBlog.success ||
+        data.upvoteBlog.message === 'You have already upvoted for this post'
+      ) {
         setUpvote(true);
         setDownvote(false);
         setDisableUpvote(true);
@@ -114,7 +119,7 @@ const BlogFooter = ({ upvotes, downvotes }) => {
                     // removing the current user from the list of upvotes
                     // I ma doing both the operations because the user cannot
                     // be in both lists at the same time
-                    upvote: blogById.blog.upvote.filter(id => id !== authState.user.userId),
+                    upvote: blogById.blog.upvote.filter((id) => id !== authState.user.userId),
                     // adding the current user in the list of downvotes
                     downvote: [...blogById.blog.downvote, authState.user.userId],
                   },
@@ -134,7 +139,10 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         redirectOnSessionExpiredAfterRender();
         return;
       }
-      if (data.downvoteBlog.success || data.downvoteBlog.message === 'You have already downvoted for this post') {
+      if (
+        data.downvoteBlog.success ||
+        data.downvoteBlog.message === 'You have already downvoted for this post'
+      ) {
         setUpvote(false);
         setDownvote(true);
         setDisableDownvote(true);
@@ -157,10 +165,12 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         content: comment,
       },
       // used refetchQueries because I was not able to get all the details of the user
-      refetchQueries: [{
-        query: GET_COMMENTS_OF_BLOG,
-        variables: { id: blogId },
-      }],
+      refetchQueries: [
+        {
+          query: GET_COMMENTS_OF_BLOG,
+          variables: { id: blogId },
+        },
+      ],
     });
     if (error) {
       setMessageType('error');
@@ -198,23 +208,12 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         <ShareIcon />
       </div>
       {/* comment section  */}
-      <Headline5 style={{ margin: '15px 0px 10px 0px' }}>
-        Comments
-      </Headline5>
+      <Headline5 style={{ margin: '15px 0px 10px 0px' }}>Comments</Headline5>
       <hr className="ba" style={{ borderColor: '#6200ee' }} />
       <div className="">
         <CommentBox endComment={comment} setEndComment={setComment} />
-        <MessageCard
-          message={message}
-          messageType={messageType}
-          setMessageType={setMessageType}
-        />
-        <Button
-          className=""
-          style={{ float: 'right' }}
-          onClick={handleCreate}
-          raised
-        >
+        <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
+        <Button className="" style={{ float: 'right' }} onClick={handleCreate} raised>
           Submit
         </Button>
       </div>

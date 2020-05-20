@@ -165,6 +165,10 @@ export const UPDATE_ABOUT = gql`
       code
       success
       message
+      user {
+        _id
+        about
+      }
     }
   }
 `;

@@ -475,15 +475,11 @@ export const GET_PROFILE_DETAILS = gql`
         followers
         createdAt
         following
-        social {
-          github
-          codechef
-          codeforces
-        }
-        notifications {
-          activities
-          updates
-        }
+        github
+        codechef
+        codeforces
+        activities
+        updates
       }
       changes
       contests

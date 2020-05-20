@@ -5,11 +5,9 @@ import Info from './profile/Info';
 import RatingsGraph from './profile/RatingsGraph';
 import ProfileTabBar from './profile/ProfileTabBar';
 import { GET_PROFILE_DETAILS } from '../../graphql/queries';
-import useSessionExpired from '../../customHooks/useSessionExpired';
 import ProfileLoadingSkeleton from './profile/ProfileLoadingSkeleton';
 
 const ProfileContainerWithUsername = () => {
-  const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { username } = useParams();
   const { loading, data } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
@@ -18,16 +16,10 @@ const ProfileContainerWithUsername = () => {
     },
   });
   if (loading) return <ProfileLoadingSkeleton />;
-  if (isSessionExpired(data.profilePage)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
   if (data.profilePage) {
     const userDetails = data.profilePage.user;
     const ratingChanges = data.profilePage.changes;
     const { contests } = data.profilePage;
-
     return (
       <div className="mw7 pa2 center pt0">
         <Info userDetails={userDetails} />
@@ -36,7 +28,7 @@ const ProfileContainerWithUsername = () => {
       </div>
     );
   }
-  // The component will never enter this part
+  // code will never reach here
   return undefined;
 };
 

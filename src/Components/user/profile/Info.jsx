@@ -265,11 +265,11 @@ const Info = ({ userDetails: user }) => {
         </Cell>
       </Row>
       <Row>
-        {user.social.codeforces ? (
+        {user.codeforces ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://codeforces.com/profile/${user.social.codeforces}`}
+              href={`https://codeforces.com/profile/${user.codeforces}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}
@@ -290,11 +290,11 @@ const Info = ({ userDetails: user }) => {
             </a>
           </Cell>
         ) : null}
-        {user.social.codechef ? (
+        {user.codechef ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://www.codechef.com/users/${user.social.codechef}`}
+              href={`https://www.codechef.com/users/${user.codechef}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}
@@ -315,11 +315,11 @@ const Info = ({ userDetails: user }) => {
             </a>
           </Cell>
         ) : null}
-        {user.social.github ? (
+        {user.github ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://github.com/${user.social.github}`}
+              href={`https://github.com/${user.github}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}

@@ -10,7 +10,6 @@ import AuthContext from '../../../Contexts/AuthContext';
 import EditAbout from './EditAbout';
 import MessageCard from '../../common/MessageCard/index';
 import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const Info = ({ userDetails: user }) => {
@@ -43,54 +42,6 @@ const Info = ({ userDetails: user }) => {
       variables: {
         followId: user._id,
       },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.follow.success) {
-          try {
-            // Adding logged in user in the array of followers for the user
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    followers: [...profilePage.user.followers, loggedInUser.userId],
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-          try {
-            // Adding the person followed by the loggedIn user in his array of following
-            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePageOfLoggedInUser,
-                  user: {
-                    ...profilePageOfLoggedInUser.user,
-                    following: [...profilePageOfLoggedInUser.user.following, user._id],
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
-      },
     });
     if (error) {
       setMessageType('error');
@@ -116,58 +67,6 @@ const Info = ({ userDetails: user }) => {
       mutation: UNFOLLOW,
       variables: {
         unfollowId: user._id,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.unfollow.success) {
-          try {
-            // Removing logged in user from the array of followers for the user
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    followers: profilePage.user.followers.filter(
-                      (id) => id !== loggedInUser.userId
-                    ),
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-          try {
-            // Reoving the person followed by the loggedIn user from his array of following
-            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePageOfLoggedInUser,
-                  user: {
-                    ...profilePageOfLoggedInUser.user,
-                    following: profilePageOfLoggedInUser.user.following.filter(
-                      (id) => id !== user._id
-                    ),
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
       },
     });
     if (error) {

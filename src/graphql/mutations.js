@@ -179,6 +179,16 @@ export const FOLLOW = gql`
       code
       success
       message
+      user1 {
+        _id
+        following
+        followers
+      }
+      user2 {
+        _id
+        following
+        followers
+      }
     }
   }
 `;
@@ -189,6 +199,16 @@ export const UNFOLLOW = gql`
       code
       success
       message
+      user1 {
+        _id
+        following
+        followers
+      }
+      user2 {
+        _id
+        following
+        followers
+      }
     }
   }
 `;

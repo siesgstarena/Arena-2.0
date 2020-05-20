@@ -29,7 +29,7 @@ const ProfileContainerWithUsername = () => {
 
     return (
       <div className="mw7 pa2 center pt0">
-        <Info userDetails={userDetails} profilePageByUsername />
+        <Info userDetails={userDetails} />
         <RatingsGraph contests={contests} ratingChanges={ratingChanges} />
         <ProfileTabBar user={userDetails} />
       </div>

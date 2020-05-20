@@ -1,35 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Headline5 } from '@material/react-typography';
-import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
-import AllBlogsPage from './AllBlogsPage';
-import PageCountDisplayer from '../../../common/PageCountDisplayer';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
-import CustomSnackbar from '../../../common/Snackbar/index';
 import LoadingCardArray from '../../../common/LoadingCardArray';
+import BlogsArray from '../../../user/myBlogs/BlogsArray';
 
 const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = 15;
-  const location = useLocation();
-  const { state } = location;
-  const history = useHistory();
-  const [snackbarMessage, setSnackbarMessage] = useState(
-    state && state.snackbarMessage ? state.snackbarMessage : ''
-  );
-
-  // This useEffect logic removes the snackbar message from the state
-  // and thereby avoiding the snackbar message being showed everytime the user visits the website
-  useEffect(() => {
-    if (state && state.snackbarMessage) {
-      delete state.snackbarMessage;
-      history.replace({ location, state });
-    }
-  }, [history, location, state]);
   const activePageNumber = useActivePageState();
   const { loading, error, data } = useQuery(GET_ALL_BLOGS, {
     variables: { limit, skip: (activePageNumber - 1) * limit },
@@ -39,7 +21,7 @@ const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
     return (
       <div className="mw7 ma3 pa2 center">
         <Headline5 className="purple ma0 ml1 mb4">SIESGSTarena&apos;s Blogs</Headline5>
-        <LoadingCardArray count={8} />
+        <LoadingCardArray count={limit} />
       </div>
     );
   }
@@ -49,15 +31,11 @@ const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
     return (
       <div className="mw7 ma3 pa2 center">
         <Headline5 className="purple ma0 ml1 mb4">SIESGSTarena&apos;s Blogs</Headline5>
-        <AllBlogsPage
+        <BlogsArray
           blogs={blogs}
-          setSnackbarMessage={setSnackbarMessage}
           isSuperuserRoute={isSuperuserRoute}
+          pageCount={data.blogs.pages}
         />
-        <div>
-          <PageCountDisplayer pageCount={data.blogs.pages} activePageNumber={activePageNumber} />
-        </div>
-        <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} />
       </div>
     );
   }

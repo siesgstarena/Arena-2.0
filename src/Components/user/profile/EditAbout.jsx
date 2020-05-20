@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
 import TextField, { Input } from '@material/react-text-field';
 import Button from '@material/react-button';
 import { useApolloClient } from '@apollo/react-hooks';
 import { UPDATE_ABOUT } from '../../../graphql/mutations';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const EditAbout = ({ about, setMessage, setMessageType }) => {
   const [showTextBox, setShowTextBox] = useState(false);
   const [editedAbout, setEditedAbout] = useState(about);
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
-  const { userId } = useParams();
   const client = useApolloClient();
   const handleAboutSubmit = async () => {
     setMessageType('loading');
@@ -21,31 +18,6 @@ const EditAbout = ({ about, setMessage, setMessageType }) => {
       mutation: UPDATE_ABOUT,
       variables: {
         about: editedAbout,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.updateBio.success) {
-          try {
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    about: editedAbout,
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
       },
     });
     if (error) {

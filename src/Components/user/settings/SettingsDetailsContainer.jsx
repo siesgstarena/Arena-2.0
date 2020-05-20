@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
+import { GET_SETTINGS_PAGE_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import Social from './Social';
@@ -12,7 +12,7 @@ import LoadingInfoArray from '../../common/LoadingInfoArray';
 const SettingsDetailsContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { userId } = useParams();
-  const { loading, error, data } = useQuery(GET_PROFILE_DETAILS, {
+  const { loading, error, data } = useQuery(GET_SETTINGS_PAGE_DETAILS, {
     variables: {
       id: userId,
       findBy: 'ID',
@@ -21,10 +21,17 @@ const SettingsDetailsContainer = () => {
   if (loading) return <LoadingInfoArray count={3} />;
   if (error) return <SomethingWentWrong message="An error has been encountered" />;
   if (data.profilePage.user.username) {
-    const { social } = data.profilePage.user;
-    const { username } = data.profilePage.user;
-    const { notifications } = data.profilePage.user;
-    const { email } = data.profilePage.user;
+    const {
+      codechef,
+      codeforces,
+      github,
+      username,
+      updates,
+      activities,
+      email,
+    } = data.profilePage.user;
+    const social = { codechef, codeforces, github };
+    const notifications = { updates, activities };
     return (
       <div>
         <Account username={username} />

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Headline4, Headline6 } from '@material/react-typography';
 import { Button } from '@material/react-button';
 import LinkGenerator from './LinkGenerator';
 import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_SOCIAL } from '../../../graphql/mutations';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
 const Social = ({ socialDetails }) => {
-  const { userId } = useParams();
   const [codeChef, setCC] = useState(socialDetails.codechef ? socialDetails.codechef : '');
   const [codeForces, setCF] = useState(socialDetails.codeforces ? socialDetails.codeforces : '');
   const [gitHub, setGH] = useState(socialDetails.github ? socialDetails.github : '');
@@ -34,36 +31,6 @@ const Social = ({ socialDetails }) => {
         github: gitHub,
         codeforces: codeForces,
         codechef: codeChef,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.updateSocialLinks.success) {
-          try {
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    social: {
-                      ...profilePage.user.social,
-                      github: gitHub,
-                      codeforces: codeForces,
-                      codechef: codeChef,
-                    },
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
       },
     });
     if (error) {

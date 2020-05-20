@@ -475,18 +475,31 @@ export const GET_PROFILE_DETAILS = gql`
         followers
         createdAt
         following
-        social {
-          github
-          codechef
-          codeforces
-        }
-        notifications {
-          activities
-          updates
-        }
+        github
+        codechef
+        codeforces
+        activities
+        updates
       }
       changes
       contests
+    }
+  }
+`;
+
+export const GET_SETTINGS_PAGE_DETAILS = gql`
+  query ProfilePage($findBy: FindBy!, $id: ID, $username: String) {
+    profilePage(findBy: $findBy, _id: $id, username: $username) {
+      user {
+        _id
+        codechef
+        codeforces
+        github
+        username
+        updates
+        activities
+        email
+      }
     }
   }
 `;
@@ -523,6 +536,7 @@ export const GET_BLOGS_BY_USER = gql`
         userId {
           _id
           ratings
+          name
         }
       }
       pages

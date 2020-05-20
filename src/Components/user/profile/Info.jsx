@@ -10,10 +10,9 @@ import AuthContext from '../../../Contexts/AuthContext';
 import EditAbout from './EditAbout';
 import MessageCard from '../../common/MessageCard/index';
 import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
-import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
-const Info = ({ userDetails: user, profilePageByUsername }) => {
+const Info = ({ userDetails: user }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = width > 625;
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
@@ -43,54 +42,6 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
       variables: {
         followId: user._id,
       },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.follow.success) {
-          try {
-            // Adding logged in user in the array of followers for the user
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    followers: [...profilePage.user.followers, loggedInUser.userId],
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-          try {
-            // Adding the person followed by the loggedIn user in his array of following
-            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePageOfLoggedInUser,
-                  user: {
-                    ...profilePageOfLoggedInUser.user,
-                    following: [...profilePageOfLoggedInUser.user.following, user._id],
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
-      },
     });
     if (error) {
       setMessageType('error');
@@ -116,58 +67,6 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
       mutation: UNFOLLOW,
       variables: {
         unfollowId: user._id,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.unfollow.success) {
-          try {
-            // Removing logged in user from the array of followers for the user
-            const { profilePage } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: user._id, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePage,
-                  user: {
-                    ...profilePage.user,
-                    followers: profilePage.user.followers.filter(
-                      (id) => id !== loggedInUser.userId
-                    ),
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-          try {
-            // Reoving the person followed by the loggedIn user from his array of following
-            const { profilePage: profilePageOfLoggedInUser } = cache.readQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-            });
-            cache.writeQuery({
-              query: GET_PROFILE_DETAILS,
-              variables: { id: loggedInUser.userId, findBy: 'ID' },
-              data: {
-                profilePage: {
-                  ...profilePageOfLoggedInUser,
-                  user: {
-                    ...profilePageOfLoggedInUser.user,
-                    following: profilePageOfLoggedInUser.user.following.filter(
-                      (id) => id !== user._id
-                    ),
-                  },
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
       },
     });
     if (error) {
@@ -239,7 +138,7 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
               message={message}
               setMessageType={setMessageType}
             />
-            {profilePageByUsername ? null : loggedInUser ? (
+            {loggedInUser ? (
               loggedInUser.userId === user._id ? (
                 <EditAbout
                   about={user.about}
@@ -265,11 +164,11 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
         </Cell>
       </Row>
       <Row>
-        {user.social.codeforces ? (
+        {user.codeforces ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://codeforces.com/profile/${user.social.codeforces}`}
+              href={`https://codeforces.com/profile/${user.codeforces}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}
@@ -290,11 +189,11 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
             </a>
           </Cell>
         ) : null}
-        {user.social.codechef ? (
+        {user.codechef ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://www.codechef.com/users/${user.social.codechef}`}
+              href={`https://www.codechef.com/users/${user.codechef}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}
@@ -315,11 +214,11 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
             </a>
           </Cell>
         ) : null}
-        {user.social.github ? (
+        {user.github ? (
           <Cell desktopColumns={3} tabletColumns={2} phoneColumns={1}>
             <a
               className="black flex flex-start dim"
-              href={`https://github.com/${user.social.github}`}
+              href={`https://github.com/${user.github}`}
               rel="noopener noreferrer"
               target="_blank"
               style={{ textDecoration: 'None' }}
@@ -348,7 +247,6 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
 
 Info.propTypes = {
   userDetails: PropTypes.object.isRequired,
-  profilePageByUsername: PropTypes.bool,
 };
 
 export default Info;

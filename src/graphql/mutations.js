@@ -165,6 +165,10 @@ export const UPDATE_ABOUT = gql`
       code
       success
       message
+      user {
+        _id
+        about
+      }
     }
   }
 `;
@@ -175,6 +179,16 @@ export const FOLLOW = gql`
       code
       success
       message
+      user1 {
+        _id
+        following
+        followers
+      }
+      user2 {
+        _id
+        following
+        followers
+      }
     }
   }
 `;
@@ -185,6 +199,16 @@ export const UNFOLLOW = gql`
       code
       success
       message
+      user1 {
+        _id
+        following
+        followers
+      }
+      user2 {
+        _id
+        following
+        followers
+      }
     }
   }
 `;
@@ -205,6 +229,11 @@ export const UPDATE_NOTIFICATION = gql`
       code
       success
       message
+      user {
+        _id
+        activities
+        updates
+      }
     }
   }
 `;
@@ -215,6 +244,12 @@ export const UPDATE_SOCIAL = gql`
       code
       success
       message
+      user {
+        _id
+        github
+        codechef
+        codeforces
+      }
     }
   }
 `;

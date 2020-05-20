@@ -13,7 +13,7 @@ import { FOLLOW, UNFOLLOW } from '../../../graphql/mutations';
 import { GET_PROFILE_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 
-const Info = ({ userDetails: user, profilePageByUsername }) => {
+const Info = ({ userDetails: user }) => {
   const [width, setWidth] = useState(window.innerWidth);
   const removeTag = width > 625;
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
@@ -239,7 +239,7 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
               message={message}
               setMessageType={setMessageType}
             />
-            {profilePageByUsername ? null : loggedInUser ? (
+            {loggedInUser ? (
               loggedInUser.userId === user._id ? (
                 <EditAbout
                   about={user.about}
@@ -348,7 +348,6 @@ const Info = ({ userDetails: user, profilePageByUsername }) => {
 
 Info.propTypes = {
   userDetails: PropTypes.object.isRequired,
-  profilePageByUsername: PropTypes.bool,
 };
 
 export default Info;

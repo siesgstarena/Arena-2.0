@@ -209,6 +209,11 @@ export const UPDATE_NOTIFICATION = gql`
       code
       success
       message
+      user {
+        _id
+        activities
+        updates
+      }
     }
   }
 `;
@@ -219,6 +224,12 @@ export const UPDATE_SOCIAL = gql`
       code
       success
       message
+      user {
+        _id
+        github
+        codechef
+        codeforces
+      }
     }
   }
 `;

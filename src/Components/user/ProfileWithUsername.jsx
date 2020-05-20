@@ -5,22 +5,23 @@ import Info from './profile/Info';
 import RatingsGraph from './profile/RatingsGraph';
 import ProfileTabBar from './profile/ProfileTabBar';
 import { GET_PROFILE_DETAILS } from '../../graphql/queries';
-import SomethingWentWrong from '../common/SomethingWentWrong/index';
 import useSessionExpired from '../../customHooks/useSessionExpired';
 import ProfileLoadingSkeleton from './profile/ProfileLoadingSkeleton';
 
 const ProfileContainerWithUsername = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { username } = useParams();
-  const { loading, error, data } = useQuery(GET_PROFILE_DETAILS, {
+  const { loading, data } = useQuery(GET_PROFILE_DETAILS, {
     variables: {
       findBy: 'username',
       username,
     },
   });
   if (loading) return <ProfileLoadingSkeleton />;
-  if (error) {
-    return <SomethingWentWrong message="An error has been encountered." />;
+  if (isSessionExpired(data.profilePage)) {
+    // since the component hasn't rendered or returned anything,
+    // we use redirectOnSessionExpiredBeforeRender function
+    return redirectOnSessionExpiredBeforeRender();
   }
   if (data.profilePage) {
     const userDetails = data.profilePage.user;
@@ -35,13 +36,8 @@ const ProfileContainerWithUsername = () => {
       </div>
     );
   }
-  if (isSessionExpired(data.profilePage)) {
-    // since the component hasn't rendered or returned anything,
-    // we use redirectOnSessionExpiredBeforeRender function
-    return redirectOnSessionExpiredBeforeRender();
-  }
-  // Random errors
-  return <SomethingWentWrong message="An unexpected error has occured" />;
+  // The component will never enter this part
+  return undefined;
 };
 
 export default ProfileContainerWithUsername;

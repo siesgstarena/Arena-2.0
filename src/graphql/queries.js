@@ -487,6 +487,23 @@ export const GET_PROFILE_DETAILS = gql`
   }
 `;
 
+export const GET_SETTINGS_PAGE_DETAILS = gql`
+  query ProfilePage($findBy: FindBy!, $id: ID, $username: String) {
+    profilePage(findBy: $findBy, _id: $id, username: $username) {
+      user {
+        _id
+        codechef
+        codeforces
+        github
+        username
+        updates
+        activities
+        email
+      }
+    }
+  }
+`;
+
 export const GET_SUBMISSION_BY_USER_ID = gql`
   query SubmissionsByUserId($id: ID!, $limit: Int, $skip: Int) {
     submissionsByUserId(_id: $id, limit: $limit, skip: $skip) {

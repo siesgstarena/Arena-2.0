@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 
-const NoBlogs = ({ showCreateButton }) => {
+const NoBlogs = ({ showCreateButton = false }) => {
   const history = useHistory();
   return (
     <div className="tc">

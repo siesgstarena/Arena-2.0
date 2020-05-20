@@ -519,6 +519,7 @@ export const GET_BLOGS_BY_USER = gql`
         userId {
           _id
           ratings
+          name
         }
       }
       pages

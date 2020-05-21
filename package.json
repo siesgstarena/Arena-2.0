@@ -60,6 +60,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
     "react-social-icons": "^4.1.0",
+    "styled-components": "^5.1.0",
     "tachyons": "^4.11.1"
   },
   "scripts": {

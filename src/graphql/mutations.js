@@ -368,6 +368,10 @@ export const CHANGE_BLOG_PIN_STATUS = gql`
       code
       success
       message
+      blog {
+        _id
+        pinned
+      }
     }
   }
 `;

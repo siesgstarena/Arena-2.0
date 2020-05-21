@@ -60,47 +60,18 @@ const BlogCard = ({
   const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
 
-  // Pin Blog Feature ( only for superuser )
-  const [isPinned, setPinned] = useState(pinned);
   const pinImageOptions = [
     'https://img.icons8.com/material-outlined/24/6200ee/pin.png',
     'https://img.icons8.com/material/24/6200ee/pin.png',
   ];
-  const pinMessage = isPinned ? 'Unpin' : 'Pin';
-  const pinIcon = isPinned ? pinImageOptions[1] : pinImageOptions[0];
+  const pinMessage = pinned ? 'Unpin' : 'Pin';
+  const pinIcon = pinned ? pinImageOptions[1] : pinImageOptions[0];
   const onPinClick = async () => {
     const { data, error } = await client.mutate({
       mutation: CHANGE_BLOG_PIN_STATUS,
       variables: {
         postId: id,
       },
-      // update: (cache, { data: mutationResponse }) => {
-      //   if (mutationResponse.changeBlogPinStatus.success) {
-      //     try {
-      //       const { blogs } = cache.readQuery({
-      //         query: GET_ALL_BLOGS,
-      //       });
-      //       console.log(blogs);
-      //       // cache.writeQuery({
-      //       //   query: GET_ALL_BLOGS,
-      //       //   variables: { code: contestId },
-      //       //   data: {
-      //       //     adminDashboard,
-      //       //   },
-      //       // });
-      //     } catch (e) {
-      //       console.log(e);
-      //       // We should always catch here,
-      //       // as the cache may be empty or the query may fail
-      //     }
-      //   }
-      // },
-      // refetchQueries: [
-      //   {
-      //     query: GET_ADMIN_DASHBOARD_DETAILS,
-      //     variables: { code: contestId },
-      //   },
-      // ],
     });
     if (error) {
       logError('changeBlogPinStatus query', { ...data, ...error });
@@ -112,7 +83,6 @@ const BlogCard = ({
       return;
     }
     if (data.changeBlogPinStatus.success) {
-      setPinned(!isPinned);
       setSnackbarMessage(`${pinMessage}ned Blog Successfully`);
     } else {
       setSnackbarMessage('An unexpected error has been encountered');
@@ -120,7 +90,6 @@ const BlogCard = ({
     }
   };
   const pinClassName = isSuperuserRoute ? 'flex justify-between items-center' : '';
-  // end Pin
 
   const handleEdit = () => {
     history.push({

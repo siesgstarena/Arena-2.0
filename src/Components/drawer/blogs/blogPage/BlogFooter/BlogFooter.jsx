@@ -32,6 +32,7 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const { blogId } = useParams();
+
   const handleUpvote = async () => {
     // disabling the button so that user cannot repeatedly click on it
     setDisableUpvote(true);

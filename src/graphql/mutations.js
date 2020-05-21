@@ -278,6 +278,11 @@ export const UPVOTE_BLOG = gql`
       code
       success
       message
+      blog {
+        upvote
+        downvote
+        _id
+      }
     }
   }
 `;
@@ -288,6 +293,11 @@ export const DOWNVOTE_BLOG = gql`
       code
       success
       message
+      blog {
+        upvote
+        downvote
+        _id
+      }
     }
   }
 `;

@@ -67,6 +67,14 @@ export const EDIT_BLOG = gql`
       code
       success
       message
+      blog {
+        content
+        _id
+        content
+        updatedAt
+        tags
+        title
+      }
     }
   }
 `;

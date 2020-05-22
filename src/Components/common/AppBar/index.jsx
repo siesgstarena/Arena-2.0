@@ -10,11 +10,7 @@ const AppBar = () => {
 
   return (
     <div>
-      {
-        drawerOpen
-          ? <CustomDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen} />
-          : null
-      }
+      {drawerOpen ? <CustomDrawer setDrawerOpen={setDrawerOpen} drawerOpen={drawerOpen} /> : null}
       <CustomTopAppBar setDrawerOpen={setDrawerOpen} />
     </div>
   );

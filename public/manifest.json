@@ -13,20 +13,20 @@
       "type": "image/png"
     },
     {
-        "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_144/v1588856429/arena/assets/arena_wbydxw.png",
-        "sizes": "144x144",
-        "type": "image/png"
+      "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_144/v1588856429/arena/assets/arena_wbydxw.png",
+      "sizes": "144x144",
+      "type": "image/png"
     },
     {
-        "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_152/v1588856429/arena/assets/arena_wbydxw.png",
-        "sizes": "152x152",
-        "type": "image/png"
+      "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_152/v1588856429/arena/assets/arena_wbydxw.png",
+      "sizes": "152x152",
+      "type": "image/png"
     },
     {
-        "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_192/v1588856429/arena/assets/arena_wbydxw.png",
-        "sizes": "192x192",
-        "type": "image/png"
-    },   
+      "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_192/v1588856429/arena/assets/arena_wbydxw.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
     {
       "src": "https://res.cloudinary.com/ashokc/image/upload/c_scale,w_512/v1588856429/arena/assets/arena_wbydxw.png",
       "sizes": "512x512",

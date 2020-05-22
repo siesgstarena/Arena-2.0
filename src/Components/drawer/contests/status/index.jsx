@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { useParams, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import LoadingTable from '../../../common/LoadingTable/index';
-import { GET_CONTEST_STATUS } from '../../../../graphql/queries';
+import { GET_SUBMISSION_BY_CONTEST_CODE } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import PageCountDisplayer from '../../../common/PageCountDisplayer';
@@ -21,12 +21,10 @@ const StatusContainer = () => {
   const { contestId } = useParams();
   const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_CONTEST_STATUS, {
+  const { loading, error, data } = useQuery(GET_SUBMISSION_BY_CONTEST_CODE, {
     variables: {
       limit,
-      skip: ((activePageNumber - 1) * limit),
+      skip: (activePageNumber - 1) * limit,
       contestCode: contestId,
       problemCode,
       language,
@@ -42,33 +40,30 @@ const StatusContainer = () => {
     const problems = data.problemsByContestCode;
     return (
       <div className="">
-        {
-          submissions.length !== 0
-            ? (
-              <div>
-                <FilterDisplayer problemCode={problemCode} type={type} language={language} />
-                <ProblemStatusTable
-                  submissions={submissions}
-                  contestId={contestId}
-                  submissionsVisible={submissionsVisible}
-                />
-                <FilterButton
-                  problems={problems}
-                  problemCode={problemCode}
-                  type={type}
-                  language={language}
-                />
-                <div className="pt3">
-                  <PageCountDisplayer
-                    pageCount={data.submissionsByContestCode.pages}
-                    activePageNumber={activePageNumber}
-                  />
-                </div>
-              </div>
-            )
-            : <EmptyData message="No submissions in the contest yet" />
-        }
-
+        {submissions.length !== 0 ? (
+          <div>
+            <FilterDisplayer problemCode={problemCode} type={type} language={language} />
+            <ProblemStatusTable
+              submissions={submissions}
+              contestId={contestId}
+              submissionsVisible={submissionsVisible}
+            />
+            <FilterButton
+              problems={problems}
+              problemCode={problemCode}
+              type={type}
+              language={language}
+            />
+            <div className="pt3">
+              <PageCountDisplayer
+                pageCount={data.submissionsByContestCode.pages}
+                activePageNumber={activePageNumber}
+              />
+            </div>
+          </div>
+        ) : (
+          <EmptyData message="No submissions in the contest yet" />
+        )}
       </div>
     );
   }

@@ -11,9 +11,7 @@ import LoadingTable from '../../../common/LoadingTable/index';
 const ContestDashboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_RATINGS_CHANGE, {
+  const { loading, error, data } = useQuery(GET_RATINGS_CHANGE, {
     variables: { code: contestId },
   });
   const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];
@@ -23,11 +21,11 @@ const ContestDashboardContainer = () => {
     const { ratingChanges } = data;
     return (
       <div>
-        {
-          ratingChanges.length !== 0
-            ? <RatingChangesTable ratingChanges={ratingChanges} />
-            : <EmptyData message="Ratings have not been updated yet. Come back later." />
-        }
+        {ratingChanges.length !== 0 ? (
+          <RatingChangesTable ratingChanges={ratingChanges} />
+        ) : (
+          <EmptyData message="Ratings have not been updated yet. Come back later." />
+        )}
       </div>
     );
   }

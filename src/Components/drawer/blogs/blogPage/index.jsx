@@ -11,9 +11,7 @@ import BlogLoadingScreen from './BlogLoadingScreen';
 const BlogPage = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { blogId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_BLOG_BY_BLOG_ID, {
+  const { loading, error, data } = useQuery(GET_BLOG_BY_BLOG_ID, {
     variables: { id: blogId },
   });
   const { logError } = useSentry();

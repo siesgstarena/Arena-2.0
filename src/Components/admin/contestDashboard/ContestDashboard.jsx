@@ -9,7 +9,12 @@ import Announcements from './Announcements';
 import ProblemsCardArray from './ProblemsCardArray';
 
 const ContestDashboard = ({
-  contest, stats, announcement, setSnackbarMessage, snackbarMessage, problems,
+  contest,
+  stats,
+  announcement,
+  setSnackbarMessage,
+  snackbarMessage,
+  problems,
 }) => (
   <Grid className="mw7 center pa2">
     <Row>
@@ -32,18 +37,12 @@ const ContestDashboard = ({
     </Row>
     <Row>
       <Cell columns={12}>
-        <CustomSnackbar
-          setSnackbarMessage={setSnackbarMessage}
-          snackbarMessage={snackbarMessage}
-        />
+        <CustomSnackbar setSnackbarMessage={setSnackbarMessage} snackbarMessage={snackbarMessage} />
       </Cell>
     </Row>
     <Row>
       <Cell columns={12}>
-        <ProblemsCardArray
-          problems={problems}
-          setSnackbarMessage={setSnackbarMessage}
-        />
+        <ProblemsCardArray problems={problems} setSnackbarMessage={setSnackbarMessage} />
       </Cell>
     </Row>
   </Grid>

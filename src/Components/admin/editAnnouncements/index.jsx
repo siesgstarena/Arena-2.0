@@ -8,12 +8,7 @@ const EditAnnoucementsPage = () => {
   // AdminContainer will check whether the user is admin or not and
   // if the user is admin only then the user will be allowed to see the
   // component
-  return (
-    <AdminContainer
-      component={<EditAnnoucements />}
-      contestCode={contestId}
-    />
-  );
+  return <AdminContainer component={<EditAnnoucements />} contestCode={contestId} />;
 };
 
 export default EditAnnoucementsPage;

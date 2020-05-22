@@ -14,5 +14,4 @@ Scoreboard.propTypes = {
   scoreboardDetails: PropTypes.array.isRequired,
 };
 
-
 export default Scoreboard;

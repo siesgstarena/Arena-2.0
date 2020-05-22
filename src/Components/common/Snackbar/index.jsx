@@ -6,9 +6,15 @@ const CustomSnackbar = ({ snackbarMessage, setSnackbarMessage }) => (
   <>
     {
       // timeoutMS is the time in milliseconds after which the snackbar is automatically closed
-      snackbarMessage
-        ? <Snackbar message={snackbarMessage} timeoutMs={4000} leading actionText="dismiss" onClose={() => setSnackbarMessage('')} />
-        : null
+      snackbarMessage ? (
+        <Snackbar
+          message={snackbarMessage}
+          timeoutMs={4000}
+          leading
+          actionText="dismiss"
+          onClose={() => setSnackbarMessage('')}
+        />
+      ) : null
     }
   </>
 );

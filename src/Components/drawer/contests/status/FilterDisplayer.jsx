@@ -11,12 +11,8 @@ const FilterDisplayer = ({ problemCode, type, language }) => {
     return (
       <Body2 className="mid-gray ma0 mt3 mb1">
         Showing results for Problem=
-        {problemCode}
-        ,
-        Language=
-        {language}
-        ,
-        Type=
+        {problemCode}, Language=
+        {language}, Type=
         {type}
         <Button
           onClick={() => {

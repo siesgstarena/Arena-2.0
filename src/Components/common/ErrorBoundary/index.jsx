@@ -40,7 +40,9 @@ class ErrorBoundary extends Component {
     const { children } = props;
     if (state.hasError) {
       // You can render any custom fallback UI
-      return <SomethingWentWrong message="An unexpected error is encountered. Please contact the developer." />;
+      return (
+        <SomethingWentWrong message="An unexpected error is encountered. Please contact the developer." />
+      );
     }
 
     return children;

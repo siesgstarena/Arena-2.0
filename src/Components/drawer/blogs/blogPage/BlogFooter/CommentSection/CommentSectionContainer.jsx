@@ -9,16 +9,13 @@ import useSessionExpired from '../../../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../../../customHooks/useSentry';
 import CommentLoadingCardArray from './CommentLoadingCardArray';
 
-
 const CommentsSectionContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = 3;
   const count = useRef(0);
   const [hideButton, setHideButton] = useState(false);
   const { blogId } = useParams();
-  const {
-    loading, error, data, fetchMore, networkStatus,
-  } = useQuery(GET_COMMENTS_OF_BLOG, {
+  const { loading, error, data, fetchMore, networkStatus } = useQuery(GET_COMMENTS_OF_BLOG, {
     variables: { id: blogId, limit },
     notifyOnNetworkStatusChange: true,
   });
@@ -45,40 +42,35 @@ const CommentsSectionContainer = () => {
     return (
       <div className="mw8 center">
         <DisplayComment comments={comments} />
-        {
-          hideButton || comments.length === totalNumberOfComments
-            ? null
-            : (
-              <div className="flex justify-center">
-                <Button
-                  raised
-                  onClick={() => (fetchMore({
-                    variables: {
-                      skip: count.current,
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      if (fetchMoreResult.comments.comments.length === 0) {
-                        setHideButton(true);
-                        return prev;
-                      }
-                      return ({
-                        ...prev,
-                        comments: {
-                          ...prev.comments,
-                          comments: [...prev.comments.comments,
-                            ...fetchMoreResult.comments.comments],
-                        },
-                      });
-                    },
-                  })
-                  )
-                  }
-                >
-                  LOAD MORE COMMENTS
-                </Button>
-              </div>
-            )
-        }
+        {hideButton || comments.length === totalNumberOfComments ? null : (
+          <div className="flex justify-center">
+            <Button
+              raised
+              onClick={() =>
+                fetchMore({
+                  variables: {
+                    skip: count.current,
+                  },
+                  updateQuery: (prev, { fetchMoreResult }) => {
+                    if (fetchMoreResult.comments.comments.length === 0) {
+                      setHideButton(true);
+                      return prev;
+                    }
+                    return {
+                      ...prev,
+                      comments: {
+                        ...prev.comments,
+                        comments: [...prev.comments.comments, ...fetchMoreResult.comments.comments],
+                      },
+                    };
+                  },
+                })
+              }
+            >
+              LOAD MORE COMMENTS
+            </Button>
+          </div>
+        )}
       </div>
     );
   }

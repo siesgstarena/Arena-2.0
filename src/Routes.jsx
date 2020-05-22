@@ -1,6 +1,4 @@
-import React, {
-  lazy, Suspense,
-} from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useQuery } from 'react-apollo';
 import AppBar from './Components/common/AppBar/index';
@@ -19,7 +17,9 @@ const SignUp = lazy(() => import('./Components/auth/signup/index'));
 const Forgot = lazy(() => import('./Components/auth/forgot/index'));
 const Reset = lazy(() => import('./Components/auth/reset/index'));
 const ConfirmEmail = lazy(() => import('./Components/auth/confirmEmail/index'));
-const ContestSkeletonContainer = lazy(() => import('./Components/drawer/contests/common/ContestPageSkeletonContainer'));
+const ContestSkeletonContainer = lazy(() =>
+  import('./Components/drawer/contests/common/ContestPageSkeletonContainer')
+);
 const ContestsSchedule = lazy(() => import('./Components/drawer/contests/schedule/index'));
 const ContestDashboard = lazy(() => import('./Components/drawer/contests/dashboard/index'));
 const ContestStatus = lazy(() => import('./Components/drawer/contests/status/index'));
@@ -28,7 +28,9 @@ const ContestSubmit = lazy(() => import('./Components/drawer/contests/submit/ind
 const ContestRatingChanges = lazy(() => import('./Components/drawer/contests/ratingChanges/index'));
 const ContestScoreboard = lazy(() => import('./Components/drawer/contests/scoreboard/index'));
 const ContestProblemPage = lazy(() => import('./Components/drawer/contests/problemPage/index'));
-const ContestSubmissionPage = lazy(() => import('./Components/drawer/contests/submissionPage/index'));
+const ContestSubmissionPage = lazy(() =>
+  import('./Components/drawer/contests/submissionPage/index')
+);
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
@@ -39,14 +41,27 @@ const EditBlog = lazy(() => import('./Components/drawer/blogs/edit/index'));
 const ProblemSet = lazy(() => import('./Components/drawer/problemSet/index'));
 const PlaylistsWelcomePage = lazy(() => import('./Components/drawer/playlists/welcomePage/index'));
 const PlaylistsHomePage = lazy(() => import('./Components/drawer/playlists/homePage/index'));
-const PlaylistsUNI01 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI01'));
-const PlaylistsUNI02 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI02'));
-const PlaylistsUNI03 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI03'));
-const PlaylistsUNI04 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI04'));
-const PlaylistsUNI05 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI05'));
-const PlaylistsUNI06 = lazy(() => import('./Components/drawer/playlists/topicExplanationPage/UNI06'));
+const PlaylistsUNI01 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI01')
+);
+const PlaylistsUNI02 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI02')
+);
+const PlaylistsUNI03 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI03')
+);
+const PlaylistsUNI04 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI04')
+);
+const PlaylistsUNI05 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI05')
+);
+const PlaylistsUNI06 = lazy(() =>
+  import('./Components/drawer/playlists/topicExplanationPage/UNI06')
+);
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
+const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
 const Settings = lazy(() => import('./Components/user/settings/index'));
 const About = lazy(() => import('./Components/footerPages/about/index'));
 const Competitions = lazy(() => import('./Components/footerPages/competitions/index'));
@@ -59,7 +74,9 @@ const Search = lazy(() => import('./Components/search/index'));
 const AdminEditAnnoucements = lazy(() => import('./Components/admin/editAnnouncements/index'));
 const AdminContestDashboard = lazy(() => import('./Components/admin/contestDashboard/index'));
 const AdminPlagiarism = lazy(() => import('./Components/admin/plagiarism/index'));
-const AdminResetSubmissionStatus = lazy(() => import('./Components/admin/resetSubmissionStatus/index'));
+const AdminResetSubmissionStatus = lazy(() =>
+  import('./Components/admin/resetSubmissionStatus/index')
+);
 const AdminCreateProblem = lazy(() => import('./Components/admin/createProblem/index'));
 const AdminEditProblem = lazy(() => import('./Components/admin/editProblem/index'));
 const AdminProblemPage = lazy(() => import('./Components/admin/problemPage/index'));
@@ -74,9 +91,7 @@ const SuperuserEditContest = lazy(() => import('./Components/superuser/editConte
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 
 const Routes = () => {
-  const {
-    loading, error, data,
-  } = useQuery(GET_LOGGED_IN_USER);
+  const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);
   // running the query to the server to check if the user is already logged in or not
   if (loading) return <Spinner />;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
@@ -110,18 +125,47 @@ const Routes = () => {
                       <ContestSkeletonContainer>
                         <Suspense fallback={<Spinner />}>
                           <Route path="/contests/:contestId" exact component={ContestDashboard} />
-                          <Route path="/contests/:contestId/status" exact component={ContestStatus} />
-                          <PrivateRoute path="/contests/:contestId/my" exact component={ContestMySubmissions} />
-                          <Route path="/contests/:contestId/scoreboard" exact component={ContestScoreboard} />
-                          <Route path="/contests/:contestId/change" exact component={ContestRatingChanges} />
-                          <PrivateRoute path="/contests/:contestId/submit" exact component={ContestSubmit} />
-                          <Route path="/contests/:contestId/problem/:problemId" exact component={ContestProblemPage} />
-                          <Route path="/contests/:contestId/submission/:submissionId" exact component={ContestSubmissionPage} />
+                          <Route
+                            path="/contests/:contestId/status"
+                            exact
+                            component={ContestStatus}
+                          />
+                          <PrivateRoute
+                            path="/contests/:contestId/my"
+                            exact
+                            component={ContestMySubmissions}
+                          />
+                          <Route
+                            path="/contests/:contestId/scoreboard"
+                            exact
+                            component={ContestScoreboard}
+                          />
+                          <Route
+                            path="/contests/:contestId/change"
+                            exact
+                            component={ContestRatingChanges}
+                          />
+                          <PrivateRoute
+                            path="/contests/:contestId/submit"
+                            exact
+                            component={ContestSubmit}
+                          />
+                          <Route
+                            path="/contests/:contestId/problem/:problemId"
+                            exact
+                            component={ContestProblemPage}
+                          />
+                          <Route
+                            path="/contests/:contestId/submission/:submissionId"
+                            exact
+                            component={ContestSubmissionPage}
+                          />
                         </Suspense>
                       </ContestSkeletonContainer>
                     )}
                   />
                   <Route path="/" exact component={HomePage} />
+                  <Route path="/" exact render={() => <h1 className="tc purple">WIP</h1>} />
                   <Route path="/auth/signin" exact component={SignIn} />
                   <Route path="/auth/signup" exact component={SignUp} />
                   <Route path="/auth/forgot" exact component={Forgot} />
@@ -146,6 +190,7 @@ const Routes = () => {
                   <Route path="/goodies" exact component={Goodies} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
+                  <Route path="/@:username" exact component={ProfileByUsername} />
                   <Route path="/about" exact component={About} />
                   <Route path="/competitions" exact component={Competitions} />
                   <Route path="/contact" exact component={Contact} />
@@ -154,21 +199,61 @@ const Routes = () => {
                   <Route path="/faq" exact component={FAQ} />
                   <Route path="/privacy" exact component={Privacy} />
                   <Route path="/search" exact component={Search} />
-                  <PrivateRoute path="/admin/:contestId/announcements" exact component={AdminEditAnnoucements} />
+                  <PrivateRoute
+                    path="/admin/:contestId/announcements"
+                    exact
+                    component={AdminEditAnnoucements}
+                  />
                   <PrivateRoute path="/admin/:contestId" exact component={AdminContestDashboard} />
-                  <PrivateRoute path="/admin/:contestId/plagiarism" exact component={AdminPlagiarism} />
-                  <PrivateRoute path="/admin/:contestId/reset/:problemId" exact component={AdminResetSubmissionStatus} />
-                  <PrivateRoute path="/admin/:contestId/create" exact component={AdminCreateProblem} />
-                  <PrivateRoute path="/admin/:contestId/:problemId/edit" exact component={AdminEditProblem} />
-                  <PrivateRoute path="/admin/:contestId/:problemId/test" exact component={AdminTestProblem} />
-                  <PrivateRoute path="/admin/:contestId/:problemId" exact component={AdminProblemPage} />
+                  <PrivateRoute
+                    path="/admin/:contestId/plagiarism"
+                    exact
+                    component={AdminPlagiarism}
+                  />
+                  <PrivateRoute
+                    path="/admin/:contestId/reset/:problemId"
+                    exact
+                    component={AdminResetSubmissionStatus}
+                  />
+                  <PrivateRoute
+                    path="/admin/:contestId/create"
+                    exact
+                    component={AdminCreateProblem}
+                  />
+                  <PrivateRoute
+                    path="/admin/:contestId/:problemId/edit"
+                    exact
+                    component={AdminEditProblem}
+                  />
+                  <PrivateRoute
+                    path="/admin/:contestId/:problemId/test"
+                    exact
+                    component={AdminTestProblem}
+                  />
+                  <PrivateRoute
+                    path="/admin/:contestId/:problemId"
+                    exact
+                    component={AdminProblemPage}
+                  />
                   <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
                   <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
                   <PrivateRoute path="/superuser/blogs" exact component={SuperuserBlogs} />
                   <PrivateRoute path="/superuser/feedbacks" exact component={SuperuserFeedbacks} />
-                  <PrivateRoute path="/superuser/contests/create" exact component={SuperuserCreateContest} />
-                  <PrivateRoute path="/superuser/contests/:contestId/edit" exact component={SuperuserEditContest} />
-                  <PrivateRoute path="/superuser/ratings/:contestId/update" exact component={SuperuserUpdateRatings} />
+                  <PrivateRoute
+                    path="/superuser/contests/create"
+                    exact
+                    component={SuperuserCreateContest}
+                  />
+                  <PrivateRoute
+                    path="/superuser/contests/:contestId/edit"
+                    exact
+                    component={SuperuserEditContest}
+                  />
+                  <PrivateRoute
+                    path="/superuser/ratings/:contestId/update"
+                    exact
+                    component={SuperuserUpdateRatings}
+                  />
                   <Route path="*" component={PageNotFound} />
                 </Switch>
               </Suspense>

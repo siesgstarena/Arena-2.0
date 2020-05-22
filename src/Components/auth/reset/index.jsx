@@ -53,12 +53,10 @@ const Reset = () => {
       <Grid className="mw8 center">
         <Row className="">
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>
-            <Headline4 className="purple">
-              Create a new password
-            </Headline4>
+            <Headline4 className="purple">Create a new password</Headline4>
             <Body1 className="mid-gray">
-              While creating a new password, make sure that
-              you dont use any previously used passwords.
+              While creating a new password, make sure that you dont use any previously used
+              passwords.
             </Body1>
           </Cell>
           <Cell desktopColumns={5} tabletColumns={8} phoneColumns={4}>

@@ -31,21 +31,23 @@ const ProfileTabBar = ({ user }) => {
 
   return (
     <div>
-      <TabBar
-        activeIndex={activeIndex}
-        handleActiveIndexUpdate={handleActiveIndexUpdate}
-      >
-        <Tab onClick={() => { toggleTab('submissions'); }}>
+      <TabBar activeIndex={activeIndex} handleActiveIndexUpdate={handleActiveIndexUpdate}>
+        <Tab
+          onClick={() => {
+            toggleTab('submissions');
+          }}
+        >
           <span className="mdc-tab__text-label">Submissions</span>
         </Tab>
-        <Tab onClick={() => { toggleTab('posts'); }}>
+        <Tab
+          onClick={() => {
+            toggleTab('posts');
+          }}
+        >
           <span className="mdc-tab__text-label">Posts</span>
         </Tab>
       </TabBar>
-      {
-        (tab === 'submissions') ? <SubmissionsContainer /> : <Posts user={user} />
-      }
-
+      {tab === 'submissions' ? <SubmissionsContainer user={user} /> : <Posts user={user} />}
     </div>
   );
 };

@@ -13,22 +13,19 @@ const ProblemsTable = ({ problems }) => {
       key={problem.problemDetails.code}
       style={{ backgroundColor: problemBackgroundColor(problem.solved, problem.attempts) }}
     >
+      <td>{index + 1}</td>
+      <td>{problem.problemDetails.points}</td>
       <td>
-        {index + 1}
-      </td>
-      <td>
-        {problem.problemDetails.points}
-      </td>
-      <td>
-        <Link className="no-underline dim blue pointer" to={`${url}/problem/${problem.problemDetails.code}`}>
+        <Link
+          className="no-underline dim blue pointer"
+          to={`${url}/problem/${problem.problemDetails.code}`}
+        >
           {problem.problemDetails.name}
         </Link>
       </td>
     </tr>
   ));
-  return (
-    <Table tableHeadings={tableHeadings} tableData={problemsArray} />
-  );
+  return <Table tableHeadings={tableHeadings} tableData={problemsArray} />;
 };
 
 ProblemsTable.propTypes = {

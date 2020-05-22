@@ -18,7 +18,8 @@ const feedbacks = [
     replyVal: 'Ok Thank you',
     responseTime: '8:30pm',
     responseDate: '14 May 2020',
-  }, {
+  },
+  {
     id: 3,
     name: 'demo3',
     email: 'demo@gmail.com',
@@ -27,7 +28,8 @@ const feedbacks = [
     replyVal: '',
     responseTime: '8:30pm',
     responseDate: '14 May 2020',
-  }, {
+  },
+  {
     id: 4,
     name: 'demo4',
     email: 'demo@gmail.com',

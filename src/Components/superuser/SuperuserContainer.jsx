@@ -8,9 +8,7 @@ import Spinner from '../common/Spinner/index';
 
 const SuperuserContainer = ({ component, loadingScreen = <Spinner /> }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(IS_SUPERUSER);
+  const { loading, error, data } = useQuery(IS_SUPERUSER);
 
   if (loading) return loadingScreen;
   if (error) return <SomethingWentWrong message="An error has been encountered." />;

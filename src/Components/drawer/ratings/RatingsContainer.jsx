@@ -13,10 +13,8 @@ const RatingsContainer = () => {
   const limit = 50;
   const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const {
-    loading, error, data,
-  } = useQuery(GET_ALL_RATINGS, {
-    variables: { limit, skip: ((activePageNumber - 1) * limit) },
+  const { loading, error, data } = useQuery(GET_ALL_RATINGS, {
+    variables: { limit, skip: (activePageNumber - 1) * limit },
     notifyOnNetworkStatusChange: true,
   });
   if (loading) {
@@ -42,10 +40,7 @@ const RatingsContainer = () => {
           ratingsUpdatedTill={ratingsUpdatedTill}
         />
         <div className="pt3">
-          <PageCountDisplayer
-            pageCount={data.ratings.pages}
-            activePageNumber={activePageNumber}
-          />
+          <PageCountDisplayer pageCount={data.ratings.pages} activePageNumber={activePageNumber} />
         </div>
       </div>
     );
@@ -56,7 +51,7 @@ const RatingsContainer = () => {
     return redirectOnSessionExpiredBeforeRender();
   }
   // Random errors
-  return (<SomethingWentWrong message="An unexpected error has occured" />);
+  return <SomethingWentWrong message="An unexpected error has occured" />;
 };
 
 export default RatingsContainer;

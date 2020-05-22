@@ -2,9 +2,7 @@ import React, { memo } from 'react';
 import Card from '@material/react-card';
 import MaterialIcon from '@material/react-material-icon';
 import PropTypes from 'prop-types';
-import {
-  Body1,
-} from '@material/react-typography';
+import { Body1 } from '@material/react-typography';
 import './index.scss';
 
 // This component displays the message on screen
@@ -17,12 +15,17 @@ const MessageCard = ({ message, messageType, setMessageType }) => {
       <Card
         className="mt3 mb3 pl3 pr3"
         style={{
-          backgroundColor: '#f8d7da', color: '#721c24', borderColor: '#f5c6cb', boxShadow: '0px 0px 0px 0px',
+          backgroundColor: '#f8d7da',
+          color: '#721c24',
+          borderColor: '#f5c6cb',
+          boxShadow: '0px 0px 0px 0px',
         }}
       >
         <Body1 className="flex items-center justify-between">
           {message}
-          <span role="presentation" onClick={() => setMessageType('')} className="pointer"><MaterialIcon icon="close" /></span>
+          <span role="presentation" onClick={() => setMessageType('')} className="pointer">
+            <MaterialIcon icon="close" />
+          </span>
         </Body1>
       </Card>
     );
@@ -40,7 +43,9 @@ const MessageCard = ({ message, messageType, setMessageType }) => {
       >
         <Body1 className="flex items-center justify-between">
           {message}
-          <span role="presentation" className="pointer" onClick={() => setMessageType('')}><MaterialIcon icon="close" /></span>
+          <span role="presentation" className="pointer" onClick={() => setMessageType('')}>
+            <MaterialIcon icon="close" />
+          </span>
         </Body1>
       </Card>
     );
@@ -58,7 +63,9 @@ const MessageCard = ({ message, messageType, setMessageType }) => {
       >
         <Body1 className="flex items-center justify-between">
           {message}
-          <span role="presentation" onClick={() => setMessageType('')} className="pointer"><MaterialIcon icon="close" /></span>
+          <span role="presentation" onClick={() => setMessageType('')} className="pointer">
+            <MaterialIcon icon="close" />
+          </span>
         </Body1>
       </Card>
     );

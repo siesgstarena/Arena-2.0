@@ -9,12 +9,14 @@ const Competitions = () => {
   const contests = [
     {
       name: 'BUG4EVER',
-      details: 'A team programming competition - you pick your team and make your way to finals via Qualifiers. Are you up for solving competitive bugs?',
+      details:
+        'A team programming competition - you pick your team and make your way to finals via Qualifiers. Are you up for solving competitive bugs?',
       date: 'Registration: July 2019',
     },
     {
       name: 'TURING CUP',
-      details: 'Put your skills to the test by solving algorithmic puzzles for winning the Turing Cup. Do you have what it takes? ',
+      details:
+        'Put your skills to the test by solving algorithmic puzzles for winning the Turing Cup. Do you have what it takes? ',
       date: 'Registration: January 2019',
     },
   ];

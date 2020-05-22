@@ -6,7 +6,7 @@ import DeveloperCard from './MemberCard';
 import 'tachyons';
 
 const OurTeam = () => {
-  const alumniCardsArray = alumni.map(developer => (
+  const alumniCardsArray = alumni.map((developer) => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard
         name={developer.name}
@@ -19,7 +19,7 @@ const OurTeam = () => {
       />
     </Cell>
   ));
-  const developerCardsArray = developers.map(developer => (
+  const developerCardsArray = developers.map((developer) => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard
         name={developer.name}
@@ -32,7 +32,7 @@ const OurTeam = () => {
       />
     </Cell>
   ));
-  const operationManagersCardsArray = operationalManagers.map(developer => (
+  const operationManagersCardsArray = operationalManagers.map((developer) => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard
         name={developer.name}
@@ -52,50 +52,37 @@ const OurTeam = () => {
         <Row>
           <Cell>
             <Headline6>
-              <span className="purple">
-                SIESGSTarena Alumni
-              </span>
+              <span className="purple">SIESGSTarena Alumni</span>
               <Body1 className="mid-gray"> People behind the chapter</Body1>
             </Headline6>
           </Cell>
         </Row>
-        <Row>
-          {alumniCardsArray}
-        </Row>
+        <Row>{alumniCardsArray}</Row>
       </Grid>
 
       <Grid>
         <Row>
           <Cell>
             <Headline6>
-              <span className="purple">
-                SIESGSTarena developers
-              </span>
+              <span className="purple">SIESGSTarena developers</span>
               <Body1 className="mid-gray"> People behind this platform</Body1>
             </Headline6>
           </Cell>
         </Row>
-        <Row>
-          {developerCardsArray}
-        </Row>
+        <Row>{developerCardsArray}</Row>
       </Grid>
 
       <Grid>
         <Row>
           <Cell columns={12}>
             <Headline6>
-              <span className="purple">
-                SIESGSTarena operation managers
-              </span>
+              <span className="purple">SIESGSTarena operation managers</span>
               <Body1 className="mid-gray"> People behind building the operations</Body1>
             </Headline6>
           </Cell>
         </Row>
-        <Row>
-          {operationManagersCardsArray}
-        </Row>
+        <Row>{operationManagersCardsArray}</Row>
       </Grid>
-
     </div>
   );
 };

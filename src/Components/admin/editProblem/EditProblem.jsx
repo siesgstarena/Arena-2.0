@@ -30,13 +30,23 @@ const EditProblem = () => {
       constraints: data.problemByCode.constraints,
       examples: data.problemByCode.example,
       explanation: data.problemByCode.explanation,
-      inputFile: { name: <a className="gray no-underline" href={data.problemByCode.inputFile}>Click to download input file</a> },
-      outputFile: { name: <a className="gray no-underline" href={data.problemByCode.outputFile}>Click to download output file</a> },
+      inputFile: {
+        name: (
+          <a className="gray no-underline" href={data.problemByCode.inputFile}>
+            Click to download input file
+          </a>
+        ),
+      },
+      outputFile: {
+        name: (
+          <a className="gray no-underline" href={data.problemByCode.outputFile}>
+            Click to download output file
+          </a>
+        ),
+      },
       tags: data.problemByCode.tags,
     };
-    return (
-      <EditProblemForm intialFormDetails={intialFormDetails} />
-    );
+    return <EditProblemForm intialFormDetails={intialFormDetails} />;
   }
 
   // random errors not handled by graphql

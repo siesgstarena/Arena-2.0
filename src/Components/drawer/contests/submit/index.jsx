@@ -10,9 +10,7 @@ import Spinner from '../../../common/Spinner/index';
 const SubmitContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_PROBLEMS_BY_CONTEST_CODE, {
+  const { loading, error, data } = useQuery(GET_PROBLEMS_BY_CONTEST_CODE, {
     variables: { contestCode: contestId },
   });
 

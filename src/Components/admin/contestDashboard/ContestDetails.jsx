@@ -25,19 +25,13 @@ const ContestDetails = ({ contest }) => {
         </Link>
       </Headline5>
       <Body1 className="ma0 mid-gray">
-        Starts on:
-        &nbsp;
-        {startsAtDate}
-        ,
-        &nbsp;
+        Starts on: &nbsp;
+        {startsAtDate}, &nbsp;
         {startsAtTime}
       </Body1>
       <Body1 className="ma0 mid-gray">
-        Ends on:
-        &nbsp;
-        {endsAtDate}
-        ,
-        &nbsp;
+        Ends on: &nbsp;
+        {endsAtDate}, &nbsp;
         {endsAtTime}
       </Body1>
     </div>

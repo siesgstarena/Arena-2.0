@@ -6,7 +6,12 @@ import FileDataBlock from '../../../admin/problemPage/FileDataBlock';
 import Viewer from '../../../common/MarkdownEditor/Viewer';
 
 const WrongAnswerContent = ({
-  inputFile, outputFile, output, showOutput, outputFileLink, expectedOutputLink,
+  inputFile,
+  outputFile,
+  output,
+  showOutput,
+  outputFileLink,
+  expectedOutputLink,
 }) => (
   <Grid style={{ padding: 0, margin: 0 }}>
     <Row>
@@ -18,31 +23,27 @@ const WrongAnswerContent = ({
       </Cell>
     </Row>
     <Row>
-      {
-        showOutput
-          ? (
-            <>
-              <Cell desktopColumns={6}>
-                <Headline6 className="purple ma0 mb2">Expected Output:</Headline6>
-                <Viewer value={outputFile} />
-              </Cell>
-              <Cell desktopColumns={6}>
-                <Headline6 className="purple ma0 mb2">Your Output:</Headline6>
-                <Viewer value={output} />
-              </Cell>
-            </>
-          )
-          : (
-            <>
-              <Cell desktopColumns={6}>
-                <FileDataBlock title="Expected Output" fileLink={expectedOutputLink} />
-              </Cell>
-              <Cell desktopColumns={6}>
-                <FileDataBlock title="Your Output" fileLink={outputFileLink} />
-              </Cell>
-            </>
-          )
-      }
+      {showOutput ? (
+        <>
+          <Cell desktopColumns={6}>
+            <Headline6 className="purple ma0 mb2">Expected Output:</Headline6>
+            <Viewer value={outputFile} />
+          </Cell>
+          <Cell desktopColumns={6}>
+            <Headline6 className="purple ma0 mb2">Your Output:</Headline6>
+            <Viewer value={output} />
+          </Cell>
+        </>
+      ) : (
+        <>
+          <Cell desktopColumns={6}>
+            <FileDataBlock title="Expected Output" fileLink={expectedOutputLink} />
+          </Cell>
+          <Cell desktopColumns={6}>
+            <FileDataBlock title="Your Output" fileLink={outputFileLink} />
+          </Cell>
+        </>
+      )}
     </Row>
   </Grid>
 );
@@ -55,6 +56,5 @@ WrongAnswerContent.propTypes = {
   outputFileLink: PropTypes.string.isRequired,
   expectedOutputLink: PropTypes.string.isRequired,
 };
-
 
 export default WrongAnswerContent;

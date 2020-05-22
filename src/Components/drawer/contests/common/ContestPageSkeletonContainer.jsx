@@ -11,9 +11,7 @@ import Spinner from '../../../common/Spinner/index';
 const ContestPageSkeletonContainer = ({ children }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { contestId } = useParams();
-  const {
-    loading, error, data,
-  } = useQuery(GET_CONTEST_DETAILS, {
+  const { loading, error, data } = useQuery(GET_CONTEST_DETAILS, {
     variables: { code: contestId },
   });
 
@@ -21,13 +19,7 @@ const ContestPageSkeletonContainer = ({ children }) => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.contestCode) {
     const contestDetails = data.contestCode;
-    return (
-      <ContestPageSkeleton
-        contestDetails={contestDetails}
-      >
-        {children}
-      </ContestPageSkeleton>
-    );
+    return <ContestPageSkeleton contestDetails={contestDetails}>{children}</ContestPageSkeleton>;
   }
   if (isSessionExpired(data.contestCode)) {
     // since the component hasn't rendered or returned anything,

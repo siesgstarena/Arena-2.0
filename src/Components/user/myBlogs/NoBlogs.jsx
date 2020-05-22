@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Body1 } from '@material/react-typography';
 import Button from '@material/react-button';
 
-const NoBlogs = ({ showCreateButton }) => {
+const NoBlogs = ({ showCreateButton = false }) => {
   const history = useHistory();
   return (
     <div className="tc">
@@ -14,11 +14,11 @@ const NoBlogs = ({ showCreateButton }) => {
         style={{ width: '16em', height: 'auto' }}
       />
       <Body1 className="mid-gray">There are no blog posts</Body1>
-      {
-        showCreateButton
-          ? <Button onClick={() => history.push('/blogs/create')} raised>Create Blog</Button>
-          : null
-      }
+      {showCreateButton ? (
+        <Button onClick={() => history.push('/blogs/create')} raised>
+          Create Blog
+        </Button>
+      ) : null}
     </div>
   );
 };

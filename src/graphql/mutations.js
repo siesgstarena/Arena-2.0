@@ -308,6 +308,11 @@ export const DOWNVOTE_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        upvote
+        downvote
+      }
     }
   }
 `;
@@ -318,6 +323,11 @@ export const UPVOTE_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        upvote
+        downvote
+      }
     }
   }
 `;
@@ -328,6 +338,10 @@ export const EDIT_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        content
+      }
     }
   }
 `;

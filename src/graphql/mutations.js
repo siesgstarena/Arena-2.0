@@ -407,6 +407,10 @@ export const REPLY_TO_FEEDBACK = gql`
       code
       success
       message
+      feedback {
+        _id
+        replied
+      }
     }
   }
 `;

@@ -6,6 +6,7 @@ import Button from '@material/react-button';
 import ContestDetails from './ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
 import { CREATE_CONTEST } from '../../../graphql/mutations';
+import { GET_CONTEST_HOMEPAGE_DETAILS } from '../../../graphql/queries';
 // import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
 // import superuserContestsLimit from '../../../constants';
 
@@ -43,6 +44,11 @@ const CreateContest = () => {
         contestAdmin: selectedAdmins,
         solutionVisibility: formDetails.solutionVisibility,
       },
+      refetchQueries: [
+        {
+          query: GET_CONTEST_HOMEPAGE_DETAILS,
+        },
+      ],
       // update: (cache, { data: mutationResponse }) => {
       //   if (mutationResponse.createContest.success) {
       //     try {

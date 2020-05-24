@@ -9,7 +9,7 @@ import queryString from 'query-string';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import { DELETE_CONTEST } from '../../../graphql/mutations';
-import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
+import { GET_ALL_CONTEST_DETAILS, GET_CONTEST_HOMEPAGE_DETAILS } from '../../../graphql/queries';
 import superuserContestsLimit from '../../../constants';
 
 const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMessage }) => {
@@ -39,6 +39,11 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
       variables: {
         code,
       },
+      refetchQueries: [
+        {
+          query: GET_CONTEST_HOMEPAGE_DETAILS,
+        },
+      ],
       update: (cache, { data: mutationResponse }) => {
         if (mutationResponse.deleteContest.success) {
           try {

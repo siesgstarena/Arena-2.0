@@ -30,6 +30,7 @@ const StatusContainer = () => {
       language,
       status: type,
     },
+    fetchPolicy: 'network-only',
   });
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
 

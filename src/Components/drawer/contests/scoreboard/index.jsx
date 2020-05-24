@@ -13,6 +13,7 @@ const ScoreboardContainer = () => {
   const { contestId } = useParams();
   const { loading, error, data } = useQuery(GET_SCOREBOARD_BY_CONTEST_CODE, {
     variables: { code: contestId },
+    fetchPolicy: 'network-only',
   });
   const tableHeadings = ['#', 'Who', '=', 'Time'];
 

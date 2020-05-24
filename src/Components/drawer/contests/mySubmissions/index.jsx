@@ -24,6 +24,7 @@ const MySubmissionsContainer = () => {
       contestCode: contestId,
       userId: authState.user.userId,
     },
+    fetchPolicy: 'network-only',
   });
   const tableHeadings = ['#', 'When', 'Who', 'Problem', 'Verdict', 'Language', 'Time', 'Memory'];
   if (loading) return <LoadingTable tableHeadings={tableHeadings} count={10} />;

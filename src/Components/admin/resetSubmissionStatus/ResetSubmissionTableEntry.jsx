@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Select, { Option } from '@material/react-select';
+import Select from '@material/react-select';
 import Button from '@material/react-button';
 import { Link, useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
@@ -19,6 +19,14 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   const client = useApolloClient();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const { logError } = useSentry();
+
+  const statusOptions = [
+    { value: 'Accepted', label: 'Accepted' },
+    { value: 'Wrong Answer', label: 'Wrong Answer' },
+    { value: 'Runtime Error', label: 'Runtime Error' },
+    { value: 'Compilation Error', label: 'Compilation Error' },
+    { value: 'Time Limit Exceeded', label: 'Time Limit Exceeded' },
+  ];
 
   const onUpdateClick = async () => {
     setSnackbarMessage('Updating status, Please wait');
@@ -97,20 +105,14 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
         )}
       </td>
       <td className="pa2 tc">{data.language}</td>
-      <td className="pa2 tc">
+      <td className="tc">
         <Select
-          className=""
-          label="Status"
+          label="status"
           value={problemStatus}
-          onChange={(evt) => setProblemStatus(evt.target.value)}
-        >
-          <Option value="Accepted">Accepted</Option>
-          <Option value="Wrong Answer">Wrong Answer</Option>
-          <Option value="Time Limit Exceeded">Time Limit Exceeded</Option>
-          <Option value="Compilation Error">Compilation Error</Option>
-          <Option value="Runtime Error">Runtime Error</Option>
-        </Select>
-        <Button className="mt2-m ml2-l mt2 mt0-l" outlined onClick={onUpdateClick}>
+          onChange={(e) => setProblemStatus(e.target.value)}
+          options={statusOptions}
+        />
+        <Button className="ma2" outlined onClick={onUpdateClick}>
           Update
         </Button>
       </td>

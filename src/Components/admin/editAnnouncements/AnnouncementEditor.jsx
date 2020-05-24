@@ -8,7 +8,6 @@ import Editor from '../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 import MessageCard from '../../common/MessageCard/index';
 import { UPDATE_ANNOUNCEMENT } from '../../../graphql/mutations';
-import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import useSentry from '../../../customHooks/useSentry';
 
@@ -31,34 +30,6 @@ const AnnouncementEditor = ({ announcement: currentAnnouncement }) => {
         code: contestId,
         announcement,
       },
-      update: (cache, { data: updatedData }) => {
-        if (updatedData.updateAnnouncement.success) {
-          try {
-            const { adminDashboard } = cache.readQuery({
-              query: GET_ADMIN_DASHBOARD_DETAILS,
-              variables: { code: contestId },
-            });
-            adminDashboard.contest.announcement = announcement;
-            cache.writeQuery({
-              query: GET_ADMIN_DASHBOARD_DETAILS,
-              variables: { code: contestId },
-              data: {
-                adminDashboard,
-              },
-            });
-          } catch (e) {
-            console.log(e);
-            // We should always catch here,
-            // as the cache may be empty or the query may fail
-          }
-        }
-      },
-      // refetchQueries: [
-      //   {
-      //     query: GET_ADMIN_DASHBOARD_DETAILS,
-      //     variables: { code: contestId },
-      //   },
-      // ],
     });
     if (error) {
       logError('updateAnnoucement query', { ...data, ...error });

@@ -5,7 +5,6 @@ import Button from '@material/react-button';
 import PropTypes from 'prop-types';
 import { useApolloClient } from '@apollo/react-hooks';
 import CustomBubble from '../../../common/CustomBubble/CustomBubble';
-import { GET_ALL_FEEDBACKS } from '../../../../graphql/queries';
 import { REPLY_TO_FEEDBACK } from '../../../../graphql/mutations';
 import MessageCard from '../../../common/MessageCard/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
@@ -30,30 +29,6 @@ const FeedbackCard = ({ user, email, message: feedback, isReplied, createdAt, id
       variables: {
         response: reply,
         id,
-      },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.replyToFeedback.success) {
-          try {
-            const { feedbacks } = cache.readQuery({
-              query: GET_ALL_FEEDBACKS,
-            });
-            const feedbackIndex = feedbacks.findIndex((obj) => obj._id === id);
-            feedbacks[feedbackIndex] = {
-              ...feedbacks[feedbackIndex],
-              replied: true,
-            };
-            cache.writeQuery({
-              query: GET_ALL_FEEDBACKS,
-              data: {
-                feedbacks: {
-                  ...feedbacks,
-                },
-              },
-            });
-          } catch {
-            console.log('No entry found in the cache.');
-          }
-        }
       },
     });
     if (error) {

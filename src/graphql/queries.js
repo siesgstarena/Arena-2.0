@@ -55,6 +55,7 @@ export const GET_ADMIN_DASHBOARD_DETAILS = gql`
       success
       message
       contest {
+        _id
         startsAt
         endsAt
         name
@@ -127,6 +128,7 @@ export const GET_CONTEST_HOMEPAGE_DETAILS = gql`
         code
         startsAt
         endsAt
+        _id
         contestAdmin {
           _id
           name
@@ -134,6 +136,7 @@ export const GET_CONTEST_HOMEPAGE_DETAILS = gql`
         }
       }
       finishedContests {
+        _id
         name
         code
         startsAt
@@ -218,6 +221,7 @@ export const GET_SCOREBOARD_BY_CONTEST_CODE = gql`
 export const GET_CONTEST_DETAILS = gql`
   query ContestCode($code: String!) {
     contestCode(code: $code) {
+      _id
       name
       description
       endsAt

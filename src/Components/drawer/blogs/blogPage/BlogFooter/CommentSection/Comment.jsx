@@ -32,18 +32,12 @@ const Comment = ({ newComment }) => {
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const { authState } = useContext(AuthContext);
   const [editedComment, setEditedComment] = useState(commentValue);
-  const [upvote, setUpvote] = useState(
-    authState.user && newComment.upvote.includes(authState.user.userId)
-  );
   // Added separate states for disabling because we wanted to disable the button,
   // the moment user clicks.We can't wait for the response to come back from server and then disable
   const [disableUpvote, setDisableUpvote] = useState(
     authState.user && newComment.upvote.includes(authState.user.userId)
   );
   const [disableDownvote, setDisableDownvote] = useState(
-    authState.user && newComment.downvote.includes(authState.user.userId)
-  );
-  const [downvote, setDownvote] = useState(
     authState.user && newComment.downvote.includes(authState.user.userId)
   );
   const client = useApolloClient();
@@ -56,6 +50,7 @@ const Comment = ({ newComment }) => {
   const alertContent = 'Are you sure you want to delete the comment?';
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
+
   const handleUpvote = async () => {
     setDisableUpvote(true);
     const { data, error } = await client.mutate({
@@ -63,38 +58,9 @@ const Comment = ({ newComment }) => {
       variables: {
         id: newComment._id,
       },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.upvoteComment.success) {
-          const { comments } = cache.readQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-          });
-          const commentsArray = comments.comments;
-          const commentIndex = commentsArray.findIndex((obj) => obj._id === newComment._id);
-          commentsArray[commentIndex] = {
-            ...commentsArray[commentIndex],
-            upvote: [...commentsArray[commentIndex].upvote, authState.user.userId],
-            downvote: commentsArray[commentIndex].downvote.filter(
-              (id) => id !== authState.user.userId
-            ),
-          };
-          cache.writeQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-            data: {
-              comments: {
-                ...comments,
-                comments: [...commentsArray],
-              },
-            },
-          });
-        }
-      },
     });
     if (error) {
       setDisableUpvote(false);
-      setUpvote(false);
-      setDownvote(true);
       return;
     }
     if (isSessionExpired(data.upvoteComment)) {
@@ -105,55 +71,20 @@ const Comment = ({ newComment }) => {
       data.upvoteComment.success ||
       data.upvoteComment.message === 'You have already upvoted for this comment'
     ) {
-      setUpvote(true);
-      setDisableUpvote(true);
-      setDownvote(false);
       setDisableDownvote(false);
     } else {
-      setUpvote(false);
       setDisableUpvote(false);
-      setDownvote(true);
     }
   };
   const handleDownvote = async () => {
+    setDisableDownvote(true);
     const { data, error } = await client.mutate({
       mutation: DOWNVOTE_COMMENT,
       variables: {
         id: newComment._id,
       },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.downvoteComment.success) {
-          const { comments } = cache.readQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-          });
-          // grabbing all the comments
-          const commentsArray = comments.comments;
-          // finding the index of comment to be updated
-          const commentIndex = commentsArray.findIndex((obj) => obj._id === newComment._id);
-          // updating the comment into consideration
-          commentsArray[commentIndex] = {
-            ...commentsArray[commentIndex],
-            downvote: [...commentsArray[commentIndex].downvote, authState.user.userId],
-            upvote: commentsArray[commentIndex].upvote.filter((id) => id !== authState.user.userId),
-          };
-          // writing the updated data into the cache
-          cache.writeQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-            data: {
-              comments: {
-                ...comments,
-                comments: [...commentsArray],
-              },
-            },
-          });
-        }
-      },
     });
     if (error) {
-      setUpvote(true);
-      setDownvote(false);
       setDisableDownvote(false);
       return;
     }
@@ -165,16 +96,12 @@ const Comment = ({ newComment }) => {
       data.downvoteComment.success ||
       data.downvoteComment.message === 'You have already downvoted for this comment'
     ) {
-      setUpvote(false);
-      setDownvote(true);
-      setDisableDownvote(true);
       setDisableUpvote(false);
     } else {
-      setUpvote(true);
-      setDownvote(false);
       setDisableDownvote(false);
     }
   };
+
   const handleUpdate = async () => {
     setMessageType('loading');
     setMessage('Editing comment, Please wait');
@@ -184,37 +111,8 @@ const Comment = ({ newComment }) => {
         id: newComment._id,
         content: editedComment,
       },
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.editComment.success) {
-          const { comments } = cache.readQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-          });
-          // grabbing all the comments
-          const commentsArray = comments.comments;
-          // finding the index of comment to be updated
-          const commentIndex = commentsArray.findIndex((obj) => obj._id === newComment._id);
-          // updating the comment into consideration
-          commentsArray[commentIndex] = {
-            ...commentsArray[commentIndex],
-            content: editedComment,
-          };
-          // writing the updated data into the cache
-          cache.writeQuery({
-            query: GET_COMMENTS_OF_BLOG,
-            variables: { id: blogId },
-            data: {
-              comments: {
-                ...comments,
-                comments: [...commentsArray],
-              },
-            },
-          });
-        }
-      },
     });
     if (error) {
-      setUpdate(false);
       setMessageType('error');
       setMessage('Database error encountered');
       return;
@@ -228,7 +126,6 @@ const Comment = ({ newComment }) => {
       setMessageType('success');
       setMessage('Comment successfully edited');
     } else {
-      setUpdate(false);
       setMessageType('error');
       setMessage('An unexpected error has been encountered');
     }
@@ -341,8 +238,8 @@ const Comment = ({ newComment }) => {
               <LikeDislike
                 upvotes={newComment.upvote}
                 downvotes={newComment.downvote}
-                isUpvote={upvote}
-                isDownvote={downvote}
+                isUpvote={authState.user && newComment.upvote.includes(authState.user.userId)}
+                isDownvote={authState.user && newComment.downvote.includes(authState.user.userId)}
                 onUpvote={handleUpvote}
                 onDownvote={handleDownvote}
                 disableDownvote={disableDownvote}

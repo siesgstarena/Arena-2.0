@@ -12,7 +12,7 @@ import LikeDislike from './LikeDislike';
 import ShareIcon from './ShareIcon';
 import CommentBox from './CommentSection/CommentBox';
 import { UPVOTE_BLOG, DOWNVOTE_BLOG, WRITE_COMMENT } from '../../../../../graphql/mutations';
-import { GET_BLOG_BY_BLOG_ID, GET_COMMENTS_OF_BLOG } from '../../../../../graphql/queries';
+import { GET_COMMENTS_OF_BLOG } from '../../../../../graphql/queries';
 import useSessionExpired from '../../../../../customHooks/useSessionExpired';
 import AuthContext from '../../../../../Contexts/AuthContext';
 
@@ -20,10 +20,6 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   const [comment, setComment] = useState('');
   const { isSessionExpired, redirectOnSessionExpiredAfterRender } = useSessionExpired();
   const { authState } = useContext(AuthContext);
-  const [upvote, setUpvote] = useState(authState.user && upvotes.includes(authState.user.userId));
-  const [downvote, setDownvote] = useState(
-    authState.user && downvotes.includes(authState.user.userId)
-  );
   // Added separate states for disabling because we wanted to disable the button,
   // the moment user clicks.We can't wait for the response to come back from server and then disable
   const [disableUpvote, setDisableUpvote] = useState(
@@ -36,122 +32,60 @@ const BlogFooter = ({ upvotes, downvotes }) => {
   const [messageType, setMessageType] = useState('');
   const client = useApolloClient();
   const { blogId } = useParams();
+
   const handleUpvote = async () => {
-    if (!upvote) {
-      const { data, error } = await client.mutate({
-        mutation: UPVOTE_BLOG,
-        variables: {
-          id: blogId,
-        },
-        update: (cache, { data: mutationResponse }) => {
-          if (mutationResponse.upvoteBlog.success) {
-            const { blogById } = cache.readQuery({
-              query: GET_BLOG_BY_BLOG_ID,
-              variables: { id: blogId },
-            });
-            cache.writeQuery({
-              query: GET_BLOG_BY_BLOG_ID,
-              variables: { id: blogId },
-              data: {
-                blogById: {
-                  ...blogById,
-                  blog: {
-                    ...blogById.blog,
-                    // adding the current user in the list of upvotes
-                    upvote: [...blogById.blog.upvote, authState.user.userId],
-                    // removing the current user from the list of downvotes
-                    // I ma doing both the operations because the user cannot be
-                    // in both lists at the same time
-                    downvote: blogById.blog.downvote.filter((id) => id !== authState.user.userId),
-                  },
-                },
-              },
-            });
-          }
-        },
-      });
-      if (error) {
-        setDisableUpvote(false);
-        setUpvote(false);
-        setDownvote(true);
-        return;
-      }
-      if (isSessionExpired(data.upvoteBlog)) {
-        redirectOnSessionExpiredAfterRender();
-        return;
-      }
-      if (
-        data.upvoteBlog.success ||
-        data.upvoteBlog.message === 'You have already upvoted for this post'
-      ) {
-        setUpvote(true);
-        setDownvote(false);
-        setDisableUpvote(true);
-        setDisableDownvote(false);
-      } else {
-        setUpvote(false);
-        setDisableUpvote(false);
-        setDownvote(true);
-      }
+    // disabling the button so that user cannot repeatedly click on it
+    setDisableUpvote(true);
+    const { data, error } = await client.mutate({
+      mutation: UPVOTE_BLOG,
+      variables: {
+        id: blogId,
+      },
+    });
+    if (error) {
+      setDisableUpvote(false);
+      return;
+    }
+    if (isSessionExpired(data.upvoteBlog)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (
+      data.upvoteBlog.success ||
+      data.upvoteBlog.message === 'You have already upvoted for this post'
+    ) {
+      // If the upvote is successfull then we enable the downvote button
+      setDisableDownvote(false);
+    } else {
+      setDisableUpvote(false);
     }
   };
+
   const handleDownvote = async () => {
-    if (!downvote) {
-      const { data, error } = await client.mutate({
-        mutation: DOWNVOTE_BLOG,
-        variables: {
-          id: blogId,
-        },
-        update: (cache, { data: mutationResponse }) => {
-          if (mutationResponse.downvoteBlog.success) {
-            const { blogById } = cache.readQuery({
-              query: GET_BLOG_BY_BLOG_ID,
-              variables: { id: blogId },
-            });
-            cache.writeQuery({
-              query: GET_BLOG_BY_BLOG_ID,
-              variables: { id: blogId },
-              data: {
-                blogById: {
-                  ...blogById,
-                  blog: {
-                    ...blogById.blog,
-                    // removing the current user from the list of upvotes
-                    // I ma doing both the operations because the user cannot
-                    // be in both lists at the same time
-                    upvote: blogById.blog.upvote.filter((id) => id !== authState.user.userId),
-                    // adding the current user in the list of downvotes
-                    downvote: [...blogById.blog.downvote, authState.user.userId],
-                  },
-                },
-              },
-            });
-          }
-        },
-      });
-      if (error) {
-        setUpvote(true);
-        setDownvote(false);
-        setDisableDownvote(false);
-        return;
-      }
-      if (isSessionExpired(data.downvoteBlog)) {
-        redirectOnSessionExpiredAfterRender();
-        return;
-      }
-      if (
-        data.downvoteBlog.success ||
-        data.downvoteBlog.message === 'You have already downvoted for this post'
-      ) {
-        setUpvote(false);
-        setDownvote(true);
-        setDisableDownvote(true);
-        setDisableUpvote(false);
-      } else {
-        setUpvote(true);
-        setDownvote(false);
-        setDisableDownvote(false);
-      }
+    // disabling the button so that user cannot repeatedly click on it
+    setDisableDownvote(true);
+    const { data, error } = await client.mutate({
+      mutation: DOWNVOTE_BLOG,
+      variables: {
+        id: blogId,
+      },
+    });
+    if (error) {
+      setDisableDownvote(false);
+      return;
+    }
+    if (isSessionExpired(data.downvoteBlog)) {
+      redirectOnSessionExpiredAfterRender();
+      return;
+    }
+    if (
+      data.downvoteBlog.success ||
+      data.downvoteBlog.message === 'You have already downvoted for this post'
+    ) {
+      // If the downvote is successfull then we enable the upvote button
+      setDisableUpvote(false);
+    } else {
+      setDisableDownvote(false);
     }
   };
 
@@ -198,8 +132,8 @@ const BlogFooter = ({ upvotes, downvotes }) => {
         <LikeDislike
           upvotes={upvotes}
           downvotes={downvotes}
-          isUpvote={upvote}
-          isDownvote={downvote}
+          isUpvote={authState.user && upvotes.includes(authState.user.userId)}
+          isDownvote={authState.user && downvotes.includes(authState.user.userId)}
           onUpvote={handleUpvote}
           onDownvote={handleDownvote}
           disableUpvote={disableUpvote}

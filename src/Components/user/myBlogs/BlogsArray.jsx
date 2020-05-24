@@ -40,6 +40,7 @@ const BlogsArray = ({ blogs, showCreateButton = false, pageCount, isSuperuserRou
               timeToRead={blog.timeToRead}
               title={blog.title}
               ratings={blog.userId.ratings}
+              pinned={blog.pinned}
               setSnackbarMessage={setSnackbarMessage}
               isSuperuserRoute={isSuperuserRoute}
             />

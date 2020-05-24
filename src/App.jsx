@@ -3,7 +3,12 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+// import { ThemeProvider } from 'styled-components';
 import { ApolloClient } from 'apollo-boost';
+// import useDarkMode from './customHooks/useDarkMode';
+// import GlobalStyles from './Components/common/GlobalStyles';
+// import { lightTheme, darkTheme } from './Theme';
+// import Toggle from './Components/common/ThemeToggle';
 import Routes from './Routes';
 
 // Initialising apollo graphql
@@ -21,12 +26,21 @@ const client = new ApolloClient({
   cache,
 });
 
-const App = () => (
-  <ApolloProvider client={client}>
-    <ApolloHooksProvider client={client}>
-      <Routes />
-    </ApolloHooksProvider>
-  </ApolloProvider>
-);
+const App = () => {
+  // const [theme, themeToggler, mountedComponent] = useDarkMode();
+  // const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  // if (!mountedComponent) return <div />;
+  return (
+    // <ThemeProvider theme={themeMode}>
+    // <GlobalStyles />
+    // <Toggle theme={theme} toggleTheme={themeToggler} />
+    <ApolloProvider client={client}>
+      <ApolloHooksProvider client={client}>
+        <Routes />
+      </ApolloHooksProvider>
+    </ApolloProvider>
+    // </ThemeProvider>
+  );
+};
 
 export default App;

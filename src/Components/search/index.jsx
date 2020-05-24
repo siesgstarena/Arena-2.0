@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Headline3, Body2 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
@@ -8,6 +8,7 @@ import ResultsContainer from './ResultsContainer';
 
 const Search = () => {
   const [query, setQuery] = useState('');
+  const inputRef = useRef(null);
   const history = useHistory();
   const handleSearch = useCallback(() => {
     history.push({
@@ -19,6 +20,9 @@ const Search = () => {
     (e) => {
       // checking for enter key
       if (e.keyCode === 13) {
+        // Removing the focus from the search box when user presses enter
+        // eslint-disable-next-line no-underscore-dangle
+        inputRef.current.inputElement_.current.blur();
         handleSearch();
       }
     },
@@ -40,6 +44,7 @@ const Search = () => {
           <Body2 className="mt1 mid-gray mb4">You can search for any user, blog or problem</Body2>
           <TextField label="Search SIESGSTarena" className="mb4 w-100" outlined>
             <Input
+              ref={inputRef}
               autoFocus
               value={query}
               onChange={(e) => {

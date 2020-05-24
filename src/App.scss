@@ -1,3 +1,8 @@
+// $mdc-theme-primary: #e86ed0;
+// $mdc-theme-on-primary: #ffffff;
+// $mdc-theme-surface: black !default;
+// $mdc-theme-on-surface: white !default;
+@import '../node_modules/@material/theme/_variables.scss';
 @import '@material/react-card/index.scss';
 @import '@material/react-layout-grid/index.scss';
 @import '@material/react-typography/index.scss';
@@ -15,6 +20,7 @@
 @import '../node_modules/@material/react-select/dist/select.css';
 @import '../node_modules/@material/react-fab/dist/fab.css';
 @import '../node_modules/@material/react-dialog/dist/dialog.css';
+
 
 .noselect, Link, a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);

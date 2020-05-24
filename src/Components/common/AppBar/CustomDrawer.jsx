@@ -21,22 +21,14 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
   // the drawer. The item will be highlighted if the path matches
   const [selectedIndex, setSelectedIndex] = useState(100);
   useEffect(() => {
-    if (currentPathname === '/') {
-      setSelectedIndex(0);
-    } else if (currentPathname === '/contests') {
-      setSelectedIndex(1);
-    } else if (currentPathname === '/ratings') {
-      setSelectedIndex(2);
-    } else if (currentPathname === '/blogs') {
-      setSelectedIndex(3);
-    } else if (currentPathname === '/problem-set') {
-      setSelectedIndex(4);
-    } else if (currentPathname === '/playlists') {
-      setSelectedIndex(5);
-    } else if (currentPathname === '/goodies') {
-      setSelectedIndex(6);
+    for (let i = 0; i < drawerItems.length; i += 1) {
+      if (drawerItems[i].path === currentPathname) {
+        setSelectedIndex(i);
+        break;
+      }
     }
   }, [currentPathname]);
+
   const onDrawerItemClick = (index) => {
     setDrawerOpen((previousValue) => !previousValue);
     setSelectedIndex(index);
@@ -76,7 +68,16 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
                 activeStyle={{ color: '#6200EE' }}
                 style={{ width: '100%' }}
               >
-                <ListItemGraphic className="v-mid" graphic={<MaterialIcon icon={item.icon} />} />
+                <ListItemGraphic
+                  className="v-mid"
+                  graphic={
+                    item.materialIcon ? (
+                      <MaterialIcon icon={item.icon} />
+                    ) : (
+                      <img src={item.icon} alt="route-icon" />
+                    )
+                  }
+                />
                 <ListItemText className="v-mid" primaryText={item.name} />
               </NavLink>
             </ListItem>

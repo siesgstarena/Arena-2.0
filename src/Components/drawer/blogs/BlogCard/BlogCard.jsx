@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Body1, Body2, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import Card from '@material/react-card';
 import Button from '@material/react-button';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
@@ -21,6 +22,8 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../customHooks/useSentry';
+import { myBlogsLimit } from '../../../../constants';
+import { GET_BLOGS_BY_USER } from '../../../../graphql/queries';
 
 const BlogCard = ({
   isSuperuserRoute = false,
@@ -60,6 +63,8 @@ const BlogCard = ({
   );
   const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
+  let { pageNumber } = queryString.parse(location.search);
+  pageNumber = pageNumber || 1;
 
   const pinImageOptions = [
     'https://img.icons8.com/material-outlined/24/6200ee/pin.png',
@@ -112,15 +117,12 @@ const BlogCard = ({
       variables: {
         id,
       },
-      // refetchQueries: [
-      //   {
-      //     query: GET_ALL_BLOG_DETAILS,
-      //   },
-      //   {
-      //     query: GET_PROFILE_PAGE_DETAILS,
-      //     variables: { id: authorId, userId: authorId },
-      //   },
-      // ],
+      refetchQueries: [
+        {
+          query: GET_BLOGS_BY_USER,
+          variables: { limit: myBlogsLimit, skip: (pageNumber - 1) * myBlogsLimit, id: authorId },
+        },
+      ],
     });
     if (error) {
       setSnackbarMessage('Database error encountered');

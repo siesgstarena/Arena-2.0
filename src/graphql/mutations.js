@@ -144,6 +144,21 @@ export const EDIT_CONTEST = gql`
       code
       success
       message
+      contest {
+        _id
+        code
+        type
+        name
+        description
+        startsAt
+        endsAt
+        solutionVisibility
+        contestAdmin {
+          name
+          _id
+          username
+        }
+      }
     }
   }
 `;

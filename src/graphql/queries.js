@@ -127,6 +127,7 @@ export const GET_CONTEST_HOMEPAGE_DETAILS = gql`
         code
         startsAt
         endsAt
+        _id
         contestAdmin {
           _id
           name
@@ -134,6 +135,7 @@ export const GET_CONTEST_HOMEPAGE_DETAILS = gql`
         }
       }
       finishedContests {
+        _id
         name
         code
         startsAt

@@ -22,8 +22,8 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../customHooks/useSentry';
-import { myBlogsLimit } from '../../../../constants';
-import { GET_BLOGS_BY_USER } from '../../../../graphql/queries';
+import { myBlogsLimit, allBlogsLimit } from '../../../../constants';
+import { GET_BLOGS_BY_USER, GET_ALL_BLOGS } from '../../../../graphql/queries';
 
 const BlogCard = ({
   isSuperuserRoute = false,
@@ -78,6 +78,16 @@ const BlogCard = ({
       variables: {
         postId: id,
       },
+      refetchQueries: [
+        {
+          query: GET_ALL_BLOGS,
+          variables: { limit: allBlogsLimit, skip: 0 },
+        },
+        {
+          query: GET_ALL_BLOGS,
+          variables: { limit: allBlogsLimit, skip: (pageNumber - 1) * allBlogsLimit },
+        },
+      ],
     });
     if (error) {
       logError('changeBlogPinStatus query', { ...data, ...error });

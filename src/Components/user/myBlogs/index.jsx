@@ -8,9 +8,10 @@ import useActivePageState from '../../../customHooks/useAcitvePageState';
 import AuthContext from '../../../Contexts/AuthContext';
 import BlogsArray from './BlogsArray';
 import LoadingCardArray from '../../common/LoadingCardArray';
+import { myBlogsLimit } from '../../../constants';
 
 const MyBlogsContainer = () => {
-  const limit = 10;
+  const limit = myBlogsLimit;
   const { authState } = useContext(AuthContext);
   const activePageNumber = useActivePageState();
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -31,7 +32,12 @@ const MyBlogsContainer = () => {
     return (
       <div className="mw7 center pa2 pt3">
         <Headline6 className="ma0 purple tc mt2 mb3">{`${authState.user.name.trim()}'s blogs`}</Headline6>
-        <BlogsArray showCreateButton blogs={blogs} pageCount={data.blogByUser.pages} />
+        <BlogsArray
+          showCreateButton
+          blogs={blogs}
+          pageCount={data.blogByUser.pages}
+          showEditOptions
+        />
       </div>
     );
   }

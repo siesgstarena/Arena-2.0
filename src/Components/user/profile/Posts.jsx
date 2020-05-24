@@ -9,9 +9,10 @@ import AuthContext from '../../../Contexts/AuthContext';
 import useSentry from '../../../customHooks/useSentry';
 import BlogsArray from '../myBlogs/BlogsArray';
 import LoadingCardArray from '../../common/LoadingCardArray';
+import { profileMyPostsLimit } from '../../../constants';
 
 const PostsContainer = ({ user }) => {
-  const limit = 3;
+  const limit = profileMyPostsLimit;
   const activePageNumber = useActivePageState();
   const { logError } = useSentry();
   const { authState } = useContext(AuthContext);

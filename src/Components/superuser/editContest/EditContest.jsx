@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestDetails from '../createContest/ContestDetails';
@@ -15,6 +15,7 @@ const EditContest = ({ contestData }) => {
     label: `${admin.name} (${admin.username})`,
     value: admin._id,
   }));
+  const history = useHistory();
   const { contestId } = useParams();
   const intialFormDetails = {
     code: contestData.code,
@@ -57,8 +58,12 @@ const EditContest = ({ contestData }) => {
       return;
     }
     if (data.editContest.success) {
-      setMessageType('success');
-      setMessage('Contest successfully edited');
+      history.push({
+        pathname: '/superuser/contests',
+        state: {
+          snackbarMessage: 'Contest Successfully updated',
+        },
+      });
     } else {
       setMessageType('error');
       setMessage(data.editContest.message);

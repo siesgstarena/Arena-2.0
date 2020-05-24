@@ -5,9 +5,12 @@ import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import Button from '@material/react-button';
+import queryString from 'query-string';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import { DELETE_CONTEST } from '../../../graphql/mutations';
+import { GET_ALL_CONTEST_DETAILS, GET_CONTEST_HOMEPAGE_DETAILS } from '../../../graphql/queries';
+import { superuserContestsLimit } from '../../../constants';
 
 const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
@@ -16,6 +19,8 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
   const alertContent = `Are you sure you want to delete the contest - "${name}"`;
   const history = useHistory();
   const location = useLocation();
+  let { pageNumber } = queryString.parse(location.search);
+  pageNumber = pageNumber || 1;
 
   const redirectToContest = () => {
     history.push(`/contests/${code}`);
@@ -33,6 +38,41 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
       mutation: DELETE_CONTEST,
       variables: {
         code,
+      },
+      refetchQueries: [
+        {
+          query: GET_CONTEST_HOMEPAGE_DETAILS,
+        },
+      ],
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.deleteContest.success) {
+          try {
+            const { allContests } = cache.readQuery({
+              query: GET_ALL_CONTEST_DETAILS,
+              variables: {
+                skip: superuserContestsLimit * (pageNumber - 1),
+                limit: superuserContestsLimit,
+              },
+            });
+            cache.writeQuery({
+              query: GET_ALL_CONTEST_DETAILS,
+              variables: {
+                skip: superuserContestsLimit * (pageNumber - 1),
+                limit: superuserContestsLimit,
+              },
+              data: {
+                allContests: {
+                  ...allContests,
+                  contests: allContests.contests.filter((contest) => contest.code !== code),
+                },
+              },
+            });
+          } catch (e) {
+            console.log(e);
+            // We should always catch here,
+            // as the cache may be empty or the query may fail
+          }
+        }
       },
     });
     if (error) {

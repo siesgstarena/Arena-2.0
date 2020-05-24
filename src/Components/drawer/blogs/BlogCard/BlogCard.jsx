@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useApolloClient } from '@apollo/react-hooks';
 import { Body1, Body2, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import Card from '@material/react-card';
 import Button from '@material/react-button';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
@@ -21,6 +22,8 @@ import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../customHooks/useSentry';
+import { myBlogsLimit, allBlogsLimit } from '../../../../constants';
+import { GET_BLOGS_BY_USER, GET_ALL_BLOGS } from '../../../../graphql/queries';
 
 const BlogCard = ({
   isSuperuserRoute = false,
@@ -34,6 +37,7 @@ const BlogCard = ({
   updatedAt,
   ratings,
   setSnackbarMessage,
+  showEditOptions = false,
   pinned,
 }) => {
   const tagsArray = tags.map((tag) => (
@@ -59,6 +63,8 @@ const BlogCard = ({
   );
   const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
+  let { pageNumber } = queryString.parse(location.search);
+  pageNumber = pageNumber || 1;
 
   const pinImageOptions = [
     'https://img.icons8.com/material-outlined/24/6200ee/pin.png',
@@ -72,6 +78,16 @@ const BlogCard = ({
       variables: {
         postId: id,
       },
+      refetchQueries: [
+        {
+          query: GET_ALL_BLOGS,
+          variables: { limit: allBlogsLimit, skip: 0 },
+        },
+        {
+          query: GET_ALL_BLOGS,
+          variables: { limit: allBlogsLimit, skip: (pageNumber - 1) * allBlogsLimit },
+        },
+      ],
     });
     if (error) {
       logError('changeBlogPinStatus query', { ...data, ...error });
@@ -111,15 +127,12 @@ const BlogCard = ({
       variables: {
         id,
       },
-      // refetchQueries: [
-      //   {
-      //     query: GET_ALL_BLOG_DETAILS,
-      //   },
-      //   {
-      //     query: GET_PROFILE_PAGE_DETAILS,
-      //     variables: { id: authorId, userId: authorId },
-      //   },
-      // ],
+      refetchQueries: [
+        {
+          query: GET_BLOGS_BY_USER,
+          variables: { limit: myBlogsLimit, skip: (pageNumber - 1) * myBlogsLimit, id: authorId },
+        },
+      ],
     });
     if (error) {
       setSnackbarMessage('Database error encountered');
@@ -198,7 +211,7 @@ const BlogCard = ({
             </Body2>
           </Cell>
         </Row>
-        {authState.user && authState.user.userId === authorId ? (
+        {authState.user && authState.user.userId === authorId && showEditOptions ? (
           <Row>
             <Cell className="pa0">
               <Button style={{ color: '#555555' }} className="mb2" onClick={handleEdit}>
@@ -237,6 +250,7 @@ BlogCard.propTypes = {
   ratings: PropTypes.number.isRequired,
   pinned: PropTypes.bool,
   setSnackbarMessage: PropTypes.func.isRequired,
+  showEditOptions: PropTypes.bool,
 };
 
 export default BlogCard;

@@ -8,7 +8,7 @@ import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import useSentry from '../../../customHooks/useSentry';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
-import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
+import { GET_ADMIN_DASHBOARD_DETAILS, GET_CONTEST_DASHBOARD } from '../../../graphql/queries';
 
 const ProblemCard = ({ name, code, points, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
@@ -52,6 +52,30 @@ const ProblemCard = ({ name, code, points, setSnackbarMessage }) => {
               },
             },
           });
+          try {
+            const { dashboard } = client.readQuery({
+              query: GET_CONTEST_DASHBOARD,
+              variables: {
+                code: contestId,
+              },
+            });
+            client.writeQuery({
+              query: GET_CONTEST_DASHBOARD,
+              variables: {
+                code: contestId,
+              },
+              data: {
+                dashboard: {
+                  ...dashboard,
+                  contests: dashboard.filter((problem) => problem.problemDetails.code !== code),
+                },
+              },
+            });
+          } catch (e) {
+            console.log(e);
+            // We should always catch here,
+            // as the cache may be empty or the query may fail
+          }
           setSnackbarMessage('Problem successfully deleted');
         } else {
           logError('REST API, deleteProblem', { ...jsonResponse.data });

@@ -51,6 +51,10 @@ export const RESET_SUBMISSION = gql`
       code
       success
       message
+      submission {
+        _id
+        status
+      }
     }
   }
 `;
@@ -416,6 +420,10 @@ export const CHANGE_PLAGIARISM_STATUS = gql`
       code
       success
       message
+      submission {
+        _id
+        plagiarism
+      }
     }
   }
 `;

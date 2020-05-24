@@ -122,6 +122,13 @@ export const CREATE_CONTEST = gql`
       code
       success
       message
+      contest {
+        name
+        code
+        _id
+        startsAt
+        endsAt
+      }
     }
   }
 `;

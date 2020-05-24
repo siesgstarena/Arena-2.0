@@ -6,9 +6,8 @@ import Button from '@material/react-button';
 import ContestDetails from './ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
 import { CREATE_CONTEST } from '../../../graphql/mutations';
-import { GET_CONTEST_HOMEPAGE_DETAILS } from '../../../graphql/queries';
-// import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
-// import superuserContestsLimit from '../../../constants';
+import { GET_CONTEST_HOMEPAGE_DETAILS, GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
+import superuserContestsLimit from '../../../constants';
 
 const CreateContest = () => {
   const intialFormDetails = {
@@ -49,31 +48,30 @@ const CreateContest = () => {
           query: GET_CONTEST_HOMEPAGE_DETAILS,
         },
       ],
-      // update: (cache, { data: mutationResponse }) => {
-      //   if (mutationResponse.createContest.success) {
-      //     try {
-      //       const { allContests } = cache.readQuery({
-      //         query: GET_ALL_CONTEST_DETAILS,
-      //         variables: { skip: 0, limit: superuserContestsLimit },
-      //       });
-      //       console.log(allContests);
-      //       cache.writeQuery({
-      //         query: GET_ALL_CONTEST_DETAILS,
-      //         variables: { skip: 0, limit: superuserContestsLimit },
-      //         data: {
-      //           allContests: {
-      //             ...allContests,
-      //             contests: [newContest ,...allContests.contests],
-      //           },
-      //         },
-      //       });
-      //     } catch (e) {
-      //       console.log(e);
-      //       // We should always catch here,
-      //       // as the cache may be empty or the query may fail
-      //     }
-      //   }
-      // },
+      update: (cache, { data: mutationResponse }) => {
+        if (mutationResponse.createContest.success) {
+          try {
+            const { allContests } = cache.readQuery({
+              query: GET_ALL_CONTEST_DETAILS,
+              variables: { skip: 0, limit: superuserContestsLimit },
+            });
+            cache.writeQuery({
+              query: GET_ALL_CONTEST_DETAILS,
+              variables: { skip: 0, limit: superuserContestsLimit },
+              data: {
+                allContests: {
+                  ...allContests,
+                  contests: [mutationResponse.createContest.contest, ...allContests.contests],
+                },
+              },
+            });
+          } catch (e) {
+            console.log(e);
+            // We should always catch here,
+            // as the cache may be empty or the query may fail
+          }
+        }
+      },
     });
     if (error) {
       setMessageType('error');

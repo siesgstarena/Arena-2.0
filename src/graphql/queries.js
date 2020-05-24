@@ -220,6 +220,7 @@ export const GET_SCOREBOARD_BY_CONTEST_CODE = gql`
 export const GET_CONTEST_DETAILS = gql`
   query ContestCode($code: String!) {
     contestCode(code: $code) {
+      _id
       name
       description
       endsAt

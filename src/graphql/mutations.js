@@ -37,6 +37,10 @@ export const UPDATE_ANNOUNCEMENT = gql`
       code
       success
       message
+      contest {
+        _id
+        announcement
+      }
     }
   }
 `;

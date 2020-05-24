@@ -55,6 +55,7 @@ export const GET_ADMIN_DASHBOARD_DETAILS = gql`
       success
       message
       contest {
+        _id
         startsAt
         endsAt
         name

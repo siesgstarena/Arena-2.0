@@ -47,31 +47,11 @@ const CreateContest = () => {
         {
           query: GET_CONTEST_HOMEPAGE_DETAILS,
         },
+        {
+          query: GET_ALL_CONTEST_DETAILS,
+          variables: { skip: 0, limit: superuserContestsLimit },
+        },
       ],
-      update: (cache, { data: mutationResponse }) => {
-        if (mutationResponse.createContest.success) {
-          try {
-            const { allContests } = cache.readQuery({
-              query: GET_ALL_CONTEST_DETAILS,
-              variables: { skip: 0, limit: superuserContestsLimit },
-            });
-            cache.writeQuery({
-              query: GET_ALL_CONTEST_DETAILS,
-              variables: { skip: 0, limit: superuserContestsLimit },
-              data: {
-                allContests: {
-                  ...allContests,
-                  contests: [mutationResponse.createContest.contest, ...allContests.contests],
-                },
-              },
-            });
-          } catch (e) {
-            console.log(e);
-            // We should always catch here,
-            // as the cache may be empty or the query may fail
-          }
-        }
-      },
     });
     if (error) {
       setMessageType('error');

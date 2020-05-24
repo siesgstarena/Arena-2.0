@@ -27,8 +27,8 @@ const SubmitSolution = ({ problems }) => {
 
   let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
   const incomingProblemOptions = problems.map((problemOption) => ({
-    value: problemOption.code,
-    label: `${problemOption.name} (${problemOption.code})`,
+    value: problemOption.problemDetails.code,
+    label: `${problemOption.problemDetails.name} (${problemOption.problemDetails.code})`,
   }));
   problemOptions = [...problemOptions, ...incomingProblemOptions];
 

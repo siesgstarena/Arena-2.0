@@ -6,6 +6,8 @@ import Button from '@material/react-button';
 import ContestDetails from './ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
 import { CREATE_CONTEST } from '../../../graphql/mutations';
+// import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
+// import superuserContestsLimit from '../../../constants';
 
 const CreateContest = () => {
   const intialFormDetails = {
@@ -41,6 +43,31 @@ const CreateContest = () => {
         contestAdmin: selectedAdmins,
         solutionVisibility: formDetails.solutionVisibility,
       },
+      // update: (cache, { data: mutationResponse }) => {
+      //   if (mutationResponse.createContest.success) {
+      //     try {
+      //       const { allContests } = cache.readQuery({
+      //         query: GET_ALL_CONTEST_DETAILS,
+      //         variables: { skip: 0, limit: superuserContestsLimit },
+      //       });
+      //       console.log(allContests);
+      //       cache.writeQuery({
+      //         query: GET_ALL_CONTEST_DETAILS,
+      //         variables: { skip: 0, limit: superuserContestsLimit },
+      //         data: {
+      //           allContests: {
+      //             ...allContests,
+      //             contests: [newContest ,...allContests.contests],
+      //           },
+      //         },
+      //       });
+      //     } catch (e) {
+      //       console.log(e);
+      //       // We should always catch here,
+      //       // as the cache may be empty or the query may fail
+      //     }
+      //   }
+      // },
     });
     if (error) {
       setMessageType('error');
@@ -49,7 +76,7 @@ const CreateContest = () => {
     }
     if (data.createContest.success) {
       history.push({
-        pathname: '/superuser/contests',
+        pathname: `/admin/${formDetails.code}`,
         state: {
           snackbarMessage: 'Contest Successfully Created',
         },

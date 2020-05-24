@@ -51,7 +51,7 @@ const ContestDashboard = ({
 ContestDashboard.propTypes = {
   contest: PropTypes.object.isRequired,
   stats: PropTypes.object.isRequired,
-  announcement: PropTypes.string.isRequired,
+  announcement: PropTypes.string,
   setSnackbarMessage: PropTypes.func,
   snackbarMessage: PropTypes.string,
   problems: PropTypes.array.isRequired,

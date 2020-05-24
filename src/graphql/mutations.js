@@ -74,6 +74,7 @@ export const EDIT_BLOG = gql`
         updatedAt
         tags
         title
+        timeToRead
       }
     }
   }

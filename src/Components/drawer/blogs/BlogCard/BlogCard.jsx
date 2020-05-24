@@ -34,6 +34,7 @@ const BlogCard = ({
   updatedAt,
   ratings,
   setSnackbarMessage,
+  showEditOptions = false,
   pinned,
 }) => {
   const tagsArray = tags.map((tag) => (
@@ -198,7 +199,7 @@ const BlogCard = ({
             </Body2>
           </Cell>
         </Row>
-        {authState.user && authState.user.userId === authorId ? (
+        {authState.user && authState.user.userId === authorId && showEditOptions ? (
           <Row>
             <Cell className="pa0">
               <Button style={{ color: '#555555' }} className="mb2" onClick={handleEdit}>
@@ -237,6 +238,7 @@ BlogCard.propTypes = {
   ratings: PropTypes.number.isRequired,
   pinned: PropTypes.bool,
   setSnackbarMessage: PropTypes.func.isRequired,
+  showEditOptions: PropTypes.bool,
 };
 
 export default BlogCard;

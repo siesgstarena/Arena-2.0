@@ -10,7 +10,7 @@ import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import { DELETE_CONTEST } from '../../../graphql/mutations';
 import { GET_ALL_CONTEST_DETAILS, GET_CONTEST_HOMEPAGE_DETAILS } from '../../../graphql/queries';
-import superuserContestsLimit from '../../../constants';
+import { superuserContestsLimit } from '../../../constants';
 
 const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not

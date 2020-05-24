@@ -8,10 +8,11 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useActivePageState from '../../../../customHooks/useAcitvePageState';
 import LoadingCardArray from '../../../common/LoadingCardArray';
 import BlogsArray from '../../../user/myBlogs/BlogsArray';
+import { allBlogsLimit } from '../../../../constants';
 
 const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
-  const limit = 15;
+  const limit = allBlogsLimit;
   const activePageNumber = useActivePageState();
   const { loading, error, data } = useQuery(GET_ALL_BLOGS, {
     variables: { limit, skip: (activePageNumber - 1) * limit },

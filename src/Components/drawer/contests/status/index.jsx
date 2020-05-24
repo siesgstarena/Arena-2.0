@@ -38,7 +38,7 @@ const StatusContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.submissionsByContestCode) {
     const { submissions, submissionsVisible } = data.submissionsByContestCode;
-    const problems = data.problemsByContestCode;
+    const problems = data.dashboard;
     return (
       <div className="">
         {submissions.length !== 0 ? (

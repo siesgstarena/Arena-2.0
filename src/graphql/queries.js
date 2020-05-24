@@ -304,10 +304,13 @@ export const GET_SUBMISSION_BY_CONTEST_CODE = gql`
         plagiarism
       }
     }
-    problemsByContestCode(contestCode: $contestCode) {
-      name
-      _id
-      code
+    dashboard(code: $contestCode) {
+      problemDetails {
+        _id
+        code
+        points
+        name
+      }
     }
   }
 `;

@@ -5,9 +5,11 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master, dev ]
+    branches:
+      - '*'
   pull_request:
-    branches: [ master, dev ]
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -21,10 +23,17 @@ jobs:
       SASS_PATH: ./node_modules
     steps:
     - uses: actions/checkout@v2
+    
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    
+    - name: Clean install dependencies
+      run: npm ci
+   
+    - name: Build Application
+      run: npm run build --if-present
+    
+    - name: Test Application
+      run: npm test

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+.learn {
+  background: url('./assets/learn.jpg');
+}
+.compete {
+  background: url('./assets/compete.jpg');
+}
+.work {
+  background: url('./assets/work.jpg');
+}
+
+.card-container {
+  background-color: gray;
+  background-blend-mode: multiply;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 150px; */
+  height: 32.5vh;
+  background-size: cover;
+  transition: 0.5s;
+  filter: brightness(70%);
+}
+
+.card-title {
+  margin: 0.5em;
+  font-size: 6em;
+  color: white;
+  font-family: 'Bebas Neue';
+  letter-spacing: 0.15em;
+}
+
+.card-title::after {
+  content: ' →';
+  opacity: 0;
+  font-family: monospace;
+  font-size: 90%;
+}
+
+.card-container:hover .card-title::after {
+  opacity: 1;
+  right: 10px;
+}
+
+.card-container:hover {
+  filter: brightness(100%);
+}
+
+*::selection {
+  background-color: white;
+  color: black;
+}
+
+@media only screen and (max-width: 430px) {
+  .card-title {
+    font-size: 4em;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+  .card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

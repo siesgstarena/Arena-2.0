@@ -2,10 +2,12 @@ import React from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import CardCarousel from './CardCarousel';
 // import TitleCard from './TitleCard/TitleCard';
+import PosterCard from './PosterCard/PosterCard';
 import WhatsNew from './WhatsNew/WhatsNew';
 
 const HomePageContainer = () => (
-  <div className="center ma4 pl4 pr4">
+  <div className="center">
+    <PosterCard />
     {/* <TitleCard /> */}
     <Grid>
       <Row>

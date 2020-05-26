@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import cardData from './cardData';
 import './homePageContainer.css';
 import ContestsCard from './ContestsCard/ContestsCard';
+// import PosterCard from './PosterCard/PosterCard';
 
 const cardProps = [
   {
@@ -52,6 +53,7 @@ const CardCarousel = () => (
       />
     ))}
     <ContestsCard />
+    {/* <PosterCard /> */}
   </Slider>
 );
 

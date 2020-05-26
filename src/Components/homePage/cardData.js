@@ -4,7 +4,6 @@ const cardData = [
       id: '5b5d756b37392f89933e7515',
       name: 'Vipul Singh Raghuvanshi',
       ratings: 1589,
-
     },
     {
       id: '5b67014c91c77d0020b63d25',

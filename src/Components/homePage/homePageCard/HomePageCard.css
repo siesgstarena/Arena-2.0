@@ -1,11 +1,12 @@
 .cardHead {
-    display: flex;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-@media only screen and (max-width : 500px){
-    .cardHead {
+@media only screen and (max-width: 500px) {
+  .cardHead {
     display: flex;
     flex-direction: column;
-} }
+  }
+}

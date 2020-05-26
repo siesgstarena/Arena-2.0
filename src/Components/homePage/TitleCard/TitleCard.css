@@ -4,7 +4,7 @@
 
 } */
 
-.line-1{
+.line-1 {
   width: 14em;
   margin: 0 auto;
   font-family: 'Fira Code', monospace;
@@ -13,17 +13,25 @@
   overflow: hidden;
 }
 
-.anim-typewriter{
+.anim-typewriter {
   animation: typewriter 4s steps(44) 1s 1 normal both,
-             blinkTextCursor 500ms steps(44) infinite normal;
+    blinkTextCursor 500ms steps(44) infinite normal;
 }
-@keyframes typewriter{
-  from{width: 0;}
-  to{width: 14em;}
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 14em;
+  }
 }
-@keyframes blinkTextCursor{
-  from{border-right-color: #c792ea;}
-  to{border-right-color: transparent;}
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: #c792ea;
+  }
+  to {
+    border-right-color: transparent;
+  }
 }
 
 @media only screen and (max-width: 376px) {
@@ -31,8 +39,8 @@
     font-size: 100%;
   }
 }
-.codebox{
-  background-color: #292D3E;
+.codebox {
+  background-color: #292d3e;
   color: #c792ea;
   border: 3px solid #c792ea;
   border-radius: 10px;

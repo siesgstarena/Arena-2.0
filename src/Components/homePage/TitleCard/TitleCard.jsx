@@ -2,7 +2,6 @@ import React from 'react';
 import { Headline5 } from '@material/react-typography';
 import './TitleCard.css';
 
-
 const TitleCard = () => {
   const welcomeMessage = 'Welcome to SIESGSTarena!';
   return (

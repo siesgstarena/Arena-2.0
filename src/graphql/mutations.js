@@ -37,6 +37,10 @@ export const UPDATE_ANNOUNCEMENT = gql`
       code
       success
       message
+      contest {
+        _id
+        announcement
+      }
     }
   }
 `;
@@ -47,6 +51,10 @@ export const RESET_SUBMISSION = gql`
       code
       success
       message
+      submission {
+        _id
+        status
+      }
     }
   }
 `;
@@ -67,6 +75,15 @@ export const EDIT_BLOG = gql`
       code
       success
       message
+      blog {
+        content
+        _id
+        content
+        updatedAt
+        tags
+        title
+        timeToRead
+      }
     }
   }
 `;
@@ -105,6 +122,13 @@ export const CREATE_CONTEST = gql`
       code
       success
       message
+      contest {
+        name
+        code
+        _id
+        startsAt
+        endsAt
+      }
     }
   }
 `;
@@ -135,6 +159,21 @@ export const EDIT_CONTEST = gql`
       code
       success
       message
+      contest {
+        _id
+        code
+        type
+        name
+        description
+        startsAt
+        endsAt
+        solutionVisibility
+        contestAdmin {
+          name
+          _id
+          username
+        }
+      }
     }
   }
 `;
@@ -270,6 +309,11 @@ export const UPVOTE_BLOG = gql`
       code
       success
       message
+      blog {
+        upvote
+        downvote
+        _id
+      }
     }
   }
 `;
@@ -280,6 +324,11 @@ export const DOWNVOTE_BLOG = gql`
       code
       success
       message
+      blog {
+        upvote
+        downvote
+        _id
+      }
     }
   }
 `;
@@ -290,6 +339,11 @@ export const DOWNVOTE_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        upvote
+        downvote
+      }
     }
   }
 `;
@@ -300,6 +354,11 @@ export const UPVOTE_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        upvote
+        downvote
+      }
     }
   }
 `;
@@ -310,6 +369,10 @@ export const EDIT_COMMENT = gql`
       code
       success
       message
+      comment {
+        _id
+        content
+      }
     }
   }
 `;
@@ -350,6 +413,10 @@ export const CHANGE_BLOG_PIN_STATUS = gql`
       code
       success
       message
+      blog {
+        _id
+        pinned
+      }
     }
   }
 `;
@@ -360,6 +427,10 @@ export const CHANGE_PLAGIARISM_STATUS = gql`
       code
       success
       message
+      submission {
+        _id
+        plagiarism
+      }
     }
   }
 `;
@@ -370,6 +441,10 @@ export const REPLY_TO_FEEDBACK = gql`
       code
       success
       message
+      feedback {
+        _id
+        replied
+      }
     }
   }
 `;

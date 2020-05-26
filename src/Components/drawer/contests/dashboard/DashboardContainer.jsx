@@ -6,6 +6,7 @@ import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ProblemsTable from './ProblemsTable';
 import LoadingTable from '../../../common/LoadingTable/index';
+import EmptyData from '../../../common/EmptyData/index';
 
 const DashboardContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -26,7 +27,11 @@ const DashboardContainer = () => {
   if (data.dashboard) {
     const problems = data.dashboard;
     // console.log(data.dashboard.problems, problems);
-    return <ProblemsTable problems={problems} />;
+    return problems.length !== 0 ? (
+      <ProblemsTable problems={problems} />
+    ) : (
+      <EmptyData message="No Problems found" />
+    );
   }
   if (isSessionExpired(data.dashboard)) {
     // since the component hasn't rendered or returned anything,

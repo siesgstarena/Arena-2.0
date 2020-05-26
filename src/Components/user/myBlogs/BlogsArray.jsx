@@ -7,7 +7,13 @@ import CustomSnackbar from '../../common/Snackbar/index';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import NoBlogs from './NoBlogs';
 
-const BlogsArray = ({ blogs, showCreateButton = false, pageCount, isSuperuserRoute = false }) => {
+const BlogsArray = ({
+  blogs,
+  showCreateButton = false,
+  pageCount,
+  isSuperuserRoute = false,
+  showEditOptions = false,
+}) => {
   const location = useLocation();
   const { state } = location;
   const history = useHistory();
@@ -40,8 +46,10 @@ const BlogsArray = ({ blogs, showCreateButton = false, pageCount, isSuperuserRou
               timeToRead={blog.timeToRead}
               title={blog.title}
               ratings={blog.userId.ratings}
+              pinned={blog.pinned}
               setSnackbarMessage={setSnackbarMessage}
               isSuperuserRoute={isSuperuserRoute}
+              showEditOptions={showEditOptions}
             />
           ))
         ) : (
@@ -59,6 +67,7 @@ const BlogsArray = ({ blogs, showCreateButton = false, pageCount, isSuperuserRou
 BlogsArray.propTypes = {
   blogs: PropTypes.array.isRequired,
   showCreateButton: PropTypes.bool,
+  showEditOptions: PropTypes.bool,
   isSuperuserRoute: PropTypes.bool,
   pageCount: PropTypes.number.isRequired,
 };

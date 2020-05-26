@@ -25,7 +25,7 @@ const Announcements = ({ announcement }) => {
 };
 
 Announcements.propTypes = {
-  announcement: PropTypes.string.isRequired,
+  announcement: PropTypes.string,
 };
 
 export default Announcements;

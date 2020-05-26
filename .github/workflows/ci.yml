@@ -1,0 +1,27 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Continuous Integration
+
+on: [pull_request, push]
+
+jobs: 
+  
+  buildAndTest:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    env:
+      SASS_PATH: ./node_modules
+  
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Clean install dependencies
+      run: npm ci
+   
+    - name: Build Application
+      run: npm run build --if-present
+    
+    - name: Test Application
+      run: npm test

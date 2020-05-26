@@ -62,6 +62,7 @@
     "react-slick": "^0.26.1",
     "react-social-icons": "^4.1.0",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^5.1.0",
     "tachyons": "^4.11.1"
   },
   "scripts": {

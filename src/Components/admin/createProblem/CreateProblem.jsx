@@ -63,41 +63,7 @@ const CreateProblem = () => {
           return;
         }
         if (jsonResponse.data.restAPI.success === true) {
-          // const { adminDashboard } = client.readQuery({
-          //   query: GET_ADMIN_DASHBOARD_DETAILS,
-          //   variables: { code: contestId },
-          // });
-          // console.log(adminDashboard);
-          // const newObject = {
-          //   code: formDetails.code,
-          //   points: formDetails.points,
-          //   name: formDetails.name,
-          //   description: formDetails.description,
-          //   input: formDetails.input,
-          //   output: formDetails.output,
-          //   constraints: formDetails.constraints,
-          //   examples: formDetails.examples,
-          //   explanation: formDetails.explanation,
-          //   inputFile: formDetails.inputFile,
-          //   outputFile: formDetails.outputFile,
-          //   tags: formDetails.tags,
-          //   __typename: 'Problem',
-          //   _id: '1',
-          // };
-          // adminDashboard.problems = [...adminDashboard.problems, newObject];
-          // client.writeQuery({
-          //   query: GET_ADMIN_DASHBOARD_DETAILS,
-          //   variables: { code: contestId },
-          //   data: {
-          //     adminDashboard,
-          //   },
-          // });
-          history.push({
-            pathname: `/admin/${contestId}`,
-            state: {
-              snackbarMessage: 'Problem created successfully',
-            },
-          });
+          history.push(`/admin/${contestId}/${formDetails.code}`);
         } else {
           logError('REST APT, createProblem', { ...jsonResponse.data });
           Sentry.captureException(new Error(jsonResponse, 'REST API, createProblem'));

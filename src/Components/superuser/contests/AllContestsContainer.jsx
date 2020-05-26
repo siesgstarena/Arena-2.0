@@ -7,9 +7,10 @@ import AllContestPage from './AllContests';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../common/Snackbar/index';
+import { superuserContestsLimit } from '../../../constants';
 
 const AllContestsContainer = () => {
-  const limit = 12;
+  const limit = superuserContestsLimit;
   const activePageNumber = useActivePageState();
   const { loading, error, data } = useQuery(GET_ALL_CONTEST_DETAILS, {
     variables: { limit, skip: (activePageNumber - 1) * limit },

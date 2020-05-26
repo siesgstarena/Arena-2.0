@@ -57,7 +57,7 @@ export const convertDate = (milliSeconds) => {
   if (typeof milliSeconds === 'string') {
     milliSeconds = Number(milliSeconds);
   }
-  const dateObject = new Date(milliSeconds - (330000 * 60));
+  const dateObject = new Date(milliSeconds - 330000 * 60);
   const date = dateObject.toDateString();
   return date;
 };
@@ -67,12 +67,14 @@ export const convertTime = (milliSeconds) => {
     milliSeconds = Number(milliSeconds);
   }
   const dateObject = new Date(milliSeconds);
-  const hour = dateObject.getUTCHours() === 0
-    ? 12 : (dateObject.getUTCHours() > 12
+  const hour =
+    dateObject.getUTCHours() === 0
+      ? 12
+      : dateObject.getUTCHours() > 12
       ? dateObject.getUTCHours() - 12
-      : dateObject.getUTCHours()
-    );
-  const min = dateObject.getUTCMinutes() < 10 ? `0${dateObject.getUTCMinutes()}` : dateObject.getUTCMinutes();
+      : dateObject.getUTCHours();
+  const min =
+    dateObject.getUTCMinutes() < 10 ? `0${dateObject.getUTCMinutes()}` : dateObject.getUTCMinutes();
   const ampm = dateObject.getUTCHours() < 12 ? 'AM' : 'PM';
   const time = `${hour}:${min} ${ampm}`;
   return time;
@@ -83,7 +85,7 @@ export const adding330Minutes = (milliSeconds) => {
     milliSeconds = Number(milliSeconds);
   }
   let date = milliSeconds;
-  date += (330000 * 60);
+  date += 330000 * 60;
   return date;
 };
 
@@ -92,12 +94,14 @@ export const subtracting330Minutes = (milliSeconds) => {
     milliSeconds = Number(milliSeconds);
   }
   let date = milliSeconds;
-  date -= (330000 * 60);
+  date -= 330000 * 60;
   return date;
 };
 
 export const differenceInTwoDates = (
-  givenDate1InMilliseconds, givenDate2InMilliseconds, digitsAfterDecimal = 0,
+  givenDate1InMilliseconds,
+  givenDate2InMilliseconds,
+  digitsAfterDecimal = 0
 ) => {
   if (typeof givenDate1InMilliseconds === 'string') {
     givenDate1InMilliseconds = Number(givenDate1InMilliseconds);
@@ -155,10 +159,7 @@ export const differenceInTwoDates = (
   return [years, 'years'];
 };
 
-
-export const countDownTimerValues = (
-  dateTillCountdown,
-) => {
+export const countDownTimerValues = (dateTillCountdown) => {
   if (typeof dateTillCountdown === 'string') {
     dateTillCountdown = Number(dateTillCountdown);
   }
@@ -184,11 +185,17 @@ export const countDownTimerValues = (
   }
   if (days < 0) {
     return {
-      seconds: null, days: null, minutes: null, hours: null,
+      seconds: null,
+      days: null,
+      minutes: null,
+      hours: null,
     };
   }
   return {
-    seconds, days, minutes, hours,
+    seconds,
+    days,
+    minutes,
+    hours,
   };
 };
 
@@ -230,7 +237,20 @@ export const problemBackgroundColor = (solved, attempts) => {
 
 export const getMonth = (milliSeconds) => {
   const d = new Date(Number(milliSeconds));
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
   return months[d.getMonth()];
 };
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Drawer, {
-  DrawerContent, DrawerHeader, DrawerTitle, DrawerSubtitle,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerSubtitle,
 } from '@material/react-drawer';
 import { useLocation, NavLink } from 'react-router-dom';
-import List, {
-  ListItem, ListItemGraphic, ListItemText,
-} from '@material/react-list';
+import List, { ListItem, ListItemGraphic, ListItemText } from '@material/react-list';
 import PropTypes from 'prop-types';
 import MaterialIcon from '@material/react-material-icon';
 // import { Redirect } from 'react-router-dom';
@@ -37,7 +38,7 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
     }
   }, [currentPathname]);
   const onDrawerItemClick = (index) => {
-    setDrawerOpen(previousValue => !previousValue);
+    setDrawerOpen((previousValue) => !previousValue);
     setSelectedIndex(index);
   };
   return (
@@ -45,9 +46,8 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
       className="react-drawer-alternate"
       modal
       open={drawerOpen}
-      onClose={() => setDrawerOpen(previousValue => !previousValue)}
+      onClose={() => setDrawerOpen((previousValue) => !previousValue)}
     >
-
       <DrawerHeader>
         {/* defaults to div */}
         <DrawerTitle tag="h2">
@@ -62,15 +62,25 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
 
       <DrawerContent>
         <List singleSelection selectedIndex={selectedIndex}>
-          { drawerItems.map((item, index) => (
-            <ListItem key={item.id} className="pointer" style={{ padding: '0' }} onClick={() => onDrawerItemClick(index)}>
-              <NavLink to={{ pathname: item.path }} exact className="no-underline db pa3 black" activeStyle={{ color: '#6200EE' }} style={{ width: '100%' }}>
+          {drawerItems.map((item, index) => (
+            <ListItem
+              key={item.id}
+              className="pointer"
+              style={{ padding: '0' }}
+              onClick={() => onDrawerItemClick(index)}
+            >
+              <NavLink
+                to={{ pathname: item.path }}
+                exact
+                className="no-underline db pa3 black"
+                activeStyle={{ color: '#6200EE' }}
+                style={{ width: '100%' }}
+              >
                 <ListItemGraphic className="v-mid" graphic={<MaterialIcon icon={item.icon} />} />
                 <ListItemText className="v-mid" primaryText={item.name} />
               </NavLink>
             </ListItem>
-          ))
-          }
+          ))}
         </List>
       </DrawerContent>
     </Drawer>

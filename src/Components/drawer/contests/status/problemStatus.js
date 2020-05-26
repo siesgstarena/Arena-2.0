@@ -210,8 +210,6 @@ const problemStatus = [
     time: '0.00123s',
     memory: '8179712',
   },
-
-
 ];
 
 export default problemStatus;

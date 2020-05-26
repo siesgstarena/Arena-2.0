@@ -71,19 +71,18 @@ const ContestTabBar = () => {
           <Tab onClick={() => onTabClick(`/${url}/my`)}>
             <span className="mdc-tab__text-label">My Submissions</span>
           </Tab>
+        ) : (
+          <></>
         )
-          : <></>
       }
-      {
-        authState.user.name ? (
-          <Tab onClick={() => onTabClick(`/${url}/submit`)}>
-            <span className="mdc-tab__text-label">Submit</span>
-          </Tab>
-        )
-          : <></>
-      }
+      {authState.user.name ? (
+        <Tab onClick={() => onTabClick(`/${url}/submit`)}>
+          <span className="mdc-tab__text-label">Submit</span>
+        </Tab>
+      ) : (
+        <></>
+      )}
     </TabBar>
-
   );
 };
 

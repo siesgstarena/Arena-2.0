@@ -5,19 +5,16 @@ import Editor from '../../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../../common/MarkdownEditor/EditorContainer';
 
 const BlogDetails = ({
-  blogTitle, blogContent, blogTags,
-  setBlogTitle, setBlogContent, setBlogTags,
+  blogTitle,
+  blogContent,
+  blogTags,
+  setBlogTitle,
+  setBlogContent,
+  setBlogTags,
 }) => (
   <div>
-    <TextField
-      label="Title"
-      className="mb4 w-100"
-      outlined
-    >
-      <Input
-        value={blogTitle}
-        onChange={e => setBlogTitle(e.currentTarget.value)}
-      />
+    <TextField label="Title" className="mb4 w-100" outlined>
+      <Input value={blogTitle} onChange={(e) => setBlogTitle(e.currentTarget.value)} />
     </TextField>
     <EditorContainer title="Description">
       <Editor value={blogContent} setValue={setBlogContent} />
@@ -28,10 +25,7 @@ const BlogDetails = ({
       style={{ width: '100%' }}
       textarea
     >
-      <Input
-        value={blogTags}
-        onChange={e => setBlogTags(e.currentTarget.value)}
-      />
+      <Input value={blogTags} onChange={(e) => setBlogTags(e.currentTarget.value)} />
     </TextField>
   </div>
 );

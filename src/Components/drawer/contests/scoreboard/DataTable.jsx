@@ -13,7 +13,6 @@ const DataTable = ({ problems, scoreboardDetails }) => {
       <Link to={`problem/${prob.code}`} style={{ color: 'purple' }} className="no-underline dim">
         {prob.code}
       </Link>
-      ,
     );
   });
 
@@ -22,7 +21,11 @@ const DataTable = ({ problems, scoreboardDetails }) => {
     const dummyValueArray = [];
     if (submissions.length < problems.length) {
       for (let i = submissions.length; i < problems.length; i += 1) {
-        dummyValueArray.push(<td key={i} className="tc pa3">-</td>);
+        dummyValueArray.push(
+          <td key={i} className="tc pa3">
+            -
+          </td>
+        );
       }
     }
     return dummyValueArray;
@@ -33,9 +36,7 @@ const DataTable = ({ problems, scoreboardDetails }) => {
   // from Data.js and displays the details with links wherever necessary
   const DataArray = scoreboardDetails.map((scoreboardDetail, index) => (
     <tr key={scoreboardDetail.userId} style={{ fontSize: '.9em' }}>
-      <td className="tc pa3">
-        {index + 1}
-      </td>
+      <td className="tc pa3">{index + 1}</td>
       <td className="tc pa3">
         <Link
           className="no-underline dim pointer"
@@ -47,35 +48,19 @@ const DataTable = ({ problems, scoreboardDetails }) => {
       </td>
       <td className="tc pa3">{scoreboardDetail.total}</td>
       <td className="tc pa3">{scoreboardDetail.totalTime}</td>
-      {
-        scoreboardDetail.submissions.map(submission => (
-          <td key={submission.code} className="tc pa3">
-            <span className="green">{submission.solved}</span>
-            <span className="red">
-              (
-              -
-              {submission.attempts}
-              )
-            </span>
-          </td>
-        ))
-      }
-      {
-        dummyValueFiller(scoreboardDetail.submissions)
-      }
-
+      {scoreboardDetail.submissions.map((submission) => (
+        <td key={submission.code} className="tc pa3">
+          <span className="green">{submission.solved}</span>
+          <span className="red">( -{submission.attempts})</span>
+        </td>
+      ))}
+      {dummyValueFiller(scoreboardDetail.submissions)}
     </tr>
   ));
   // return part of DataTable, Table made in common files,
   // is used here and sent to index,jsx for export
 
-  return (
-    <Table
-      tableHeadings={tableHeadings}
-      tableData={DataArray}
-      tableHeadingClassName="tc"
-    />
-  );
+  return <Table tableHeadings={tableHeadings} tableData={DataArray} tableHeadingClassName="tc" />;
 };
 
 DataTable.propTypes = {

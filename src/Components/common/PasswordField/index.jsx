@@ -3,9 +3,7 @@ import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 import PropTypes from 'prop-types';
 
-const PasswordField = ({
-  label, id, password, setPassword,
-}) => {
+const PasswordField = ({ label, id, password, setPassword }) => {
   const [passwordFieldIcon, setPasswordFieldIcon] = useState('visibility');
   const [passwordFieldType, setPasswordFieldType] = useState('password');
   let passwordRef = useRef(null);
@@ -46,14 +44,18 @@ const PasswordField = ({
       className="w-100 noselect"
       outlined
       onTrailingIconSelect={togglePasswordVisibilityState}
-      trailingIcon={<MaterialIcon className="outline-0" role="presentation" icon={passwordFieldIcon} />}
+      trailingIcon={
+        <MaterialIcon className="outline-0" role="presentation" icon={passwordFieldIcon} />
+      }
     >
       <Input
         id={id}
         type={passwordFieldType}
         value={password}
-        ref={(inputRef) => { passwordRef = inputRef; }}
-        onChange={e => setPassword(e.target.value)}
+        ref={(inputRef) => {
+          passwordRef = inputRef;
+        }}
+        onChange={(e) => setPassword(e.target.value)}
       />
     </TextField>
   );

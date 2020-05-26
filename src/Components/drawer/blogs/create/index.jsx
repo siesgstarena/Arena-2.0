@@ -22,7 +22,9 @@ const CreateBlog = () => {
     const { data, error } = await client.mutate({
       mutation: CREATE_BLOG,
       variables: {
-        title: blogTitle, content: blogContent, tags: blogTags,
+        title: blogTitle,
+        content: blogContent,
+        tags: blogTags,
       },
     });
     if (error) {

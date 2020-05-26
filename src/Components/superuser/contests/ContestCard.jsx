@@ -9,9 +9,7 @@ import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import { DELETE_CONTEST } from '../../../graphql/mutations';
 
-const ContestCard = ({
-  name, startTime, duration, endTime, code, setSnackbarMessage,
-}) => {
+const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const alertTitle = 'Delete Confirmation';
@@ -52,15 +50,10 @@ const ContestCard = ({
     <Card className="pa3 mt2">
       <Headline6 className="mt0 blue mb2 pointer dim" onClick={redirectToContest}>
         {name}
-        &nbsp;
-        (
-        {code}
-        )
+        &nbsp; ({code})
       </Headline6>
       <Body1 className="mid-gray">
-        <span className="black">
-          Duration:
-        </span>
+        <span className="black">Duration:</span>
         &nbsp;
         {duration[0]}
         &nbsp;
@@ -70,15 +63,17 @@ const ContestCard = ({
         <span>Start:</span>
         &nbsp;
         <span className="mid-gray">{startTime}</span>
-        &nbsp;
-        |
-        &nbsp;
+        &nbsp; | &nbsp;
         <span>End:</span>
         &nbsp;
         <span className="mid-gray">{endTime}</span>
       </Body1>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <Button style={{ color: '#555555', padding: 0 }} className="mr3" onClick={redirectToEditContest}>
+        <Button
+          style={{ color: '#555555', padding: 0 }}
+          className="mr3"
+          onClick={redirectToEditContest}
+        >
           Edit Contest
         </Button>
         <Button style={{ color: '#555555', padding: 0 }} onClick={onDeleteClick}>

@@ -10,17 +10,17 @@ const RatingsTable = ({ users, activePageNumber, limit }) => {
     const colorOfTheUser = userColor(user.ratings, user._id);
     return (
       <tr key={user._id} style={{ fontSize: '.9em' }}>
+        <td className="tc pa3">{(activePageNumber - 1) * limit + index + 1}</td>
         <td className="tc pa3">
-          {((activePageNumber - 1) * limit) + index + 1}
-        </td>
-        <td className="tc pa3">
-          <Link className="no-underline dim pointer" style={{ color: colorOfTheUser }} to={`/profile/${user._id}`}>
+          <Link
+            className="no-underline dim pointer"
+            style={{ color: colorOfTheUser }}
+            to={`/profile/${user._id}`}
+          >
             {user.name}
           </Link>
         </td>
-        <td className="tc pa3">
-          {user.ratings}
-        </td>
+        <td className="tc pa3">{user.ratings}</td>
       </tr>
     );
   });

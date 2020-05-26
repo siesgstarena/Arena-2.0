@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.scss';
 
-const FileUpload = ({
-  id, label, onChangeFunction, file = { name: '' },
-}) => (
+const FileUpload = ({ id, label, onChangeFunction, file = { name: '' } }) => (
   <label className="custom-file-upload" htmlFor={id}>
     {/*
         onChangeFunction is of form:
@@ -14,21 +12,8 @@ const FileUpload = ({
         otherParams can be passed in the file where we are writing the onChangeFunction
     */}
     <span className="ma2">{label}</span>
-    <input
-      className="ma2"
-      id={id}
-      type="file"
-      onChange={e => onChangeFunction(e)}
-    />
-    {
-      file.name
-        ? (
-          <div className="ma2">
-            {file.name}
-          </div>
-        )
-        : null
-    }
+    <input className="ma2" id={id} type="file" onChange={(e) => onChangeFunction(e)} />
+    {file.name ? <div className="ma2">{file.name}</div> : null}
   </label>
 );
 

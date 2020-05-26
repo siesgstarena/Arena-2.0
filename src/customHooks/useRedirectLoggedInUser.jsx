@@ -10,7 +10,7 @@ const useRedirectLoggedInUser = () => {
   // Not allowing the user to visit auth pages when the user is logged in
   // This function will only be executed when the component is mounted
   useEffect(() => {
-    if ((authState && authState.user.name)) {
+    if (authState && authState.user.name) {
       // Redirecting the user to profile page if user exists
       history.push(`/profile/${authState.user.userId}`);
     }

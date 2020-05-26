@@ -8,7 +8,7 @@ const latestInfo = [
 
 const trendingInfo = [
   {
-    title: 'Don\'t You Worry Child Editorial',
+    title: "Don't You Worry Child Editorial",
     blogLink: '/blogs/5d26398f8428300022a422e3',
     createdAt: 'July 10',
   },

@@ -6,21 +6,9 @@ import PostResults from './PostResults';
 
 const Results = ({ blogs, problems, users }) => (
   <div>
-    {
-      users.length !== 0
-        ? <UserResults userArray={users} />
-        : null
-    }
-    {
-      problems.length !== 0
-        ? <ProblemResults problemArray={problems} />
-        : null
-    }
-    {
-      blogs.length !== 0
-        ? <PostResults postArray={blogs} />
-        : null
-    }
+    {users.length !== 0 ? <UserResults userArray={users} /> : null}
+    {problems.length !== 0 ? <ProblemResults problemArray={problems} /> : null}
+    {blogs.length !== 0 ? <PostResults postArray={blogs} /> : null}
   </div>
 );
 

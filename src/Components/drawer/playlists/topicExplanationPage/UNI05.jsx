@@ -7,33 +7,26 @@ const UNI05 = () => {
     <div>
       <Headline3 className="purple">Getting Started</Headline3>
       <Body1 className="ma1">
-        So here we are! If you&apos;re ready to start the playlist let&apos;s get
-        started!
+        So here we are! If you&apos;re ready to start the playlist let&apos;s get started!
       </Body1>
       <Body1 className="ma1">
-        If you are a beginner and this is your first playlist, don&apos;t worry
-        you are at the right place!
+        If you are a beginner and this is your first playlist, don&apos;t worry you are at the right
+        place!
       </Body1>
       <Body1 className="ma1">
-        We are going to use a problem from the Universe of arena, where all the
-        problems are kept open for submission for a long span of time.
+        We are going to use a problem from the Universe of arena, where all the problems are kept
+        open for submission for a long span of time.
       </Body1>
-      <Body1 className="ml1">
-        We are going to choose the fifth problem Distance Finder.
-      </Body1>
+      <Body1 className="ml1">We are going to choose the fifth problem Distance Finder.</Body1>
     </div>
   );
 
   const dissectingProblemContent = (
     <div>
       <Headline3 className="purple">Dissecting the Problem</Headline3>
-      <Body1>
-        There is a very straightforward description for this problem.
-      </Body1>
+      <Body1>There is a very straightforward description for this problem.</Body1>
       <Body1>Understand the input output and the pattern for it.</Body1>
-      <Body1>
-        The input for this problem isn’t as straightforward as the description though!
-      </Body1>
+      <Body1>The input for this problem isn’t as straightforward as the description though!</Body1>
     </div>
   );
 
@@ -41,32 +34,35 @@ const UNI05 = () => {
     <div>
       <Headline3 className="purple">Creating a Pseudo Code</Headline3>
       <Body1 className="ma0">
-        We know how to create a pseudo code! It&apos;s just a bunch of arrows
-        and block which do the processing. To know more about pseudo code visit
-        {' '}
-        <a className="dim blue no-underline" href="https://en.wikipedia.org/wiki/Pseudocode" target="_blank" rel="noopener noreferrer">here</a>
+        We know how to create a pseudo code! It&apos;s just a bunch of arrows and block which do the
+        processing. To know more about pseudo code visit{' '}
+        <a
+          className="dim blue no-underline"
+          href="https://en.wikipedia.org/wiki/Pseudocode"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          here
+        </a>
         .
       </Body1>
       <Headline6 className="mt3 ma0">Let’s write our pseudo code!</Headline6>
       <Body1>This is a simple set of steps written for our understanding.</Body1>
       <Body1>
-        Now you need to think about it and maybe even write it down, with enough
-        practice you will be able to map all these instructions at once and
-        follow the flow of the program.
+        Now you need to think about it and maybe even write it down, with enough practice you will
+        be able to map all these instructions at once and follow the flow of the program.
       </Body1>
       <Headline6 className="mt3 ma0">Let’s start!</Headline6>
       <Body1>First we need to take out the numbers from the input.</Body1>
       <Body1>
-        There are various ways one can go about this, but I like to use
-        temporary variables for unwanted input characters.
+        There are various ways one can go about this, but I like to use temporary variables for
+        unwanted input characters.
       </Body1>
       <Body1>
-        Another way could be the efficient use of scanf(), but we will see how
-        it is done with cin, or rather any other input object.
+        Another way could be the efficient use of scanf(), but we will see how it is done with cin,
+        or rather any other input object.
       </Body1>
-      <Body1>
-        We will be using the Euclidean distance formula More info here.
-      </Body1>
+      <Body1>We will be using the Euclidean distance formula More info here.</Body1>
     </div>
   );
 
@@ -81,8 +77,7 @@ const UNI05 = () => {
               <span className="blue">&lt;bits/stdc++.h&gt;</span>
               <br />
               <span className="black">using namespace </span>
-              <span className="green">std</span>
-              ;
+              <span className="green">std</span>;
             </div>
             <div className="dark-blue mb4">int main() &#123;</div>
             <div className="ml3">
@@ -94,9 +89,7 @@ const UNI05 = () => {
                 char temp;
                 <br />
                 int x1,x2,y1,y2;
-                <span className="gray">
-                  &nbsp; &nbsp; &nbsp;// Our coordinates are integers
-                </span>
+                <span className="gray">&nbsp; &nbsp; &nbsp;// Our coordinates are integers</span>
                 <br />
                 double x, y, dist;
                 <span className="gray">
@@ -106,8 +99,7 @@ const UNI05 = () => {
               <div className="mb4">
                 while (T--) &#123;
                 <span className="gray">
-                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Peform the
-                  same task T times
+                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // Peform the same task T times
                 </span>
               </div>
               <div className="ml3">
@@ -120,38 +112,26 @@ const UNI05 = () => {
                 </div>
                 <div className="mb4">
                   int tot=
-                  <span className="red">0</span>
-                  ;
-                  <span className="gray">
-                    &nbsp; &nbsp; // intializing tot as 0
-                  </span>
+                  <span className="red">0</span>;
+                  <span className="gray">&nbsp; &nbsp; // intializing tot as 0</span>
                 </div>
                 <div>
                   x = (x1-x2)*(x1-x2);
-                  <span className="gray">
-                    &nbsp; &nbsp; &nbsp; &nbsp;// square of (x1-x2)
-                  </span>
+                  <span className="gray">&nbsp; &nbsp; &nbsp; &nbsp;// square of (x1-x2)</span>
+                  <br />y = (y1 - y2)*(y1 - y2);
+                  <span className="gray">&nbsp; &nbsp; // square of (y1-y2)</span>
                   <br />
-                  y = (y1 - y2)*(y1 - y2);
-                  <span className="gray">
-                    &nbsp; &nbsp; // square of (y1-y2)
-                  </span>
-                  <br />
-                  dist =
-                  <span className="green">sqrt</span>
+                  dist =<span className="green">sqrt</span>
                   (x + y);
-                  <span className="gray">
-                    &nbsp; &nbsp; &nbsp; &nbsp; // Taking square root
-                  </span>
+                  <span className="gray">&nbsp; &nbsp; &nbsp; &nbsp; // Taking square root</span>
                   <br />
                   <span className="green">cout</span>
                   {'<< fixed << setprecision('}
                   <span className="red">2</span>
                   {') << dist <<'}
-                  <span className="red">&quot;/n&quot;</span>
-                  ;
+                  <span className="red">&quot;/n&quot;</span>;
                   <span className="gray">
-                  &nbsp;  // Printing the distance upto 2 digits after decimal
+                    &nbsp; // Printing the distance upto 2 digits after decimal
                   </span>
                 </div>
               </div>

@@ -21,9 +21,7 @@ const Goodies = () => (
         <img src={gift} alt="gift" />
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center' }}>
-        <Body1>
-          Special goodies for winners and top performers
-        </Body1>
+        <Body1>Special goodies for winners and top performers</Body1>
       </Row>
     </div>
 

@@ -8,7 +8,6 @@ import cardData from './cardData';
 import './homePageContainer.css';
 import ContestsCard from './ContestsCard/ContestsCard';
 
-
 const cardProps = [
   {
     title: 'At the Top!',
@@ -40,24 +39,19 @@ const settings = {
 
 const CardCarousel = () => (
   <Slider {...settings} className="pa0 mr2-m mr2-l ">
-    {
-    cardData.map(
-      (card, index) => (
-        <HomePageCard
-          key={card}
-          title={cardProps[index].title}
-          props={cardProps[index].props}
-          topThree={card}
-          titleImage={cardProps[index].icon}
-          subHead={cardProps[index].subHead}
-          cardColor={cardProps[index].cardColor}
-          cardLink={cardProps[index].cardLink}
-        />
-      ),
-    )
-    }
+    {cardData.map((card, index) => (
+      <HomePageCard
+        key={card}
+        title={cardProps[index].title}
+        props={cardProps[index].props}
+        topThree={card}
+        titleImage={cardProps[index].icon}
+        subHead={cardProps[index].subHead}
+        cardColor={cardProps[index].cardColor}
+        cardLink={cardProps[index].cardLink}
+      />
+    ))}
     <ContestsCard />
-
   </Slider>
 );
 

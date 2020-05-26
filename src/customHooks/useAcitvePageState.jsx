@@ -8,7 +8,7 @@ const useActivePageState = () => {
 
   // setting the initial value as the value of the page number shown in the search query
   const [activePageNumber, setActivePageNumber] = useState(
-    value.pageNumber ? Number(value.pageNumber) : 1,
+    value.pageNumber ? Number(value.pageNumber) : 1
   );
 
   // Here update the activePage number when the search query is updated

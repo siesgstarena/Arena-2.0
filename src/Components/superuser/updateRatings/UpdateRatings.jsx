@@ -24,11 +24,11 @@ const UpdateRatings = ({ ratingsData: incomingRatingsData }) => {
     setMessageType('loading');
     setMessage('Updating ratings, Please wait');
     // converting the updatedRatings in the form desired by the query
-    const updateChange = updatedRatings.map((updatedRating => ({
+    const updateChange = updatedRatings.map((updatedRating) => ({
       contestId: updatedRating.contestId,
       userId: updatedRating.user._id,
       newRating: updatedRating.newRating,
-    })));
+    }));
 
     const { data, error } = await client.mutate({
       mutation: UPDATE_RATINGS,
@@ -52,20 +52,14 @@ const UpdateRatings = ({ ratingsData: incomingRatingsData }) => {
     }
   };
 
-
   return (
     <div className="mw7 center ma1 pa2">
       <Headline5 className="purple mt2 mb2 ml1">
-        Update Ratings for
-        &nbsp;
+        Update Ratings for &nbsp;
         {contestId}
       </Headline5>
       <UpdateRatingsTable ratingsData={ratingsData} setUpdatedRatings={setUpdatedRatings} />
-      <MessageCard
-        messageType={messageType}
-        message={message}
-        setMessageType={setMessageType}
-      />
+      <MessageCard messageType={messageType} message={message} setMessageType={setMessageType} />
       <Button
         className="ma1 mt3"
         style={{ marginLeft: 'auto', marginRight: 0, display: 'block' }}

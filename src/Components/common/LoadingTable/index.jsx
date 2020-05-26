@@ -4,14 +4,12 @@ import Skeleton from 'react-loading-skeleton';
 import Table from '../Table/index';
 
 const LoadingTable = ({ tableHeadings, count = 50, tableHeadingClassName = 'tc' }) => {
-  const tableDataArray = tableHeadings.map(
-    heading => <td key={heading}><Skeleton count={count} /></td>,
-  );
-  const data = (
-    <tr>
-      {tableDataArray}
-    </tr>
-  );
+  const tableDataArray = tableHeadings.map((heading) => (
+    <td key={heading}>
+      <Skeleton count={count} />
+    </td>
+  ));
+  const data = <tr>{tableDataArray}</tr>;
   return (
     <Table
       tableHeadings={tableHeadings}

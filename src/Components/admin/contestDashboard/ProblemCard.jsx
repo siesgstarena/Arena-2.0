@@ -10,9 +10,7 @@ import useSentry from '../../../customHooks/useSentry';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import { GET_ADMIN_DASHBOARD_DETAILS } from '../../../graphql/queries';
 
-const ProblemCard = ({
-  name, code, points, setSnackbarMessage, id,
-}) => {
+const ProblemCard = ({ name, code, points, setSnackbarMessage }) => {
   // isAlertOpen is the state, used to indicate whether the alertbox is open or not
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const { logError } = useSentry();
@@ -23,14 +21,14 @@ const ProblemCard = ({
   const client = useApolloClient();
   const { contestId } = useParams();
 
-  // onAlertAccept runs when the user clicks on the accept button on the alert box
-  const onAlertAccept = () => {
+  // deleteProblem runs when the user clicks on the accept button on the alert box
+  const deleteProblem = () => {
     setSnackbarMessage('Deleting problem, please wait');
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/admin/${contestId}/${code}/delete`, {
       method: 'GET',
       credentials: 'include',
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         if (isSessionExpired(jsonResponse.data.restAPI)) {
           redirectOnSessionExpiredAfterRender();
@@ -42,14 +40,15 @@ const ProblemCard = ({
             query: GET_ADMIN_DASHBOARD_DETAILS,
             variables: { code: contestId },
           });
-          // updating the problems in the cache
+          // updating the cache
           client.writeQuery({
             query: GET_ADMIN_DASHBOARD_DETAILS,
             variables: { code: contestId },
             data: {
               adminDashboard: {
                 ...oldAdminDashboard,
-                problems: oldAdminDashboard.problems.filter(problem => problem._id !== id),
+                // removing the deleted problem
+                problems: oldAdminDashboard.problems.filter((problem) => problem.code !== code),
               },
             },
           });
@@ -58,7 +57,8 @@ const ProblemCard = ({
           logError('REST API, deleteProblem', { ...jsonResponse.data });
           setSnackbarMessage('Unable to delete the problem');
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         logError('REST API, deleteProblem', { ...error });
         setSnackbarMessage('An unexpected error has been encountered.');
         // setSnackbarMessage('An unexpected error has been encountered');
@@ -82,12 +82,12 @@ const ProblemCard = ({
 
   return (
     <div className="ba br4 b--black-20 pa3 mt2">
-      <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>{name}</Headline6>
+      <Headline6 className="mt0 mid-gray mb2 pointer dim" onClick={onProblemNameClick}>
+        {name}
+      </Headline6>
       <Body1 className="mid-gray">
         {code}
-        &nbsp;
-        -
-        &nbsp;
+        &nbsp; - &nbsp;
         {points}
       </Body1>
       <Button style={{ color: '#555555' }} onClick={onTestClick}>
@@ -108,7 +108,7 @@ const ProblemCard = ({
         setIsOpen={setIsAlertOpen}
         title={alertTitle}
         content={alertContent}
-        onAccept={onAlertAccept}
+        onAccept={deleteProblem}
       />
     </div>
   );
@@ -116,7 +116,6 @@ const ProblemCard = ({
 
 ProblemCard.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   points: PropTypes.number.isRequired,
   setSnackbarMessage: PropTypes.func,
   code: PropTypes.string.isRequired,

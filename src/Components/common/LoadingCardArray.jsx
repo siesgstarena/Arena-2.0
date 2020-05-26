@@ -5,17 +5,13 @@ import Skeleton from 'react-loading-skeleton';
 const LoadingCardArray = ({ count = 1, loadingCardClassName = 'ma2 mb3' }) => {
   const cardArray = [];
   for (let i = 0; i < count; i += 1) {
-    cardArray.push((
+    cardArray.push(
       <div key={i} className={loadingCardClassName}>
         <Skeleton height={100} />
       </div>
-    ));
+    );
   }
-  return (
-    <div>
-      {cardArray}
-    </div>
-  );
+  return <div>{cardArray}</div>;
 };
 
 LoadingCardArray.propTypes = {

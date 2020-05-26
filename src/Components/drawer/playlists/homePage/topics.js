@@ -2,14 +2,16 @@ const topics = [
   {
     id: 'UNI01',
     name: 'Adhoc',
-    description: 'No need of algorithms as there are no well-studied solutions. Try to solve it as its said!',
+    description:
+      'No need of algorithms as there are no well-studied solutions. Try to solve it as its said!',
     author: 'By Rahul Sawantdesai',
     date: '22 Jan 2019',
   },
   {
     id: 'UNI02',
     name: 'Adhoc',
-    description: 'Relationships are everywhere. You will see a lot of such cases with these numbers too.',
+    description:
+      'Relationships are everywhere. You will see a lot of such cases with these numbers too.',
     author: 'By Barath Suresh Nadar',
     date: '22 Jan 2019',
   },
@@ -24,14 +26,15 @@ const topics = [
   {
     id: 'UNI04',
     name: 'Adhoc, Math',
-    description: 'No need of algorithms as there are no well-studied solutions. Try to solve it as its said!',
+    description:
+      'No need of algorithms as there are no well-studied solutions. Try to solve it as its said!',
     author: 'By Barath Suresh Nadar',
     date: '22 Jan 2019',
   },
   {
     id: 'UNI05',
     name: 'Geometry',
-    description: 'You don\'t see something until you have the right metaphor to percieve it.',
+    description: "You don't see something until you have the right metaphor to percieve it.",
     author: 'By Mithil Kiran Poojary',
     date: '22 Jan 2019',
   },

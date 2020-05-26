@@ -1,6 +1,5 @@
 // A JS array of objects , made to be fetched by the DataTable and displayed.
 
-
 const data = [
   {
     id: 1,
@@ -10,26 +9,27 @@ const data = [
     },
     score: '400',
     time: '01:14:20',
-    problem: [{
-      name: 'SRM15A',
-      id: '1',
-      score: '100',
-    },
-    {
-      name: 'SRM15B',
-      id: '2',
-      score: '100',
-    },
-    {
-      name: 'SRM15C',
-      id: '3',
-      score: '100',
-    },
-    {
-      name: 'SRM15D',
-      id: '4',
-      score: '100',
-    },
+    problem: [
+      {
+        name: 'SRM15A',
+        id: '1',
+        score: '100',
+      },
+      {
+        name: 'SRM15B',
+        id: '2',
+        score: '100',
+      },
+      {
+        name: 'SRM15C',
+        id: '3',
+        score: '100',
+      },
+      {
+        name: 'SRM15D',
+        id: '4',
+        score: '100',
+      },
     ],
   },
   {
@@ -40,29 +40,29 @@ const data = [
     },
     score: '400',
     time: '01:14:20',
-    problem: [{
-      name: 'SRM15A',
-      id: '1',
-      score: '100',
-    },
-    {
-      name: 'SRM15B',
-      id: '2',
-      score: '100',
-    },
-    {
-      name: 'SRM15C',
-      id: '3',
-      score: '100',
-    },
-    {
-      name: 'SRM15D',
-      id: '4',
-      score: '100',
-    },
+    problem: [
+      {
+        name: 'SRM15A',
+        id: '1',
+        score: '100',
+      },
+      {
+        name: 'SRM15B',
+        id: '2',
+        score: '100',
+      },
+      {
+        name: 'SRM15C',
+        id: '3',
+        score: '100',
+      },
+      {
+        name: 'SRM15D',
+        id: '4',
+        score: '100',
+      },
     ],
   },
-
 ];
 
 export default data;

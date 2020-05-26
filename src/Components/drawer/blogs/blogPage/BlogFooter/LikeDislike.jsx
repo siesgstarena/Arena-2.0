@@ -4,24 +4,42 @@ import { Button } from '@material/react-button';
 import IconToggle from './IconToggle';
 
 const LikeDislike = ({
-  upvotes, downvotes, isUpvote, isDownvote, onUpvote, onDownvote, disableDownvote, disableUpvote,
+  upvotes,
+  downvotes,
+  isUpvote,
+  isDownvote,
+  onUpvote,
+  onDownvote,
+  disableDownvote,
+  disableUpvote,
 }) => {
-  const UpvoteOptions = ['https://img.icons8.com/material/24/28a745/facebook-like--v1.png', 'https://img.icons8.com/material-outlined/24/28a745/facebook-like.png'];
-  const DownvoteOptions = ['https://img.icons8.com/material-rounded/24/dc3545/thumbs-down.png', 'https://img.icons8.com/material-outlined/24/dc3545/thumbs-down.png'];
+  const UpvoteOptions = [
+    'https://img.icons8.com/material/24/28a745/facebook-like--v1.png',
+    'https://img.icons8.com/material-outlined/24/28a745/facebook-like.png',
+  ];
+  const DownvoteOptions = [
+    'https://img.icons8.com/material-rounded/24/dc3545/thumbs-down.png',
+    'https://img.icons8.com/material-outlined/24/dc3545/thumbs-down.png',
+  ];
 
   return (
     <div className="flex mt2">
       <Button
         className="btn"
         style={{ color: '#28a745', padding: '0px', minWidth: '40px' }}
-        icon={<IconToggle isIconClicked={isUpvote} alt="like" color="#28a745" iconLinks={UpvoteOptions} />}
+        icon={
+          <IconToggle
+            isIconClicked={isUpvote}
+            alt="like"
+            color="#28a745"
+            iconLinks={UpvoteOptions}
+          />
+        }
         onClick={onUpvote}
         disabled={disableUpvote}
       >
         <span style={{ fontSize: '20px', marginLeft: '5px' }}>
-          {
-            upvotes.length > 0 ? (upvotes.length) : ''
-          }
+          {upvotes.length > 0 ? upvotes.length : ''}
         </span>
       </Button>
       <Button
@@ -32,9 +50,7 @@ const LikeDislike = ({
         icon={<IconToggle isIconClicked={isDownvote} alt="dislike" iconLinks={DownvoteOptions} />}
       >
         <span style={{ fontSize: '20px', marginLeft: '5px' }}>
-          {
-          downvotes.length > 0 ? (downvotes.length) : ''
-          }
+          {downvotes.length > 0 ? downvotes.length : ''}
         </span>
       </Button>
     </div>

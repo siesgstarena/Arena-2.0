@@ -16,9 +16,7 @@ const TestProblem = () => {
   const [messageType, setMessageType] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [solutionFile, setSolutionFile] = useState({});
-  const onLanguageChange = (index, item) => (
-    setLanguage(item.getAttribute('data-value'))
-  );
+  const onLanguageChange = (index, item) => setLanguage(item.getAttribute('data-value'));
   const onFileChange = (event) => {
     setSolutionFile(event.target.files[0]);
   };
@@ -33,7 +31,7 @@ const TestProblem = () => {
       credentials: 'include',
       body: formData,
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((jsonResponse) => {
         // console.log(jsonResponse);
         if (isSessionExpired(jsonResponse.data.restAPI)) {
@@ -48,7 +46,8 @@ const TestProblem = () => {
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         logError('REST APT, testProblem', { ...error });
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
@@ -58,10 +57,7 @@ const TestProblem = () => {
     <div className="mw7 center">
       <Headline4 className="purple mt4 ma0 mb1"> Test Problem</Headline4>
       <Body2 className="ma0 ml1  mid-gray mb4">
-        Upload solution file to test the problem
-        &nbsp;
-        -
-        &nbsp;
+        Upload solution file to test the problem &nbsp; - &nbsp;
         {problemId}
       </Body2>
       <Select

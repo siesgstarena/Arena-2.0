@@ -8,7 +8,10 @@ import { LOGOUT } from '../../../graphql/mutations';
 import useClearCache from '../../../customHooks/useClearCache';
 
 const UserMenu = ({
-  setIsUserMenuOpen, isUserMenuOpen, coordinatesOfUserMenu, setSnackbarMessage,
+  setIsUserMenuOpen,
+  isUserMenuOpen,
+  coordinatesOfUserMenu,
+  setSnackbarMessage,
 }) => {
   const { authState } = useContext(AuthContext);
   const { clearEntireCache } = useClearCache();
@@ -69,8 +72,12 @@ const UserMenu = ({
         onSelected={() => setIsUserMenuOpen(false)}
       >
         <MenuList>
-          {userMenuOptions.map(option => (
-            <Link key={option.name} to={option.path} style={{ color: 'black', textDecoration: 'none' }}>
+          {userMenuOptions.map((option) => (
+            <Link
+              key={option.name}
+              to={option.path}
+              style={{ color: 'black', textDecoration: 'none' }}
+            >
               <MenuListItem className="pointer">
                 <MenuListItemText className="outline-0" primaryText={option.name} />
               </MenuListItem>

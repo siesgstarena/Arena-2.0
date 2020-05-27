@@ -1,19 +1,45 @@
 import React from 'react';
 import Card from '@material/react-card';
+import PropTypes from 'prop-types';
+import { Headline6, Headline5 } from '@material/react-typography';
 import { Link } from 'react-router-dom';
+// import contest from './assets/SRM14.jpg';
+import './ContestsCard.scss';
 
-const ContestsCard = () => (
-  <Link to="/contests/SRM16" className="no-underline pointer">
-    <Card className="ma0 mb4 pa0" style={{ boxShadow: 'inset 0em -0.1em 0.3em 0.2em #eeeeee' }}>
-      <img
-        className="ba b--transparent br3"
-        style={{ height: '41vh', width: 'auto' }}
-        alt="icon"
-        src="https://instagram.fbom2-1.fna.fbcdn.net/v/t51.2885-15/e35/90360094_100229638291851_4190043631945287152_n.jpg?_nc_ht=instagram.fbom2-1.fna.fbcdn.net&_nc_cat=103&_nc_ohc=fPWq1MdwHbwAX-QT85q&oh=dc0e8f235de8e9a8713f50fcd9b3b5af&oe=5EEBCB1F"
-      />
-      {/* <img className="center" style={{height: '33vh', width: '33vw' }} alt="icon" src="https://instagram.fbom2-1.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s640x640/84867683_2782295012059555_1546362140160985343_n.jpg?_nc_ht=instagram.fbom2-1.fna.fbcdn.net&_nc_cat=107&_nc_ohc=hM8En4_0xLAAX9O6TTo&oh=1fb4ab72c9555712fda3ab38cbfd0a80&oe=5EECE1ED" /> */}
-    </Card>
-  </Link>
-);
+const contestInfo = [
+  {
+    contestName: 'SRM 14',
+    setter: ['Shambhavi'],
+    date: '27 May, 2020',
+    time: '7pm IST',
+    contestImage:
+      'https://res.cloudinary.com/dh6iqxujx/image/upload/v1590592954/Arena/SRM14_s3uvgk.jpg',
+  },
+];
+
+const ContestsCard = ({ contestDetails = contestInfo[0] }) => {
+  const { contestName, setter, date, time, contestImage } = contestDetails;
+  return (
+    <Link to="/contests/SRM14" className="no-underline black pointer">
+      <Card className="ma0 pa0" style={{ boxShadow: 'inset 0em -0.1em 0.3em 0.2em #eeeeee' }}>
+        <div className="contest">
+          <div>
+            <img className="contest-image" alt="icon" src={contestImage} />
+          </div>
+          <div className="contest-content">
+            <Headline6 className="contest-content-live">Live Now</Headline6>
+            <Headline5 className="contest-content-title">{contestName}</Headline5>
+            <span>Setter(s): {setter[0]}</span>
+            <span>{`${date} at ${time}`}</span>
+          </div>
+        </div>
+      </Card>
+    </Link>
+  );
+};
+
+ContestsCard.propTypes = {
+  contestDetails: PropTypes.object.isRequired,
+};
 
 export default ContestsCard;

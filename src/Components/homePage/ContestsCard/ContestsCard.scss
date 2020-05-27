@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.contest {
+    display: flex;
+    font-family: 'Bebas Neue';
+    justify-content: space-evenly;
+    &-image{
+        height: 54vh;
+    }
+    &-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Bebas Neue';
+
+        &-live {
+            font-size: 2em;
+            // letter-spacing: 0.2em;
+            margin: 0.2em;
+            font-family: 'Bebas Neue';
+        }
+        &-title {
+            font-size: 4em;
+            // letter-spacing: 0.2em;
+            margin: 0.2em;
+            font-family: 'Bebas Neue';
+        }
+    }
+}
+
+@media only screen and (max-width: 1030px){
+    .contest{
+        display: flex;
+        &-image{
+            height: 62vh;
+            width: auto;
+            border-radius: 1em;;
+            margin-right: 0em;
+        }
+        &-content {
+            font-size: 1em;
+            &-title {
+                font-size: 2em;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 770px){
+    .contest{
+        &-image{
+            height: 62vh;
+        }
+        // &-content {
+        //     display: block;
+        // }
+    }
+}
+@media only screen and (max-width: 550px){
+    .contest{
+        &-image{
+            height: 54.5vh;
+            width: 100%;
+            border: 2px solid transparent;
+            border-radius: 1em;
+        }
+        &-content {
+            display: none;
+        }
+    }
+    }
+@media only screen and (max-width: 430px){
+    .contest{
+        display: flex;
+        &-image{
+            height: 62vh;
+        }
+    }
+}
+@media only screen and (max-width: 325px){
+    .contest{
+        display: flex;
+        &-image{
+            height: 66vh;
+        }
+    }
+}
+

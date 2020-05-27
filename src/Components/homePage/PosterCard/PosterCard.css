@@ -1,14 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
-.learn {
-  background: url('./assets/learn.jpg');
-}
-.compete {
-  background: url('./assets/compete.jpg');
-}
-.work {
-  background: url('./assets/work.jpg');
-}
+/* .learn{
+  background: url("https://res.cloudinary.com/dh6iqxujx/image/upload/q_50/v1590579030/Arena/learn_nyxmy3.jpg");
+} */
 
 .card-container {
   background-color: gray;
@@ -18,7 +12,7 @@
   align-items: center;
   justify-content: center;
   /* height: 150px; */
-  height: 32.5vh;
+  height: 33vh;
   background-size: cover;
   transition: 0.5s;
   filter: brightness(70%);
@@ -28,7 +22,7 @@
   margin: 0.5em;
   font-size: 6em;
   color: white;
-  font-family: 'Bebas Neue';
+  font-family: 'Bebas Neue', monospace;
   letter-spacing: 0.15em;
 }
 

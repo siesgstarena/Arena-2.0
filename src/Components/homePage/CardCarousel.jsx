@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
-
-import HomePageCard from './homePageCard/HomePageCard';
+import HomePageCard from './LeaderboardCard/HomePageCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import cardData from './cardData';
 import './homePageContainer.css';
 import ContestsCard from './ContestsCard/ContestsCard';
+import TwoInOne from './LeaderboardCard/TwoInOne/TwoInOne';
 // import PosterCard from './PosterCard/PosterCard';
 
 const cardProps = [
@@ -31,30 +31,48 @@ const settings = {
   speed: 500,
   swipeToSlide: true,
   arrows: false,
-  autoplay: true,
+  // autoplay: true,
   autoplaySpeed: 2000,
   pauseOnHover: true,
   slidesToShow: 1,
   slidesToScroll: 1,
 };
 
-const CardCarousel = () => (
-  <Slider {...settings} className="pa0 mr2-m mr2-l ">
-    {cardData.map((card, index) => (
-      <HomePageCard
-        key={card}
-        title={cardProps[index].title}
-        props={cardProps[index].props}
-        topThree={card}
-        titleImage={cardProps[index].icon}
-        subHead={cardProps[index].subHead}
-        cardColor={cardProps[index].cardColor}
-        cardLink={cardProps[index].cardLink}
-      />
-    ))}
-    <ContestsCard />
-    {/* <PosterCard /> */}
-  </Slider>
-);
+const CardCarousel = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const updateWidthOnResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', updateWidthOnResize);
+
+    return () => {
+      window.removeEventListener('resize', updateWidthOnResize);
+    };
+  });
+  const isScreenSmall = width < 768;
+  return (
+    <Slider {...settings} className="pa0 mr2-m mr2-l ">
+      {isScreenSmall ? (
+        cardData.map((card, index) => (
+          <HomePageCard
+            key={card}
+            title={cardProps[index].title}
+            props={cardProps[index].props}
+            topThree={card}
+            titleImage={cardProps[index].icon}
+            subHead={cardProps[index].subHead}
+            cardLink={cardProps[index].cardLink}
+          />
+        ))
+      ) : (
+        <TwoInOne />
+      )}
+
+      <ContestsCard />
+      {/* <PosterCard /> */}
+    </Slider>
+  );
+};
 
 export default CardCarousel;

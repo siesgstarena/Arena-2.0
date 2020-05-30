@@ -6,7 +6,7 @@ import './RecommendCard.scss';
 const blogData = [
   {
     author: 'Random',
-    title: 'Blog 1: Random idea 1',
+    title: 'Blog 1: Random idea 1 idea 2 idea3 idea4',
     date: 'May 27, 2020',
   },
   {
@@ -39,8 +39,8 @@ const RecommendCard = () => (
       </Headline5>
       <div className="recommend">
         {blogData.map((blog) => (
-          <div className="recommend-card">
-            <Headline6 className="ma0">{blog.title}</Headline6>
+          <div className="recommend-card" key={blog.title}>
+            <Headline6 className="recommend-card-title">{blog.title}</Headline6>
             <div className="recommend-card-content">
               <Body1 className="ma0">{blog.author}</Body1>
               <span>{blog.date}</span>

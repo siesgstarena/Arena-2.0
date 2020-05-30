@@ -5,22 +5,24 @@ import { Link } from 'react-router-dom';
 import cardData from '../../cardData';
 import './TwoInOne.scss';
 
-const cardProps = [
-  {
-    title: 'At the Top!',
-    props: 'ratings',
-    icon: 'https://cdn0.iconfinder.com/data/icons/recreation-and-hobbies/2000/47-512.png',
-    subHead: 'Top 3 Performers!',
-    cardLink: '/ratings',
-  },
-  {
-    title: 'Exponentials!',
-    props: 'ratingChange',
-    icon: 'https://img.icons8.com/plasticine/128/000000/positive-dynamic--v1.png',
-    subHead: 'Top 3 Improvements!',
-    cardLink: '/contests/GBYE20/change',
-  },
-];
+// const cardProps = [
+//   {
+//     id: 123,
+//     title: 'At the Top!',
+//     props: 'ratings',
+//     icon: 'https://cdn0.iconfinder.com/data/icons/recreation-and-hobbies/2000/47-512.png',
+//     subHead: 'Top 3 Performers!',
+//     cardLink: '/ratings',
+//   },
+//   {
+//     id: 124,
+//     title: 'Exponentials!',
+//     props: 'ratingChange',
+//     icon: 'https://img.icons8.com/plasticine/128/000000/positive-dynamic--v1.png',
+//     subHead: 'Top 3 Improvements!',
+//     cardLink: '/contests/GBYE20/change',
+//   },
+// ];
 
 const TwoInOne = () => {
   return (
@@ -29,24 +31,24 @@ const TwoInOne = () => {
       style={{ boxShadow: 'inset 0em -0.1em 0.3em 0.2em #eeeeee', borderRadius: '10px' }}
     >
       <div className="layout">
-        {cardData.map((card, index) => {
-          const { icon, title, subHead, props, cardLink } = cardProps[index];
+        {cardData.map((card) => {
+          // const { icon, title, subHead, props, cardLink } = cardProps[index];
           return (
-            <div key={card} className="lbCard">
+            <div className="lbCard" key={card.id}>
               <div className="lbCard-header">
                 <img
                   alt="icon"
                   className="b--transparent ba br-100 shadow-1"
-                  src={icon}
+                  src={card.icon}
                   height="75vh"
                 />
                 <div className="ml2">
-                  <Headline5 className="ma0 purple">{title}</Headline5>
-                  <span className="mid-gray">{subHead}</span>
+                  <Headline5 className="ma0 purple">{card.title}</Headline5>
+                  <span className="mid-gray">{card.subHead}</span>
                 </div>
               </div>
               <div className="lbCard-content">
-                {card.map((eachCard, i) => (
+                {card.topThree.map((eachCard, i) => (
                   <div className="lbCard-content-each" key={eachCard.id}>
                     <Link to={`/profile/${eachCard.id}`} className="no-underline black">
                       <Headline6 style={{ lineHeight: '1.5rem' }} className="ma0 flex">
@@ -54,11 +56,13 @@ const TwoInOne = () => {
                         {eachCard.name}
                       </Headline6>
                     </Link>
-                    <Headline6 className="ma0 ml2 pointer black">({eachCard[props]})</Headline6>
+                    <Headline6 className="ma0 ml2 pointer black">
+                      ({eachCard[card.props]})
+                    </Headline6>
                   </div>
                 ))}
               </div>
-              <Link to={cardLink} className="no-underline pointer tc">
+              <Link to={card.cardLink} className="no-underline pointer tc">
                 <Headline6 className="ma0 purple">View More</Headline6>
               </Link>
             </div>

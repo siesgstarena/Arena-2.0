@@ -3,7 +3,27 @@ import { Link } from 'react-router-dom';
 import { Headline5, Headline6, Body2, Body1 } from '@material/react-typography';
 import Card from '@material/react-card';
 import './WhatsNew.css';
+import MaterialIcon from '@material/react-material-icon';
 import { latestInfo, trendingInfo } from './info';
+
+const SvgComponent = (props) => (
+  <svg
+    width={24}
+    height={24}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#6200ee"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="feather feather-external-link"
+    {...props}
+  >
+    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+    <path d="M15 3L21 3 21 9" />
+    <path d="M10 14L21 3" />
+  </svg>
+);
 
 const WhatsNew = () => (
   <Card className="center ma0" style={{ borderRadius: '10px' }}>
@@ -12,14 +32,16 @@ const WhatsNew = () => (
         <div className="flex justify-between mb1">
           <Headline5 className="ma0 flex items-center">
             Latest
-            <img
+            <MaterialIcon icon="fiber_new" className="blink ml2" style={{ color: '#6200ee' }} />
+            {/* <img
               className="blink"
               alt="new"
               src="https://img.icons8.com/material-outlined/36/6200ee/new.png"
-            />
+            /> */}
           </Headline5>
           <Link to="/contests/">
-            <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" />
+            <SvgComponent />
+            {/* <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" /> */}
           </Link>
         </div>
         {latestInfo.map((latest) => (
@@ -43,12 +65,13 @@ const WhatsNew = () => (
             Trending
             <img
               alt="fire"
-              className="blink"
+              className="blink ml2"
               src="https://img.icons8.com/emoji/24/000000/fire.png"
             />
           </Headline5>
           <Link to="/blogs/">
-            <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" />
+            <SvgComponent />
+            {/* <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" /> */}
           </Link>
         </div>
         {trendingInfo.map((trend) => (

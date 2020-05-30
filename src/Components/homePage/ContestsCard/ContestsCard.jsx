@@ -39,7 +39,7 @@ const ContestsCard = ({ contestDetails = contestInfo[0] }) => {
 };
 
 ContestsCard.propTypes = {
-  contestDetails: PropTypes.object.isRequired,
+  contestDetails: PropTypes.object,
 };
 
 export default ContestsCard;

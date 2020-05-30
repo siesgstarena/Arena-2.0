@@ -33,13 +33,14 @@
     .contest{
         display: flex;
         &-image{
-            height: 62vh;
+            height: 60vh;
             width: auto;
             border-radius: 1em;;
             margin-right: 0em;
         }
         &-content {
             font-size: 1em;
+            display: none;
             &-title {
                 font-size: 2em;
             }

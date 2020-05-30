@@ -8,7 +8,7 @@ import Loading from '../../common/Loading';
 // import work from './assets/work.jpg';
 // import compete from './assets/compete.jpg';
 
-const PosterCard = () => {
+const PosterCard = (id) => {
   return (
     <Suspense
       fallback={
@@ -18,6 +18,7 @@ const PosterCard = () => {
       }
     >
       <Card
+        id={id}
         className="center ma0 card"
         style={{ boxShadow: 'inset 0em -0.1em 0.3em 0.2em #eeeeee', borderRadius: '10px' }}
       >

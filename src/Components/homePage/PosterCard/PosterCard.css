@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   /* height: 150px; */
-  height: 33vh;
+  height: 25vh;
   background-size: cover;
   transition: 0.5s;
   filter: brightness(70%);

@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '@material/react-card';
 import { Headline6, Body1, Headline5 } from '@material/react-typography';
 import './RecommendCard.scss';
+import MaterialIcon from '@material/react-material-icon';
 
 const blogData = [
   {
@@ -35,7 +36,7 @@ const RecommendCard = () => (
     <div className="container">
       <Headline5 className="ma0 container-title">
         Recommended
-        <img alt="pin" src="https://img.icons8.com/material-rounded/24/000000/pin.png" />
+        <MaterialIcon icon="push_pin" />
       </Headline5>
       <div className="recommend">
         {blogData.map((blog) => (

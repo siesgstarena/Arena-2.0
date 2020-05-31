@@ -33,15 +33,9 @@ const WhatsNew = () => (
           <Headline5 className="ma0 flex items-center">
             Latest
             <MaterialIcon icon="fiber_new" className="blink ml2" style={{ color: '#6200ee' }} />
-            {/* <img
-              className="blink"
-              alt="new"
-              src="https://img.icons8.com/material-outlined/36/6200ee/new.png"
-            /> */}
           </Headline5>
           <Link to="/contests/">
             <SvgComponent />
-            {/* <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" /> */}
           </Link>
         </div>
         {latestInfo.map((latest) => (
@@ -71,7 +65,6 @@ const WhatsNew = () => (
           </Headline5>
           <Link to="/blogs/">
             <SvgComponent />
-            {/* <img alt="view" src="https://img.icons8.com/material/30/6200ee/exit.png" /> */}
           </Link>
         </div>
         {trendingInfo.map((trend) => (

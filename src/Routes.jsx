@@ -32,6 +32,7 @@ const ContestSubmissionPage = lazy(() =>
   import('./Components/drawer/contests/submissionPage/index')
 );
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
+const Learn = lazy(() => import('./Components/drawer/learn/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const HomePage = lazy(() => import('./Components/homePage'));
@@ -173,6 +174,7 @@ const Routes = () => {
                   <Route path="/auth/reset/:key" exact component={Reset} />
                   <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                   <Route path="/contests" exact component={ContestsSchedule} />
+                  <Route path="/learn" exact component={Learn} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />

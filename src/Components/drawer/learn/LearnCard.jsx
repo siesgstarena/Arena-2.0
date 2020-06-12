@@ -17,7 +17,7 @@ const EachCard = ({ subCategory, title }) => (
 );
 
 EachCard.propTypes = {
-  subCategory: PropTypes.object.isRequired,
+  subCategory: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
 };
 

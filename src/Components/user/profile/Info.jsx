@@ -5,7 +5,8 @@ import { useApolloClient } from '@apollo/react-hooks';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Button } from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';
-import { userColor, userStatus, getMonth, getYear } from '../../../commonFunctions';
+import { format } from 'date-fns';
+import { userColor, userStatus } from '../../../commonFunctions';
 import AuthContext from '../../../Contexts/AuthContext';
 import EditAbout from './EditAbout';
 import MessageCard from '../../common/MessageCard/index';
@@ -23,6 +24,7 @@ const Info = ({ userDetails: user }) => {
   if (authState.user && authState.user.userId) {
     loggedInUser = authState.user;
   }
+  const joinedStat = format(Number(user.createdAt), 'MMMM yyyy');
   useEffect(() => {
     const updateWidthOnResize = () => {
       setWidth(window.innerWidth);
@@ -105,7 +107,8 @@ const Info = ({ userDetails: user }) => {
             </Body1>
             <Body1 className="fl w-60 gray" style={{ width: 'auto', margin: '4px 0px' }}>
               Joined:
-              <b>{` ${getMonth(user.createdAt)} ${getYear(user.createdAt)}`}</b>
+              <b>{` ${joinedStat} `}</b>
+              {/* ${getMonth(user.createdAt)} ${getYear(user.createdAt)}`} */}
             </Body1>
           </div>
         </Cell>

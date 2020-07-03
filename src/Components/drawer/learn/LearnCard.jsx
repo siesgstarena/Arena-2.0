@@ -33,7 +33,9 @@ const LearnCard = ({ eachCategory }) => {
         <ul style={{ padding: '0em 1em', margin: '0' }}>
           <Body1>
             {eachCategory.suggestions.map((sugg) => (
-              <li key={sugg}>{sugg}</li>
+              <li key={sugg} className="learn-card-each-tip">
+                {sugg}
+              </li>
             ))}
           </Body1>
         </ul>

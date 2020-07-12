@@ -26,7 +26,7 @@ const SvgComponent = (props) => (
 );
 
 const WhatsNew = () => (
-  <Card className="center ma0" style={{ borderRadius: '10px' }}>
+  <Card className="center ma0 mt3" style={{ borderRadius: '10px' }}>
     <div className="pa2 flex flex-column justify-between">
       <div className="pa1 mb2">
         <div className="flex justify-between mb1">

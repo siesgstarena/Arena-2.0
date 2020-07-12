@@ -15,7 +15,7 @@ const HomePageCard = ({ topThree, titleImage, props, title, subHead, cardLink })
         alt="icon"
         className="b--transparent ba br-100 shadow-1"
         src={titleImage}
-        height="75vh"
+        height="50vh"
       />
       <div className="ml2">
         <Headline5 className="ma0 purple">{title}</Headline5>
@@ -23,11 +23,10 @@ const HomePageCard = ({ topThree, titleImage, props, title, subHead, cardLink })
       </div>
     </div>
     <div className="pa2 pb4 center">
-      {topThree.map((dev, index) => (
+      {topThree.map((dev) => (
         <div className="mb3 mt3 flex items-center justify-between" key={dev.id}>
           <Link to={`/profile/${dev.id}`} className="no-underline black">
             <Headline6 style={{ lineHeight: '1.5rem' }} className="ma0 flex">
-              <span>{index + 1}.</span>
               {dev.name}
             </Headline6>
           </Link>

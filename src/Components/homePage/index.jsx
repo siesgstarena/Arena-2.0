@@ -6,6 +6,7 @@ import CardCarousel from './CardCarousel';
 import WhatsNew from './WhatsNew/WhatsNew';
 // import PosterCard from './PosterCard/PosterCard';
 import RecommendCard from './RecommendCard/RecommendCard';
+import ContestsCard from './ContestsCard/ContestsCard';
 // import Loading from '../common/Loading';
 
 // const PosterCard = React.lazy(() => import('./PosterCard/PosterCard'));
@@ -30,15 +31,18 @@ const HomePageContainer = () => {
       ) : ( */}
       <Grid className="pa0 ma0">
         <Row>
-          <Cell desktopColumns={8} tabletColumns={8} phoneColumns={6}>
+          <Cell desktopColumns={9} tabletColumns={5} phoneColumns={6}>
             <CardCarousel />
           </Cell>
-          <Cell desktopColumns={4} tabletColumns={8}>
-            <WhatsNew />
+          <Cell desktopColumns={3} tabletColumns={3}>
+            <ContestsCard />
           </Cell>
         </Row>
         <Row>
-          <Cell desktopColumns={12} tabletColumns={8}>
+          <Cell desktopColumns={4} tabletColumns={8}>
+            <WhatsNew />
+          </Cell>
+          <Cell desktopColumns={8} tabletColumns={8}>
             <RecommendCard />
           </Cell>
         </Row>

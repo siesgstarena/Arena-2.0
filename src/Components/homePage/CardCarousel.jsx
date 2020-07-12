@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import cardData from './cardData';
 import './homePageContainer.css';
-import ContestsCard from './ContestsCard/ContestsCard';
 import TwoInOne from './LeaderboardCard/TwoInOne/TwoInOne';
 // import PosterCard from './PosterCard/PosterCard';
 
@@ -34,7 +33,7 @@ const CardCarousel = () => {
       window.removeEventListener('resize', updateWidthOnResize);
     };
   });
-  const isScreenSmall = width < 768;
+  const isScreenSmall = width < 840;
   return (
     <Slider {...settings} className="pa0 mr2-m mr2-l ">
       {isScreenSmall ? (
@@ -53,7 +52,7 @@ const CardCarousel = () => {
         <TwoInOne />
       )}
 
-      <ContestsCard />
+      {/* <ContestsCard /> */}
       {/* <PosterCard /> */}
     </Slider>
   );

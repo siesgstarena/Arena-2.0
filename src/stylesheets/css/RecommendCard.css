@@ -23,13 +23,13 @@
 }
 
 .recommend-card {
+  text-decoration: none;
+  color: inherit;
   border: 2px solid #efe5fd;
   background-color: #efe5fd;
   border-radius: 0.5em;
   padding: 1em;
   margin: 0.5em;
-  -webkit-box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -52,4 +52,9 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: auto;
+}
+
+.recommend-card:hover {
+  -webkit-box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
 }

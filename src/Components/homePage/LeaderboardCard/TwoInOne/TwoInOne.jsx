@@ -48,11 +48,10 @@ const TwoInOne = () => {
                 </div>
               </div>
               <div className="lbCard-content">
-                {card.topThree.map((eachCard, i) => (
+                {card.topThree.map((eachCard) => (
                   <div className="lbCard-content-each" key={eachCard.id}>
                     <Link to={`/profile/${eachCard.id}`} className="no-underline black">
                       <Headline6 style={{ lineHeight: '1.5rem' }} className="ma0 flex">
-                        <span>{i + 1}.</span>
                         {eachCard.name}
                       </Headline6>
                     </Link>

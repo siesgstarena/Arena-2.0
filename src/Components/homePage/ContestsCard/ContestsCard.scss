@@ -13,41 +13,24 @@
     }
 
 .contest {
-    // height: auto;
-    // width: auto;
+    // min-height: 310px;
     display: flex;
     flex-direction: column;
     &-header{
         text-align: center;
     }
     &-image {
+        min-height: 280px;
         border-radius: 0em 0em 0.5em 0.5em;
     }
-
-    @include mediaMaxWidth(320px) {
+    @include mediaMinWidth(1025px) {
         &-image {
-            // display: none;
+            min-height: 350px;
         }
     }
-
-    &-content {
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-family: 'Bebas Neue';
-
-        &-live {
-            font-size: 2em;
-            // letter-spacing: 0.2em;
-            margin: 0.2em;
-            font-family: 'Bebas Neue';
-        }
-        &-title {
-            font-size: 4em;
-            // letter-spacing: 0.2em;
-            margin: 0.2em;
-            font-family: 'Bebas Neue';
+    @include mediaMinWidth(1450px) {
+        &-image {
+            height: 280px;
         }
     }
 }

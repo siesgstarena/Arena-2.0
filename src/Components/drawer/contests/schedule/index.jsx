@@ -7,6 +7,7 @@ import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import ContestsSchedule from './ContestsSchedule';
 import LoadingTable from '../../../common/LoadingTable/index';
 import ContestsTable from './ContestsTable';
+import NoContestsPage from './NoContestsPage';
 
 const ContestScheduleContainer = () => {
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
@@ -27,7 +28,14 @@ const ContestScheduleContainer = () => {
     const { contests } = data;
     return (
       <ContestsSchedule>
-        <ContestsTable contests={contests.contests} />
+        {contests.contests.length ? (
+          <ContestsTable contests={contests.contests} />
+        ) : (
+          <div className="flex flex-column center items-center">
+            <NoContestsPage width="20vw" height="30vh" />
+            <Headline6 className="ma0">Coming Soon...</Headline6>
+          </div>
+        )}
         <Headline6 className="purple mb2">Past Contests</Headline6>
         <ContestsTable contests={contests.finishedContests} />
       </ContestsSchedule>

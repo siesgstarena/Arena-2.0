@@ -72,7 +72,6 @@ const Feedback = lazy(() => import('./Components/footerPages/feedback/index'));
 const FAQ = lazy(() => import('./Components/footerPages/faq/index'));
 const Privacy = lazy(() => import('./Components/footerPages/privacy/index'));
 const Search = lazy(() => import('./Components/search/index'));
-const Work = lazy(() => import('./Components/footerPages/work/index'));
 const AdminEditAnnoucements = lazy(() => import('./Components/admin/editAnnouncements/index'));
 const AdminContestDashboard = lazy(() => import('./Components/admin/contestDashboard/index'));
 const AdminPlagiarism = lazy(() => import('./Components/admin/plagiarism/index'));
@@ -202,7 +201,6 @@ const Routes = () => {
                   <Route path="/faq" exact component={FAQ} />
                   <Route path="/privacy" exact component={Privacy} />
                   <Route path="/search" exact component={Search} />
-                  <Route path="/work" exact component={Work} />
                   <PrivateRoute
                     path="/admin/:contestId/announcements"
                     exact

@@ -2,7 +2,6 @@ import React from 'react';
 import Card from '@material/react-card';
 import { Body1 } from '@material/react-typography';
 import { SocialIcon } from 'react-social-icons';
-import git from './assets/git.png';
 import 'tachyons';
 
 // SocialIcon is imported from external npm package to show social media icons.
@@ -47,12 +46,6 @@ const ContactCard = () => (
             style={{ height: 40, width: 40 }}
           />
         </span>
-      </div>
-      <Body1>Check out our OpenSource Projects</Body1>
-      <div className="mb2">
-        <a rel="noopener noreferrer" target="_blank" href="https://github.com/siesgstarena">
-          <img alt="icon" src={git} />
-        </a>
       </div>
     </div>
   </Card>

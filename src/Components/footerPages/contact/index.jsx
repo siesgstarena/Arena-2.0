@@ -1,8 +1,10 @@
 import React from 'react';
+import Card from '@material/react-card';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline4, Body1 } from '@material/react-typography';
 import ContactCard from './ContactCard';
 import CodeChefCard from './CodeChefCard';
+import git from './assets/git.png';
 import 'tachyons';
 
 // Contact card contains all our social media links.
@@ -24,6 +26,16 @@ const Contact = () => (
       <Cell desktopColumns={6} phoneColumns={4} tabletColumns={4}>
         <Cell>
           <ContactCard />
+        </Cell>
+        <Cell>
+          <Card className="tc" style={{ marginTop: '1.75em' }}>
+            <Body1>Check out our OpenSource Projects</Body1>
+            <div className="mb2">
+              <a rel="noopener noreferrer" target="_blank" href="https://github.com/siesgstarena">
+                <img alt="icon" src={git} />
+              </a>
+            </div>
+          </Card>
         </Cell>
         <Cell>
           <CodeChefCard />

@@ -30,7 +30,7 @@ const Contact = () => (
         <Cell>
           <Card className="tc" style={{ marginTop: '1.75em' }}>
             <Body1>Check out our OpenSource Projects</Body1>
-            <div className="mb2">
+            <div className="mb2 dim">
               <a rel="noopener noreferrer" target="_blank" href="https://github.com/siesgstarena">
                 <img alt="icon" src={git} />
               </a>

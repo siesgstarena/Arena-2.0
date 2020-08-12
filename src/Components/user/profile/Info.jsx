@@ -25,6 +25,12 @@ const Info = ({ userDetails: user }) => {
     loggedInUser = authState.user;
   }
   const joinedStat = format(Number(user.createdAt), 'MMMM yyyy');
+
+  // I have written a useEffect to reset the width based on screen size
+  // It is for our social media section
+  // In small screens only 3 logos should be visible
+  // and in bigger screen, name also should be visible
+
   useEffect(() => {
     const updateWidthOnResize = () => {
       setWidth(window.innerWidth);

@@ -1,9 +1,0 @@
-.text-alignment {
-  text-align: right;
-}
-
-@media screen and (max-width: 480px) {
-  .text-alignment {
-    text-align: left;
-  }
-}

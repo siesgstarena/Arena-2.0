@@ -30,9 +30,10 @@ Also, make sure to indicate the earliest version that has the issue being report
   ```
   copy .env.example .env
   ```
-- Open the newly created .env file and set the value of SASS_PATH environment variable
+- Open the newly created .env file and set the values of environment variables by pasting the code given below
   ```
   SASS_PATH=./node_modules
+  REACT_APP_SERVER_BASE_URL=https://siesgstarena-backend.herokuapp.com/
   ```
 - Run the development server to view the changes you are making by typing the following
   command:

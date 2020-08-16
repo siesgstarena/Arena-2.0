@@ -22,11 +22,6 @@ The entire project is divided into 5 modules:
 1. admin: This module contains all the routes and components related to the admin.
 1. superuser: This module contains all the routes and components related to the superuser.
 
-### Project Status
-
-- Completed the footerPages module.
-- Completed goodies route from drawer module.
-
 ### How can you contribute?
 
 Read the [Contributing Guidelines](https://github.com/siesgstarena/Arena-2.0/blob/master/CONTRIBUTING.md) to know how easy it is to contribute to this project.

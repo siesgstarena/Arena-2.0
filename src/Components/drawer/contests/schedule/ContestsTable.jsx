@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
+  toDate,
+  subMinutes,
+  format,
+  formatDistanceStrict,
+  formatDistanceToNowStrict,
+  isPast,
+} from 'date-fns/esm';
+import {
   userColor,
-  convertDate,
-  convertTime,
-  differenceInTwoDates,
-  adding330Minutes,
+  // convertDate,
+  // convertTime,
+  // differenceInTwoDates,
+  // adding330Minutes,
 } from '../../../../commonFunctions';
 
 const ContestsTable = ({ contests }) => {
@@ -29,13 +37,19 @@ const ContestsTable = ({ contests }) => {
   }, []);
 
   const rows = contests.map((contest) => {
-    const startsAtDate = convertDate(contest.startsAt);
-    const startsAtTime = convertTime(contest.startsAt);
-    const currentDateObject = new Date();
-    let currentDateInMilliseconds = currentDateObject.getTime();
-    currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
-    const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt);
-    const [endsIn, endsInType] = differenceInTwoDates(currentDateInMilliseconds, contest.endsAt);
+    const startDate = Number(contest.startsAt);
+    const endDate = Number(contest.endsAt);
+    const startsAtDate = String(
+      format(subMinutes(toDate(startDate), 330), 'EEE MMM d yyyy, hh:mm aa')
+    );
+    const lengthOfContest = String(formatDistanceStrict(endDate, startDate));
+    const endsInDate = formatDistanceToNowStrict(endDate);
+
+    // const currentDateObject = new Date();
+    // let currentDateInMilliseconds = currentDateObject.getTime();
+    // currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
+    // const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt);
+    // const [endsIn, endsInType] = differenceInTwoDates(currentDateInMilliseconds, contest.endsAt);
     return (
       <tr key={contest.code}>
         <td>
@@ -59,16 +73,10 @@ const ContestsTable = ({ contests }) => {
             ))}
           </td>
         )}
-        <td>
-          {startsAtDate}, &nbsp;
-          {startsAtTime}
-        </td>
-        <td>
-          {length}
-          &nbsp;
-          {lengthType}
-        </td>
-        {currentDateInMilliseconds > contest.endsAt ? (
+        <td>{startsAtDate}</td>
+        <td>{lengthOfContest}</td>
+        {isPast(endDate) ? (
+          // currentDateInMilliseconds > contest.endsAt ? (
           <td>
             <Link
               className="no-underline pointer dim blue"
@@ -80,9 +88,7 @@ const ContestsTable = ({ contests }) => {
         ) : (
           <td>
             Ends in &nbsp;
-            {endsIn}
-            &nbsp;
-            {endsInType}
+            {endsInDate}
           </td>
         )}
       </tr>

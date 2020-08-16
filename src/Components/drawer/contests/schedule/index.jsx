@@ -27,7 +27,14 @@ const ContestScheduleContainer = () => {
     const { contests } = data;
     return (
       <ContestsSchedule>
-        <ContestsTable contests={contests.contests} />
+        {contests.contests.length ? (
+          <>
+            <Headline6 className="purple mb2 mt1">Current or Upcoming Contests</Headline6>
+            <ContestsTable contests={contests.contests} />
+          </>
+        ) : (
+          ''
+        )}
         <Headline6 className="purple mb2">Past Contests</Headline6>
         <ContestsTable contests={contests.finishedContests} />
       </ContestsSchedule>

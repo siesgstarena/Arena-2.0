@@ -4,8 +4,8 @@ import HomePageCard from './LeaderboardCard/HomePageCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import cardData from './cardData';
-import './homePageContainer.css';
-import TwoInOne from './LeaderboardCard/TwoInOne/TwoInOne';
+import './homePageContainer.scss';
+import TwoInOne from './LeaderboardCard/TwoInOne';
 // import PosterCard from './PosterCard/PosterCard';
 
 const settings = {
@@ -51,9 +51,6 @@ const CardCarousel = () => {
       ) : (
         <TwoInOne />
       )}
-
-      {/* <ContestsCard /> */}
-      {/* <PosterCard /> */}
     </Slider>
   );
 };

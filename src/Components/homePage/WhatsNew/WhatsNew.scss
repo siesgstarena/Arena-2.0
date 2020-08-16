@@ -1,0 +1,77 @@
+.blink {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.card {
+  border-radius: 10px;
+  margin: 0;
+  margin-top: 2em;
+}
+
+.title {
+  display: flex;
+  margin-bottom: 0.5em;
+  justify-content: space-between;
+  &-header {
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.divider {
+  border: 1px solid #eeeeee;
+  text-align:center;
+  width: 100px;
+  margin: 0 auto;
+  &-small{
+    border: 1px solid #eeeeee;
+    width: 60px;
+    margin: 0 auto;
+  }
+}
+
+.WnContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+  justify-content: space-between;
+
+  &-each {
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0.35em;
+
+      &-link {
+        text-decoration: none;
+        color: black;
+      }
+
+      &-header {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      &-body {
+        font-size: 0.9rem;
+        margin: 0;
+        color: #555555;
+      }
+    }
+  }
+}

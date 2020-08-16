@@ -26,7 +26,7 @@ const Info = ({ userDetails: user }) => {
   }
   const joinedStat = format(Number(user.createdAt), 'MMMM yyyy');
 
-  // I have written a useEffect to reset the width based on screen size
+  // useEffect is written to reset the width based on screen size
   // It is for our social media section
   // In small screens only 3 logos should be visible
   // and in bigger screen, name also should be visible

@@ -1,7 +1,9 @@
 .container{
+    margin: 0;
     padding: 1em;
     background-color: white;
     &-title {
+        margin: 0;
         display: flex;
         justify-content: space-between;
         align-items: center;

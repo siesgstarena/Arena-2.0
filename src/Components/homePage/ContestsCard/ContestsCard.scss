@@ -16,6 +16,11 @@
     // min-height: 310px;
     display: flex;
     flex-direction: column;
+    &-card {
+        margin-top: 0;
+        padding: 0.5em;
+        box-shadow: inset 0em -0.1em 0.3em 0.2em #eeeeee;
+    }
     &-header{
         text-align: center;
     }

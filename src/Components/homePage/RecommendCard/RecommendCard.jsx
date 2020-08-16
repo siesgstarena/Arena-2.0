@@ -40,7 +40,7 @@ const blogData = [
 const RecommendCard = () => (
   <Card className="ma0 mt3">
     <div className="container">
-      <Headline5 className="ma0 container-title">
+      <Headline5 className="container-title">
         Recommended
         <MaterialIcon icon="push_pin" />
       </Headline5>

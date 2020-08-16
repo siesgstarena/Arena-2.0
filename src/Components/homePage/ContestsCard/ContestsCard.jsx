@@ -21,13 +21,12 @@ const ContestsCard = ({ contestDetails = contestInfo[0] }) => {
   const { contestImage } = contestDetails;
   return (
     <Link to="/contests/SRM14" className="no-underline black pointer">
-      <Card className="mt0 pa1" style={{ boxShadow: 'inset 0em -0.1em 0.3em 0.2em #eeeeee' }}>
+      <Card className="contest-card">
         <div className="contest">
           <div className="contest-header">
             <Headline6 className="ma0">Upcoming / Live Contest</Headline6>
           </div>
           <img className="contest-image" alt="icon" src={contestImage} />
-          {/* </div> */}
         </div>
       </Card>
     </Link>

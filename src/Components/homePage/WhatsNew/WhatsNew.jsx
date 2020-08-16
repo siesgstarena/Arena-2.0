@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Headline5, Headline6, Body2, Body1 } from '@material/react-typography';
 import Card from '@material/react-card';
-import './WhatsNew.css';
 import MaterialIcon from '@material/react-material-icon';
+import PropTypes from 'prop-types';
 import { latestInfo, trendingInfo } from './info';
+import './WhatsNew.scss';
 
 const SvgComponent = (props) => (
   <svg
@@ -25,59 +26,55 @@ const SvgComponent = (props) => (
   </svg>
 );
 
+const TitleHeader = ({ title, children }) => (
+  <div className="title">
+    <Headline5 className="title-header">
+      {title}
+      {children}
+    </Headline5>
+    <Link to="/contests/">
+      <SvgComponent />
+    </Link>
+  </div>
+);
+
+TitleHeader.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
+
 const WhatsNew = () => (
-  <Card className="center ma0 mt3" style={{ borderRadius: '10px' }}>
-    <div className="pa2 flex flex-column justify-between">
-      <div className="pa1 mb2">
-        <div className="flex justify-between mb1">
-          <Headline5 className="ma0 flex items-center">
-            Latest
-            <MaterialIcon icon="fiber_new" className="blink ml2" style={{ color: '#6200ee' }} />
-          </Headline5>
-          <Link to="/contests/">
-            <SvgComponent />
-          </Link>
-        </div>
+  <Card className="card">
+    <div className="WnContainer">
+      <div className="WnContainer-each">
+        <TitleHeader title="Latest">
+          <MaterialIcon icon="fiber_new" className="blink ml2" style={{ color: '#6200ee' }} />
+        </TitleHeader>
         {latestInfo.map((latest) => (
-          <div className="flex flex-column pa2" key={latest.name}>
-            <Link className="no-underline black pointer" to={latest.contestLink}>
-              <Headline6 style={{ fontSize: '1.1rem' }} className="ma0">
-                {latest.name}
-              </Headline6>
+          <div className="WnContainer-each-content" key={latest.name}>
+            <Link className="WnContainer-each-content-link" to={latest.contestLink}>
+              <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
             </Link>
-            <Body2
-              style={{ fontSize: '0.9rem' }}
-              className="ma0 mid-gray"
-            >{`Ends in ${latest.endsIn}`}</Body2>
+            <Body2 className="WnContainer-each-content-body">{`Ends in ${latest.endsIn}`}</Body2>
           </div>
         ))}
       </div>
-      <div className="ba light-gray center w4 mb2" />
-      <div className="pa1">
-        <div className="flex justify-between mb1">
-          <Headline5 className="ma0 flex items-center">
-            Trending
-            <img
-              alt="fire"
-              className="blink ml2"
-              src="https://img.icons8.com/emoji/24/000000/fire.png"
-            />
-          </Headline5>
-          <Link to="/blogs/">
-            <SvgComponent />
-          </Link>
-        </div>
+      <div className="divider" />
+      <div className="WnContainer-each">
+        <TitleHeader title="Trending">
+          <img
+            alt="fire"
+            className="blink ml2"
+            src="https://img.icons8.com/emoji/24/000000/fire.png"
+          />
+        </TitleHeader>
         {trendingInfo.map((trend) => (
-          <div key={trend.title} className="pa2">
-            <Link to={trend.blogLink} className="pointer no-underline black">
-              <Headline6 style={{ fontSize: '1.1rem', lineHeight: '1.4rem' }} className="ma0">
-                {trend.title}
-              </Headline6>
+          <div key={trend.title} className="WnContainer-each-content">
+            <Link to={trend.blogLink} className="WnContainer-each-content-link">
+              <Headline6 className="WnContainer-each-content-header">{trend.title}</Headline6>
             </Link>
-            <Body1 style={{ fontSize: '0.9rem' }} className="ma0 mid-gray">
-              {trend.createdAt}
-            </Body1>
-            <div className="ba light-gray center w3" />
+            <Body1 className="WnContainer-each-content-body">{trend.createdAt}</Body1>
+            <div className="divider-small" />
           </div>
         ))}
       </div>

@@ -6,7 +6,7 @@ import { useApolloClient } from '@apollo/react-hooks';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestDetails from '../createContest/ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
-import { subtracting330Minutes } from '../../../commonFunctions';
+// import { subtracting330Minutes } from '../../../commonFunctions';
 import { EDIT_CONTEST } from '../../../graphql/mutations';
 
 const EditContest = ({ contestData }) => {
@@ -23,8 +23,8 @@ const EditContest = ({ contestData }) => {
     name: contestData.name,
     description: contestData.description,
     admins: mappedAdmins,
-    start: Number(subtracting330Minutes(contestData.startsAt)),
-    end: Number(subtracting330Minutes(contestData.endsAt)),
+    start: Number(contestData.startsAt),
+    end: Number(contestData.endsAt),
     solutionVisibility: contestData.solutionVisibility,
   };
   const [formDetails, setFormDetails] = useState(intialFormDetails);

@@ -1,14 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 import Table from '../../../common/Table/index';
-import {
-  getSubmissionColor,
-  convertDate,
-  convertTime,
-  adding330Minutes,
-  userColor,
-} from '../../../../commonFunctions';
+import { getSubmissionColor, userColor } from '../../../../commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 
 const ProblemsubmissionTable = ({
@@ -21,9 +16,6 @@ const ProblemsubmissionTable = ({
   const { authState } = useContext(AuthContext);
   const problemsubmissionArray = submissions.map((submission) => {
     const color = getSubmissionColor(submission.status);
-    const addedCreatedAt = adding330Minutes(submission.createdAt);
-    const createdAtDate = convertDate(addedCreatedAt);
-    const createdAtTime = convertTime(addedCreatedAt);
     // console.log(submissionsVisible);
     return (
       <tr key={submission._id} style={{ fontSize: '.9em' }}>
@@ -43,9 +35,10 @@ const ProblemsubmissionTable = ({
             submission._id.slice(-6)
           )}
         </td>
-        <td className="tc pa3">
-          {createdAtDate}, &nbsp;
-          {createdAtTime}
+        <td className="tc pa3 nowrap">
+          {format(new Date(Number(submission.createdAt)), 'MMM dd, yyyy')}
+          <br />
+          {format(new Date(Number(submission.createdAt)), 'hh:mm:ss aa')}
         </td>
         <td className="tc pa3">
           <Link

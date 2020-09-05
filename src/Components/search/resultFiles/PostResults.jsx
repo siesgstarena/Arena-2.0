@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
+import { format } from 'date-fns';
 import Pill from '../../common/Pill';
-import { userColor, getDate, getMonth, getYear } from '../../../commonFunctions';
+import { userColor } from '../../../commonFunctions';
 
 const tagsArray = (tags) =>
   tags.map((tag) => (
@@ -23,7 +24,7 @@ const PostResults = ({ postArray }) => (
         title: postName,
         tags: postTags,
         userId: postAuthor,
-        createdAt: postDate,
+        updatedAt: postDate,
         timeToRead,
       } = post;
       const { name, ratings, _id: userId } = postAuthor;
@@ -44,7 +45,7 @@ const PostResults = ({ postArray }) => (
               {name}
             </Link>
             <div className="flex mt2 justify-between">
-              <span>{`${getDate(postDate)} ${getMonth(postDate)}, ${getYear(postDate)}`}</span>
+              <span>{format(new Date(Number(postDate)), 'MMM dd, yyyy')}</span>
               <span>{`${timeToRead} min read`}</span>
             </div>
           </div>

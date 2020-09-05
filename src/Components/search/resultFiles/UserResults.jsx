@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 import { Headline6 } from '@material/react-typography';
-import { userColor, getYear, getMonth } from '../../../commonFunctions';
+import { userColor } from '../../../commonFunctions';
 
 const UserResults = ({ userArray }) => (
   <div className="">
@@ -41,7 +42,7 @@ const UserResults = ({ userArray }) => (
                 <Headline6 style={{ margin: '0em' }}>{name}</Headline6>
                 <span className="mid-gray">{userBio}</span>
                 <span className="mid-gray mt1">
-                  {`Member since ${getMonth(memberSince)} ${getYear(memberSince)}`}
+                  {`Member since ${format(new Date(Number(memberSince)), 'LLLL yyyy')}`}
                 </span>
               </div>
             </div>

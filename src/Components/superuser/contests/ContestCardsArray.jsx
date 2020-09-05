@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { format, formatDistance } from 'date-fns';
 import ContestCard from './ContestCard';
-import { convertDate, convertTime, differenceInTwoDates } from '../../../commonFunctions';
 
 const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
   const contestsArray = contests.map((contest) => (
@@ -10,9 +10,12 @@ const ContestCardsArray = ({ contests, setSnackbarMessage }) => {
       key={contest._id}
       name={contest.name}
       setSnackbarMessage={setSnackbarMessage}
-      startTime={`${convertDate(contest.startsAt)}, ${convertTime(contest.startsAt)}`}
-      endTime={`${convertDate(contest.endsAt)}, ${convertTime(contest.endsAt)}`}
-      duration={differenceInTwoDates(contest.endsAt, contest.startsAt)}
+      startTime={format(new Date(Number(contest.startsAt)), 'MMM d, yyyy hh:mm:ss aa')}
+      endTime={format(new Date(Number(contest.endsAt)), 'MMM d, yyyy hh:mm:ss aa')}
+      duration={formatDistance(
+        new Date(Number(contest.endsAt)),
+        new Date(Number(contest.startsAt))
+      )}
     />
   ));
 

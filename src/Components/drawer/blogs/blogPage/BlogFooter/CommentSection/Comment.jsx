@@ -5,17 +5,18 @@ import { useApolloClient } from 'react-apollo';
 import { useParams } from 'react-router';
 import { Button } from '@material/react-button';
 import { Headline6, Body2, Body1 } from '@material/react-typography';
+import { format } from 'date-fns';
 import LikeDislike from '../LikeDislike';
 import UpdateComment from './UpdateComment';
 import AlertBox from '../../../../../common/AlertBox/index';
 import MessageCard from '../../../../../common/MessageCard';
 import {
   userColor,
-  getDate,
-  getMonth,
-  getYear,
-  convertTime,
-  adding330Minutes,
+  // getDate,
+  // getMonth,
+  // getYear,
+  // convertTime,
+  // adding330Minutes,
 } from '../../../../../../commonFunctions';
 import AuthContext from '../../../../../../Contexts/AuthContext';
 import {
@@ -50,6 +51,8 @@ const Comment = ({ newComment }) => {
   const alertContent = 'Are you sure you want to delete the comment?';
   const { name: user, ratings: userRatings, _id: userId } = userObject;
   const [isUpdate, setUpdate] = useState(false);
+
+  const createdAtTime = format(Number(time), 'd MMMM yyy, h:mm aa');
 
   const handleUpvote = async () => {
     setDisableUpvote(true);
@@ -203,9 +206,10 @@ const Comment = ({ newComment }) => {
             </Headline6>
           </Link>
           <Body2 className="ma0 mt1 ml3 mid-gray">
-            {`${getDate(adding330Minutes(time))} ${getMonth(adding330Minutes(time))} ${getYear(
+            {`${createdAtTime} `}
+            {/* ${getDate(adding330Minutes(time))} ${getMonth(adding330Minutes(time))} ${getYear(
               adding330Minutes(time)
-            )}, ${convertTime(adding330Minutes(time))} `}
+            )}, ${convertTime(adding330Minutes(time))} */}
           </Body2>
         </div>
       </div>

@@ -1,0 +1,42 @@
+.container{
+    margin: 0;
+    padding: 1em;
+    background-color: white;
+    &-title {
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.recommend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+    &-card {
+        text-decoration: none;
+        color: inherit;
+        border: 2px solid #efe5fd;
+        background-color: #efe5fd;
+        border-radius: 0.5em;
+        padding: 1em;
+        margin: 0.5em;
+       
+        display: flex;
+        flex-direction: column;
+        &-title {
+            margin: 0.25em;
+        }
+        &-content {
+            margin: 0.25em;
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+    }
+
+    &-card:hover {
+        box-shadow: 2px 2px 4px 2px rgba( 0, 0, 0, 0.2 );
+    }
+    
+}

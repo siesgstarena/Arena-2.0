@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { format } from 'date-fns';
 import { Body1, Headline5 } from '@material/react-typography';
-import { convertDate, convertTime } from '../../../commonFunctions';
 
 const ContestDetails = ({ contest }) => {
   const { contestId } = useParams();
-  let startsAtDate = 'Loading...';
-  let endsAtDate = 'Loading...';
-  let startsAtTime = 'Loading...';
-  let endsAtTime = 'Loading...';
+  // let startsAtDate = 'Loading...';
+  // let endsAtDate = 'Loading...';
+  // let startsAtTime = 'Loading...';
+  // let endsAtTime = 'Loading...';
   // Checking whether the startsAt and endsAt time are not the loading values.
   // If they are loading values then we won't pass them to our convert functions.
-  startsAtDate = convertDate(contest.startsAt);
-  startsAtTime = convertTime(contest.startsAt);
-  endsAtDate = convertDate(contest.endsAt);
-  endsAtTime = convertTime(contest.endsAt);
+  // startsAtDate = convertDate(contest.startsAt);
+  // startsAtTime = convertTime(contest.startsAt);
+  // endsAtDate = convertDate(contest.endsAt);
+  // endsAtTime = convertTime(contest.endsAt);
 
   return (
     <div className="">
@@ -26,13 +26,11 @@ const ContestDetails = ({ contest }) => {
       </Headline5>
       <Body1 className="ma0 mid-gray">
         Starts on: &nbsp;
-        {startsAtDate}, &nbsp;
-        {startsAtTime}
+        {format(new Date(Number(contest.startsAt)), 'eee, MMM dd, yyyy hh:mm:ss aa')}
       </Body1>
       <Body1 className="ma0 mid-gray">
         Ends on: &nbsp;
-        {endsAtDate}, &nbsp;
-        {endsAtTime}
+        {format(new Date(Number(contest.endsAt)), 'eee, MMM dd, yyyy hh:mm:ss aa')}
       </Body1>
     </div>
   );

@@ -137,7 +137,7 @@ const operationalManagers = [
     id: 8,
     name: 'Devin Raina',
     imageUrl:
-      'https://instagram.fbom2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/75551294_458642474772365_2537649296191258624_n.jpg?_nc_ht=instagram.fbom2-1.fna.fbcdn.net&_nc_ohc=TGvd3ZMYgh4AX8B1WUn&oh=6dabe0b4651afc52967535d36f689e8e&oe=5E9A127F',
+      'https://instagram.fbom2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/75551294_458642474772365_2537649296191258624_n.jpg?_nc_ht=instagram.fbom2-1.fna.fbcdn.net&_nc_ohc=OrI_XD_yILsAX_RIpxa&oh=5db485cb5754e9450d0bc164feb68908&oe=5EEADF01',
     githubUrl: '',
     linkedinUrl: '',
     twitterUrl: '',

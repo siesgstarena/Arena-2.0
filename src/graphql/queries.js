@@ -623,7 +623,7 @@ export const GET_SEARCH_RESULTS = gql`
         _id
         tags
         timeToRead
-        createdAt
+        updatedAt
         userId {
           name
           _id

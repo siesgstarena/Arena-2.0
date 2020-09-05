@@ -95,9 +95,7 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
       <Body1 className="mid-gray">
         <span className="black">Duration:</span>
         &nbsp;
-        {duration[0]}
-        &nbsp;
-        {duration[1]}
+        {duration}
       </Body1>
       <Body1>
         <span>Start:</span>
@@ -134,7 +132,7 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
 ContestCard.propTypes = {
   name: PropTypes.string.isRequired,
   startTime: PropTypes.string.isRequired,
-  duration: PropTypes.array.isRequired,
+  duration: PropTypes.string.isRequired,
   endTime: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   setSnackbarMessage: PropTypes.func.isRequired,

@@ -3,6 +3,7 @@ import { useApolloClient } from '@apollo/react-hooks';
 import { Body1, Body2, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import { toDate, format, formatDistanceToNow } from 'date-fns';
 import Card from '@material/react-card';
 import Button from '@material/react-button';
 import { Grid, Cell, Row } from '@material/react-layout-grid';
@@ -11,13 +12,7 @@ import { DELETE_BLOG, CHANGE_BLOG_PIN_STATUS } from '../../../../graphql/mutatio
 // import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import AlertBox from '../../../common/AlertBox/index';
 import Pill from '../../../common/Pill/index';
-import {
-  convertDate,
-  convertTime,
-  userColor,
-  differenceInTwoDates,
-  adding330Minutes,
-} from '../../../../commonFunctions';
+import { userColor } from '../../../../commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
@@ -52,15 +47,8 @@ const BlogCard = ({
   const alertContent = `Are you sure you want to delete the blog - "${title}"`;
   const history = useHistory();
   const location = useLocation();
-  const createdAtDate = convertDate(adding330Minutes(Number(createdAt)));
-  const createdAtTime = convertTime(adding330Minutes(Number(createdAt)));
-  const currentDateObject = new Date();
-  const currentDateInMilliseconds = currentDateObject.getTime();
-  // currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
-  const [convertedUpdatedAt, convertedUpdatedAtType] = differenceInTwoDates(
-    currentDateInMilliseconds,
-    updatedAt
-  );
+  const createdDateNTime = String(format(toDate(Number(createdAt)), 'eee LLL dd yyyy, hh:mm bb'));
+  const recentActivity = String(formatDistanceToNow(Number(updatedAt), { addSuffix: true }));
   const { logError } = useSentry();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   let { pageNumber } = queryString.parse(location.search);
@@ -195,15 +183,11 @@ const BlogCard = ({
           >
             <Body2 className="gray text-alignment">
               Posted on: &nbsp;
-              {createdAtDate}, &nbsp;
-              {createdAtTime}
+              {createdDateNTime}
               <br />
               <span className="">
                 Recent Activity: &nbsp;
-                {convertedUpdatedAt}
-                &nbsp;
-                {convertedUpdatedAtType}
-                &nbsp; ago
+                {recentActivity}
               </span>
               <br />
               {timeToRead}

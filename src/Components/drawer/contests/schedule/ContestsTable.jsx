@@ -1,13 +1,9 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  userColor,
-  convertDate,
-  convertTime,
-  differenceInTwoDates,
-  adding330Minutes,
-} from '../../../../commonFunctions';
+import { format, formatDistanceStrict, formatDistanceToNowStrict, isPast } from 'date-fns/esm';
+import { userColor } from '../../../../commonFunctions';
 
 const ContestsTable = ({ contests }) => {
   // hidden variable is used to hide the licontestAdmin when the width
@@ -29,13 +25,13 @@ const ContestsTable = ({ contests }) => {
   }, []);
 
   const rows = contests.map((contest) => {
-    const startsAtDate = convertDate(contest.startsAt);
-    const startsAtTime = convertTime(contest.startsAt);
-    const currentDateObject = new Date();
-    let currentDateInMilliseconds = currentDateObject.getTime();
-    currentDateInMilliseconds = adding330Minutes(currentDateInMilliseconds);
-    const [length, lengthType] = differenceInTwoDates(contest.endsAt, contest.startsAt);
-    const [endsIn, endsInType] = differenceInTwoDates(currentDateInMilliseconds, contest.endsAt);
+    const startDate = Number(contest.startsAt);
+    const endDate = Number(contest.endsAt);
+    const startsAtDate = String(format(startDate, 'EEEE, MMMM dd, yyyy hh:mm aa'));
+    const lengthOfContest = String(formatDistanceStrict(endDate, startDate));
+    const endsInDate = formatDistanceToNowStrict(endDate);
+    const startsInDate = formatDistanceToNowStrict(startDate);
+
     return (
       <tr key={contest.code}>
         <td>
@@ -59,16 +55,10 @@ const ContestsTable = ({ contests }) => {
             ))}
           </td>
         )}
-        <td>
-          {startsAtDate}, &nbsp;
-          {startsAtTime}
-        </td>
-        <td>
-          {length}
-          &nbsp;
-          {lengthType}
-        </td>
-        {currentDateInMilliseconds > contest.endsAt ? (
+        <td>{startsAtDate}</td>
+        <td>{lengthOfContest}</td>
+        {isPast(endDate) ? (
+          // if it is a past contest then give scoreboard link
           <td>
             <Link
               className="no-underline pointer dim blue"
@@ -77,12 +67,17 @@ const ContestsTable = ({ contests }) => {
               Scoreboard
             </Link>
           </td>
-        ) : (
+        ) : isPast(startDate) ? (
+          // if the contest has already started then show ends in time
           <td>
             Ends in &nbsp;
-            {endsIn}
-            &nbsp;
-            {endsInType}
+            {endsInDate}
+          </td>
+        ) : (
+          // if the contest has not started then show starts in time
+          <td>
+            Starts in &nbsp;
+            {startsInDate}
           </td>
         )}
       </tr>

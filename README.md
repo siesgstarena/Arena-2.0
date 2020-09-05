@@ -1,4 +1,5 @@
 # Arena 2.0
+![](https://github.com/siesgstarena/Arena-2.0/workflows/Continuous%20Integration/badge.svg)
 
 Arena 2.0 is the second version of [SIESGSTarena](http://arena.siesgst.ac.in/). In this version, we are completely redesigning the UI. We are also moving to the MERN stack to deliver a good user experience.
 
@@ -20,7 +21,6 @@ The entire project is divided into 5 modules:
 1. search: This module contains all the search related components.
 1. admin: This module contains all the routes and components related to the admin.
 1. superuser: This module contains all the routes and components related to the superuser.
-
 
 ### How can you contribute?
 

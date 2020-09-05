@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import Select from '@material/react-select';
 import Button from '@material/react-button';
+import { format } from 'date-fns';
 import { Link, useParams } from 'react-router-dom';
 import { useApolloClient } from '@apollo/react-hooks';
 import PropTypes from 'prop-types';
 import Switch from '@material/react-switch';
 import '../../user/settings/settings.scss';
 import { RESET_SUBMISSION, CHANGE_PLAGIARISM_STATUS } from '../../../graphql/mutations';
-import { convertDate, convertTime, getSubmissionColor } from '../../../commonFunctions';
+import { getSubmissionColor } from '../../../commonFunctions';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import useSentry from '../../../customHooks/useSentry';
 
 const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
   const { contestId } = useParams();
-  const createdAtDate = convertDate(data.createdAt);
-  const createdAtTime = convertTime(data.createdAt);
+  // const createdAtDate = convertDate(data.createdAt);
+  // const createdAtTime = convertTime(data.createdAt);
   const [problemStatus, setProblemStatus] = useState(data.status);
   const client = useApolloClient();
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
@@ -85,9 +86,9 @@ const ResetSubmissionTableEntry = ({ data, setSnackbarMessage }) => {
         </Link>
       </td>
       <td className="tc">
-        {createdAtDate}
+        {format(new Date(Number(data.createdAt)), 'MMM dd, yyyy')}
         <br />
-        {createdAtTime}
+        {format(new Date(Number(data.createdAt)), 'hh:mm:ss aa')}
       </td>
       <td className="pa2 tc">
         <Link className="no-underline blue" to={`/profile/${data.userId._id}`}>

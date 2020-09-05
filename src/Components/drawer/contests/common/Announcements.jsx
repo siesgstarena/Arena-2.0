@@ -17,7 +17,7 @@ const Announcements = ({ announcement }) => {
         {announcement ? (
           <Viewer value={announcement.trim()} />
         ) : (
-          <div className="tc">No Annoucments Posted</div>
+          <div className="tc">No Announcements Posted</div>
         )}
       </div>
     </Card>

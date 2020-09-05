@@ -1,0 +1,23 @@
+.card{
+  &-style {
+    text-align: center;
+    margin: 0;
+    padding: 1em;
+    box-shadow: inset 0em -0.1em 0.3em 0.2em #eeeeee;
+    border-radius: 10px;
+  }
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 1.3em;
+}
+@media only screen and (max-width: 1030px) {
+  .layout {
+      padding: 0.4em;
+      display: flex;
+      justify-content: space-between;
+  }
+}

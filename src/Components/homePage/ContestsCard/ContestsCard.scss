@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+    
+@mixin mediaMaxWidth($width) {
+        @media only screen and (max-width: $width) {
+            @content;
+        } 
+    }
+    
+    @mixin mediaMinWidth($width) {
+        @media only screen and (min-width: $width) {
+            @content;
+        } 
+    }
+
+.contest {
+    // min-height: 310px;
+    display: flex;
+    flex-direction: column;
+    &-card {
+        margin-top: 0;
+        padding: 0.5em;
+        box-shadow: inset 0em -0.1em 0.3em 0.2em #eeeeee;
+    }
+    &-header{
+        text-align: center;
+    }
+    &-image {
+        min-height: 280px;
+        border-radius: 0em 0em 0.5em 0.5em;
+    }
+    @include mediaMinWidth(1025px) {
+        &-image {
+            min-height: 350px;
+        }
+    }
+    @include mediaMinWidth(1450px) {
+        &-image {
+            height: 280px;
+        }
+    }
+}
+

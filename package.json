@@ -39,7 +39,7 @@
     "@sentry/browser": "^5.15.5",
     "apollo-boost": "^0.4.7",
     "babel-polyfill": "^6.26.0",
-    "date-fns": "^2.0.0",
+    "date-fns": "^2.14.0",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "highcharts": "^8.0.4",
@@ -59,7 +59,9 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.1",
+    "react-slick": "^0.26.1",
     "react-social-icons": "^4.1.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.0",
     "tachyons": "^4.11.1"
   },

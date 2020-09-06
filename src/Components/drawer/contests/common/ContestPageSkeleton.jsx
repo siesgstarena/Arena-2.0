@@ -8,7 +8,7 @@ import Submit from './SubmitOnProblemPage';
 import ContestTabBar from './ContestTabBar';
 
 const ContestPageSkeleton = ({ children, contestDetails }) => {
-  const { name, description, endsAt, announcement } = contestDetails;
+  const { name, description, endsAt, announcement, startsAt } = contestDetails;
 
   return (
     <Grid className="">
@@ -26,7 +26,12 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
         </Cell>
         <Cell desktopColumns={3} tabletColumns={8}>
           <Cell>
-            <ContestDetails name={name} description={description} endsAt={endsAt} />
+            <ContestDetails
+              name={name}
+              description={description}
+              endsAt={endsAt}
+              startsAt={startsAt}
+            />
           </Cell>
           <Cell>
             <Announcements announcement={announcement} />

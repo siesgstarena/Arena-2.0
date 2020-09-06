@@ -26,7 +26,6 @@ const DashboardContainer = () => {
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   if (data.dashboard) {
     const problems = data.dashboard;
-    // console.log(data.dashboard.problems, problems);
     return problems.length !== 0 ? (
       <ProblemsTable problems={problems} />
     ) : (

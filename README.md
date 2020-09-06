@@ -1,4 +1,5 @@
 # Arena 2.0
+
 ![](https://github.com/siesgstarena/Arena-2.0/workflows/Continuous%20Integration/badge.svg)
 
 Arena 2.0 is the second version of [SIESGSTarena](http://arena.siesgst.ac.in/). In this version, we are completely redesigning the UI. We are also moving to the MERN stack to deliver a good user experience.

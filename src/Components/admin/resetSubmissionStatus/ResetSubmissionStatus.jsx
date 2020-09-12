@@ -9,6 +9,7 @@ import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import useSentry from '../../../customHooks/useSentry';
+import EmptyData from '../../common/EmptyData/index';
 
 const ResetSubmissionStatus = () => {
   const { contestId, problemId } = useParams();
@@ -37,9 +38,13 @@ const ResetSubmissionStatus = () => {
           Problem: &nbsp;
           {problemId}
           &nbsp; - &nbsp;
-          {response[0].problemId.name}
+          {response[0] ? response[0].problemId.name : ''}
         </Body1>
-        <ResetSubmissionTable resetSubmissionTableData={response} />
+        {response.length !== 0 ? (
+          <ResetSubmissionTable resetSubmissionTableData={response} />
+        ) : (
+          <EmptyData message="No Submissions found" />
+        )}
         <div className="mt3">
           <PageCountDisplayer
             pageCount={data.submissionsByContestCode.pages}

@@ -51,14 +51,14 @@ export const userStatus = (ratings, userId) => {
   return 'Novice';
 };
 
-export const countDownTimerValues = (dateTillCountdown) => {
+export const countDownTimerValues = (dateFromCountdown, dateTillCountdown) => {
   if (typeof dateTillCountdown === 'string') {
     dateTillCountdown = Number(dateTillCountdown);
   }
   // dateTillCountdown = subtracting330Minutes(dateTillCountdown);
-  const currentDateObject = new Date();
-  const currentDateInMilliseconds = currentDateObject.getTime();
-  const timeleft = dateTillCountdown - currentDateInMilliseconds;
+  const dateFromObject = new Date(Number(dateFromCountdown));
+  const dateFromInMilliseconds = dateFromObject.getTime();
+  const timeleft = new Date(dateTillCountdown) - dateFromInMilliseconds;
   let days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
   let hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));

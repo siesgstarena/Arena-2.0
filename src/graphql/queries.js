@@ -226,6 +226,7 @@ export const GET_CONTEST_DETAILS = gql`
       description
       endsAt
       announcement
+      startsAt
     }
   }
 `;

@@ -42,7 +42,7 @@
     "date-fns": "^2.14.0",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
-    "highcharts": "^8.0.4",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^3.0.0",
     "highlight.js": "^10.0.0",
     "markdown-it": "^10.0.0",

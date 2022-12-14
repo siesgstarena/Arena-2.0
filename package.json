@@ -40,7 +40,7 @@
     "apollo-boost": "^0.4.7",
     "babel-polyfill": "^6.26.0",
     "date-fns": "^2.14.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^14.6.0",
     "highcharts": "^8.0.4",
     "highcharts-react-official": "^3.0.0",

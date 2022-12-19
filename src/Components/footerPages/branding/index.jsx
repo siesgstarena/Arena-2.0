@@ -51,7 +51,11 @@ const BrandingGuidelines = () => (
     </Body1>
     <Body1>
       In addition, please don&apos;t do any of the following without checking with us first (please
-      email <span style={{ color: 'grey' }}>codechef@siesgst.ac.in</span>):
+      email{' '}
+      <a href="mailto:codechef@siesgst.ac.in" style={{ color: 'grey' }}>
+        codechef@siesgst.ac.in
+      </a>
+      ):
       <br />
       <span className="mid-gray">
         <ul>

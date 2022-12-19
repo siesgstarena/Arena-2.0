@@ -34,6 +34,11 @@ const footerRoutes = [
     changeRouteTo: '/privacy',
     routeName: 'Privacy',
   },
+  {
+    id: 8,
+    changeRouteTo: '/branding',
+    routeName: 'Branding',
+  },
 ];
 
 export default footerRoutes;

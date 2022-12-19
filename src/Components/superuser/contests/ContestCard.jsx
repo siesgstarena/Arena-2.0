@@ -68,7 +68,6 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
               },
             });
           } catch (e) {
-            console.log(e);
             // We should always catch here,
             // as the cache may be empty or the query may fail
           }

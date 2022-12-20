@@ -21,15 +21,8 @@ const SettingsDetailsContainer = () => {
   if (loading) return <LoadingInfoArray count={3} />;
   if (error) return <SomethingWentWrong message="An error has been encountered" />;
   if (data.profilePage.user.username) {
-    const {
-      codechef,
-      codeforces,
-      github,
-      username,
-      updates,
-      activities,
-      email,
-    } = data.profilePage.user;
+    const { codechef, codeforces, github, username, updates, activities, email } =
+      data.profilePage.user;
     const social = { codechef, codeforces, github };
     const notifications = { updates, activities };
     return (

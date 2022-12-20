@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Arena API",
+        "description": "With SIESGSTarena API you can get access to some of our data in JSON format Clients should specify a User-Agent header to facilitate tracking and debugging \n\nAccept: application/vnd.arena+json;version=1",
+        "contact": {
+            "email": "codechef@siesgst.ac.in"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://arena2backend-xnb3j.ondigitalocean.app/arenaworking2/api"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Contest",
+            "description": "Everything about Contest in Arena"
+        },
+        {
+            "name": "User",
+            "description": "Everything about User in Arena"
+        },
+        {
+            "name": "Problems",
+            "description": "Everything about Problems in Arena"
+        },
+        {
+            "name": "Blog",
+            "description": "Everything about Blog in Arena"
+        }
+    ],
+    "paths": {
+        "/contests": {
+            "get": {
+                "tags": [
+                    "Contest"
+                ],
+                "summary": "Returns information about all available contests",
+                "description": "Returns information about all available contests",
+                "parameters": [
+                    {
+                        "name": "Accept",
+                        "in": "header",
+                        "description": "Accept header",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "application/vnd.arena+json;version=1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/vnd.arena+json;version=1": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Contest"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid status value"
+                    },
+                    "500":{
+                        "description":"Some error. Try again"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Contest": {
+                "type": "object",
+                "properties": {
+                    "type":{
+                        "type":"enum",
+                        "enum":["RATED","UNRATED"],
+                        "example":"RATED"
+                    },
+                    "_id": {
+                        "type": "string",
+                        "example": "5b5c89ef30db8a0020962414"
+                    },
+                    "code": {
+                        "type": "string",
+                        "example": "UNIVERSE"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Universe"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Contest open for 5 year with playlists problems"
+                    },
+                    "startsAt": {
+                        "type": "string",
+                        "example": "2018-07-28T03:30:00.000Z"
+                    },
+                    "endsAt": {
+                        "type": "string",
+                        "example": "2023-07-28T03:30:00.000Z"
+                    },
+                    "contestAdmin": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "_id": {
+                                    "type": "string",
+                                    "example": "5b6d84eb2e9049002068df33"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Barath Suresh Nadar"
+                                },
+                                "username": {
+                                    "type": "string",
+                                    "example": "barath121"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "example": "nadar.barath18@siesgst.ac.in"
+                                }
+                            }
+                        }
+                    }
+                },
+                "xml": {
+                    "name": "Contest"
+                }
+            }
+        }
+    }
+}

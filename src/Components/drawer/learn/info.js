@@ -90,8 +90,7 @@ const info = [
       },
       {
         title: 'Greedy',
-        link:
-          'https://www.topcoder.com/community/competitive-programming/tutorials/greedy-is-good/',
+        link: 'https://www.topcoder.com/community/competitive-programming/tutorials/greedy-is-good/',
       },
     ],
     problems: [

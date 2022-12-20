@@ -48,13 +48,20 @@ const drawerItems = [
     path: '/goodies',
     materialIcon: true,
   },
-  // {
-  //   id: 7,
-  //   name: 'Learn',
-  //   icon: 'school',
-  //   path: '/learn',
-  //   materialIcon: true,
-  // },
+  {
+    id: 7,
+    name: 'Learn',
+    icon: 'school',
+    path: '/learn',
+    materialIcon: true,
+  },
+  {
+    id: 8,
+    name: 'API',
+    icon: 'api',
+    path: '/api',
+    materialIcon: true,
+  },
 ];
 
 export default drawerItems;

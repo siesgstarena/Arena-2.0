@@ -1,0 +1,894 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Arena API",
+    "description": "With SIESGSTarena API you can get access to some of our data in JSON format Clients should specify a User-Agent header to facilitate tracking and debugging \n\nAccept: application/vnd.arena+json;version=1",
+    "contact": {
+      "email": "codechef@siesgst.ac.in"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://arena2backend-xnb3j.ondigitalocean.app/arenaworking2/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User",
+      "description": "Everything about User in Arena"
+    },
+    {
+      "name": "Contest",
+      "description": "Everything about Contest in Arena"
+    },
+    {
+      "name": "Problems",
+      "description": "Everything about Problems in Arena"
+    },
+    {
+      "name": "Blog",
+      "description": "Everything about Blog in Arena"
+    },
+    {
+      "name": "Apps",
+      "description": "Apps in Arena"
+    }
+  ],
+  "paths": {
+    "/contests": {
+      "get": {
+        "tags": [
+          "Contest"
+        ],
+        "description": "Returns information about all available contests",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contest"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Returns information about all available users",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Users"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Returns information about a particular user either by username or id or email",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Username of the user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Id of the user",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email of the user",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/topusers": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Returns Top Users information",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of top users",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TopUser"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/topusers/{contestCode}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "Returns Top Users of a particular contest information",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          },
+          {
+            "name": "contestCode",
+            "in": "path",
+            "description": "Contest Code",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "B4E22F"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of top users",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TopUserContest"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/blogs": {
+      "get": {
+        "tags": [
+          "Blog"
+        ],
+        "description": "Returns information about all Blogs",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Blog"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/problems": {
+      "get": {
+        "tags": [
+          "Problems"
+        ],
+        "description": "Returns information about all Problems",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/apps/compare": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "description": "Returns 2 Objects which include information about users performance",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          },
+          {
+            "name": "username1",
+            "in": "query",
+            "description": "Username 1",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "salman01"
+            }
+          },
+          {
+            "name": "username2",
+            "in": "query",
+            "description": "Username 2",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Swapnil76"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Compare"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/apps/statistics": {
+      "get": {
+        "tags": [
+          "Apps"
+        ],
+        "description": "Returns an array of Objects which include information about top users performance in each language",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Statistics"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "enum",
+            "enum": [
+              "RATED",
+              "UNRATED"
+            ],
+            "example": "RATED"
+          },
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "code": {
+            "type": "string",
+            "example": "UNIVERSE"
+          },
+          "name": {
+            "type": "string",
+            "example": "Universe"
+          },
+          "description": {
+            "type": "string",
+            "example": "Contest open for 5 year with playlists problems"
+          },
+          "startsAt": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          },
+          "endsAt": {
+            "type": "string",
+            "example": "2023-07-28T03:30:00.000Z"
+          },
+          "contestAdmin": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "5b6d84eb2e9049002068df33"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Barath Suresh Nadar"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "barath121"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "nadar.barath18@siesgst.ac.in"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "Contest"
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "605718dbefc8bd00222f955b"
+          },
+          "name": {
+            "type": "string",
+            "example": "Adhikari Salman Juber"
+          },
+          "username": {
+            "type": "string",
+            "example": "salman01"
+          }
+        },
+        "xml": {
+          "name": "Users"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "605718dbefc8bd00222f955b"
+          },
+          "name": {
+            "type": "string",
+            "example": "Adhikari Salman Juber"
+          },
+          "username": {
+            "type": "string",
+            "example": "salman01"
+          },
+          "email": {
+            "type": "string",
+            "example": "adhikarijit120@gst.sies.edu.in"
+          },
+          "rating": {
+            "type": "integer",
+            "example": 1359
+          },
+          "about": {
+            "type": "string",
+            "example": "Hello"
+          },
+          "ratingChange": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contestCode": {
+                  "type": "string",
+                  "example": "SRM23"
+                },
+                "ratings": {
+                  "type": "integer",
+                  "example": 1104
+                }
+              }
+            }
+          },
+          "submissionStats": {
+            "type": "object",
+            "items": {
+              "accepted": {
+                "type": "integer",
+                "example": 34
+              },
+              "wrongAnswer": {
+                "type": "integer",
+                "example": 32
+              },
+              "compilationError": {
+                "type": "integer",
+                "example": 2
+              },
+              "runtimeError": {
+                "type": "integer",
+                "example": 2
+              },
+              "timeLimitExceeded": {
+                "type": "integer",
+                "example": 7
+              }
+            }
+          },
+          "codechefLink": {
+            "type": "string",
+            "example": ""
+          },
+          "codeforcesLink": {
+            "type": "string",
+            "example": ""
+          },
+          "githubLink": {
+            "type": "string",
+            "example": "SalmanAd01"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Blog": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5ba3c3f496b924001f5afe6e"
+          },
+          "title": {
+            "type": "string",
+            "example": "Coding?"
+          },
+          "upvotes": {
+            "type": "integer",
+            "example": 9
+          },
+          "downvotes": {
+            "type": "integer",
+            "example": 0
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Coding"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2018-09-20T10:29:48.363Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2022-12-03T06:15:11.320Z"
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "5b6dcf5ce21df60020be63c4"
+              },
+              "username": {
+                "type": "string",
+                "example": "MithilKiranPoojary"
+              },
+              "rating": {
+                "type": "integer",
+                "example": 1499
+              },
+              "name": {
+                "type": "string",
+                "example": "Mithil Kiran Poojary"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c8cd7276e2200208fed62"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jumping Rahul"
+          },
+          "code": {
+            "type": "string",
+            "example": "UNI01"
+          },
+          "points": {
+            "type": "integer",
+            "example": 0
+          },
+          "contestCode": {
+            "type": "string",
+            "example": "UNIVERSE"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Coding"
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "TopUser": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5d756b37392f89933e7515"
+          },
+          "name": {
+            "type": "string",
+            "example": "Vipul Singh Raghuvanshi"
+          },
+          "username": {
+            "type": "string",
+            "example": "vipul-08"
+          },
+          "rating": {
+            "type": "integer",
+            "example": 1655
+          },
+          "codechefLink": {
+            "type": "string",
+            "example": "code_updates"
+          },
+          "codeforcesLink": {
+            "type": "string",
+            "example": "code_updates"
+          },
+          "githubLink": {
+            "type": "string",
+            "example": "vipul-08"
+          }
+        },
+        "xml": {
+          "name": "TopUser"
+        }
+      },
+      "TopUserContest": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "63309aaeab6261002246d345"
+          },
+          "name": {
+            "type": "string",
+            "example": "Gaurish Baliga "
+          },
+          "username": {
+            "type": "string",
+            "example": "0mniking"
+          },
+          "total": {
+            "type": "integer",
+            "example": 1150
+          },
+          "totalAttempts": {
+            "type": "integer",
+            "example": 2
+          },
+          "solved": {
+            "type": "integer",
+            "example": 4
+          },
+          "lastSubmission": {
+            "type": "string",
+            "example": "2022-09-30T10:11:22.442Z"
+          },
+          "lastSubmissionPenalty": {
+            "type": "string",
+            "example": "2022-09-30T10:51:22.442Z"
+          }
+        },
+        "xml": {
+          "name": "TopUserContest"
+        }
+      },
+      "Statistics": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example":"Prathamesh Gawas"
+          },
+          "language": {
+            "type": "string",
+            "example":"C++"
+          },
+          "acceptedCount":{
+            "type": "integer",
+            "example": 36
+          },
+          "username":{
+            "type": "string",
+            "example": "Prathamesh"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Compare": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "605718dbefc8bd00222f955b"
+              },
+              "username": {
+                "type": "string",
+                "example": "Adhikari Salman Juber"
+              },
+              "name": {
+                "type": "string",
+                "example": "salman01"
+              }
+            }
+          },
+          "performance": {
+            "type": "object",
+            "properties": {
+              "accepted": {
+                "type": "integer",
+                "example": 34
+              },
+              "wrongAnswer": {
+                "type": "integer",
+                "example": 32
+              },
+              "compilationError": {
+                "type": "integer",
+                "example": 2
+              },
+              "runtimeError": {
+                "type": "integer",
+                "example": 2
+              },
+              "timeLimitExceeded": {
+                "type": "integer",
+                "example": 7
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

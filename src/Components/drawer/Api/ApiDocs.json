@@ -1,143 +1,543 @@
 {
-    "openapi": "3.0.2",
-    "info": {
-        "title": "Arena API",
-        "description": "With SIESGSTarena API you can get access to some of our data in JSON format Clients should specify a User-Agent header to facilitate tracking and debugging \n\nAccept: application/vnd.arena+json;version=1",
-        "contact": {
-            "email": "codechef@siesgst.ac.in"
-        },
-        "version": "1.0.0"
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Arena API",
+    "description": "With SIESGSTarena API you can get access to some of our data in JSON format Clients should specify a User-Agent header to facilitate tracking and debugging \n\nAccept: application/vnd.arena+json;version=1",
+    "contact": {
+      "email": "codechef@siesgst.ac.in"
     },
-    "servers": [
-        {
-            "url": "https://arena2backend-xnb3j.ondigitalocean.app/arenaworking2/api"
-        }
-    ],
-    "tags": [
-        {
-            "name": "Contest",
-            "description": "Everything about Contest in Arena"
-        },
-        {
-            "name": "User",
-            "description": "Everything about User in Arena"
-        },
-        {
-            "name": "Problems",
-            "description": "Everything about Problems in Arena"
-        },
-        {
-            "name": "Blog",
-            "description": "Everything about Blog in Arena"
-        }
-    ],
-    "paths": {
-        "/contests": {
-            "get": {
-                "tags": [
-                    "Contest"
-                ],
-                "summary": "Returns information about all available contests",
-                "description": "Returns information about all available contests",
-                "parameters": [
-                    {
-                        "name": "Accept",
-                        "in": "header",
-                        "description": "Accept header",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "application/vnd.arena+json;version=1"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/vnd.arena+json;version=1": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Contest"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Invalid status value"
-                    },
-                    "500":{
-                        "description":"Some error. Try again"
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Contest": {
-                "type": "object",
-                "properties": {
-                    "type":{
-                        "type":"enum",
-                        "enum":["RATED","UNRATED"],
-                        "example":"RATED"
-                    },
-                    "_id": {
-                        "type": "string",
-                        "example": "5b5c89ef30db8a0020962414"
-                    },
-                    "code": {
-                        "type": "string",
-                        "example": "UNIVERSE"
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "Universe"
-                    },
-                    "description": {
-                        "type": "string",
-                        "example": "Contest open for 5 year with playlists problems"
-                    },
-                    "startsAt": {
-                        "type": "string",
-                        "example": "2018-07-28T03:30:00.000Z"
-                    },
-                    "endsAt": {
-                        "type": "string",
-                        "example": "2023-07-28T03:30:00.000Z"
-                    },
-                    "contestAdmin": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "_id": {
-                                    "type": "string",
-                                    "example": "5b6d84eb2e9049002068df33"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "example": "Barath Suresh Nadar"
-                                },
-                                "username": {
-                                    "type": "string",
-                                    "example": "barath121"
-                                },
-                                "email": {
-                                    "type": "string",
-                                    "example": "nadar.barath18@siesgst.ac.in"
-                                }
-                            }
-                        }
-                    }
-                },
-                "xml": {
-                    "name": "Contest"
-                }
-            }
-        }
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://arena2backend-xnb3j.ondigitalocean.app/arenaworking2/api"
     }
+  ],
+  "tags": [
+    {
+      "name": "Contest",
+      "description": "Everything about Contest in Arena"
+    },
+    {
+      "name": "User",
+      "description": "Everything about User in Arena"
+    },
+    {
+      "name": "Problems",
+      "description": "Everything about Problems in Arena"
+    },
+    {
+      "name": "Blog",
+      "description": "Everything about Blog in Arena"
+    }
+  ],
+  "paths": {
+    "/contests": {
+      "get": {
+        "tags": ["Contest"],
+        "summary": "Returns information about all available contests",
+        "description": "Returns information about all available contests",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Contest"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Returns information about all available users",
+        "description": "Returns information about all available users",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/blogs": {
+      "get": {
+        "tags": ["Blog"],
+        "summary": "Returns information about all Blogs",
+        "description": "Returns information about all Blogs",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Blog"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    },
+    "/problems": {
+      "get": {
+        "tags": ["Problems"],
+        "summary": "Returns information about all Problems",
+        "description": "Returns information about all Problems",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "application/vnd.arena+json;version=1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/vnd.arena+json;version=1": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Problem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          },
+          "500": {
+            "description": "Some error. Try again"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "enum",
+            "enum": ["RATED", "UNRATED"],
+            "example": "RATED"
+          },
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "code": {
+            "type": "string",
+            "example": "UNIVERSE"
+          },
+          "name": {
+            "type": "string",
+            "example": "Universe"
+          },
+          "description": {
+            "type": "string",
+            "example": "Contest open for 5 year with playlists problems"
+          },
+          "startsAt": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          },
+          "endsAt": {
+            "type": "string",
+            "example": "2023-07-28T03:30:00.000Z"
+          },
+          "contestAdmin": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "5b6d84eb2e9049002068df33"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Barath Suresh Nadar"
+                },
+                "username": {
+                  "type": "string",
+                  "example": "barath121"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "nadar.barath18@siesgst.ac.in"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "Contest"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "name": {
+            "type": "string",
+            "example": "Universe"
+          },
+          "username": {
+            "type": "string",
+            "example": "Universe-02"
+          },
+          "email": {
+            "type": "string",
+            "example": "universe@gmail.com"
+          },
+          "rating": {
+            "type": "integer",
+            "example": "2023"
+          },
+          "about": {
+            "type": "string",
+            "example": "Hello this is universe from 6th Year"
+          },
+          "ratingChange": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "contestCode": {
+                  "type": "string",
+                  "example": "5b5c89ef30db8a0020962414"
+                },
+                "ratings": {
+                  "type": "integer",
+                  "example": "2023"
+                }
+              }
+            }
+          },
+          "submissionStats": {
+            "type": "object",
+            "items": {
+              "accepted": {
+                "type": "integer",
+                "example": "5b5c89ef30db8a0020962414"
+              },
+              "wrongAnswer": {
+                "type": "integer",
+                "example": "5b5c89ef30db8a0020962414"
+              },
+              "compilationError": {
+                "type": "integer",
+                "example": "5b5c89ef30db8a0020962414"
+              },
+              "runtimeError": {
+                "type": "integer",
+                "example": "5b5c89ef30db8a0020962414"
+              },
+              "timeLimitExceeded": {
+                "type": "integer",
+                "example": "5b5c89ef30db8a0020962414"
+              }
+            }
+          },
+          "codechefLink": {
+            "type": "string",
+            "example": "codechef.com/universe"
+          },
+          "codeforcesLink": {
+            "type": "string",
+            "example": "codeforce.com/universe"
+          },
+          "githubLink": {
+            "type": "string",
+            "example": "github.com/universe"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Blog": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "title": {
+            "type": "string",
+            "example": "Why we code ?"
+          },
+          "upvotes": {
+            "type": "integer",
+            "example": "200"
+          },
+          "downvotes": {
+            "type": "integer",
+            "example": "200"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Coding"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          },
+          "owner": {
+            "type": "object",
+            "items": {
+              "_id": {
+                "type": "string",
+                "example": "5b5c89ef30db8a0020962414"
+              },
+              "username": {
+                "type": "string",
+                "example": "Universe-02"
+              },
+              "rating": {
+                "type": "integer",
+                "example": "2023"
+              },
+              "name": {
+                "type": "string",
+                "example": "Universe"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "name": {
+            "type": "string",
+            "example": "Find the universe"
+          },
+          "code": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "points": {
+            "type": "integer",
+            "example": "200"
+          },
+          "contestCode": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Coding"
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "TopUser": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "name": {
+            "type": "string",
+            "example": "Universe"
+          },
+          "username": {
+            "type": "string",
+            "example": "Universe-02"
+          },
+          "rating": {
+            "type": "integer",
+            "example": "2023"
+          },
+          "codechefLink": {
+            "type": "string",
+            "example": "codechef.com/universe"
+          },
+          "codeforcesLink": {
+            "type": "string",
+            "example": "codeforce.com/universe"
+          },
+          "githubLink": {
+            "type": "string",
+            "example": "github.com/universe"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "TopUserContest": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5b5c89ef30db8a0020962414"
+          },
+          "name": {
+            "type": "string",
+            "example": "Universe"
+          },
+          "username": {
+            "type": "string",
+            "example": "Universe-02"
+          },
+          "rating": {
+            "type": "integer",
+            "example": "2023"
+          },
+          "total": {
+            "type": "integer",
+            "example": "2000"
+          },
+          "totalAttempts": {
+            "type": "integer",
+            "example": "20"
+          },
+          "solved": {
+            "type": "integer",
+            "example": "40"
+          },
+          "lastSubmission": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          },
+          "lastSubmissionPenalty": {
+            "type": "string",
+            "example": "2018-07-28T03:30:00.000Z"
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "Statistics": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "name": {
+              "type": "string",
+              "example": "Universe"
+            },
+            "language": {
+              "type": "string",
+              "example": "Java"
+            },
+            "acceptedCount": {
+              "type": "integer",
+              "example": "200"
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      }
+    }
+  }
 }

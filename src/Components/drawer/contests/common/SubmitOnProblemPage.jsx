@@ -4,6 +4,8 @@ import Select, { Option } from '@material/react-select';
 import { Button } from '@material/react-button';
 import Card from '@material/react-card';
 import { useQuery } from 'react-apollo';
+import { Cell, Row } from '@material/react-layout-grid';
+import { TextField } from '@material-ui/core';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import { languageOptions } from '../status/options';
@@ -45,7 +47,8 @@ const SubmitOnProblemPage = () => {
   const [messageType, setMessageType] = useState('');
   const [lang, setLang] = useState(editorConfig.mode);
   const [curProblem, setcurProblem] = useState('None');
-
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
   const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
 
   let problems = [];
@@ -159,7 +162,41 @@ const SubmitOnProblemPage = () => {
       setMessage('Please select appropriate Language/Upload/Problem method and Upload valid file');
     }
   };
-
+  const runCode = () => {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify({
+        code: editorConfig.code,
+        language: lang,
+        input,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((jsonResponse) => {
+        if (jsonResponse && jsonResponse.status === false) {
+          setMessageType('error');
+          setMessage(jsonResponse.message);
+        } else {
+          setOutput(jsonResponse);
+        }
+      })
+      .catch(() => {
+        setMessageType('error');
+        setMessage('An unexpected error has been encountered');
+      });
+  };
+  const validateRun = () => {
+    if (lang !== 'None' && editorConfig.code.length !== 0) {
+      runCode();
+    } else {
+      setMessageType('error');
+      setMessage('Please select appropriate Language');
+    }
+  };
   // function to render loading page / the submit page
   if (isUploading) {
     return (
@@ -219,7 +256,7 @@ const SubmitOnProblemPage = () => {
             onEnhancedChange={onProblemChange}
           />
         </div>
-        {uploadMethod === 'code' && <Menu />}
+        {uploadMethod === 'code' && <Menu input={input} lang={lang} />}
       </div>
 
       {uploadMethod === 'file' ? (
@@ -248,11 +285,39 @@ const SubmitOnProblemPage = () => {
           raised
           style={{ marginLeft: '1rem' }}
           onClick={() => {
-            console.log(editorConfig.code);
+            validateRun();
           }}
         >
           Run
         </Button>
+      )}
+      {uploadMethod === 'code' && (
+        <Row style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
+          <Cell style={{ width: '40%' }}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Input"
+              multiline
+              minRows={10}
+              variant="outlined"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              style={{ marginTop: '20px', width: '100%' }}
+            />
+          </Cell>
+          <Cell style={{ width: '40%' }}>
+            <TextField
+              id="outlined-multiline-static"
+              label="Output"
+              multiline
+              minRows={10}
+              variant="outlined"
+              disabled
+              value={output}
+              style={{ marginTop: '20px', width: '100%' }}
+            />
+          </Cell>
+        </Row>
       )}
     </AceEditorContext.Provider>
   );

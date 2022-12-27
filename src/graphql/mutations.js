@@ -448,3 +448,15 @@ export const REPLY_TO_FEEDBACK = gql`
     }
   }
 `;
+
+export const SAVE_CODE = gql`
+  mutation saveCode($code: String!, $language: String!, $input: String!) {
+    saveCode(code: $code, language: $language, input: $input) {
+      success
+      message
+      editor {
+        sharecode
+      }
+    }
+  }
+`;

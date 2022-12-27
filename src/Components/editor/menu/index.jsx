@@ -9,19 +9,27 @@ import {
   MenuItem,
   InputLabel,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material/react-button';
 import { Grid } from '@material/react-layout-grid';
 import MaterialIcon from '@material/react-material-icon';
 import * as ace from 'ace-builds/src-noconflict/ace';
+import { useApolloClient } from '@apollo/react-hooks';
 import themes from '../defaults/themes';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
+import { SAVE_CODE } from '../../../graphql/mutations';
+import MessageCard from '../../common/MessageCard';
 
 ace.config.set('basePath', '/assets/ui/');
 ace.config.set('modePath', '');
 ace.config.set('themePath', '');
-const Menu = () => {
+const Menu = ({ input, lang }) => {
+  const client = useApolloClient();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
+
   const { editorConfig, setEditorConfig } = useContext(AceEditorContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,7 +41,27 @@ const Menu = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
+  const ShareCode = async () => {
+    setMessageType('loading');
+    setMessage('Creating link, Please Wait');
+    const { data, error } = await client.mutate({
+      mutation: SAVE_CODE,
+      variables: {
+        code: editorConfig.code,
+        input,
+        language: lang,
+      },
+    });
+    JSON.stringify(error, null, 2);
+    if (error) {
+      setMessageType('error');
+      setMessage('Database error encountered');
+      return;
+    }
+    setMessageType('success');
+    const url = window.location.host;
+    setMessage(`${url}/share/${data.saveCode.editor.sharecode}`);
+  };
   return (
     <>
       {/* <FormGroup> */}
@@ -57,8 +85,19 @@ const Menu = () => {
           horizontal: 'left',
         }}
       >
-        <Grid cellSpacing={2}>
-          <Grid xs={6} md={8}>
+        <Grid
+          cellSpacing={2}
+          style={{
+            padding: '10px',
+          }}
+        >
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
             <InputLabel id="select-theme-label">Select Theme</InputLabel>
             <Select
               id="select-theme"
@@ -94,7 +133,13 @@ const Menu = () => {
               })}
             </Select>
           </Grid>
-          <Grid xs={6} md={8}>
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
             <TextField
               value={editorConfig.fontSize}
               type="number"
@@ -114,7 +159,13 @@ const Menu = () => {
               required
             />
           </Grid>
-          <Grid xs={6} md={8}>
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
             <TextField
               type="number"
               label="Tab Size"
@@ -134,7 +185,13 @@ const Menu = () => {
               }}
             />
           </Grid>
-          <Grid xs={6} md={8}>
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
             <FormControlLabel
               control={<Switch color="primary" />}
               label="Intellisense"
@@ -147,7 +204,13 @@ const Menu = () => {
               }
             />
           </Grid>
-          <Grid xs={6} md={8}>
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox checked={editorConfig.wrapEnabled} />}
@@ -161,13 +224,31 @@ const Menu = () => {
               />
             </FormGroup>
           </Grid>
-          <Grid xs={6} md={8}>
-            <Button raised>Share</Button>
+          <Grid
+            xs={6}
+            md={8}
+            style={{
+              padding: '10px',
+            }}
+          >
+            <MessageCard
+              message={message}
+              messageType={messageType}
+              setMessageType={setMessageType}
+            />
+
+            <Button raised onClick={ShareCode}>
+              Share
+            </Button>
           </Grid>
         </Grid>
       </Popover>
     </>
   );
+};
+Menu.propTypes = {
+  input: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
 };
 
 export default Menu;

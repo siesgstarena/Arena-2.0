@@ -1,34 +1,74 @@
 import React, { useState } from 'react';
-import { Body1 } from '@material/react-typography';
 import { useHistory, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
-import TextField, { Input } from '@material/react-text-field';
 import { Button } from '@material/react-button';
 import Card from '@material/react-card';
+import { useQuery } from 'react-apollo';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import { languageOptions } from '../status/options';
 import Uploading from '../submit/Uploading';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
+import AceEditorContext from '../../../../Contexts/AceEditorContext';
+import Menu from '../../../editor/menu';
+import Editor from '../../../editor';
+import languageDefaults from '../../../editor/defaults/languages';
+import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
+import Spinner from '../../../common/Spinner';
+import SomethingWentWrong from '../../../common/SomethingWentWrong';
 
 const SubmitOnProblemPage = () => {
   // initial State declaration
+  const [editorConfig, setEditorConfig] = useState({
+    theme: 'github',
+    mode: 'Java',
+    fontSize: 20,
+    showLineNumbers: true,
+    showGutter: true,
+    highlightActiveLine: true,
+    code: languageDefaults.Java,
+    readOnly: false,
+    showPrintMargin: false,
+    tabSize: 4,
+    wrapEnabled: false,
+    enableBasicAutocompletion: true,
+    enableLiveAutocompletion: true,
+    enableSnippets: true,
+  });
   const history = useHistory();
-  const { contestId, problemId } = useParams();
-  const [uploadMethod, setUploadMethod] = useState('file');
-  const [lang, setLang] = useState('None');
+  const { contestId } = useParams();
+  const [uploadMethod, setUploadMethod] = useState('code');
   const [file, setFile] = useState({});
-  const [code, setCode] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  const [lang, setLang] = useState(editorConfig.mode);
+  const [curProblem, setcurProblem] = useState('None');
 
+  const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
+
+  let problems = [];
+  let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
+  const { loading, error, data } = useQuery(GET_CONTEST_DASHBOARD, {
+    variables: { code: contestId },
+  });
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data.dashboard) {
+    problems = data.dashboard;
+
+    const incomingProblemOptions = problems.map((problemOption) => ({
+      value: problemOption.problemDetails.code,
+      label: `${problemOption.problemDetails.code}`,
+    }));
+    problemOptions = [...problemOptions, ...incomingProblemOptions];
+  }
   const submitFile = () => {
     const formData = new FormData();
     formData.append('language', lang);
     formData.append('file', file);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit/${problemId}`, {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit/${curProblem}`, {
       method: 'POST',
       credentials: 'include',
       body: formData,
@@ -43,6 +83,7 @@ const SubmitOnProblemPage = () => {
           history.push({
             pathname: `/contests/${contestId}/my`,
           });
+          setIsUploading(false);
         } else {
           setIsUploading(false);
           setMessageType('error');
@@ -59,8 +100,8 @@ const SubmitOnProblemPage = () => {
   const submitCode = () => {
     const formData = new FormData();
     formData.append('language', lang);
-    formData.append('code', code);
-    formData.append('problemCode', problemId);
+    formData.append('code', editorConfig.code);
+    formData.append('problemCode', curProblem);
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/contest/${contestId}/submit`, {
       method: 'POST',
       credentials: 'include',
@@ -76,6 +117,7 @@ const SubmitOnProblemPage = () => {
           history.push({
             pathname: `/contests/${contestId}/my`,
           });
+          setIsUploading(false);
         } else {
           setIsUploading(false);
           setMessageType('error');
@@ -89,12 +131,23 @@ const SubmitOnProblemPage = () => {
       });
   };
   // functions to update state
-  const onLangChange = (_, item) => setLang(item.getAttribute('data-value'));
+  const onLangChange = (_, item) => {
+    setLang(item.getAttribute('data-value'));
+    setEditorConfig({
+      ...editorConfig,
+      mode: item.getAttribute('data-value'),
+      code: languageDefaults[item.getAttribute('data-value')],
+    });
+  };
 
   const onMethodChange = (_, item) => setUploadMethod(item.getAttribute('data-value'));
   // function to check validation
   const validationCheck = () => {
-    if (lang !== 'None' && (file.length !== 0 || code.length !== 0)) {
+    if (
+      lang !== 'None' &&
+      curProblem !== 'None' &&
+      (file.length !== 0 || editorConfig.code.length !== 0)
+    ) {
       setIsUploading(true);
       if (uploadMethod === 'file') {
         submitFile();
@@ -103,54 +156,72 @@ const SubmitOnProblemPage = () => {
       }
     } else {
       setMessageType('error');
-      setMessage('Please select appropriate Language/Upload method and Upload valid file');
+      setMessage('Please select appropriate Language/Upload/Problem method and Upload valid file');
     }
   };
 
   // function to render loading page / the submit page
   if (isUploading) {
     return (
-      <Card className="pa3 mt3">
+      <Card className="mt3">
         <Uploading />
       </Card>
     );
   }
   return (
-    <Card className="pa3 mt3">
-      {/* form to get details of language, upload option and answer */}
-      <Body1 className="tc mt1 mb1">Submit Solution</Body1>
-      <hr className="mid-gray w-100 h-100" />
+    <AceEditorContext.Provider value={{ editorConfig, setEditorConfig }}>
       <div className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
       </div>
-      <div className="" style={{ overflow: 'hidden' }}>
-        <Select
-          notchedOutlineClassName="pt2 pb2"
-          required
-          label="Language"
-          enhanced
-          outlined
-          className="w-100"
-          value={lang}
-          options={languageOptions}
-          onEnhancedChange={onLangChange}
-        />
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
+        }}
+      >
+        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
+          <Select
+            notchedOutlineClassName="pt2 pb2"
+            required
+            label="Language"
+            enhanced
+            outlined
+            value={lang}
+            options={languageOptions}
+            onEnhancedChange={onLangChange}
+          />
+        </div>
+        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
+          <Select
+            required
+            notchedOutlineClassName="pt2 pb2"
+            label="Type"
+            enhanced
+            outlined
+            value={uploadMethod}
+            onEnhancedChange={onMethodChange}
+          >
+            <Option value="file">File</Option>
+            <Option value="code">Code</Option>
+          </Select>
+        </div>
+        <div className="" style={{ overflow: 'hidden' }}>
+          <Select
+            notchedOutlineClassName="pt2 pb2"
+            required
+            label="Problem"
+            enhanced
+            outlined
+            value={curProblem}
+            options={problemOptions}
+            onEnhancedChange={onProblemChange}
+          />
+        </div>
+        {uploadMethod === 'code' && <Menu />}
       </div>
-      <div className="" style={{ overflow: 'hidden' }}>
-        <Select
-          required
-          notchedOutlineClassName="pt2 pb2"
-          label="Upload Type"
-          enhanced
-          outlined
-          className="w-100"
-          value={uploadMethod}
-          onEnhancedChange={onMethodChange}
-        >
-          <Option value="file">Upload Source File</Option>
-          <Option value="code">Insert Source Code</Option>
-        </Select>
-      </div>
+
       {uploadMethod === 'file' ? (
         <div className="mt2">
           <FileUpload
@@ -161,27 +232,29 @@ const SubmitOnProblemPage = () => {
           />
         </div>
       ) : (
-        <div className=" mt2 mb1">
-          <TextField label="Enter your code here" className="text-area-width-100" textarea required>
-            <Input
-              className=""
-              rows="10"
-              value={code}
-              onChange={(e) => setCode(e.currentTarget.value)}
-            />
-          </TextField>
-        </div>
+        <Editor />
       )}
       <Button
         raised
-        className="mt1"
+        // className="mt1"
         onClick={() => {
           validationCheck();
         }}
       >
         Submit
       </Button>
-    </Card>
+      {uploadMethod === 'code' && (
+        <Button
+          raised
+          style={{ marginLeft: '1rem' }}
+          onClick={() => {
+            console.log(editorConfig.code);
+          }}
+        >
+          Run
+        </Button>
+      )}
+    </AceEditorContext.Provider>
   );
 };
 

@@ -1,5 +1,5 @@
 export const languageOptions = [
-  { value: 'None', label: 'Choose Language' },
+  // { value: 'None', label: 'Choose Language' },
   { value: 'C', label: 'C' },
   { value: 'C++', label: 'C++' },
   { value: 'Python', label: 'Python 2' },

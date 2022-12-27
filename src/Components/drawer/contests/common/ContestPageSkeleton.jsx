@@ -1,47 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { Cell, Grid, Row } from '@material/react-layout-grid';
+import { Cell } from '@material/react-layout-grid';
+import Split from 'react-split';
 import ContestDetails from './ContestDetails';
 import Announcements from './Announcements';
 import Submit from './SubmitOnProblemPage';
 import ContestTabBar from './ContestTabBar';
+import './Split.css';
 
 const ContestPageSkeleton = ({ children, contestDetails }) => {
   const { name, description, endsAt, announcement, startsAt } = contestDetails;
 
   return (
-    <Grid className="">
-      <Row>
-        <Cell desktopColumns={9} tabletColumns={8}>
-          <Cell>
-            <Route path="/contests/:contestId" exact component={ContestTabBar} />
-            <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
-            <Route path="/contests/:contestId/my" exact component={ContestTabBar} />
-            <Route path="/contests/:contestId/scoreboard" exact component={ContestTabBar} />
-            <Route path="/contests/:contestId/submit" exact component={ContestTabBar} />
-            <Route path="/contests/:contestId/change" exact component={ContestTabBar} />
-            {children}
-          </Cell>
+    <Split
+      className="split"
+      dragInterval={1}
+      direction="horizontal"
+      cursor="col-resize"
+      sizes={[35, 65]}
+      minSize={[50, 50]}
+    >
+      <Cell desktopColumns={9} tabletColumns={8}>
+        <Cell>
+          <Route path="/contests/:contestId" exact component={ContestTabBar} />
+          <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
+          <Route path="/contests/:contestId/my" exact component={ContestTabBar} />
+          <Route path="/contests/:contestId/scoreboard" exact component={ContestTabBar} />
+          {/* <Route path="/contests/:contestId/submit" exact component={ContestTabBar} /> */}
+          <Route path="/contests/:contestId/change" exact component={ContestTabBar} />
+          <Route path="/contests/:contestId/problem/:problemId" exact component={ContestTabBar} />
+          {children}
         </Cell>
-        <Cell desktopColumns={3} tabletColumns={8}>
-          <Cell>
-            <ContestDetails
-              name={name}
-              description={description}
-              endsAt={endsAt}
-              startsAt={startsAt}
-            />
-          </Cell>
-          <Cell>
-            <Announcements announcement={announcement} />
-          </Cell>
-          <Cell>
-            <Route path="/contests/:contestId/problem/:problemId" exact component={Submit} />
-          </Cell>
+        <Cell>
+          <ContestDetails
+            name={name}
+            description={description}
+            endsAt={endsAt}
+            startsAt={startsAt}
+          />
         </Cell>
-      </Row>
-    </Grid>
+        <Cell>
+          <Announcements announcement={announcement} />
+        </Cell>
+      </Cell>
+      <Cell>
+        <Submit />
+      </Cell>
+    </Split>
   );
 };
 

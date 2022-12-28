@@ -92,7 +92,7 @@ const SuperuserBlogs = lazy(() => import('./Components/superuser/blogs/index'));
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-
+const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);
   // running the query to the server to check if the user is already logged in or not
@@ -205,6 +205,7 @@ const Routes = () => {
                   <Route path="/privacy" exact component={Privacy} />
                   <Route path="/search" exact component={Search} />
                   <Route path="/branding" exact component={BrandingGuidelines} />
+                  <Route path="/code" exact component={Editor} />
                   <PrivateRoute
                     path="/admin/:contestId/announcements"
                     exact

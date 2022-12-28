@@ -67,12 +67,7 @@ const Menu = ({ input, lang }) => {
       {/* <FormGroup> */}
 
       {/* </FormGroup> */}
-      <Button
-        raised
-        aria-describedby={id}
-        onClick={handleClick}
-        style={{ marginRight: '1rem', marginLeft: '1rem', marginTop: '0.5rem' }}
-      >
+      <Button raised aria-describedby={id} onClick={handleClick} style={{ marginTop: '0.5rem' }}>
         <MaterialIcon icon="settings" />
       </Button>
       <Popover
@@ -195,7 +190,7 @@ const Menu = ({ input, lang }) => {
             <FormControlLabel
               control={<Switch color="primary" />}
               label="Intellisense"
-              value={editorConfig.enableLiveAutocompletion}
+              checked={editorConfig.enableLiveAutocompletion}
               onChange={(e) =>
                 setEditorConfig({
                   ...editorConfig,

@@ -19,9 +19,15 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
       direction="horizontal"
       cursor="col-resize"
       sizes={[35, 65]}
-      minSize={[50, 50]}
+      minSize={[5, 5]}
     >
-      <Cell desktopColumns={9} tabletColumns={8}>
+      <Cell
+        desktopColumns={9}
+        tabletColumns={8}
+        style={{
+          overflow: 'hidden',
+        }}
+      >
         <Cell>
           <Route path="/contests/:contestId" exact component={ContestTabBar} />
           <Route path="/contests/:contestId/status" exact component={ContestTabBar} />

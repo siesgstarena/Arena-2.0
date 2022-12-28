@@ -34,7 +34,7 @@ const SubmitOnProblemPage = () => {
     tabSize: 4,
     wrapEnabled: false,
     enableBasicAutocompletion: true,
-    enableLiveAutocompletion: true,
+    enableLiveAutocompletion: false,
     enableSnippets: true,
   });
   const history = useHistory();
@@ -244,7 +244,7 @@ const SubmitOnProblemPage = () => {
             <Option value="code">Code</Option>
           </Select>
         </div>
-        <div className="" style={{ overflow: 'hidden' }}>
+        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
           <Select
             notchedOutlineClassName="pt2 pb2"
             required

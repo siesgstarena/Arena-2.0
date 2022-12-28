@@ -1,13 +1,17 @@
 import { Button, Grid, Paper, TextField } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-apollo';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 import { languageOptions } from '../../drawer/contests/status/options';
 import languageDefaults from '../defaults/languages';
 import Editor from '../index';
 import Menu from '../menu';
 import MessageCard from '../../common/MessageCard';
+import { GET_EDITOR_SHARE } from '../../../graphql/queries';
+import Spinner from '../../common/Spinner';
+import SomethingWentWrong from '../../common/SomethingWentWrong';
 
 const Index = () => {
   const [editorConfig, setEditorConfig] = useState({
@@ -26,11 +30,37 @@ const Index = () => {
     enableLiveAutocompletion: false,
     enableSnippets: true,
   });
-  const [lang, setLang] = useState(editorConfig.mode);
-  const [input, setInput] = useState('');
+  let language = editorConfig.mode;
+  let inputData = '';
+  let codeData = editorConfig.code;
+  const [lang, setLang] = useState(language);
+  const [input, setInput] = useState(inputData);
   const [output, setOutput] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  const { search } = window.location;
+  const params = new URLSearchParams(search);
+  const share = params.get('share');
+  const { loading, error, data } = useQuery(GET_EDITOR_SHARE, {
+    variables: { sharecode: share || '1' },
+  });
+  useEffect(() => {
+    setEditorConfig({
+      ...editorConfig,
+      mode: language,
+      code: codeData,
+    });
+    setLang(language);
+    setInput(inputData);
+  }, [data]);
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
+  if (data && data.editor && data.editor.code && data.editor.language) {
+    // eslint-disable-next-line prefer-destructuring
+    language = data.editor.language;
+    inputData = data.editor.input;
+    codeData = data.editor.code;
+  }
   const runCode = () => {
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
       method: 'POST',
@@ -78,7 +108,7 @@ const Index = () => {
           marginTop: '20px',
         }}
       >
-        <Grid container spacing={3} direction={{ xs: 'column', md: 'row' }} alignItems="stretch">
+        <Grid container spacing={3} alignItems="stretch">
           <Grid item md={8} xs={12}>
             <Row
               style={{

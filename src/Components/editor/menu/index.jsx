@@ -59,8 +59,8 @@ const Menu = ({ input, lang }) => {
       return;
     }
     setMessageType('success');
-    const url = window.location.host;
-    setMessage(`${url}/share/${data.saveCode.editor.sharecode}`);
+    const url = window.location.origin;
+    setMessage(`${url}/code?share=${data.saveCode.editor.sharecode}`);
   };
   return (
     <>

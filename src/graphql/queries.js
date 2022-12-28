@@ -23,11 +23,9 @@ export const GET_IS_USER_ADMIN = gql`
 export const GET_EDITOR_SHARE = gql`
   query editor($sharecode: String!) {
     editor(sharecode: $sharecode) {
-      editor {
-        code
-        language
-        input
-      }
+      code
+      language
+      input
     }
   }
 `;

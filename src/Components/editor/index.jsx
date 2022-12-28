@@ -20,6 +20,7 @@ const Editor = () => {
       tabSize={editorConfig.tabSize}
       width="100%"
       height="500px"
+      showPrintMargin={false}
       fontSize={editorConfig.fontSize}
       enableBasicAutocompletion={editorConfig.enableBasicAutocompletion}
       enableSnippets={editorConfig.enableSnippets}

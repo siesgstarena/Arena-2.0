@@ -163,7 +163,7 @@ const Index = () => {
               <Grid item xs={12}>
                 <TextField
                   id="outlined-multiline-static"
-                  label="Input"
+                  label="Output"
                   multiline
                   minRows={10}
                   disabled

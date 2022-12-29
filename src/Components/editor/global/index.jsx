@@ -2,7 +2,7 @@ import { Button, Grid, Paper, TextField } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-apollo';
+import { useLazyQuery } from 'react-apollo';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 import { languageOptions } from '../../drawer/contests/status/options';
 import languageDefaults from '../defaults/languages';
@@ -10,8 +10,6 @@ import Editor from '../index';
 import Menu from '../menu';
 import MessageCard from '../../common/MessageCard';
 import { GET_EDITOR_SHARE } from '../../../graphql/queries';
-import Spinner from '../../common/Spinner';
-import SomethingWentWrong from '../../common/SomethingWentWrong';
 
 const Index = () => {
   const [editorConfig, setEditorConfig] = useState({
@@ -30,37 +28,34 @@ const Index = () => {
     enableLiveAutocompletion: false,
     enableSnippets: true,
   });
-  let language = editorConfig.mode;
-  let inputData = '';
-  let codeData = editorConfig.code;
-  const [lang, setLang] = useState(language);
-  const [input, setInput] = useState(inputData);
+  const [lang, setLang] = useState(editorConfig.mode);
+  const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const { search } = window.location;
   const params = new URLSearchParams(search);
   const share = params.get('share');
-  const { loading, error, data } = useQuery(GET_EDITOR_SHARE, {
-    variables: { sharecode: share || '1' },
-  });
+  const [executeQuery, { data }] = useLazyQuery(GET_EDITOR_SHARE);
   useEffect(() => {
-    setEditorConfig({
-      ...editorConfig,
-      mode: language,
-      code: codeData,
-    });
-    setLang(language);
-    setInput(inputData);
-  }, [data]);
-  if (loading) return <Spinner />;
-  if (error) return <SomethingWentWrong message="An error has been encountered." />;
-  if (data && data.editor && data.editor.code && data.editor.language) {
-    // eslint-disable-next-line prefer-destructuring
-    language = data.editor.language;
-    inputData = data.editor.input;
-    codeData = data.editor.code;
-  }
+    if (share) {
+      executeQuery({ variables: { sharecode: share } });
+    }
+    if (data && data.editor && data.editor.code && data.editor.language) {
+      setEditorConfig((prev) => {
+        return {
+          ...prev,
+          code: data.editor.code,
+          mode: data.editor.language,
+        };
+      });
+      setLang(data.editor.language);
+      if (data.editor.input) {
+        setInput(data.editor.input);
+      }
+    }
+  }, [data, executeQuery, share]);
+
   const runCode = () => {
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
       method: 'POST',
@@ -163,19 +158,6 @@ const Index = () => {
               </Cell>
             </Grid>
           </Grid>
-          {/* <Grid item xs={12} md={8}>
-            <Row>
-              <Cell>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: '10px', marginBottom: '10px' }}
-                >
-                  Run
-                </Button>
-              </Cell>
-            </Row>
-          </Grid> */}
           <Grid item md={4} xs={12}>
             <Grid container spacing={3}>
               <Grid item xs={12}>

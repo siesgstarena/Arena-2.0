@@ -448,3 +448,23 @@ export const REPLY_TO_FEEDBACK = gql`
     }
   }
 `;
+
+export const MAKE_SUPERUSER = gql`
+  mutation MakeSuperuser($username: String!) {
+    makeSuperuser(username: $username) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const REMOVE_SUPERUSER = gql`
+  mutation RemoveSuperuser($username: String!) {
+    removeSuperuser(username: $username) {
+      code
+      success
+      message
+    }
+  }
+`;

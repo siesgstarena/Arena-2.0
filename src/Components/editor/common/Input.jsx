@@ -3,32 +3,14 @@ import { Button } from '@material/react-button';
 import { Cell, Row } from '@material/react-layout-grid';
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import '../Style.css';
 
 const Input = ({ input, setInput }) => {
   return (
-    <Card
-      style={{
-        width: '100%',
-      }}
-    >
-      <Row
-        style={{
-          backgroundColor: '#F7F7F7',
-          display: 'flex',
-          justifyContent: 'space-between',
-          padding: '10px 5px',
-          marginBottom: '5px',
-        }}
-      >
+    <Card className="w-100">
+      <Row className="input-row">
         <Cell>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="h2"
-            style={{
-              color: '#2F2F2F',
-            }}
-          >
+          <Typography gutterBottom variant="h5" component="h2" className="color-grey">
             Input
           </Typography>
         </Cell>
@@ -45,12 +27,7 @@ const Input = ({ input, setInput }) => {
           minRows={6}
           value={input}
           variant="outlined"
-          style={{
-            width: '100%',
-            overflowY: 'scroll',
-            height: '160px',
-            resize: 'none',
-          }}
+          className="input-textfield"
           onChange={(e) => setInput(e.target.value)}
         />
       </CardActions>

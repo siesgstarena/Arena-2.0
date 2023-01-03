@@ -1,4 +1,4 @@
-import { Grid, Paper } from '@material-ui/core';
+import { Box, Grid, Paper } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
@@ -13,24 +13,11 @@ import { GET_EDITOR_SHARE } from '../../../graphql/queries';
 import Run from '../common/Run';
 import Input from '../common/Input';
 import Output from '../common/Output';
+import '../Style.css';
+import initialState from '../defaults/initialState';
 
 const Index = () => {
-  const [editorConfig, setEditorConfig] = useState({
-    theme: 'github',
-    mode: 'Java',
-    fontSize: 20,
-    showLineNumbers: true,
-    showGutter: true,
-    highlightActiveLine: true,
-    code: languageDefaults.Java,
-    readOnly: false,
-    showPrintMargin: false,
-    tabSize: 4,
-    wrapEnabled: false,
-    enableBasicAutocompletion: true,
-    enableLiveAutocompletion: false,
-    enableSnippets: true,
-  });
+  const [editorConfig, setEditorConfig] = useState(initialState({ code: languageDefaults.Java }));
   const [lang, setLang] = useState(editorConfig.mode);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -80,24 +67,13 @@ const Index = () => {
 
   return (
     <AceEditorContext.Provider value={{ editorConfig, setEditorConfig }}>
-      <div className="w-100">
+      <Box className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
-      </div>
-      <Paper
-        style={{
-          marginLeft: '20px',
-          marginRight: '20px',
-          marginTop: '20px',
-        }}
-      >
+      </Box>
+      <Paper className="global-container">
         <Grid container spacing={3} alignItems="stretch">
           <Grid item md={8} xs={12}>
-            <Row
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
+            <Row className="global-row">
               <Cell>
                 <Select
                   required
@@ -120,20 +96,11 @@ const Index = () => {
             </Row>
           </Grid>
           <Grid item xs={12} md={8}>
-            <Grid style={{ height: '100%' }}>
-              <div
-                style={{
-                  borderRight: '1px solid black',
-                }}
-              >
+            <Grid className="h-100">
+              <Box className="global-border">
                 <Editor />
-              </div>
-              <Cell
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                }}
-              >
+              </Box>
+              <Cell className="global-cell">
                 <Run
                   input={input}
                   lang={lang}

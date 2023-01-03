@@ -20,6 +20,7 @@ import themes from '../defaults/themes';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 import { SAVE_CODE } from '../../../graphql/mutations';
 import MessageCard from '../../common/MessageCard';
+import '../Style.css';
 
 ace.config.set('basePath', '/assets/ui/');
 ace.config.set('modePath', '');
@@ -80,19 +81,8 @@ const Menu = ({ input, lang }) => {
           horizontal: 'left',
         }}
       >
-        <Grid
-          cellSpacing={2}
-          style={{
-            padding: '10px',
-          }}
-        >
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+        <Grid cellSpacing={2} className="p-10">
+          <Grid xs={6} md={8} className="p-10">
             <InputLabel id="select-theme-label">Select Theme</InputLabel>
             <Select
               id="select-theme"
@@ -128,13 +118,7 @@ const Menu = ({ input, lang }) => {
               })}
             </Select>
           </Grid>
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+          <Grid xs={6} md={8} className="p-10">
             <TextField
               value={editorConfig.fontSize}
               type="number"
@@ -154,13 +138,7 @@ const Menu = ({ input, lang }) => {
               required
             />
           </Grid>
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+          <Grid xs={6} md={8} className="p-10">
             <TextField
               type="number"
               label="Tab Size"
@@ -180,13 +158,7 @@ const Menu = ({ input, lang }) => {
               }}
             />
           </Grid>
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+          <Grid xs={6} md={8} className="p-10">
             <FormControlLabel
               control={<Switch color="primary" />}
               label="Intellisense"
@@ -199,13 +171,7 @@ const Menu = ({ input, lang }) => {
               }
             />
           </Grid>
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+          <Grid xs={6} md={8} className="p-10">
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox checked={editorConfig.wrapEnabled} />}
@@ -219,13 +185,7 @@ const Menu = ({ input, lang }) => {
               />
             </FormGroup>
           </Grid>
-          <Grid
-            xs={6}
-            md={8}
-            style={{
-              padding: '10px',
-            }}
-          >
+          <Grid xs={6} md={8} className="p-10">
             <MessageCard
               message={message}
               messageType={messageType}

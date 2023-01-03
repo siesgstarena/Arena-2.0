@@ -1,0 +1,35 @@
+.menu-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.basic-option {
+  overflow: hidden;
+  margin-right: 1rem;
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.input-card-row {
+  width: 40%;
+}
+.input-output-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+@media (max-width: 768px) {
+  .input-card-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}

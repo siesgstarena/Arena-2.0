@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-
+import '../Style.css';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
@@ -48,7 +48,7 @@ const Run = ({ loading, setLoading, lang, input, setMessageType, setMessage, set
     <Button
       variant="contained"
       color="primary"
-      style={{ marginTop: '10px', marginBottom: '10px' }}
+      className="run-btn"
       onClick={validateRun}
       disabled={loading}
     >

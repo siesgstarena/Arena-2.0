@@ -4,8 +4,8 @@ import Select, { Option } from '@material/react-select';
 import { Button } from '@material/react-button';
 import { useQuery } from 'react-apollo';
 import { Cell, Row } from '@material/react-layout-grid';
-
 import PropTypes from 'prop-types';
+import { Box } from '@material-ui/core';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import { languageOptions } from '../status/options';
@@ -18,29 +18,15 @@ import languageDefaults from '../../../editor/defaults/languages';
 import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import Spinner from '../../../common/Spinner';
 import SomethingWentWrong from '../../../common/SomethingWentWrong';
-import useResizeWindow from '../../../../customHooks/useResizeWindow';
 import Run from '../../../editor/common/Run';
 import Input from '../../../editor/common/Input';
 import Output from '../../../editor/common/Output';
+import './Style.css';
+import initialState from '../../../editor/defaults/initialState';
 
 const SubmitOnProblemPage = ({ setEditorOpen }) => {
   // initial State declaration
-  const [editorConfig, setEditorConfig] = useState({
-    theme: 'github',
-    mode: 'Java',
-    fontSize: 20,
-    showLineNumbers: true,
-    showGutter: true,
-    highlightActiveLine: true,
-    code: languageDefaults.Java,
-    readOnly: false,
-    showPrintMargin: false,
-    tabSize: 4,
-    wrapEnabled: false,
-    enableBasicAutocompletion: true,
-    enableLiveAutocompletion: false,
-    enableSnippets: true,
-  });
+  const [editorConfig, setEditorConfig] = useState(initialState({ code: languageDefaults.Java }));
   const history = useHistory();
   const { contestId } = useParams();
   const [uploadMethod, setUploadMethod] = useState('code');
@@ -54,8 +40,6 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [loadingRun, setLoading] = useState(false);
-  const width = useResizeWindow();
-  const isMobile = width <= 768;
   const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
   useEffect(() => {
     const previousCode = localStorage.getItem(curProblem === 'None' ? contestId : curProblem);
@@ -202,18 +186,11 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
   }
   return (
     <AceEditorContext.Provider value={{ editorConfig, setEditorConfig }}>
-      <div className="w-100">
+      <Box className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
+      </Box>
+      <Box className="menu-row">
+        <Box className="basic-option">
           <Select
             notchedOutlineClassName="pt2 pb2"
             required
@@ -224,8 +201,8 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             options={languageOptions}
             onEnhancedChange={onLangChange}
           />
-        </div>
-        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
+        </Box>
+        <Box className="basic-option">
           <Select
             required
             notchedOutlineClassName="pt2 pb2"
@@ -238,8 +215,8 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             <Option value="file">File</Option>
             <Option value="code">Code</Option>
           </Select>
-        </div>
-        <div className="" style={{ overflow: 'hidden', marginRight: '1rem' }}>
+        </Box>
+        <Box className="basic-option">
           <Select
             notchedOutlineClassName="pt2 pb2"
             required
@@ -250,26 +227,25 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             options={problemOptions}
             onEnhancedChange={onProblemChange}
           />
-        </div>
+        </Box>
         {uploadMethod === 'code' && <Menu input={input} lang={lang} />}
-      </div>
+      </Box>
 
       {uploadMethod === 'file' ? (
-        <div className="mt2">
+        <Box className="mt2">
           <FileUpload
             id="file"
             label="Upload Solution"
             file={file}
             onChangeFunction={(e) => setFile(e.currentTarget.files[0])}
           />
-        </div>
+        </Box>
       ) : (
         <Editor />
       )}
       <Button
         raised
-        // className="mt1"
-        style={{ marginTop: '1rem', marginBottom: '1rem', marginRight: '1rem' }}
+        className="submit-btn"
         onClick={() => {
           validationCheck();
         }}
@@ -289,40 +265,11 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
         />
       )}
       {uploadMethod === 'code' && (
-        <Row
-          style={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}
-        >
-          <Cell
-            style={
-              isMobile
-                ? {
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                  }
-                : { width: '40%' }
-            }
-          >
+        <Row className="input-output-row">
+          <Cell className="input-card-row">
             <Input input={input} setInput={setInput} />
           </Cell>
-          <Cell
-            style={
-              isMobile
-                ? {
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                  }
-                : { width: '40%' }
-            }
-          >
+          <Cell className="input-card-row">
             <Output loading={loading} output={output} setOutput={setOutput} />
           </Cell>
         </Row>

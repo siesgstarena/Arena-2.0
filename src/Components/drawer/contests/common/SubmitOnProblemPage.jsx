@@ -40,7 +40,6 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [loadingRun, setLoading] = useState(false);
-  const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
   useEffect(() => {
     const previousCode = localStorage.getItem(curProblem === 'None' ? contestId : curProblem);
     if (previousCode !== null) {
@@ -150,17 +149,6 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
         setMessage('An unexpected error has been encountered');
       });
   };
-  // functions to update state
-  const onLangChange = (_, item) => {
-    setLang(item.getAttribute('data-value'));
-    setEditorConfig({
-      ...editorConfig,
-      mode: item.getAttribute('data-value'),
-      code: languageDefaults[item.getAttribute('data-value')],
-    });
-  };
-
-  const onMethodChange = (_, item) => setUploadMethod(item.getAttribute('data-value'));
   // function to check validation
   const validationCheck = () => {
     if (
@@ -195,11 +183,17 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             notchedOutlineClassName="pt2 pb2"
             required
             label="Language"
-            enhanced
             outlined
             value={lang}
             options={languageOptions}
-            onEnhancedChange={onLangChange}
+            onChange={(e) => {
+              setLang(e.target.value);
+              setEditorConfig({
+                ...editorConfig,
+                mode: e.target.value,
+                code: languageDefaults[e.target.value],
+              });
+            }}
           />
         </Box>
         <Box className="basic-option">
@@ -207,10 +201,11 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             required
             notchedOutlineClassName="pt2 pb2"
             label="Type"
-            enhanced
             outlined
             value={uploadMethod}
-            onEnhancedChange={onMethodChange}
+            onChange={(e) => {
+              setUploadMethod(e.target.value);
+            }}
           >
             <Option value="file">File</Option>
             <Option value="code">Code</Option>
@@ -221,11 +216,10 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             notchedOutlineClassName="pt2 pb2"
             required
             label="Problem"
-            enhanced
             outlined
             value={curProblem}
             options={problemOptions}
-            onEnhancedChange={onProblemChange}
+            onChange={(e) => setcurProblem(e.target.value)}
           />
         </Box>
         {uploadMethod === 'code' && <Menu input={input} lang={lang} />}
@@ -270,7 +264,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             <Input input={input} setInput={setInput} />
           </Cell>
           <Cell className="input-card-row">
-            <Output loading={loading} output={output} setOutput={setOutput} />
+            <Output loading={loadingRun} output={output} setOutput={setOutput} />
           </Cell>
         </Row>
       )}

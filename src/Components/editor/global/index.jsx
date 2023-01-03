@@ -1,4 +1,13 @@
-import { Button, Grid, Paper, TextField } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CircularProgress,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
@@ -31,6 +40,7 @@ const Index = () => {
   const [lang, setLang] = useState(editorConfig.mode);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
   const { search } = window.location;
@@ -74,6 +84,7 @@ const Index = () => {
     );
   }, [editorConfig.code, editorConfig.mode]);
   const runCode = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
       method: 'POST',
       credentials: 'include',
@@ -88,6 +99,7 @@ const Index = () => {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
+        setLoading(false);
         if (jsonResponse && jsonResponse.status === false) {
           setMessageType('error');
           setMessage(jsonResponse.message);
@@ -96,6 +108,7 @@ const Index = () => {
         }
       })
       .catch(() => {
+        setLoading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
@@ -169,6 +182,7 @@ const Index = () => {
                   color="primary"
                   style={{ marginTop: '10px', marginBottom: '10px' }}
                   onClick={validateRun}
+                  disabled={loading}
                 >
                   Run
                 </Button>
@@ -178,28 +192,101 @@ const Index = () => {
           <Grid item md={4} xs={12}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Input"
-                  multiline
-                  minRows={10}
-                  value={input}
-                  variant="outlined"
-                  style={{ width: '100%' }}
-                  onChange={(e) => setInput(e.target.value)}
-                />
+                <Card>
+                  <Row
+                    style={{
+                      backgroundColor: '#F7F7F7',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '10px 5px',
+                      marginBottom: '5px',
+                    }}
+                  >
+                    <Cell>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                        style={{
+                          color: '#2F2F2F',
+                        }}
+                      >
+                        Input
+                      </Typography>
+                    </Cell>
+                    <Cell>
+                      <Button variant="outlined" color="primary" onClick={() => setInput('')}>
+                        Clear
+                      </Button>
+                    </Cell>
+                  </Row>
+                  <CardActions>
+                    <TextField
+                      id="outlined-multiline-static"
+                      multiline
+                      minRows={6}
+                      value={input}
+                      variant="outlined"
+                      style={{
+                        width: '100%',
+                        overflowY: 'scroll',
+                        height: '160px',
+                        resize: 'none',
+                      }}
+                      onChange={(e) => setInput(e.target.value)}
+                    />
+                  </CardActions>
+                </Card>
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Output"
-                  multiline
-                  minRows={10}
-                  disabled
-                  value={output}
-                  variant="outlined"
-                  style={{ width: '100%' }}
-                />
+                <Card>
+                  <Row
+                    style={{
+                      backgroundColor: '#F7F7F7',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '10px 5px',
+                    }}
+                  >
+                    <Cell>
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="h2"
+                        style={{ color: '#2F2F2F' }}
+                      >
+                        Output
+                      </Typography>
+                    </Cell>
+                    {/* spinner */}
+                    {loading && (
+                      <Cell>
+                        <CircularProgress color="primary" size="2rem" />
+                      </Cell>
+                    )}
+                    <Cell>
+                      <Button variant="outlined" color="primary" onClick={() => setOutput('')}>
+                        Clear
+                      </Button>
+                    </Cell>
+                  </Row>
+                  <CardActions>
+                    <TextField
+                      id="outlined-multiline-static"
+                      multiline
+                      minRows={6}
+                      disabled
+                      value={output}
+                      variant="outlined"
+                      style={{
+                        width: '100%',
+                        overflowY: 'scroll',
+                        height: '160px',
+                        resize: 'none',
+                      }}
+                    />
+                  </CardActions>
+                </Card>
               </Grid>
             </Grid>
           </Grid>

@@ -68,7 +68,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
       )}
       {(!isMobile || isEditorOpen) && (
         <Cell>
-          <Submit />
+          <Submit setEditorOpen={setEditorOpen} />
         </Cell>
       )}
     </React.Fragment>

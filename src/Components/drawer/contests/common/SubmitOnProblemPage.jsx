@@ -5,8 +5,9 @@ import { Button } from '@material/react-button';
 import Card from '@material/react-card';
 import { useQuery } from 'react-apollo';
 import { Cell, Row } from '@material/react-layout-grid';
-import { TextField } from '@material-ui/core';
+import { CardActions, CircularProgress, TextField, Typography } from '@material-ui/core';
 
+import PropTypes from 'prop-types';
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import { languageOptions } from '../status/options';
@@ -19,8 +20,9 @@ import languageDefaults from '../../../editor/defaults/languages';
 import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import Spinner from '../../../common/Spinner';
 import SomethingWentWrong from '../../../common/SomethingWentWrong';
+import useResizeWindow from '../../../../customHooks/useResizeWindow';
 
-const SubmitOnProblemPage = () => {
+const SubmitOnProblemPage = ({ setEditorOpen }) => {
   // initial State declaration
   const [editorConfig, setEditorConfig] = useState({
     theme: 'github',
@@ -50,6 +52,9 @@ const SubmitOnProblemPage = () => {
   const [curProblem, setcurProblem] = useState('None');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [loadingRun, setLoading] = useState(false);
+  const width = useResizeWindow();
+  const isMobile = width <= 768;
   const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
   useEffect(() => {
     const previousCode = localStorage.getItem(curProblem === 'None' ? contestId : curProblem);
@@ -107,14 +112,17 @@ const SubmitOnProblemPage = () => {
             pathname: `/contests/${contestId}/my`,
           });
           setIsUploading(false);
+          setEditorOpen(false);
         } else {
           setIsUploading(false);
+          setEditorOpen(false);
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
       })
       .catch(() => {
         setIsUploading(false);
+        setEditorOpen(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
@@ -141,14 +149,18 @@ const SubmitOnProblemPage = () => {
             pathname: `/contests/${contestId}/my`,
           });
           setIsUploading(false);
+          setEditorOpen(false);
         } else {
           setIsUploading(false);
+          setEditorOpen(false);
+
           setMessageType('error');
           setMessage(jsonResponse.data.restAPI.message);
         }
       })
       .catch(() => {
         setIsUploading(false);
+        setEditorOpen(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
@@ -183,6 +195,7 @@ const SubmitOnProblemPage = () => {
     }
   };
   const runCode = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
       method: 'POST',
       credentials: 'include',
@@ -197,6 +210,7 @@ const SubmitOnProblemPage = () => {
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
+        setLoading(false);
         if (jsonResponse && jsonResponse.status === false) {
           setMessageType('error');
           setMessage(jsonResponse.message);
@@ -205,6 +219,7 @@ const SubmitOnProblemPage = () => {
         }
       })
       .catch(() => {
+        setLoading(false);
         setMessageType('error');
         setMessage('An unexpected error has been encountered');
       });
@@ -219,11 +234,7 @@ const SubmitOnProblemPage = () => {
   };
   // function to render loading page / the submit page
   if (isUploading) {
-    return (
-      <Card className="mt3">
-        <Uploading />
-      </Card>
-    );
+    return <Uploading />;
   }
   return (
     <AceEditorContext.Provider value={{ editorConfig, setEditorConfig }}>
@@ -294,9 +305,11 @@ const SubmitOnProblemPage = () => {
       <Button
         raised
         // className="mt1"
+        style={{ marginTop: '1rem', marginBottom: '1rem' }}
         onClick={() => {
           validationCheck();
         }}
+        disabled={loadingRun}
       >
         Submit
       </Button>
@@ -307,40 +320,150 @@ const SubmitOnProblemPage = () => {
           onClick={() => {
             validateRun();
           }}
+          disabled={loadingRun}
         >
           Run
         </Button>
       )}
       {uploadMethod === 'code' && (
-        <Row style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
-          <Cell style={{ width: '40%' }}>
-            <TextField
-              id="outlined-multiline-static"
-              label="Input"
-              multiline
-              minRows={10}
-              variant="outlined"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              style={{ marginTop: '20px', width: '100%' }}
-            />
+        <Row
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+          }}
+        >
+          <Cell
+            style={
+              isMobile
+                ? {
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }
+                : { width: '40%' }
+            }
+          >
+            <Card
+              style={{
+                width: '100%',
+              }}
+            >
+              <Row
+                style={{
+                  backgroundColor: '#F7F7F7',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 5px',
+                  marginBottom: '5px',
+                }}
+              >
+                <Cell>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                    style={{
+                      color: '#2F2F2F',
+                    }}
+                  >
+                    Input
+                  </Typography>
+                </Cell>
+                <Cell>
+                  <Button outlined color="primary" onClick={() => setInput('')}>
+                    Clear
+                  </Button>
+                </Cell>
+              </Row>
+              <CardActions>
+                <TextField
+                  id="outlined-multiline-static"
+                  multiline
+                  minRows={6}
+                  variant="outlined"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  style={{
+                    marginTop: '20px',
+                    width: '100%',
+                    overflowY: 'scroll',
+                    height: '160px',
+                    resize: 'none',
+                  }}
+                />
+              </CardActions>
+            </Card>
           </Cell>
-          <Cell style={{ width: '40%' }}>
-            <TextField
-              id="outlined-multiline-static"
-              label="Output"
-              multiline
-              minRows={10}
-              variant="outlined"
-              disabled
-              value={output}
-              style={{ marginTop: '20px', width: '100%' }}
-            />
+          <Cell
+            style={
+              isMobile
+                ? {
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                  }
+                : { width: '40%' }
+            }
+          >
+            <Card
+              style={{
+                width: '100%',
+              }}
+            >
+              <Row
+                style={{
+                  backgroundColor: '#F7F7F7',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 5px',
+                }}
+              >
+                <Cell>
+                  <Typography gutterBottom variant="h5" component="h2" style={{ color: '#2F2F2F' }}>
+                    Output
+                  </Typography>
+                </Cell>
+                {/* spinner */}
+                {loadingRun && (
+                  <Cell>
+                    <CircularProgress color="primary" size="2rem" />
+                  </Cell>
+                )}
+                <Cell>
+                  <Button outlined color="primary" onClick={() => setOutput('')}>
+                    Clear
+                  </Button>
+                </Cell>
+              </Row>
+              <CardActions>
+                <TextField
+                  id="outlined-multiline-static"
+                  multiline
+                  minRows={6}
+                  variant="outlined"
+                  disabled
+                  value={output}
+                  style={{
+                    marginTop: '20px',
+                    width: '100%',
+                    overflowY: 'scroll',
+                    height: '160px',
+                    resize: 'none',
+                  }}
+                />
+              </CardActions>
+            </Card>
           </Cell>
         </Row>
       )}
     </AceEditorContext.Provider>
   );
 };
-
+SubmitOnProblemPage.propTypes = {
+  setEditorOpen: PropTypes.func,
+};
 export default SubmitOnProblemPage;

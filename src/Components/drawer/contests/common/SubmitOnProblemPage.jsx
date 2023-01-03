@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import { Button } from '@material/react-button';
@@ -6,6 +6,7 @@ import Card from '@material/react-card';
 import { useQuery } from 'react-apollo';
 import { Cell, Row } from '@material/react-layout-grid';
 import { TextField } from '@material-ui/core';
+
 import FileUpload from '../../../common/FileUpload/index';
 import MessageCard from '../../../common/MessageCard';
 import { languageOptions } from '../status/options';
@@ -50,7 +51,26 @@ const SubmitOnProblemPage = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const onProblemChange = (_, item) => setcurProblem(item.getAttribute('data-value'));
-
+  useEffect(() => {
+    const previousCode = localStorage.getItem(curProblem === 'None' ? contestId : curProblem);
+    if (previousCode !== null) {
+      const { code, language } = JSON.parse(previousCode);
+      setEditorConfig({ ...editorConfig, code, mode: language });
+      setLang(language);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curProblem]);
+  useEffect(() => {
+    localStorage.setItem(
+      curProblem === 'None' ? contestId : curProblem,
+      JSON.stringify({
+        code: editorConfig.code,
+        language: editorConfig.mode,
+        problem: curProblem,
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [curProblem, editorConfig.code, editorConfig.mode]);
   let problems = [];
   let problemOptions = [{ value: 'None', label: 'Choose Problem' }];
   const { loading, error, data } = useQuery(GET_CONTEST_DASHBOARD, {

@@ -55,7 +55,24 @@ const Index = () => {
       }
     }
   }, [data, executeQuery, share]);
-
+  useEffect(() => {
+    const previousCode = localStorage.getItem('editorCode');
+    if (previousCode !== null) {
+      const { code, language } = JSON.parse(previousCode);
+      setEditorConfig({ ...editorConfig, code, mode: language });
+      setLang(language);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    localStorage.setItem(
+      'editorCode',
+      JSON.stringify({
+        code: editorConfig.code,
+        language: editorConfig.mode,
+      })
+    );
+  }, [editorConfig.code, editorConfig.mode]);
   const runCode = () => {
     fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
       method: 'POST',

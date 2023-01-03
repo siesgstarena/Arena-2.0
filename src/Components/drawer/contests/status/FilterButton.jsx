@@ -57,8 +57,8 @@ const FilterButton = ({
         style={{
           backgroundColor: '#6200EE',
           position: 'fixed',
-          bottom: '2rem',
-          right: '2rem',
+          bottom: '0.5rem',
+          right: '0.5rem',
           zIndex: 100,
         }}
         icon={<MaterialIcon icon="filter_list" />}

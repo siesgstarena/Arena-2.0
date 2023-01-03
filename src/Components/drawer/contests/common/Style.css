@@ -7,7 +7,7 @@
 
 .basic-option {
   overflow: hidden;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 
 .submit-btn {
@@ -15,9 +15,14 @@
   margin-bottom: 1rem;
   margin-right: 1rem;
 }
-
+.mw-120 {
+  min-width: 120px;
+}
 .input-card-row {
   width: 40%;
+}
+.o-hidden {
+  overflow: hidden;
 }
 .input-output-row {
   width: 100%;
@@ -25,11 +30,31 @@
   justify-content: space-between;
   flex-direction: row;
 }
+.editor-btn-fab {
+  background-color: #6200ee;
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+}
 @media (max-width: 768px) {
   .input-card-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+  }
+}
+
+@media (max-width: 495px) {
+  .basic-option {
+    margin-right: 0;
+    min-width: 120px !important;
+    display: flex;
+    justify-content: space-between;
+  }
+  .menu-mobile {
+    display: flex;
+    justify-content: space-between;
   }
 }

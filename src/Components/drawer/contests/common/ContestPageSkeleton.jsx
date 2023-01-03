@@ -20,13 +20,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
   const ChildrenElement = (
     <React.Fragment key="ChildrenElement">
       {(!isMobile || !isEditorOpen) && (
-        <Cell
-          desktopColumns={9}
-          tabletColumns={8}
-          style={{
-            overflow: 'hidden',
-          }}
-        >
+        <Cell desktopColumns={9} tabletColumns={8} className="o-hidden ml-0-5 mr-0-5">
           <Cell>
             <Route path="/contests/:contestId" exact component={ContestTabBar} />
             <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
@@ -54,20 +48,13 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
       {isMobile && (
         <Fab
           textLabel={!isEditorOpen ? 'Editor' : 'Back'}
-          className="center"
-          style={{
-            backgroundColor: '#6200EE',
-            position: 'fixed',
-            bottom: '0.5rem',
-            left: '0.5rem',
-            zIndex: 100,
-          }}
+          className="center editor-btn-fab"
           icon={<MaterialIcon icon={!isEditorOpen ? 'data_object' : 'arrow_back_ios'} />}
           onClick={() => setEditorOpen(!isEditorOpen)}
         />
       )}
       {(!isMobile || isEditorOpen) && (
-        <Cell>
+        <Cell className="ml-0-5 mr-0-5">
           <Submit setEditorOpen={setEditorOpen} />
         </Cell>
       )}

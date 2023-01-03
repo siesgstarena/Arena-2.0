@@ -177,13 +177,14 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
       <Box className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
       </Box>
-      <Box className="menu-row">
+      <Box className="menu-row menu-mobile">
         <Box className="basic-option">
           <Select
             notchedOutlineClassName="pt2 pb2"
             required
             label="Language"
             outlined
+            className="mw-120"
             value={lang}
             options={languageOptions}
             onChange={(e) => {
@@ -206,6 +207,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             onChange={(e) => {
               setUploadMethod(e.target.value);
             }}
+            className="mw-120"
           >
             <Option value="file">File</Option>
             <Option value="code">Code</Option>
@@ -216,6 +218,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             notchedOutlineClassName="pt2 pb2"
             required
             label="Problem"
+            className="mw-120"
             outlined
             value={curProblem}
             options={problemOptions}

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import { Button } from '@material/react-button';
-import Card from '@material/react-card';
 import { useQuery } from 'react-apollo';
 import { Cell, Row } from '@material/react-layout-grid';
-import { CardActions, CircularProgress, TextField, Typography } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 import FileUpload from '../../../common/FileUpload/index';
@@ -21,6 +19,9 @@ import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import Spinner from '../../../common/Spinner';
 import SomethingWentWrong from '../../../common/SomethingWentWrong';
 import useResizeWindow from '../../../../customHooks/useResizeWindow';
+import Run from '../../../editor/common/Run';
+import Input from '../../../editor/common/Input';
+import Output from '../../../editor/common/Output';
 
 const SubmitOnProblemPage = ({ setEditorOpen }) => {
   // initial State declaration
@@ -194,44 +195,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
       setMessage('Please select appropriate Language/Upload/Problem method and Upload valid file');
     }
   };
-  const runCode = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        code: editorConfig.code,
-        language: lang,
-        input,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        setLoading(false);
-        if (jsonResponse && jsonResponse.status === false) {
-          setMessageType('error');
-          setMessage(jsonResponse.message);
-        } else {
-          setOutput(jsonResponse);
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        setMessageType('error');
-        setMessage('An unexpected error has been encountered');
-      });
-  };
-  const validateRun = () => {
-    if (lang !== 'None' && editorConfig.code.length !== 0) {
-      runCode();
-    } else {
-      setMessageType('error');
-      setMessage('Please select appropriate Language');
-    }
-  };
+
   // function to render loading page / the submit page
   if (isUploading) {
     return <Uploading />;
@@ -305,7 +269,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
       <Button
         raised
         // className="mt1"
-        style={{ marginTop: '1rem', marginBottom: '1rem' }}
+        style={{ marginTop: '1rem', marginBottom: '1rem', marginRight: '1rem' }}
         onClick={() => {
           validationCheck();
         }}
@@ -314,16 +278,15 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
         Submit
       </Button>
       {uploadMethod === 'code' && (
-        <Button
-          raised
-          style={{ marginLeft: '1rem' }}
-          onClick={() => {
-            validateRun();
-          }}
-          disabled={loadingRun}
-        >
-          Run
-        </Button>
+        <Run
+          input={input}
+          lang={lang}
+          setOutput={setOutput}
+          setLoading={setLoading}
+          loading={loadingRun}
+          setMessage={setMessage}
+          setMessageType={setMessageType}
+        />
       )}
       {uploadMethod === 'code' && (
         <Row
@@ -346,56 +309,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
                 : { width: '40%' }
             }
           >
-            <Card
-              style={{
-                width: '100%',
-              }}
-            >
-              <Row
-                style={{
-                  backgroundColor: '#F7F7F7',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  padding: '10px 5px',
-                  marginBottom: '5px',
-                }}
-              >
-                <Cell>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    style={{
-                      color: '#2F2F2F',
-                    }}
-                  >
-                    Input
-                  </Typography>
-                </Cell>
-                <Cell>
-                  <Button outlined color="primary" onClick={() => setInput('')}>
-                    Clear
-                  </Button>
-                </Cell>
-              </Row>
-              <CardActions>
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  minRows={6}
-                  variant="outlined"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  style={{
-                    marginTop: '20px',
-                    width: '100%',
-                    overflowY: 'scroll',
-                    height: '160px',
-                    resize: 'none',
-                  }}
-                />
-              </CardActions>
-            </Card>
+            <Input input={input} setInput={setInput} />
           </Cell>
           <Cell
             style={
@@ -409,54 +323,7 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
                 : { width: '40%' }
             }
           >
-            <Card
-              style={{
-                width: '100%',
-              }}
-            >
-              <Row
-                style={{
-                  backgroundColor: '#F7F7F7',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  padding: '10px 5px',
-                }}
-              >
-                <Cell>
-                  <Typography gutterBottom variant="h5" component="h2" style={{ color: '#2F2F2F' }}>
-                    Output
-                  </Typography>
-                </Cell>
-                {/* spinner */}
-                {loadingRun && (
-                  <Cell>
-                    <CircularProgress color="primary" size="2rem" />
-                  </Cell>
-                )}
-                <Cell>
-                  <Button outlined color="primary" onClick={() => setOutput('')}>
-                    Clear
-                  </Button>
-                </Cell>
-              </Row>
-              <CardActions>
-                <TextField
-                  id="outlined-multiline-static"
-                  multiline
-                  minRows={6}
-                  variant="outlined"
-                  disabled
-                  value={output}
-                  style={{
-                    marginTop: '20px',
-                    width: '100%',
-                    overflowY: 'scroll',
-                    height: '160px',
-                    resize: 'none',
-                  }}
-                />
-              </CardActions>
-            </Card>
+            <Output loading={loading} output={output} setOutput={setOutput} />
           </Cell>
         </Row>
       )}

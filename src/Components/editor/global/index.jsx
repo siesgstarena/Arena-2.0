@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CircularProgress,
-  Grid,
-  Paper,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
@@ -19,6 +10,9 @@ import Editor from '../index';
 import Menu from '../menu';
 import MessageCard from '../../common/MessageCard';
 import { GET_EDITOR_SHARE } from '../../../graphql/queries';
+import Run from '../common/Run';
+import Input from '../common/Input';
+import Output from '../common/Output';
 
 const Index = () => {
   const [editorConfig, setEditorConfig] = useState({
@@ -83,44 +77,7 @@ const Index = () => {
       })
     );
   }, [editorConfig.code, editorConfig.mode]);
-  const runCode = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/code/run`, {
-      method: 'POST',
-      credentials: 'include',
-      body: JSON.stringify({
-        code: editorConfig.code,
-        language: lang,
-        input,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        setLoading(false);
-        if (jsonResponse && jsonResponse.status === false) {
-          setMessageType('error');
-          setMessage(jsonResponse.message);
-        } else {
-          setOutput(jsonResponse);
-        }
-      })
-      .catch(() => {
-        setLoading(false);
-        setMessageType('error');
-        setMessage('An unexpected error has been encountered');
-      });
-  };
-  const validateRun = () => {
-    if (lang !== 'None' && editorConfig.code.length !== 0) {
-      runCode();
-    } else {
-      setMessageType('error');
-      setMessage('Please select appropriate Language');
-    }
-  };
+
   return (
     <AceEditorContext.Provider value={{ editorConfig, setEditorConfig }}>
       <div className="w-100">
@@ -177,116 +134,25 @@ const Index = () => {
                   justifyContent: 'flex-end',
                 }}
               >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: '10px', marginBottom: '10px' }}
-                  onClick={validateRun}
-                  disabled={loading}
-                >
-                  Run
-                </Button>
+                <Run
+                  input={input}
+                  lang={lang}
+                  setOutput={setOutput}
+                  setLoading={setLoading}
+                  loading={loading}
+                  setMessage={setMessage}
+                  setMessageType={setMessageType}
+                />
               </Cell>
             </Grid>
           </Grid>
           <Grid item md={4} xs={12}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Card>
-                  <Row
-                    style={{
-                      backgroundColor: '#F7F7F7',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      padding: '10px 5px',
-                      marginBottom: '5px',
-                    }}
-                  >
-                    <Cell>
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                        style={{
-                          color: '#2F2F2F',
-                        }}
-                      >
-                        Input
-                      </Typography>
-                    </Cell>
-                    <Cell>
-                      <Button variant="outlined" color="primary" onClick={() => setInput('')}>
-                        Clear
-                      </Button>
-                    </Cell>
-                  </Row>
-                  <CardActions>
-                    <TextField
-                      id="outlined-multiline-static"
-                      multiline
-                      minRows={6}
-                      value={input}
-                      variant="outlined"
-                      style={{
-                        width: '100%',
-                        overflowY: 'scroll',
-                        height: '160px',
-                        resize: 'none',
-                      }}
-                      onChange={(e) => setInput(e.target.value)}
-                    />
-                  </CardActions>
-                </Card>
+                <Input input={input} setInput={setInput} />
               </Grid>
               <Grid item xs={12}>
-                <Card>
-                  <Row
-                    style={{
-                      backgroundColor: '#F7F7F7',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      padding: '10px 5px',
-                    }}
-                  >
-                    <Cell>
-                      <Typography
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                        style={{ color: '#2F2F2F' }}
-                      >
-                        Output
-                      </Typography>
-                    </Cell>
-                    {/* spinner */}
-                    {loading && (
-                      <Cell>
-                        <CircularProgress color="primary" size="2rem" />
-                      </Cell>
-                    )}
-                    <Cell>
-                      <Button variant="outlined" color="primary" onClick={() => setOutput('')}>
-                        Clear
-                      </Button>
-                    </Cell>
-                  </Row>
-                  <CardActions>
-                    <TextField
-                      id="outlined-multiline-static"
-                      multiline
-                      minRows={6}
-                      disabled
-                      value={output}
-                      variant="outlined"
-                      style={{
-                        width: '100%',
-                        overflowY: 'scroll',
-                        height: '160px',
-                        resize: 'none',
-                      }}
-                    />
-                  </CardActions>
-                </Card>
+                <Output loading={loading} output={output} setOutput={setOutput} />
               </Grid>
             </Grid>
           </Grid>

@@ -15,12 +15,13 @@ import useResizeWindow from '../../../../customHooks/useResizeWindow';
 const ContestPageSkeleton = ({ children, contestDetails }) => {
   const { name, description, endsAt, announcement, startsAt } = contestDetails;
   const [isEditorOpen, setEditorOpen] = useState(false);
+  const [parentClassName, setParentClassName] = useState('o-hidden ml-0-5 mr-0-5');
   const width = useResizeWindow();
   const isMobile = width <= 768;
   const ChildrenElement = (
     <React.Fragment key="ChildrenElement">
       {(!isMobile || !isEditorOpen) && (
-        <Cell desktopColumns={9} tabletColumns={8} className="o-hidden ml-0-5 mr-0-5">
+        <Cell desktopColumns={9} tabletColumns={8} className={parentClassName}>
           <Cell>
             <Route path="/contests/:contestId" exact component={ContestTabBar} />
             <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
@@ -54,7 +55,7 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
         />
       )}
       {(!isMobile || isEditorOpen) && (
-        <Cell className="ml-0-5 mr-0-5">
+        <Cell className="editor">
           <Submit setEditorOpen={setEditorOpen} />
         </Cell>
       )}
@@ -69,6 +70,14 @@ const ContestPageSkeleton = ({ children, contestDetails }) => {
         cursor="col-resize"
         sizes={[35, 65]}
         minSize={[0, 350]}
+        // if drag to left then remove margin
+        onDragEnd={(sizes) => {
+          if (sizes[0] < 10) {
+            setParentClassName('o-hidden ml-0 mr-0');
+          } else {
+            setParentClassName('o-hidden ml-0-5 mr-0-5');
+          }
+        }}
       >
         {[ChildrenElement]}
       </Split>

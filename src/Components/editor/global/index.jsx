@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
@@ -17,7 +17,10 @@ import '../Style.css';
 import initialState from '../defaults/initialState';
 
 const Index = () => {
-  const [editorConfig, setEditorConfig] = useState(initialState({ code: languageDefaults.Java }));
+  const isMobile = window.innerWidth <= 768;
+  const [editorConfig, setEditorConfig] = useState(
+    initialState({ code: languageDefaults.Java, fontSize: isMobile ? 15 : 20 })
+  );
   const [lang, setLang] = useState(editorConfig.mode);
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
@@ -70,7 +73,7 @@ const Index = () => {
       <Box className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
       </Box>
-      <Paper className="global-container">
+      <Box className="global-container">
         <Grid container spacing={3} alignItems="stretch">
           <Grid item md={8} xs={12}>
             <Row className="global-row">
@@ -124,7 +127,7 @@ const Index = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Paper>
+      </Box>
     </AceEditorContext.Provider>
   );
 };

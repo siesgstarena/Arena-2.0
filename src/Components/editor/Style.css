@@ -5,9 +5,9 @@
   height: 100%;
 }
 .global-container {
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 20px;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  margin-top: 1.5rem;
 }
 
 .p-10 {
@@ -57,4 +57,15 @@
 .run-btn {
   margin-top: 10px !important;
   margin-bottom: 10px !important;
+}
+
+@media (max-width: 768px) {
+  .global-container {
+    margin-left: 0.5rem;
+    margin-right: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .global-border {
+    border-right: none;
+  }
 }

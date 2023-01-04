@@ -25,8 +25,10 @@ import './Style.css';
 import initialState from '../../../editor/defaults/initialState';
 
 const SubmitOnProblemPage = ({ setEditorOpen }) => {
-  // initial State declaration
-  const [editorConfig, setEditorConfig] = useState(initialState({ code: languageDefaults.Java }));
+  const isMobile = window.innerWidth <= 768;
+  const [editorConfig, setEditorConfig] = useState(
+    initialState({ code: languageDefaults.Java, fontSize: isMobile ? 15 : 20 })
+  );
   const history = useHistory();
   const { contestId } = useParams();
   const [uploadMethod, setUploadMethod] = useState('code');

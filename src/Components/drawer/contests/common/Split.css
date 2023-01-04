@@ -21,3 +21,16 @@
 .mr-0-5{
     margin-right: 0.5rem;
 }
+
+.ml-0{
+    margin-left: 0rem;
+}
+
+.mr-0{
+    margin-right: 0rem;
+}
+
+.editor{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}

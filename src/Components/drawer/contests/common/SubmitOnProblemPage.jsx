@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Select, { Option } from '@material/react-select';
 import { Button } from '@material/react-button';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import { Cell, Row } from '@material/react-layout-grid';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';

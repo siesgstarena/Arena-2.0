@@ -15,7 +15,7 @@ import { Button } from '@material/react-button';
 import { Grid } from '@material/react-layout-grid';
 import MaterialIcon from '@material/react-material-icon';
 import * as ace from 'ace-builds/src-noconflict/ace';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import themes from '../defaults/themes';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 import { SAVE_CODE } from '../../../graphql/mutations';

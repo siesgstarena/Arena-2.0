@@ -2,7 +2,7 @@ import { Box, Grid } from '@material-ui/core';
 import Select from '@material/react-select';
 import { Cell, Row } from '@material/react-layout-grid';
 import React, { useState, useEffect } from 'react';
-import { useLazyQuery } from 'react-apollo';
+import { useLazyQuery } from '@apollo/client';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 import { languageOptions } from '../../drawer/contests/status/options';
 import languageDefaults from '../defaults/languages';

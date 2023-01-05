@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { GET_CONTEST_DETAILS } from '../../../../graphql/queries';

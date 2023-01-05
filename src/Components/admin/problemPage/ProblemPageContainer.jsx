@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import ProblemPage from './ProblemPage';

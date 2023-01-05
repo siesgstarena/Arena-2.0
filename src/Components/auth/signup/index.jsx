@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input, HelperText } from '@material/react-text-field';
 import { Headline3, Headline4, Body1, Body2 } from '@material/react-typography';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';

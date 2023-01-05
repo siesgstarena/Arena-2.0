@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Headline4, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import Editor from '../../common/MarkdownEditor/Editor';
 import EditorContainer from '../../common/MarkdownEditor/EditorContainer';
 import MessageCard from '../../common/MessageCard/index';

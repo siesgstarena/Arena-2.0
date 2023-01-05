@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Headline4 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import Button from '@material/react-button';
 import BlogDetails from '../create/BlogDetails';
 import MessageCard from '../../../common/MessageCard';

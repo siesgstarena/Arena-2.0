@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextField, { Input } from '@material/react-text-field';
 import Button from '@material/react-button';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { UPDATE_ABOUT } from '../../../graphql/mutations';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 

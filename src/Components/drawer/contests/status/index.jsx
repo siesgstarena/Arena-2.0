@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useParams, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import LoadingTable from '../../../common/LoadingTable/index';

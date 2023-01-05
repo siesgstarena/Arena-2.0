@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Headline6 } from '@material/react-typography';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_BLOGS_BY_USER } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';

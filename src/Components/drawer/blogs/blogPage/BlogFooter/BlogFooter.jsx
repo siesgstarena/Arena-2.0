@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
-import { useApolloClient } from 'react-apollo';
+import { useApolloClient } from '@apollo/client';
 import { useParams } from 'react-router';
 import { Headline5 } from '@material/react-typography';
 import '@material/react-material-icon/dist/material-icon.css';

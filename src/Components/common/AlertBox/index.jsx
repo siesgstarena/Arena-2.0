@@ -10,14 +10,10 @@ import '@material/react-dialog/dist/dialog.css';
 
 const AlertBox = ({
   isOpen = false,
-  setIsOpen = () => {
-    console.log('No set function passed.');
-  },
+  setIsOpen = () => {},
   title = 'No title entered',
   content = 'No content entered',
-  onAccept = () => {
-    console.log('No accept function passed.');
-  },
+  onAccept = () => {},
 }) => (
   <Dialog
     onClose={() => {

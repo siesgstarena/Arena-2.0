@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/browser';
 import { useParams, useHistory } from 'react-router-dom';
 import Button from '@material/react-button';
 import { Headline4, Body2 } from '@material/react-typography';
-// import { useApolloClient } from '@apollo/react-hooks';
+// import { useApolloClient } from '@apollo/client';
 import ProblemDetails from './ProblemDetails';
 import MessageCard from '../../common/MessageCard/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';

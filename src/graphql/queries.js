@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const GET_USER_DETAILS_ON_LOGIN = gql`
   query Login($email: String!, $password: String!) {

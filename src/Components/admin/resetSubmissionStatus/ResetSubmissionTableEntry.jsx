@@ -3,7 +3,7 @@ import Select from '@material/react-select';
 import Button from '@material/react-button';
 import { format } from 'date-fns';
 import { Link, useParams } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import PropTypes from 'prop-types';
 import Switch from '@material/react-switch';
 import '../../user/settings/settings.scss';

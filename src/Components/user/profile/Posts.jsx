@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { GET_BLOGS_BY_USER } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import LoadingCardArray from '../common/LoadingCardArray';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import Skeleton from 'react-loading-skeleton';
 import { GET_ALL_RATINGS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';

@@ -1,7 +1,16 @@
 module.exports = {
   extends: ['airbnb', 'prettier', 'prettier/react', 'plugin:prettier/recommended'],
-  parser: 'babel-eslint',
-  plugins: ['react','react-hooks'],
+  parser: '@babel/eslint-parser',
+  parserOptions: {
+    requireConfigFile: false,
+    babelOptions: {
+      babelrc: false,
+      configFile: false,
+      presets: ['@babel/preset-react'],
+    },
+  },
+
+  plugins: ['react'],
   rules: {
     'prettier/prettier': 'error',
     'react/prop-types': [2],

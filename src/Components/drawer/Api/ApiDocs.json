@@ -38,9 +38,7 @@
   "paths": {
     "/contests": {
       "get": {
-        "tags": [
-          "Contest"
-        ],
+        "tags": ["Contest"],
         "description": "Returns information about all available contests",
         "parameters": [
           {
@@ -79,9 +77,7 @@
     },
     "/users": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Returns information about all available users",
         "parameters": [
           {
@@ -120,9 +116,7 @@
     },
     "/user": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Returns information about a particular user either by username or id or email",
         "parameters": [
           {
@@ -185,9 +179,7 @@
     },
     "/topusers": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Returns Top Users information",
         "parameters": [
           {
@@ -234,9 +226,7 @@
     },
     "/topusers/{contestCode}": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "Returns Top Users of a particular contest information",
         "parameters": [
           {
@@ -293,9 +283,7 @@
     },
     "/blogs": {
       "get": {
-        "tags": [
-          "Blog"
-        ],
+        "tags": ["Blog"],
         "description": "Returns information about all Blogs",
         "parameters": [
           {
@@ -334,9 +322,7 @@
     },
     "/problems": {
       "get": {
-        "tags": [
-          "Problems"
-        ],
+        "tags": ["Problems"],
         "description": "Returns information about all Problems",
         "parameters": [
           {
@@ -375,9 +361,7 @@
     },
     "/apps/compare": {
       "get": {
-        "tags": [
-          "Apps"
-        ],
+        "tags": ["Apps"],
         "description": "Returns 2 Objects which include information about users performance",
         "parameters": [
           {
@@ -436,9 +420,7 @@
     },
     "/apps/statistics": {
       "get": {
-        "tags": [
-          "Apps"
-        ],
+        "tags": ["Apps"],
         "description": "Returns an array of Objects which include information about top users performance in each language",
         "parameters": [
           {
@@ -483,10 +465,7 @@
         "properties": {
           "type": {
             "type": "enum",
-            "enum": [
-              "RATED",
-              "UNRATED"
-            ],
+            "enum": ["RATED", "UNRATED"],
             "example": "RATED"
           },
           "_id": {
@@ -823,17 +802,17 @@
         "properties": {
           "name": {
             "type": "string",
-            "example":"Prathamesh Gawas"
+            "example": "Prathamesh Gawas"
           },
           "language": {
             "type": "string",
-            "example":"C++"
+            "example": "C++"
           },
-          "acceptedCount":{
+          "acceptedCount": {
             "type": "integer",
             "example": 36
           },
-          "username":{
+          "username": {
             "type": "string",
             "example": "Prathamesh"
           }

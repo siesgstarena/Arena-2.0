@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Headline5 } from '@material/react-typography';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';

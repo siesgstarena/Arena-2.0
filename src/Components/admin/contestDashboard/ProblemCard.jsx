@@ -72,7 +72,6 @@ const ProblemCard = ({ name, code, points, setSnackbarMessage }) => {
               },
             });
           } catch (e) {
-            console.log(e);
             // We should always catch here,
             // as the cache may be empty or the query may fail
           }

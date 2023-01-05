@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Headline4 } from '@material/react-typography';
 import Button from '@material/react-button';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import MessageCard from '../../../common/MessageCard';
 import BlogDetails from './BlogDetails';
 import { CREATE_BLOG } from '../../../../graphql/mutations';

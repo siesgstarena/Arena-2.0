@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
 import Footer from './Components/common/Footer/index';

@@ -3,7 +3,7 @@ import { Headline6, Body2 } from '@material/react-typography';
 import TextField, { Input } from '@material/react-text-field';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import CustomBubble from '../../../common/CustomBubble/CustomBubble';
 import { REPLY_TO_FEEDBACK } from '../../../../graphql/mutations';
 import MessageCard from '../../../common/MessageCard/index';

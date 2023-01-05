@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Body1, Body2, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';

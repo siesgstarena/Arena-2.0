@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import PropTypes from 'prop-types';
-// import { useApolloClient } from '@apollo/react-hooks';
+// import { useApolloClient } from '@apollo/client';
 import ProblemDetails from '../createProblem/ProblemDetails';
 // import { GET_ADMIN_DASHBOARD_DETAILS, GET_PROBLEM_DETAILS } from '../../../graphql/queries';
 import MessageCard from '../../common/MessageCard/index';

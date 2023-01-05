@@ -1,6 +1,6 @@
 import React from 'react';
 import { Headline4, Body2 } from '@material/react-typography';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_ALL_FEEDBACKS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';

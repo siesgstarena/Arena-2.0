@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
 import { useParams, useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestDetails from '../createContest/ContestDetails';
 import MessageCard from '../../common/MessageCard/index';

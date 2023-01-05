@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Headline4, Headline6 } from '@material/react-typography';
 import { Button } from '@material/react-button';
 import LinkGenerator from './LinkGenerator';

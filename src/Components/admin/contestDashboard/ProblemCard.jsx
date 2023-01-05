@@ -3,7 +3,7 @@ import { Headline6, Body1 } from '@material/react-typography';
 import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@material/react-button';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import AlertBox from '../../common/AlertBox/index';
 import '@material/react-dialog/dist/dialog.css';
 import useSentry from '../../../customHooks/useSentry';

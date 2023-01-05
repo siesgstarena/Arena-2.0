@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { Headline5 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { GET_ALL_BLOGS } from '../../../../graphql/queries';

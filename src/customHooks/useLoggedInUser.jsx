@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { useCallback } from 'react';
 import { GET_LOGGED_IN_USER } from '../graphql/queries';
 

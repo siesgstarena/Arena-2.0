@@ -44,6 +44,17 @@
     justify-content: space-between;
     flex-direction: row;
   }
+  .submit-btn {
+    margin-top:0.5rem;
+  }
+  .submit-btn-row{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  /* .mw-120{
+    min-width: 11.7rem;
+  } */
 }
 
 @media (max-width: 495px) {
@@ -56,5 +67,20 @@
   .menu-mobile {
     display: flex;
     justify-content: space-between;
+  }
+  .mw-120{
+    min-width: 45vw;
+  }
+  .mw-120-menu{
+    min-width: 0;
+  }
+  .choose-problem{
+    min-width: 75vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .choose-problem{
+    min-width: 70vw;
   }
 }

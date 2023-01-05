@@ -220,14 +220,18 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
             notchedOutlineClassName="pt2 pb2"
             required
             label="Problem"
-            className="mw-120"
+            className="mw-120 choose-problem"
             outlined
             value={curProblem}
             options={problemOptions}
             onChange={(e) => setcurProblem(e.target.value)}
           />
         </Box>
-        {uploadMethod === 'code' && <Menu input={input} lang={lang} />}
+        {uploadMethod === 'code' && (
+          <Box className="mw-120-menu">
+            <Menu input={input} lang={lang} />
+          </Box>
+        )}
       </Box>
 
       {uploadMethod === 'file' ? (
@@ -242,27 +246,30 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
       ) : (
         <Editor />
       )}
-      <Button
-        raised
-        className="submit-btn"
-        onClick={() => {
-          validationCheck();
-        }}
-        disabled={loadingRun}
-      >
-        Submit
-      </Button>
-      {uploadMethod === 'code' && (
-        <Run
-          input={input}
-          lang={lang}
-          setOutput={setOutput}
-          setLoading={setLoading}
-          loading={loadingRun}
-          setMessage={setMessage}
-          setMessageType={setMessageType}
-        />
-      )}
+      <Box className="submit-btn-row">
+        <Button
+          raised
+          outlined
+          className="submit-btn"
+          onClick={() => {
+            validationCheck();
+          }}
+          disabled={loadingRun}
+        >
+          Submit
+        </Button>
+        {uploadMethod === 'code' && (
+          <Run
+            input={input}
+            lang={lang}
+            setOutput={setOutput}
+            setLoading={setLoading}
+            loading={loadingRun}
+            setMessage={setMessage}
+            setMessageType={setMessageType}
+          />
+        )}
+      </Box>
       {uploadMethod === 'code' && (
         <Row className="input-output-row">
           <Cell className="input-card-row">

@@ -34,3 +34,9 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
 }
+
+@media (max-width: 768px) {
+    .editor{
+        margin-top: 0.4rem;
+    }
+}

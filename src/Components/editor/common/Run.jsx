@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import '../Style.css';
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
+import { Button } from '@material/react-button';
 import AceEditorContext from '../../../Contexts/AceEditorContext';
 
 const Run = ({ loading, setLoading, lang, input, setMessageType, setMessage, setOutput }) => {
@@ -45,13 +45,7 @@ const Run = ({ loading, setLoading, lang, input, setMessageType, setMessage, set
     }
   };
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      className="run-btn"
-      onClick={validateRun}
-      disabled={loading}
-    >
+    <Button raised outlined className="run-btn" onClick={validateRun} disabled={loading}>
       Run
     </Button>
   );

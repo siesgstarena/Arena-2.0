@@ -68,4 +68,7 @@
   .global-border {
     border-right: none;
   }
+  .run-btn{
+    margin-top: 0.4rem !important;
+  }
 }

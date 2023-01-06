@@ -174,7 +174,7 @@ const Menu = ({ input, lang }) => {
           <Grid xs={6} md={8} className="p-10">
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={editorConfig.wrapEnabled} />}
+                control={<Checkbox checked={editorConfig.wrapEnabled} color="primary" />}
                 label="Soft Wrap"
                 onChange={(e) => {
                   setEditorConfig({

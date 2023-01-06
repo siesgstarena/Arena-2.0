@@ -68,7 +68,7 @@ const Menu = ({ input, lang }) => {
       {/* <FormGroup> */}
 
       {/* </FormGroup> */}
-      <Button raised aria-describedby={id} onClick={handleClick} style={{ marginTop: '0.5rem' }}>
+      <Button raised aria-describedby={id} onClick={handleClick}>
         <MaterialIcon icon="settings" />
       </Button>
       <Popover

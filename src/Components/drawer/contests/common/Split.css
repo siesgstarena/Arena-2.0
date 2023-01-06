@@ -27,7 +27,6 @@
 .mr-0-5 {
   margin-right: 0.5rem;
   padding-right: 0.2rem;
-
 }
 
 .ml-0 {
@@ -42,6 +41,7 @@
 .editor {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  padding: 0.5rem 0.5rem 0rem 0rem;
 }
 
 .scrollbar {
@@ -57,7 +57,7 @@
     margin-top: 0.4rem;
   }
   /* remove scrollbar */
-  .scrollbar{
+  .scrollbar {
     overflow-y: hidden !important;
     height: inherit;
     padding-bottom: 0rem;

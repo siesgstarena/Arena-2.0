@@ -179,59 +179,63 @@ const SubmitOnProblemPage = ({ setEditorOpen }) => {
       <Box className="w-100">
         <MessageCard message={message} messageType={messageType} setMessageType={setMessageType} />
       </Box>
-      <Box className="menu-row menu-mobile">
-        <Box className="basic-option">
-          <Select
-            notchedOutlineClassName="pt2 pb2"
-            required
-            label="Language"
-            outlined
-            className="mw-120"
-            value={lang}
-            options={languageOptions}
-            onChange={(e) => {
-              setLang(e.target.value);
-              setEditorConfig({
-                ...editorConfig,
-                mode: e.target.value,
-                code: languageDefaults[e.target.value],
-              });
-            }}
-          />
-        </Box>
-        <Box className="basic-option">
-          <Select
-            required
-            notchedOutlineClassName="pt2 pb2"
-            label="Type"
-            outlined
-            value={uploadMethod}
-            onChange={(e) => {
-              setUploadMethod(e.target.value);
-            }}
-            className="mw-120"
-          >
-            <Option value="file">File</Option>
-            <Option value="code">Code</Option>
-          </Select>
-        </Box>
-        <Box className="basic-option">
-          <Select
-            notchedOutlineClassName="pt2 pb2"
-            required
-            label="Problem"
-            className="mw-120 choose-problem"
-            outlined
-            value={curProblem}
-            options={problemOptions}
-            onChange={(e) => setcurProblem(e.target.value)}
-          />
-        </Box>
-        {uploadMethod === 'code' && (
-          <Box className="mw-120-menu">
-            <Menu input={input} lang={lang} />
+      <Box className="menu-row menu-mobile set-aside">
+        <Box className="language-type">
+          <Box className="basic-option">
+            <Select
+              notchedOutlineClassName="pt2 pb2"
+              required
+              label="Language"
+              outlined
+              className="mw-120"
+              value={lang}
+              options={languageOptions}
+              onChange={(e) => {
+                setLang(e.target.value);
+                setEditorConfig({
+                  ...editorConfig,
+                  mode: e.target.value,
+                  code: languageDefaults[e.target.value],
+                });
+              }}
+            />
           </Box>
-        )}
+          <Box className="basic-option">
+            <Select
+              required
+              notchedOutlineClassName="pt2 pb2"
+              label="Type"
+              outlined
+              value={uploadMethod}
+              onChange={(e) => {
+                setUploadMethod(e.target.value);
+              }}
+              className="mw-120"
+            >
+              <Option value="file">File</Option>
+              <Option value="code">Code</Option>
+            </Select>
+          </Box>
+        </Box>
+        <Box className="problem-setting">
+          <Box className="basic-option">
+            <Select
+              notchedOutlineClassName="pt2 pb2"
+              required
+              label="Problem"
+              className="mw-120 choose-problem"
+              outlined
+              value={curProblem}
+              options={problemOptions}
+              onChange={(e) => setcurProblem(e.target.value)}
+            />
+          </Box>
+          {uploadMethod === 'code' && (
+            <Box className="mw-120-menu settings-btn">
+              <Menu input={input} lang={lang} />
+            </Box>
+          )}
+        </Box>
       </Box>
 
       {uploadMethod === 'file' ? (

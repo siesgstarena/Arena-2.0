@@ -5,6 +5,24 @@
   flex-wrap: wrap;
 }
 
+.set-aside {
+  justify-content: space-between;
+}
+
+.language-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.problem-setting {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .basic-option {
   overflow: hidden;
   margin-right: 0.5rem;
@@ -45,9 +63,9 @@
     flex-direction: row;
   }
   .submit-btn {
-    margin-top:0.5rem;
+    margin-top: 0.5rem;
   }
-  .submit-btn-row{
+  .submit-btn-row {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -64,23 +82,27 @@
     display: flex;
     justify-content: space-between;
   }
+  .language-type {
+    width: 100%;
+    justify-content: space-between;
+  }
   .menu-mobile {
     display: flex;
     justify-content: space-between;
   }
-  .mw-120{
+  .mw-120 {
     min-width: 45vw;
   }
-  .mw-120-menu{
+  .mw-120-menu {
     min-width: 0;
   }
-  .choose-problem{
+  .choose-problem {
     min-width: 75vw;
   }
 }
 
 @media (max-width: 400px) {
-  .choose-problem{
+  .choose-problem {
     min-width: 70vw;
   }
 }

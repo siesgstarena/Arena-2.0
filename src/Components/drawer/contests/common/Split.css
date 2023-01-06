@@ -14,12 +14,20 @@
   cursor: col-resize;
 }
 
+.gutter.gutter-horizontal:hover {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+  background-color: rgb(240, 232, 255);
+}
+
 .ml-0-5 {
   margin-left: 0.5rem;
 }
 
 .mr-0-5 {
   margin-right: 0.5rem;
+  padding-right: 0.2rem;
+
 }
 
 .ml-0 {
@@ -28,6 +36,7 @@
 
 .mr-0 {
   margin-right: 0rem;
+  padding-right: 0rem;
 }
 
 .editor {

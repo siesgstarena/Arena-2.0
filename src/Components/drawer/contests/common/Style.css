@@ -8,7 +8,11 @@
 .set-aside {
   justify-content: space-between;
 }
-
+.submit-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
 .language-type {
   display: flex;
   flex-direction: row;
@@ -29,10 +33,11 @@
 }
 
 .submit-btn {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 1rem;
 }
+
 .mw-120 {
   min-width: 120px;
 }
@@ -63,13 +68,9 @@
     flex-direction: row;
   }
   .submit-btn {
-    margin-top: 0.5rem;
+    margin-top: 0.4rem !important;
   }
-  .submit-btn-row {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-  }
+
   /* .mw-120{
     min-width: 11.7rem;
   } */

@@ -16,7 +16,7 @@ const ContestPageElement = ({ children, contestDetails, isMobile, parentClassNam
   return (
     <React.Fragment key="ChildrenElement">
       {(!isMobile || !isEditorOpen) && (
-        <Cell desktopColumns={9} tabletColumns={8} className={parentClassName}>
+        <Cell desktopColumns={9} tabletColumns={8} className={`${parentClassName} scrollbar`}>
           <Cell>
             <Route path="/contests/:contestId" exact component={ContestTabBar} />
             <Route path="/contests/:contestId/status" exact component={ContestTabBar} />
@@ -50,7 +50,7 @@ const ContestPageElement = ({ children, contestDetails, isMobile, parentClassNam
         />
       )}
       {(!isMobile || isEditorOpen) && (
-        <Cell className="editor">
+        <Cell className="editor scrollbar">
           <Submit setEditorOpen={setEditorOpen} />
         </Cell>
       )}

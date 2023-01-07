@@ -661,3 +661,42 @@ export const GET_ALL_FEEDBACKS = gql`
     }
   }
 `;
+
+export const TOP_USERS_BY_RATING = gql`
+  query TopUsersByRating($limit: Int) {
+    topUsersByRating(limit: $limit) {
+      id: _id
+      name
+      ratings
+    }
+  }
+`;
+export const TOP_IMPROVERS = gql`
+  query topUsersByImprovement($limit: Int) {
+    topUsersByImprovement(limit: $limit) {
+      code
+      RatingChange {
+        id
+        name
+        ratingChange
+      }
+    }
+  }
+`;
+
+export const GET_UPCOMING_CURRENT_CONTESTS = gql`
+  query {
+    upcomingcurrentContests {
+      currentContests {
+        name
+        code
+        endsAt
+      }
+      upcomingContests {
+        name
+        code
+        endsAt
+      }
+    }
+  }
+`;

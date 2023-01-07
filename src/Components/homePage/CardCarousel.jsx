@@ -3,10 +3,13 @@ import Slider from 'react-slick';
 import HomePageCard from './LeaderboardCard/HomePageCard';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import cardData from './cardData';
+// import cardData from './cardData';
 import './homePageContainer.scss';
 import TwoInOne from './LeaderboardCard/TwoInOne';
+import useHomePage from '../../customHooks/useHomePage';
 // import PosterCard from './PosterCard/PosterCard';
+import Spinner from '../common/Spinner';
+import SomethingWentWrong from '../common/SomethingWentWrong';
 
 const settings = {
   // dots: true,
@@ -23,6 +26,7 @@ const settings = {
 
 const CardCarousel = () => {
   const [width, setWidth] = useState(window.innerWidth);
+  const { cardData, loading, error } = useHomePage();
   useEffect(() => {
     const updateWidthOnResize = () => {
       setWidth(window.innerWidth);
@@ -34,9 +38,11 @@ const CardCarousel = () => {
     };
   });
   const isScreenSmall = width < 840;
+  if (loading) return <Spinner />;
+  if (error) return <SomethingWentWrong message="An error has been encountered." />;
   return (
     <Slider {...settings} className="pa0 mr2-m mr2-l ">
-      {isScreenSmall ? (
+      {isScreenSmall && cardData ? (
         cardData.map((card) => (
           <HomePageCard
             key={card.id}

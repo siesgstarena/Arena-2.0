@@ -690,13 +690,26 @@ export const GET_UPCOMING_CURRENT_CONTESTS = gql`
       currentContests {
         name
         code
-        endsAt
+        endsIn: endsAt
       }
       upcomingContests {
         name
         code
-        endsAt
+        endsIn: startsAt
       }
+    }
+  }
+`;
+
+export const GET_PINNED_BLOGS = gql`
+  query pinnedBlogs($limit: Int) {
+    pinnedBlogs(limit: $limit) {
+      author: userId {
+        name
+      }
+      title
+      createdAt
+      _id
     }
   }
 `;

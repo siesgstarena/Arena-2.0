@@ -57,16 +57,16 @@ const drawerItems = [
   },
   {
     id: 8,
-    name: 'API',
-    icon: 'api',
-    path: '/api',
+    name: 'Labs',
+    icon: 'insights',
+    path: '/labs',
     materialIcon: true,
   },
   {
     id: 9,
-    name: 'Lab',
+    name: 'API',
     icon: 'api',
-    path: '/Lab',
+    path: '/api',
     materialIcon: true,
   },
 ];

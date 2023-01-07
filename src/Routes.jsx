@@ -11,8 +11,6 @@ import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import SomethingWentWrong from './Components/common/SomethingWentWrong/index';
 import './App.scss';
 
-const Lab = lazy(() => import('./Components/drawer/lab/Index'));
-
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
 const SignUp = lazy(() => import('./Components/auth/signup/index'));
@@ -64,6 +62,7 @@ const PlaylistsUNI06 = lazy(() =>
 );
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const ApiDoc = lazy(() => import('./Components/drawer/Api/index'));
+const Lab = lazy(() => import('./Components/drawer/lab/Index'));
 const BrandingGuidelines = lazy(() => import('./Components/footerPages/branding/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
 const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
@@ -195,7 +194,7 @@ const Routes = () => {
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
                   <Route path="/api" exact component={ApiDoc} />
-                  <Route path="/lab" exact component={Lab} />
+                  <Route path="/labs" exact component={Lab} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/@:username" exact component={ProfileByUsername} />

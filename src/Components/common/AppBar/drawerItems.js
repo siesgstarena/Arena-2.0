@@ -62,6 +62,13 @@ const drawerItems = [
     path: '/api',
     materialIcon: true,
   },
+  {
+    id: 9,
+    name: 'Lab',
+    icon: 'api',
+    path: '/Lab',
+    materialIcon: true,
+  },
 ];
 
 export default drawerItems;

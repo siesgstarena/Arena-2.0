@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import ContestDetails from './ContestDetails';

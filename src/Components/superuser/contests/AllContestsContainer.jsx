@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';
 import AllContestPage from './AllContests';

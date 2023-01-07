@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import AppBar from './Components/common/AppBar/index';
 import ScrollToTop from './ScrollToTop';
 import Footer from './Components/common/Footer/index';
@@ -61,6 +61,8 @@ const PlaylistsUNI06 = lazy(() =>
   import('./Components/drawer/playlists/topicExplanationPage/UNI06')
 );
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
+const ApiDoc = lazy(() => import('./Components/drawer/Api/index'));
+const BrandingGuidelines = lazy(() => import('./Components/footerPages/branding/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
 const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
 const Settings = lazy(() => import('./Components/user/settings/index'));
@@ -91,7 +93,7 @@ const SuperuserCreateContest = lazy(() => import('./Components/superuser/createC
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
 const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperusers/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-
+const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);
   // running the query to the server to check if the user is already logged in or not
@@ -191,6 +193,7 @@ const Routes = () => {
                   <Route path="/playlists/topic/UNI04" exact component={PlaylistsUNI04} />
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
+                  <Route path="/api" exact component={ApiDoc} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/@:username" exact component={ProfileByUsername} />
@@ -202,6 +205,8 @@ const Routes = () => {
                   <Route path="/faq" exact component={FAQ} />
                   <Route path="/privacy" exact component={Privacy} />
                   <Route path="/search" exact component={Search} />
+                  <Route path="/branding" exact component={BrandingGuidelines} />
+                  <Route path="/code" exact component={Editor} />
                   <PrivateRoute
                     path="/admin/:contestId/announcements"
                     exact

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Card from '@material/react-card';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Headline6, Body1 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -68,7 +68,6 @@ const ContestCard = ({ name, startTime, duration, endTime, code, setSnackbarMess
               },
             });
           } catch (e) {
-            console.log(e);
             // We should always catch here,
             // as the cache may be empty or the query may fail
           }

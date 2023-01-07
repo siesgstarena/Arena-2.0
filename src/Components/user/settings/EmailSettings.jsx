@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Headline6, Headline4, Body1 } from '@material/react-typography';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import Switch from '@material/react-switch';
 import { UPDATE_NOTIFICATION } from '../../../graphql/mutations';
 import './settings.scss';

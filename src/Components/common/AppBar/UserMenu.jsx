@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Menu, { MenuList, MenuListItem, MenuListItemText } from '@material/react-menu';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import AuthContext from '../../../Contexts/AuthContext';
 import { LOGOUT } from '../../../graphql/mutations';
 import useClearCache from '../../../customHooks/useClearCache';

@@ -4,7 +4,7 @@ import { Grid, Row, Cell } from '@material/react-layout-grid';
 import TextField, { Input } from '@material/react-text-field';
 import { Headline4, Body1, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import 'tachyons';
 import MessageCard from '../../common/MessageCard/index';
 import { VERIFY_USER } from '../../../graphql/mutations';

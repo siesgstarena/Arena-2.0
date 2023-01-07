@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Dialog, { DialogContent, DialogButton, DialogTitle } from '@material/react-dialog';
 import { useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import PasswordField from '../../common/PasswordField/index';

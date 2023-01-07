@@ -1,10 +1,6 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 // import { ThemeProvider } from 'styled-components';
-import { ApolloClient } from 'apollo-boost';
 // import useDarkMode from './customHooks/useDarkMode';
 // import GlobalStyles from './Components/common/GlobalStyles';
 // import { lightTheme, darkTheme } from './Theme';
@@ -12,7 +8,7 @@ import { ApolloClient } from 'apollo-boost';
 import Routes from './Routes';
 
 // Initialising apollo graphql
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: `${process.env.REACT_APP_SERVER_BASE_URL}/graphql`,
   credentials: 'include',
 });
@@ -35,9 +31,7 @@ const App = () => {
     // <GlobalStyles />
     // <Toggle theme={theme} toggleTheme={themeToggler} />
     <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
-        <Routes />
-      </ApolloHooksProvider>
+      <Routes />
     </ApolloProvider>
     // </ThemeProvider>
   );

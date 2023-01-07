@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import Spinner from '../../common/Spinner/index';
 import { GET_SUBMISSION_BY_USER_ID } from '../../../graphql/queries';

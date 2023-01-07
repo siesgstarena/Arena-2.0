@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation } from 'react-apollo';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ALL_SUPERUSERS } from '../../../graphql/queries';
 import { MAKE_SUPERUSER } from '../../../graphql/mutations';
 import SomethingWentWrong from '../../common/SomethingWentWrong/index';

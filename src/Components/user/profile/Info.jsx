@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/client';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Button } from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';

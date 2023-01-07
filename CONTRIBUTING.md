@@ -36,7 +36,7 @@ Also, make sure to indicate the earliest version that has the issue being report
 
   ```
   SASS_PATH=./node_modules
-  REACT_APP_SERVER_BASE_URL=https://siesgstarena-backend.herokuapp.com
+  REACT_APP_SERVER_BASE_URL=https://arena2backend-xnb3j.ondigitalocean.app/arenaworking2
   ```
 
 - Run the development server to view the changes you are making by typing the following

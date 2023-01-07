@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 export const SIGN_UP = gql`
   mutation Signup($name: String!, $username: String!, $email: String!, $password: String!) {
@@ -465,6 +465,17 @@ export const REMOVE_SUPERUSER = gql`
       code
       success
       message
+    }
+  }
+`;
+export const SAVE_CODE = gql`
+  mutation saveCode($code: String!, $language: String!, $input: String!) {
+    saveCode(code: $code, language: $language, input: $input) {
+      success
+      message
+      editor {
+        sharecode
+      }
     }
   }
 `;

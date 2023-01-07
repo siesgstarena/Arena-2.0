@@ -585,7 +585,7 @@
             }
           },
           "submissionStats": {
-            "type": "object",
+            "type": "property",
             "items": {
               "accepted": {
                 "type": "integer",

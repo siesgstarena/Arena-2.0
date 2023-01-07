@@ -20,7 +20,15 @@ export const GET_IS_USER_ADMIN = gql`
     }
   }
 `;
-
+export const GET_EDITOR_SHARE = gql`
+  query editor($sharecode: String!) {
+    editor(sharecode: $sharecode) {
+      code
+      language
+      input
+    }
+  }
+`;
 export const GET_USER_EMAIL = gql`
   query UserById($_id: ID!) {
     userById(_id: $_id) {

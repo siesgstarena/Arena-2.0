@@ -10,7 +10,7 @@ module.exports = {
     },
   },
 
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   rules: {
     'prettier/prettier': 'error',
     'react/prop-types': [2],

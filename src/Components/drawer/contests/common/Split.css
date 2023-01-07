@@ -1,0 +1,65 @@
+.split {
+  display: flex;
+  flex-direction: row;
+}
+
+.gutter {
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+}
+
+.gutter.gutter-horizontal:hover {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+  cursor: col-resize;
+  background-color: rgb(240, 232, 255);
+}
+
+.ml-0-5 {
+  margin-left: 0.5rem;
+}
+
+.mr-0-5 {
+  margin-right: 0.5rem;
+  padding-right: 0.2rem;
+}
+
+.ml-0 {
+  margin-left: 0rem;
+}
+
+.mr-0 {
+  margin-right: 0rem;
+  padding-right: 0rem;
+}
+
+.editor {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem 0.5rem 0rem 0rem;
+}
+
+.scrollbar {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  height: 95vh;
+  position: relative;
+  scroll-behavior: smooth;
+  padding-bottom: 2rem;
+}
+@media (max-width: 768px) {
+  .editor {
+    margin-top: 0.4rem;
+  }
+  /* remove scrollbar */
+  .scrollbar {
+    overflow-y: hidden !important;
+    height: inherit;
+    padding-bottom: 0rem;
+  }
+}

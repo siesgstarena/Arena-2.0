@@ -585,8 +585,8 @@
             }
           },
           "submissionStats": {
-            "type": "property",
-            "items": {
+            "type": "object",
+            "properties": {
               "accepted": {
                 "type": "integer",
                 "example": 34

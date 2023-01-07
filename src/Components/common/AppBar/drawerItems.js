@@ -64,6 +64,13 @@ const drawerItems = [
   },
   {
     id: 9,
+    name: 'Labs',
+    icon: 'insights',
+    path: '/labs',
+    materialIcon: true,
+  },
+  {
+    id: 10,
     name: 'API',
     icon: 'api',
     path: '/api',

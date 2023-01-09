@@ -713,3 +713,29 @@ export const GET_PINNED_BLOGS = gql`
     }
   }
 `;
+
+export const GET_ALL_ANNOUNCEMENTS = gql`
+  query {
+    announcements {
+      announcements {
+        title
+        imageUrl
+        link
+        isCurrent
+        _id
+      }
+      success
+      message
+    }
+  }
+`;
+
+export const GET_CURRENT_ANNOUNCEMENT = gql`
+  query {
+    getCurrentAnnouncement {
+      imageUrl
+      link
+      title
+    }
+  }
+`;

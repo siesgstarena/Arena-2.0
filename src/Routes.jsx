@@ -91,6 +91,9 @@ const SuperuserFeedbacks = lazy(() => import('./Components/superuser/feedback/in
 const SuperuserBlogs = lazy(() => import('./Components/superuser/blogs/index'));
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
+const SuperuserAnnouncementsContainer = lazy(() =>
+  import('./Components/superuser/announcements/index')
+);
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
@@ -243,6 +246,11 @@ const Routes = () => {
                     component={AdminProblemPage}
                   />
                   <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
+                  <PrivateRoute
+                    path="/superuser/announcement"
+                    exact
+                    component={SuperuserAnnouncementsContainer}
+                  />
                   <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
                   <PrivateRoute path="/superuser/blogs" exact component={SuperuserBlogs} />
                   <PrivateRoute path="/superuser/feedbacks" exact component={SuperuserFeedbacks} />

@@ -21,26 +21,26 @@ const useLatestTrendingInfo = () => {
     if (data && data.upcomingcurrentContests) {
       const currentContest = data.upcomingcurrentContests[0]?.currentContests.map((contest) => ({
         name: contest.name,
-        contestLink: `/contests/${contest.code}`,
+        link: `/contests/${contest.code}`,
         endsIn: new Date(contest.endsIn * 1).toLocaleString(),
       }));
       const upcomingContest = data.upcomingcurrentContests[0]?.upcomingContests.map((contest) => ({
         name: contest.name,
-        contestLink: `/contests/${contest.code}`,
-        endsIn: new Date(contest.endsIn * 1).toLocaleString(),
+        link: `/contests/${contest.code}`,
+        startsIn: new Date(contest.endsIn * 1).toLocaleString(),
       }));
       if (currentContest.length === 0) {
         currentContest.push({
           name: 'No current contests',
-          contestLink: '/contests',
+          link: '/contests',
           endsIn: '',
         });
       }
       if (upcomingContest.length === 0) {
         upcomingContest.push({
           name: 'No upcoming contests',
-          contestLink: '/contests',
-          endsIn: '',
+          link: '/contests',
+          startsIn: '',
         });
       }
       setLatestInfo({
@@ -53,8 +53,8 @@ const useLatestTrendingInfo = () => {
     if (trendingdata && trendingdata.trendingBlogs) {
       const trendingInfos = trendingdata.trendingBlogs.map((blog) => ({
         name: blog.title,
-        contestLink: `/blogs/${blog._id}`,
-        endsIn: new Date(blog.createdAt * 1).toLocaleString('en-us', {
+        link: `/blogs/${blog._id}`,
+        time: new Date(blog.createdAt * 1).toLocaleString('en-us', {
           month: 'short',
           day: 'numeric',
         }),
@@ -62,8 +62,8 @@ const useLatestTrendingInfo = () => {
       if (trendingInfos.length === 0) {
         trendingInfos.push({
           name: 'No trending blogs',
-          contestLink: '/blogs',
-          endsIn: '',
+          link: '/blogs',
+          time: '',
         });
       }
       setTrendingInfo(trendingInfos);

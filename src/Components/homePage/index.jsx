@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
 import { Grid, Row, Cell } from '@material/react-layout-grid';
 import CardCarousel from './CardCarousel';
 import WhatsNew from './WhatsNew/WhatsNew';
@@ -7,36 +6,23 @@ import RecommendCard from './RecommendCard/RecommendCard';
 import ContestsCard from './ContestsCard/ContestsCard';
 import HomePage from '../../Contexts/HomePage';
 import Spinner from '../common/Spinner';
-import useHomePageCardCarousel from '../../customHooks/useHomePageCardCarousel';
-import { GET_CURRENT_ANNOUNCEMENT } from '../../graphql/queries';
-import useLatestTrendingInfo from '../../customHooks/useLatestTrendingInfo';
-import usePinnedBlogs from '../../customHooks/usePinnedBlogs';
+import useHomePage from '../../customHooks/useHomePage';
 
 const HomePageContainer = () => {
   const {
-    loading: TrendingLoading,
-    error: TrendingError,
-    latestInfo: TrendingLatestInfo,
-    trendingInfo: TrendingTrendingInfo,
-  } = useLatestTrendingInfo();
-  const {
-    cardData: CardCarouselDate,
-    loading: CardCarouselLoading,
-    error: CardCarouselError,
-  } = useHomePageCardCarousel();
-  const {
-    loading: recommendCardLoading,
-    error: recommendCardError,
-    blogData: recommendCardData,
-  } = usePinnedBlogs();
-  const {
-    loading: AnnouncementLoading,
-    error: AnnouncementError,
-    data: AnnouncementData,
-  } = useQuery(GET_CURRENT_ANNOUNCEMENT);
+    loading,
+    CardCarouselDate,
+    CardCarouselError,
+    AnnouncementData,
+    AnnouncementError,
+    TrendingLatestInfo,
+    TrendingTrendingInfo,
+    TrendingError,
+    recommendCardData,
+    recommendCardError,
+  } = useHomePage();
   // show loader
-  if (CardCarouselLoading || TrendingLoading || recommendCardLoading || AnnouncementLoading)
-    return <Spinner />;
+  if (loading) return <Spinner />;
   return (
     <HomePage.Provider
       value={{

@@ -63,7 +63,7 @@ const WhatsNew = () => {
             <>
               {latestInfo.current.map((latest) => (
                 <div className="WnContainer-each-content" key={latest.name}>
-                  <Link className="WnContainer-each-content-link" to={latest.contestLink}>
+                  <Link className="WnContainer-each-content-link" to={latest.link}>
                     <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
                   </Link>
                   <Body2 className="WnContainer-each-content-body">{`Ends in ${latest.endsIn}`}</Body2>
@@ -75,10 +75,10 @@ const WhatsNew = () => {
             <>
               {latestInfo.upcoming.map((latest) => (
                 <div className="WnContainer-each-content" key={latest.name}>
-                  <Link className="WnContainer-each-content-link" to={latest.contestLink}>
+                  <Link className="WnContainer-each-content-link" to={latest.link}>
                     <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
                   </Link>
-                  <Body2 className="WnContainer-each-content-body">{`Starts in ${latest.endsIn}`}</Body2>
+                  <Body2 className="WnContainer-each-content-body">{`Starts in ${latest.startsIn}`}</Body2>
                 </div>
               ))}
             </>
@@ -97,10 +97,10 @@ const WhatsNew = () => {
               </TitleHeader>
               {trendingInfo.map((trend) => (
                 <div key={trend.name} className="WnContainer-each-content">
-                  <Link to={trend.contestLink} className="WnContainer-each-content-link">
+                  <Link to={trend.link} className="WnContainer-each-content-link">
                     <Headline6 className="WnContainer-each-content-header">{trend.name}</Headline6>
                   </Link>
-                  <Body1 className="WnContainer-each-content-body">{trend.endsIn}</Body1>
+                  <Body1 className="WnContainer-each-content-body">{trend.time}</Body1>
                   <div className="divider-small" />
                 </div>
               ))}

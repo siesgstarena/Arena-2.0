@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Headline5, Headline6, Body2, Body1 } from '@material/react-typography';
 import Card from '@material/react-card';
 import MaterialIcon from '@material/react-material-icon';
 import PropTypes from 'prop-types';
 import './WhatsNew.scss';
-import Spinner from '../../common/Spinner';
 import SomethingWentWrong from '../../common/SomethingWentWrong';
-import useLatestTrendingInfo from '../../../customHooks/useLatestTrendingInfo';
+import HomePage from '../../../Contexts/HomePage';
 
 const SvgComponent = (props) => (
   <svg
@@ -28,13 +27,13 @@ const SvgComponent = (props) => (
   </svg>
 );
 
-const TitleHeader = ({ title, children }) => (
+const TitleHeader = ({ title, children, where }) => (
   <div className="title">
     <Headline5 className="title-header">
       {title}
       {children}
     </Headline5>
-    <Link to="/contests/">
+    <Link to={`/${where}/`}>
       <SvgComponent />
     </Link>
   </div>
@@ -43,33 +42,53 @@ const TitleHeader = ({ title, children }) => (
 TitleHeader.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
+  where: PropTypes.string,
 };
 
 const WhatsNew = () => {
-  const { loading, error, latestInfo, trendingInfo } = useLatestTrendingInfo();
-  if (loading) return <Spinner />;
+  const {
+    TrendingError: error,
+    TrendingLatestInfo: latestInfo,
+    TrendingTrendingInfo: trendingInfo,
+  } = useContext(HomePage);
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   return (
     <Card className="card">
       <div className="WnContainer">
         <div className="WnContainer-each">
-          <TitleHeader title="Current">
+          <TitleHeader title="Latest" where="contests">
             <MaterialIcon icon="fiber_new" className="blink ml2" style={{ color: '#6200ee' }} />
           </TitleHeader>
-          {latestInfo.map((latest) => (
-            <div className="WnContainer-each-content" key={latest.name}>
-              <Link className="WnContainer-each-content-link" to={latest.contestLink}>
-                <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
-              </Link>
-              <Body2 className="WnContainer-each-content-body">{`Ends in ${latest.endsIn}`}</Body2>
-            </div>
-          ))}
+          {latestInfo && latestInfo.current && (
+            <>
+              {latestInfo.current.map((latest) => (
+                <div className="WnContainer-each-content" key={latest.name}>
+                  <Link className="WnContainer-each-content-link" to={latest.contestLink}>
+                    <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
+                  </Link>
+                  <Body2 className="WnContainer-each-content-body">{`Ends in ${latest.endsIn}`}</Body2>
+                </div>
+              ))}
+            </>
+          )}
+          {latestInfo && latestInfo.upcoming && (
+            <>
+              {latestInfo.upcoming.map((latest) => (
+                <div className="WnContainer-each-content" key={latest.name}>
+                  <Link className="WnContainer-each-content-link" to={latest.contestLink}>
+                    <Headline6 className="WnContainer-each-content-header">{latest.name}</Headline6>
+                  </Link>
+                  <Body2 className="WnContainer-each-content-body">{`Starts in ${latest.endsIn}`}</Body2>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <div className="divider" />
         <div className="WnContainer-each">
           {trendingInfo ? (
             <>
-              <TitleHeader title="Upcoming">
+              <TitleHeader title="Trendings" where="blogs">
                 <img
                   alt="fire"
                   className="blink ml2"
@@ -81,7 +100,7 @@ const WhatsNew = () => {
                   <Link to={trend.contestLink} className="WnContainer-each-content-link">
                     <Headline6 className="WnContainer-each-content-header">{trend.name}</Headline6>
                   </Link>
-                  <Body1 className="WnContainer-each-content-body">{`Starts in ${trend.endsIn}`}</Body1>
+                  <Body1 className="WnContainer-each-content-body">{trend.endsIn}</Body1>
                   <div className="divider-small" />
                 </div>
               ))}

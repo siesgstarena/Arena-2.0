@@ -1,45 +1,75 @@
 import { useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
-import { GET_UPCOMING_CURRENT_CONTESTS } from '../graphql/queries';
+import { GET_UPCOMING_CURRENT_CONTESTS, GET_TRENDING_BLOGS } from '../graphql/queries';
 
 const useLatestTrendingInfo = () => {
-  const { error, data } = useQuery(GET_UPCOMING_CURRENT_CONTESTS);
+  const { loading, error, data } = useQuery(GET_UPCOMING_CURRENT_CONTESTS);
+  const {
+    error: trendingerror,
+    data: trendingdata,
+    loading: trendingloading,
+  } = useQuery(GET_TRENDING_BLOGS, {
+    variables: {
+      limit: 3,
+    },
+  });
+  const err = error || trendingerror;
+  const load = loading || trendingloading;
   const [latestInfo, setLatestInfo] = React.useState([]);
   const [trendingInfo, setTrendingInfo] = React.useState([]);
-  const [loadingData, setLoadingData] = React.useState(true);
   useEffect(() => {
     if (data && data.upcomingcurrentContests) {
-      const latestInfos = data.upcomingcurrentContests[0]?.currentContests.map((contest) => ({
+      const currentContest = data.upcomingcurrentContests[0]?.currentContests.map((contest) => ({
         name: contest.name,
         contestLink: `/contests/${contest.code}`,
         endsIn: new Date(contest.endsIn * 1).toLocaleString(),
       }));
-      const trendingInfos = data.upcomingcurrentContests[0]?.upcomingContests.map((contest) => ({
+      const upcomingContest = data.upcomingcurrentContests[0]?.upcomingContests.map((contest) => ({
         name: contest.name,
         contestLink: `/contests/${contest.code}`,
         endsIn: new Date(contest.endsIn * 1).toLocaleString(),
       }));
-      if (latestInfos.length === 0) {
-        latestInfos.push({
+      if (currentContest.length === 0) {
+        currentContest.push({
           name: 'No current contests',
           contestLink: '/contests',
           endsIn: '',
         });
       }
-      if (trendingInfos.length === 0) {
-        trendingInfos.push({
+      if (upcomingContest.length === 0) {
+        upcomingContest.push({
           name: 'No upcoming contests',
           contestLink: '/contests',
           endsIn: '',
         });
       }
-      setLatestInfo(latestInfos);
-      setTrendingInfo(trendingInfos);
-      setLoadingData(false);
+      setLatestInfo({
+        current: currentContest,
+        upcoming: upcomingContest,
+      });
     }
   }, [data]);
-
-  return { loading: loadingData, error, latestInfo, trendingInfo };
+  useEffect(() => {
+    if (trendingdata && trendingdata.trendingBlogs) {
+      const trendingInfos = trendingdata.trendingBlogs.map((blog) => ({
+        name: blog.title,
+        contestLink: `/blogs/${blog._id}`,
+        endsIn: new Date(blog.createdAt * 1).toLocaleString('en-us', {
+          month: 'short',
+          day: 'numeric',
+        }),
+      }));
+      if (trendingInfos.length === 0) {
+        trendingInfos.push({
+          name: 'No trending blogs',
+          contestLink: '/blogs',
+          endsIn: '',
+        });
+      }
+      setTrendingInfo(trendingInfos);
+    }
+  }, [trendingdata]);
+  return { loading: load, error: err, latestInfo, trendingInfo };
 };
 
 export default useLatestTrendingInfo;

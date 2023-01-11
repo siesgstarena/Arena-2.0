@@ -739,3 +739,13 @@ export const GET_CURRENT_ANNOUNCEMENT = gql`
     }
   }
 `;
+
+export const GET_TRENDING_BLOGS = gql`
+  query trendingBlogs($limit: Int) {
+    trendingBlogs(limit: $limit) {
+      _id
+      title
+      createdAt
+    }
+  }
+`;

@@ -3,7 +3,7 @@ import Card from '@material/react-card';
 import CategoryCard from './CategoryCard/CategoryCard';
 // import cardData from '../cardData';
 import './HomePageCard.scss';
-import useHomePage from '../../../customHooks/useHomePage';
+import useHomePage from '../../../customHooks/useHomePageCardCarousel';
 import Spinner from '../../common/Spinner';
 import SomethingWentWrong from '../../common/SomethingWentWrong';
 

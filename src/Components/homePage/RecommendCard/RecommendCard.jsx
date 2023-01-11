@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@material/react-card';
 import { Headline6, Body1, Headline5 } from '@material/react-typography';
 import './RecommendCard.scss';
 import MaterialIcon from '@material/react-material-icon';
 import { Link } from 'react-router-dom';
-import usePinnedBlogs from '../../../customHooks/usePinnedBlogs';
-import Spinner from '../../common/Spinner';
 import SomethingWentWrong from '../../common/SomethingWentWrong';
+import HomePage from '../../../Contexts/HomePage';
 
 // const blogData = [
 //   {
@@ -41,8 +40,7 @@ import SomethingWentWrong from '../../common/SomethingWentWrong';
 //   },
 // ];
 const RecommendCard = () => {
-  const { loading, error, blogData } = usePinnedBlogs();
-  if (loading) return <Spinner />;
+  const { recommendCardError: error, recommendCardData: blogData } = useContext(HomePage);
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   return (
     <Card className="ma0 mt3">

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
 import { TOP_IMPROVERS, TOP_USERS_BY_RATING } from '../graphql/queries';
 
-const useHomePage = () => {
+const useHomePageCardCarousel = () => {
   const [cardData, setCardData] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -50,4 +50,4 @@ const useHomePage = () => {
   return { cardData, loading, error };
 };
 
-export default useHomePage;
+export default useHomePageCardCarousel;

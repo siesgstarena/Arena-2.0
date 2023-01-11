@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@material/react-card';
 import { Headline6 } from '@material/react-typography';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
 // import contest from './assets/SRM14.jpg';
 import './ContestsCard.scss';
-import { GET_CURRENT_ANNOUNCEMENT } from '../../../graphql/queries';
-import Spinner from '../../common/Spinner';
 import SomethingWentWrong from '../../common/SomethingWentWrong';
+import HomePage from '../../../Contexts/HomePage';
 
 const contestInfo = [
   {
@@ -22,8 +20,7 @@ const contestInfo = [
 
 const ContestsCard = () => {
   // eslint-disable-next-line prefer-const
-  let { loading, error, data } = useQuery(GET_CURRENT_ANNOUNCEMENT);
-  if (loading) return <Spinner />;
+  let { AnnouncementError: error, AnnouncementData: data } = useContext(HomePage);
   if (error) return <SomethingWentWrong message="An error has been encountered." />;
   // eslint-disable-next-line prefer-destructuring
   if (!data.getCurrentAnnouncement) data = contestInfo[0];

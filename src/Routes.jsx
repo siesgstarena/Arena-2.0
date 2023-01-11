@@ -62,6 +62,7 @@ const PlaylistsUNI06 = lazy(() =>
 );
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const ApiDoc = lazy(() => import('./Components/drawer/Api/index'));
+const Lab = lazy(() => import('./Components/drawer/lab/Index'));
 const BrandingGuidelines = lazy(() => import('./Components/footerPages/branding/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
 const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
@@ -94,6 +95,7 @@ const SuperuserEditContest = lazy(() => import('./Components/superuser/editConte
 const SuperuserAnnouncementsContainer = lazy(() =>
   import('./Components/superuser/announcements/index')
 );
+const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperusers/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
@@ -196,6 +198,7 @@ const Routes = () => {
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
                   <Route path="/api" exact component={ApiDoc} />
+                  <Route path="/labs" exact component={Lab} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/@:username" exact component={ProfileByUsername} />
@@ -269,6 +272,7 @@ const Routes = () => {
                     exact
                     component={SuperuserUpdateRatings}
                   />
+                  <PrivateRoute path="/superuser/manage" exact component={SuperuserManage} />
                   <Route path="*" component={PageNotFound} />
                 </Switch>
               </Suspense>

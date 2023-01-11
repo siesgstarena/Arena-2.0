@@ -465,6 +465,16 @@ export const IS_SUPERUSER = gql`
   }
 `;
 
+export const GET_ALL_SUPERUSERS = gql`
+  query GetAllSuperusers {
+    users(where: { role: superuser }) {
+      name
+      email
+      username
+    }
+  }
+`;
+
 export const GET_NEW_RATINGS = gql`
   query CalculateNewRatings($code: String!) {
     calculateNewRatings(code: $code) {

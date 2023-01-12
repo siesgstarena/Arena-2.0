@@ -1,0 +1,75 @@
+import { useQuery } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { GET_UPCOMING_CURRENT_CONTESTS, GET_TRENDING_BLOGS } from '../graphql/queries';
+
+const useLatestTrendingInfo = () => {
+  const { loading, error, data } = useQuery(GET_UPCOMING_CURRENT_CONTESTS);
+  const {
+    error: trendingerror,
+    data: trendingdata,
+    loading: trendingloading,
+  } = useQuery(GET_TRENDING_BLOGS, {
+    variables: {
+      limit: 3,
+    },
+  });
+  const err = error || trendingerror;
+  const load = loading || trendingloading;
+  const [latestInfo, setLatestInfo] = React.useState([]);
+  const [trendingInfo, setTrendingInfo] = React.useState([]);
+  useEffect(() => {
+    if (data && data.upcomingcurrentContests) {
+      const currentContest = data.upcomingcurrentContests[0]?.currentContests.map((contest) => ({
+        name: contest.name,
+        link: `/contests/${contest.code}`,
+        endsIn: new Date(contest.endsIn * 1).toLocaleString(),
+      }));
+      const upcomingContest = data.upcomingcurrentContests[0]?.upcomingContests.map((contest) => ({
+        name: contest.name,
+        link: `/contests/${contest.code}`,
+        startsIn: new Date(contest.endsIn * 1).toLocaleString(),
+      }));
+      if (currentContest.length === 0) {
+        currentContest.push({
+          name: 'No current contests',
+          link: '/contests',
+          endsIn: '',
+        });
+      }
+      if (upcomingContest.length === 0) {
+        upcomingContest.push({
+          name: 'No upcoming contests',
+          link: '/contests',
+          startsIn: '',
+        });
+      }
+      setLatestInfo({
+        current: currentContest,
+        upcoming: upcomingContest,
+      });
+    }
+  }, [data]);
+  useEffect(() => {
+    if (trendingdata && trendingdata.trendingBlogs) {
+      const trendingInfos = trendingdata.trendingBlogs.map((blog) => ({
+        name: blog.title,
+        link: `/blogs/${blog._id}`,
+        time: new Date(blog.createdAt * 1).toLocaleString('en-us', {
+          month: 'short',
+          day: 'numeric',
+        }),
+      }));
+      if (trendingInfos.length === 0) {
+        trendingInfos.push({
+          name: 'No trending blogs',
+          link: '/blogs',
+          time: '',
+        });
+      }
+      setTrendingInfo(trendingInfos);
+    }
+  }, [trendingdata]);
+  return { loading: load, error: err, latestInfo, trendingInfo };
+};
+
+export default useLatestTrendingInfo;

@@ -671,3 +671,91 @@ export const GET_ALL_FEEDBACKS = gql`
     }
   }
 `;
+
+export const TOP_USERS_BY_RATING = gql`
+  query TopUsersByRating($limit: Int) {
+    topUsersByRating(limit: $limit) {
+      id: _id
+      name
+      ratings
+    }
+  }
+`;
+export const TOP_IMPROVERS = gql`
+  query topUsersByImprovement($limit: Int) {
+    topUsersByImprovement(limit: $limit) {
+      code
+      RatingChange {
+        id
+        name
+        ratingChange
+      }
+    }
+  }
+`;
+
+export const GET_UPCOMING_CURRENT_CONTESTS = gql`
+  query {
+    upcomingcurrentContests {
+      currentContests {
+        name
+        code
+        endsIn: endsAt
+      }
+      upcomingContests {
+        name
+        code
+        endsIn: startsAt
+      }
+    }
+  }
+`;
+
+export const GET_PINNED_BLOGS = gql`
+  query pinnedBlogs($limit: Int) {
+    pinnedBlogs(limit: $limit) {
+      author: userId {
+        name
+      }
+      title
+      createdAt
+      _id
+    }
+  }
+`;
+
+export const GET_ALL_ANNOUNCEMENTS = gql`
+  query {
+    announcements {
+      announcements {
+        title
+        imageUrl
+        link
+        isCurrent
+        _id
+      }
+      success
+      message
+    }
+  }
+`;
+
+export const GET_CURRENT_ANNOUNCEMENT = gql`
+  query {
+    getCurrentAnnouncement {
+      imageUrl
+      link
+      title
+    }
+  }
+`;
+
+export const GET_TRENDING_BLOGS = gql`
+  query trendingBlogs($limit: Int) {
+    trendingBlogs(limit: $limit) {
+      _id
+      title
+      createdAt
+    }
+  }
+`;

@@ -1,34 +1,29 @@
-import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
-// This component nests other components in it.
-// It is used to scroll the page back to top when the route is changed.
-class ScrollToTop extends Component {
-  // After mounting of components if the path is not the same as the previous
-  // path then we move to the top.
-  componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    const { pathname: currentLocation } = location;
-    const { pathname: prevLocation } = prevProps.location;
-    const currentSearch = location.search;
-    const prevSearch = prevProps.location.search;
-    if (currentLocation !== prevLocation || currentSearch !== prevSearch) {
-      window.scrollTo(0, 0);
-    }
-  }
+const usePrevLocation = () => {
+  const location = useLocation();
+  const prevLocRef = useRef(location);
 
-  // Since it nests other components,
-  // we render the nested components (children).
-  render() {
-    const { children } = this.props;
-    return children;
+  useEffect(() => {
+    prevLocRef.current = location;
+  }, [location]);
+
+  return prevLocRef.current;
+};
+
+const ScrollToTop = ({ children }) => {
+  const { pathname: prevPath, search: prevSearch } = usePrevLocation();
+  const { pathname: currentPath, search: currentSearch } = useLocation();
+  if (currentPath !== prevPath || currentSearch !== prevSearch) {
+    window.scrollTo(0, 0);
   }
-}
+  return children;
+};
 
 ScrollToTop.propTypes = {
-  location: PropTypes.object.isRequired,
   children: PropTypes.any.isRequired,
 };
 
-export default withRouter(ScrollToTop);
+export default ScrollToTop;

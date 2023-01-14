@@ -41,13 +41,7 @@ const CustomTopAppBar = ({ setDrawerOpen }) => {
 
   return (
     <div>
-      <TopAppBar
-        fixed
-        className="react-top-app-bar-alternate"
-        style={{
-          zIndex: 1000,
-        }}
-      >
+      <TopAppBar fixed className="react-top-app-bar-alternate">
         <TopAppBarRow>
           <TopAppBarSection align="start">
             <TopAppBarIcon navIcon tabIndex={0}>

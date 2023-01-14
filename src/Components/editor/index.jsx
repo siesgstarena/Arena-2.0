@@ -18,6 +18,9 @@ const Editor = () => {
       mode={optionToextLanguages[editorConfig.mode]}
       theme={editorConfig.theme}
       tabSize={editorConfig.tabSize}
+      style={{
+        zIndex: 0,
+      }}
       width="100%"
       height="500px"
       showPrintMargin={false}

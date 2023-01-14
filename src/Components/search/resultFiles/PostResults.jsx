@@ -4,7 +4,7 @@ import { Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import Pill from '../../common/Pill';
-import { userColor } from '../../../commonFunctions';
+import { userColor } from '../../../utils/commonFunctions';
 
 const tagsArray = (tags) =>
   tags.map((tag) => (

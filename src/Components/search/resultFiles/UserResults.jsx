@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Headline6 } from '@material/react-typography';
-import { userColor } from '../../../commonFunctions';
+import { userColor } from '../../../utils/commonFunctions';
 
 const UserResults = ({ userArray }) => (
   <div className="">

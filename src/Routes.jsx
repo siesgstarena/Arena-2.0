@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import AppBar from './Components/common/AppBar/index';
-import ScrollToTop from './ScrollToTop';
+import ScrollToTop from './Components/common/ScrollToTop';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
@@ -11,7 +11,7 @@ import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import SomethingWentWrong from './Components/common/SomethingWentWrong/index';
 import './App.scss';
 
-const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const PrivateRoute = lazy(() => import('./Components/common/PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
 const SignUp = lazy(() => import('./Components/auth/signup/index'));
 const Forgot = lazy(() => import('./Components/auth/forgot/index'));

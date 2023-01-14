@@ -6,7 +6,7 @@ import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Button } from '@material/react-button';
 import { Headline4, Body1, Headline6 } from '@material/react-typography';
 import { format } from 'date-fns';
-import { userColor, userStatus } from '../../../commonFunctions';
+import { userColor, userStatus } from '../../../utils/commonFunctions';
 import AuthContext from '../../../Contexts/AuthContext';
 import EditAbout from './EditAbout';
 import MessageCard from '../../common/MessageCard/index';

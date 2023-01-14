@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Headline4, Headline6 } from '@material/react-typography';
 import PropTypes from 'prop-types';
 import Pill from '../../../common/Pill/index';
-import { userColor } from '../../../../commonFunctions';
+import { userColor } from '../../../../utils/commonFunctions';
 
 const tagsArray = (tags) =>
   tags.map((tag) => (

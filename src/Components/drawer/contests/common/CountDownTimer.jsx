@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { countDownTimerValues } from '../../../../commonFunctions';
+import { countDownTimerValues } from '../../../../utils/commonFunctions';
 
 const CountDownTimer = ({ countDownTill }) => {
   const [timer, setTimer] = useState('');

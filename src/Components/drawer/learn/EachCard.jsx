@@ -9,7 +9,14 @@ const EachCard = ({ subCategory, title }) => (
   <Card className="learn-card-each">
     <Headline6 className="learn-card-each-title">{title}</Headline6>
     {subCategory.map((eachItem) => (
-      <Link key={eachItem.title} to={eachItem.link} className="learn-card-each-link">
+      <Link
+        key={eachItem.title}
+        to={{
+          pathname: eachItem.link,
+        }}
+        target="_blank"
+        className="learn-card-each-link"
+      >
         <Body1 className="ma0">{eachItem.title}</Body1>
       </Link>
     ))}

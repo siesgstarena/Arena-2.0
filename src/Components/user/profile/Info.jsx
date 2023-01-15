@@ -185,7 +185,7 @@ const Info = ({ userDetails: user }) => {
               <img
                 className="mr2"
                 alt="Codeforces"
-                src="https://1.bp.blogspot.com/-pBimI1ZhYAA/Wnde0nmCz8I/AAAAAAAABPI/5LZ2y9tBOZIV-pm9KNbyNy3WZJkGS54WgCPcBGAYYCw/s1600/codeforce.png"
+                src="https://res.cloudinary.com/siesgstarena/image/upload/v1673790803/arena%202.0/images/codeforce.png"
                 width="30em"
               />
               {removeTag ? (
@@ -210,7 +210,7 @@ const Info = ({ userDetails: user }) => {
               <img
                 className="mr2"
                 alt="Codechef"
-                src="https://cdn.clipart.email/38dd8d751b58ba5ce74907dfc482776d_codechef-user-codechef_732-732.jpeg"
+                src="https://res.cloudinary.com/siesgstarena/image/upload/v1673790801/arena%202.0/images/c5d9fc1e18bcf039f464c2ab6cfb3eb6.jpg"
                 width="30em"
               />
               {removeTag ? (
@@ -235,7 +235,7 @@ const Info = ({ userDetails: user }) => {
               <img
                 className="mr2"
                 alt="Github"
-                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                src="https://res.cloudinary.com/siesgstarena/image/upload/v1673790804/arena%202.0/images/GitHub-Mark.png"
                 width="30em"
               />
               {removeTag ? (

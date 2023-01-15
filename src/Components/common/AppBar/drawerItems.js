@@ -48,13 +48,13 @@ const drawerItems = [
     path: '/playlists',
     materialIcon: true,
   },
-  {
-    id: 7,
-    name: 'Goodies',
-    icon: 'card_giftcard',
-    path: '/goodies',
-    materialIcon: true,
-  },
+  // {
+  //   id: 7,
+  //   name: 'Goodies',
+  //   icon: 'card_giftcard',
+  //   path: '/goodies',
+  //   materialIcon: true,
+  // },
   {
     id: 8,
     name: 'Learn',

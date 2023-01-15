@@ -7,7 +7,7 @@ import ContestDetails from './ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
 import { CREATE_CONTEST } from '../../../graphql/mutations';
 import { GET_CONTEST_HOMEPAGE_DETAILS, GET_ALL_CONTEST_DETAILS } from '../../../graphql/queries';
-import { superuserContestsLimit } from '../../../constants';
+import { superuserContestsLimit } from '../../../utils/constants';
 
 const CreateContest = () => {
   const intialFormDetails = {

@@ -7,7 +7,7 @@ import MessageCard from '../../../common/MessageCard';
 import BlogDetails from './BlogDetails';
 import { CREATE_BLOG } from '../../../../graphql/mutations';
 import { GET_ALL_BLOGS, GET_BLOGS_BY_USER } from '../../../../graphql/queries';
-import { allBlogsLimit, profileMyPostsLimit, myBlogsLimit } from '../../../../constants';
+import { allBlogsLimit, profileMyPostsLimit, myBlogsLimit } from '../../../../utils/constants';
 import AuthContext from '../../../../Contexts/AuthContext';
 
 const CreateBlog = () => {

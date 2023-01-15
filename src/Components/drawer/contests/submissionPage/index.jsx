@@ -8,7 +8,7 @@ import { GET_SUBMISSION_PAGE_DETAILS } from '../../../../graphql/queries';
 import SomethingWentWrong from '../../../common/SomethingWentWrong/index';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import Spinner from '../../../common/Spinner/index';
-import { languageCodeAppender } from '../../../../commonFunctions';
+import { languageCodeAppender } from '../../../../utils/commonFunctions';
 import WrongAnswerContent from './WrongAnwerContent';
 
 const SubmitContainer = () => {

@@ -8,7 +8,7 @@ import useActivePageState from '../../../customHooks/useAcitvePageState';
 import AuthContext from '../../../Contexts/AuthContext';
 import BlogsArray from './BlogsArray';
 import LoadingCardArray from '../../common/LoadingCardArray';
-import { myBlogsLimit } from '../../../constants';
+import { myBlogsLimit } from '../../../utils/constants';
 
 const MyBlogsContainer = () => {
   const limit = myBlogsLimit;

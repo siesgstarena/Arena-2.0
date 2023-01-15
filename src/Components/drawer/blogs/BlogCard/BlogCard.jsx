@@ -12,12 +12,12 @@ import { DELETE_BLOG, CHANGE_BLOG_PIN_STATUS } from '../../../../graphql/mutatio
 // import { GET_ALL_BLOGS } from '../../../../graphql/queries';
 import AlertBox from '../../../common/AlertBox/index';
 import Pill from '../../../common/Pill/index';
-import { userColor } from '../../../../commonFunctions';
+import { userColor } from '../../../../utils/commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 import './BlogCard.scss';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import useSentry from '../../../../customHooks/useSentry';
-import { myBlogsLimit, allBlogsLimit } from '../../../../constants';
+import { myBlogsLimit, allBlogsLimit } from '../../../../utils/constants';
 import { GET_BLOGS_BY_USER, GET_ALL_BLOGS } from '../../../../graphql/queries';
 
 const BlogCard = ({

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextField, { Input } from '@material/react-text-field';
-import { userColor } from '../../../commonFunctions';
+import { userColor } from '../../../utils/commonFunctions';
 
 const UpdateRatingsTableData = ({ ratingData, setUpdatedRatings }) => {
   const [rating, setRating] = useState(ratingData.newRating);

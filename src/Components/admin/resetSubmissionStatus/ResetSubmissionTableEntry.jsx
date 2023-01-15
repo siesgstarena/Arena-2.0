@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Switch from '@material/react-switch';
 import '../../user/settings/settings.scss';
 import { RESET_SUBMISSION, CHANGE_PLAGIARISM_STATUS } from '../../../graphql/mutations';
-import { getSubmissionColor } from '../../../commonFunctions';
+import { getSubmissionColor } from '../../../utils/commonFunctions';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import useSentry from '../../../customHooks/useSentry';
 

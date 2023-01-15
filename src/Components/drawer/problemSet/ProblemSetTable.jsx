@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from '@material/react-button';
 import Table from '../../common/Table/index';
-import { problemBackgroundColor } from '../../../commonFunctions';
+import { problemBackgroundColor } from '../../../utils/commonFunctions';
 
 const ProblemsSetTable = ({ problemsList }) => {
   // Trimming tags because of database inconsistency

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Table from '../../../common/Table/index';
-import { problemBackgroundColor } from '../../../../commonFunctions';
+import { problemBackgroundColor } from '../../../../utils/commonFunctions';
 
 const ProblemsTable = ({ problems }) => {
   const tableHeadings = ['#', 'Points', 'Problem Name'];

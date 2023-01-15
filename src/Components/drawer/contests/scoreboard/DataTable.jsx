@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { userColor } from '../../../../commonFunctions';
+import { userColor } from '../../../../utils/commonFunctions';
 import Table from '../../../common/Table/index';
 
 const DataTable = ({ problems, scoreboardDetails }) => {

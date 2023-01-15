@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getSubmissionColor } from '../../../commonFunctions';
+import { getSubmissionColor } from '../../../utils/commonFunctions';
 import Table from '../../common/Table';
 
 // SubmissionTab Content

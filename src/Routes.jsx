@@ -33,6 +33,7 @@ const ContestSubmissionPage = lazy(() =>
 );
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const Learn = lazy(() => import('./Components/drawer/learn/index'));
+const TuringCup = lazy(() => import('./Components/turingcup/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const HomePage = lazy(() => import('./Components/homePage'));
@@ -99,6 +100,7 @@ const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperuse
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
 const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
+  const path = window.location.pathname;
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);
   // running the query to the server to check if the user is already logged in or not
   if (loading) return <Spinner />;
@@ -124,7 +126,7 @@ const Routes = () => {
                   some part of the URL. Hence in our case, AppBar and Footer will be rendered
                   on all the pages which has REACT_APP_BASE_ADDRESS in their URL
               */}
-              <Route path="/" render={() => <AppBar />} />
+              {path === '/turingcup' ? null : <Route path="/" render={() => <AppBar />} />}
               <Suspense fallback={<Spinner />}>
                 <Switch>
                   <Route
@@ -173,6 +175,7 @@ const Routes = () => {
                     )}
                   />
                   <Route path="/" exact component={HomePage} />
+                  <Route path="/turingcup" exact component={TuringCup} />
                   {/* <Route path="/" exact render={() => <h1 className="tc purple">WIP</h1>} /> */}
                   <Route path="/auth/signin" exact component={SignIn} />
                   <Route path="/auth/signup" exact component={SignUp} />
@@ -276,7 +279,7 @@ const Routes = () => {
                   <Route path="*" component={PageNotFound} />
                 </Switch>
               </Suspense>
-              <Route path="/" render={() => <Footer />} />
+              {path === '/turingcup' ? null : <Route path="/" render={() => <Footer />} />}
             </ScrollToTop>
           </BrowserRouter>
         </ErrorBoundary>

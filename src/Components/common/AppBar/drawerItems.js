@@ -14,6 +14,15 @@ const drawerItems = [
     materialIcon: true,
   },
   {
+    id: 11,
+    name: 'Turing Cup',
+    icon: 'emoji_events',
+    path: '/turingcup',
+    materialIcon: true,
+    new: true,
+    target: '_blank',
+  },
+  {
     id: 2,
     name: 'Ratings',
     icon: 'star',

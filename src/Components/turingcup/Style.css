@@ -163,7 +163,7 @@ input[type='number'] {
 }
 
 .poster .btn:hover {
-	background: linear-gradient(180deg, #289b16 0%, #083801 100%);
+	background: linear-gradient(180deg, #289b16 0%, #083801 100%) !important;
 	color: #ffffff;
 }
 

@@ -124,8 +124,8 @@ const Registration = () => {
               <Headline1 className="str-number">1</Headline1>
               <Box className="str-op">
                 <Typography className="str-pp">
-                  Entry fee for participating in Turing Cup 2022 is Rs. 40/- You can pay via UPI at
-                  sampritchaurasiya07-1@okicici or Paytm at 8652747379@paytm
+                  Entry fee for participating in Turing Cup 2023 is Rs. 40/- You can pay via UPI at
+                  salmanadhikari415@oksbi or Paytm at 735081158762@paytm
                 </Typography>
               </Box>
             </Box>

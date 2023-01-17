@@ -67,11 +67,11 @@ const Hero = () => {
                   className="display-5 fw-bold lh-1"
                   style={{ color: '#40be2c' }}
                 >
-                  &nbsp;2022
+                  &nbsp;2023
                 </Box>
               </Headline1>
               <Typography className="lead">
-                The 5th iteration of annual national level flagship competitive programming contest
+                The 6th iteration of annual national level flagship competitive programming contest
                 is here!!
               </Typography>
               <Typography className="lead" style={{ color: '#40be2c', marginTop: '-5px' }}>

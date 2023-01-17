@@ -68,7 +68,7 @@ const About = () => {
             <Typography className="contentAbout">
               Contestants are required to complete registration and sign up on the arena platform.
               Once the contest commences, they will compete for the championship title and prizes.
-              Turing Cup 2022 will last for 48 hours and participants are required to solve problems
+              Turing Cup 2023 will last for 48 hours and participants are required to solve problems
               of varying difficulty from easy to hard.
             </Typography>
           </Box>

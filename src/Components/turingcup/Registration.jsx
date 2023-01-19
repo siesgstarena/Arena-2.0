@@ -92,7 +92,62 @@ const Registration = () => {
       }, 500);
     } else {
       // console.log('valid');
-      form.submit();
+      const data = {
+        name: inputFields[0].value,
+        phone: inputFields[1].value,
+        email: inputFields[2].value,
+        collegeName: form.collegeName.value,
+        currentYear: form.currentYear.value,
+        branchName: form.branchName.value,
+        transactionId: inputFields[6].value,
+        arenaUsername: inputFields[7].value,
+      };
+      const nameRegex = /^[a-zA-Z ]{3,30}$/;
+      const emailRegex =
+        // eslint-disable-next-line no-useless-escape
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      const phoneRegex = /^[0-9]{10}$/;
+      const branch = ['IT', 'CE', 'Other', 'AI&DS', 'AI&ML', 'EXTC', 'IOT', 'MECH'];
+      const year = ['FE', 'SE', 'TE', 'BE'];
+
+      if (!nameRegex.test(data.name)) {
+        alert('Name is not valid');
+        return;
+      }
+      if (!emailRegex.test(data.email)) {
+        alert('Email is not valid');
+        return;
+      }
+      if (!phoneRegex.test(data.phone)) {
+        alert('Phone Number is not valid');
+        return;
+      }
+      if (!branch.includes(data.branchName)) {
+        alert('Branch is not valid');
+        return;
+      }
+      if (!year.includes(data.currentYear)) {
+        alert('Year is not valid');
+        return;
+      }
+      const URL = 'http://localhost:3000/turingcup/register';
+      fetch(URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === true || res.status === 'true') {
+            alert('Successfully Registered Check Mail for further details');
+            window.location.reload();
+          } else {
+            alert(res.error);
+          }
+        })
+        .catch(() => alert('Registration Unsuccessful'));
     }
   }
 
@@ -311,7 +366,7 @@ const Registration = () => {
                   Branch:
                 </Box>
               </Box>
-              <Box className="reply" style={{ maxWidth: '100vw !important' }}>
+              <Box className="reply" style={{ maxWidth: '100vw !important', flexWrap: 'wrap' }}>
                 <label className="radio-label">
                   <input
                     className="input-rad"
@@ -341,6 +396,54 @@ const Registration = () => {
                   />
                   <Box component="span" className="inner-label">
                     EXTC
+                  </Box>
+                </label>
+                <label className="radio-label">
+                  <input
+                    className="input-rad"
+                    id="aids"
+                    name="branchName"
+                    value="AI&DS"
+                    type="radio"
+                  />
+                  <Box component="span" className="inner-label">
+                    AI&DS
+                  </Box>
+                </label>
+                <label className="radio-label">
+                  <input
+                    className="input-rad"
+                    id="aiml"
+                    name="branchName"
+                    value="AI&ML"
+                    type="radio"
+                  />
+                  <Box component="span" className="inner-label">
+                    AI&ML
+                  </Box>
+                </label>
+                <label className="radio-label">
+                  <input
+                    className="input-rad"
+                    id="iot"
+                    name="branchName"
+                    value="IOT"
+                    type="radio"
+                  />
+                  <Box component="span" className="inner-label">
+                    IOT
+                  </Box>
+                </label>
+                <label className="radio-label">
+                  <input
+                    className="input-rad"
+                    id="mech"
+                    name="branchName"
+                    value="MECH"
+                    type="radio"
+                  />
+                  <Box component="span" className="inner-label">
+                    MECH
                   </Box>
                 </label>
                 <label className="radio-label">

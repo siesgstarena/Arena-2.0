@@ -36,9 +36,10 @@ const Faq = () => {
                   <Box className="accordion-item-header">How is it conducted?</Box>
                   <Box className="accordion-item-body">
                     <Box className="accordion-item-body-content">
-                      The contest is conducted in single phase and the participants are required to
-                      solve the problems within the time limit of 48 hours. Contest consists of
-                      several questions of varying difficulty from easy to hard.
+                      comprises of two rounds: Qualifier Round: It is an online coding contest which
+                      will be conducted from 21th March to 23th March. Final Round: It will be a
+                      coding round. Dates will be released on social media pages of Codechef SIESGST
+                      and it will take place at the SIES Graduate School of Technology, Nerul.
                     </Box>
                   </Box>
                 </Box>

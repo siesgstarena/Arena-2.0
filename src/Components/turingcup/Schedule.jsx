@@ -18,7 +18,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  05
+                  26
                 </Box>
                 <Box
                   className="row d-block"
@@ -28,7 +28,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  April
+                  Feb
                 </Box>
               </Box>
               <Box className="col-12 mx-3 schedule-bug">
@@ -61,7 +61,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  13
+                  21
                 </Box>
                 <Box
                   className="row d-block"
@@ -71,7 +71,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  April
+                  March
                 </Box>
               </Box>
               <Box className="col-12 mx-3 schedule-bug">
@@ -87,7 +87,7 @@ const Schedule = () => {
                 >
                   Registration Ends!
                 </Box>
-                <Box className="row box-text">Registration ends on 13th April 6:59 pm sharp</Box>
+                <Box className="row box-text">Registration ends on 21th March 6:59 pm sharp</Box>
               </Box>
             </Box>
           </li>
@@ -102,7 +102,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  13
+                  21
                 </Box>
                 <Box
                   className="row d-block"
@@ -112,7 +112,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  April
+                  March
                 </Box>
               </Box>
               <Box className="col-12 mx-3 schedule-bug">
@@ -126,18 +126,24 @@ const Schedule = () => {
                     paddingBottom: '7px',
                   }}
                 >
-                  Contest Starts
+                  Qualifier Round
                 </Box>
                 <Box className="row box-text">
-                  Contest starts at 7:00pm. Contenders from several colleges across the country will
-                  compete for the Turing Cup 2022 Title.
+                  Qualifier round will start on 21th March at 07:00 PM and will end on 23th March at
+                  07:00 PM.
                 </Box>
               </Box>
             </Box>
           </li>
           <li>
             <Box className="row boxes">
-              <Box className="col-6 col-md-4 col-xl-4 box-date">
+              <Box
+                className="col-6 col-md-4 col-xl-4 box-date"
+                style={{
+                  maxWidth: '81%',
+                  flex: '0 0 100%',
+                }}
+              >
                 <Box
                   className="row d-block"
                   style={{
@@ -146,17 +152,7 @@ const Schedule = () => {
                     textAlign: 'center',
                   }}
                 >
-                  15
-                </Box>
-                <Box
-                  className="row d-block"
-                  style={{
-                    fontFamily: 'Cabin Sketch,cursive',
-                    fontSize: '35px',
-                    textAlign: 'center',
-                  }}
-                >
-                  April
+                  To be Announced Soon
                 </Box>
               </Box>
               <Box className="col-12 mx-3 schedule-bug">
@@ -170,10 +166,11 @@ const Schedule = () => {
                     paddingBottom: '7px',
                   }}
                 >
-                  Contest Ends
+                  Final Round
                 </Box>
                 <Box className="row box-text">
-                  The contest will end on 15th April 07:00 PM and the champions will be declared.
+                  Dates for the final round will be posted on the Codechef SIESGST social media
+                  accounts. It will be held in offline mode at SIESGST, Nerul.
                 </Box>
               </Box>
             </Box>

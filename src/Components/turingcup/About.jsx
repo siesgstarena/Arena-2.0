@@ -66,10 +66,11 @@ const About = () => {
           <Box className="ch3About">
             <Headline2 className="titleAbout">How it works?</Headline2>
             <Typography className="contentAbout">
-              Contestants are required to complete registration and sign up on the arena platform.
-              Once the contest commences, they will compete for the championship title and prizes.
-              Turing Cup 2023 will last for 48 hours and participants are required to solve problems
-              of varying difficulty from easy to hard.
+              The contest is divided into two rounds. Qualifier Round: It will be a two-day online
+              coding round. The contest will be held on SIESGSTarena website. The top 20 players
+              will be selected to participate in the finals Final Round: Finals will be conducted in
+              offline mode (at SIESGST, Nerul). The qualified players will be competing against each
+              other in a coding contest.
             </Typography>
           </Box>
         </Box>

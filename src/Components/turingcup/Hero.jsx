@@ -3,8 +3,7 @@ import { Headline1, Headline2, Headline4 } from '@material/react-typography';
 import React, { useEffect } from 'react';
 
 const Hero = () => {
-  const countDownDate1 = new Date('Mar 13, 2023 18:59:00').getTime();
-  const countDownDate2 = new Date('Mar 10, 2023 00:00:00').getTime();
+  const countDownDate1 = new Date('Mar 21, 2023 18:59:00').getTime();
 
   useEffect(() => {
     // eslint-disable-next-line vars-on-top, no-var
@@ -14,7 +13,6 @@ const Hero = () => {
 
       // Find the distance between now and the count down date
       const distance1 = countDownDate1 - now;
-      const distance2 = countDownDate2 - now;
 
       // Time calculations for days, hours, minutes and seconds
       const days = Math.floor(distance1 / (1000 * 60 * 60 * 24));
@@ -35,10 +33,6 @@ const Hero = () => {
         document.getElementById('hours').innerHTML = '00';
         document.getElementById('minutes').innerHTML = '00';
         document.getElementById('seconds').innerHTML = '00';
-      }
-
-      if (distance2 <= 0) {
-        // eslint-disable-next-line vars-on-top, no-var
       }
     }, 1000);
   });

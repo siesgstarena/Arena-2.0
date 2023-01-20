@@ -63,6 +63,7 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
             >
               <NavLink
                 to={{ pathname: item.path }}
+                target={item.target}
                 exact
                 className="no-underline db pa3 black"
                 activeStyle={{ color: '#6200EE' }}
@@ -79,6 +80,13 @@ const CustomDrawer = ({ setDrawerOpen, drawerOpen }) => {
                   }
                 />
                 <ListItemText className="v-mid" primaryText={item.name} />
+                {item.new && (
+                  <MaterialIcon
+                    icon="fiber_new"
+                    className="blink ml2"
+                    style={{ color: '#6200ee' }}
+                  />
+                )}
               </NavLink>
             </ListItem>
           ))}

@@ -12,7 +12,7 @@ The project is focused on providing a good UI and performance to our end users i
 ### Project Structure
 
 The project structure is based on the idea of keeping all the components and assets required by a route in its own separate folder.
-The entire project is divided into 5 modules:
+The entire project is divided into the following modules:
 
 1. common: This module contains the components which are common across all the routes. e.g. The AppBar, Footer, SearchBar.
 1. footerPages: This module contains the routes which are present in the footer. e.g about, competitions, contact, our-team, feedback, faq and privacy.

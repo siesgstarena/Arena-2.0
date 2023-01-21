@@ -130,7 +130,7 @@ const Registration = () => {
         alert('Year is not valid');
         return;
       }
-      const URL = 'http://localhost:3000/turingcup/register';
+      const URL = `${process.env.REACT_APP_SERVER_BASE_URL}/turingcup/register`;
       fetch(URL, {
         method: 'POST',
         headers: {

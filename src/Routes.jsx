@@ -33,7 +33,7 @@ const ContestSubmissionPage = lazy(() =>
 );
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const Learn = lazy(() => import('./Components/drawer/learn/index'));
-const TuringCup = lazy(() => import('./Components/turingcup/index'));
+const TuringCup = lazy(() => import('./Components/drawer/turingcup/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const HomePage = lazy(() => import('./Components/homePage'));

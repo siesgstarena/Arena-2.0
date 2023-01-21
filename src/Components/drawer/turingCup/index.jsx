@@ -13,7 +13,7 @@ import './Style.css';
 
 const index = () => {
   return (
-    <Box style={{ background: 'linear-gradient(81.4deg, #000000 0.86%, #202E44 127.88%)' }}>
+    <Box className="main-container-body">
       <Navbar />
       <Hero />
       <About />

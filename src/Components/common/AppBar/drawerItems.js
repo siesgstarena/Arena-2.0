@@ -62,6 +62,13 @@ const drawerItems = [
     path: '/api',
     materialIcon: true,
   },
+  {
+    id: 9,
+    name: 'ICPC',
+    icon: 'group',
+    path: '/icpc',
+    materialIcon: true,
+  },
 ];
 
 export default drawerItems;

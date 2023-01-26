@@ -98,7 +98,7 @@ const SuperuserAnnouncementsContainer = lazy(() =>
 );
 const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperusers/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-const Editor = lazy(() => import('./Components/editor/global/index'));
+const Editor = lazy(() => import('./Components/common/Editor/global/index'));
 const Routes = () => {
   const path = window.location.pathname;
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);

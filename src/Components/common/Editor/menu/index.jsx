@@ -17,9 +17,9 @@ import MaterialIcon from '@material/react-material-icon';
 import * as ace from 'ace-builds/src-noconflict/ace';
 import { useApolloClient } from '@apollo/client';
 import themes from '../defaults/themes';
-import AceEditorContext from '../../../Contexts/AceEditorContext';
-import { SAVE_CODE } from '../../../graphql/mutations';
-import MessageCard from '../../common/MessageCard';
+import AceEditorContext from '../../../../Contexts/AceEditorContext';
+import { SAVE_CODE } from '../../../../graphql/mutations';
+import MessageCard from '../../MessageCard';
 import '../Style.css';
 
 ace.config.set('basePath', '/assets/ui/');

@@ -9,7 +9,7 @@ import 'ace-builds/src-noconflict/theme-github';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
 import optionToextLanguages from './defaults/extLanguages';
-import AceEditorContext from '../../Contexts/AceEditorContext';
+import AceEditorContext from '../../../Contexts/AceEditorContext';
 
 const Editor = () => {
   const { editorConfig, setEditorConfig } = useContext(AceEditorContext);

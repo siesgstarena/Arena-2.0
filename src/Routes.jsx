@@ -10,7 +10,13 @@ import { GET_LOGGED_IN_USER } from './graphql/queries';
 import ErrorBoundary from './Components/common/ErrorBoundary/index';
 import SomethingWentWrong from './Components/common/SomethingWentWrong/index';
 import './App.scss';
+// import Eighteen from './Components/icpc team py/Eighteen';
 
+const icpc = lazy(() => import('./Components/drawer/ICPC/Index'));
+const eighteen = lazy(() => import('./Components/drawer/ICPC/year/Eighteen'));
+const seventeen = lazy(() => import('./Components/drawer/ICPC/year/Seventeen'));
+const twenty = lazy(() => import('./Components/drawer/ICPC/year/Twenty'));
+const twentyone = lazy(() => import('./Components/drawer/ICPC/year/Twentyone'));
 const PrivateRoute = lazy(() => import('./Components/common/PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
 const SignUp = lazy(() => import('./Components/auth/signup/index'));
@@ -184,6 +190,11 @@ const Routes = () => {
                   <Route path="/auth/confirm/:userId" exact component={ConfirmEmail} />
                   <Route path="/contests" exact component={ContestsSchedule} />
                   <Route path="/learn" exact component={Learn} />
+                  <Route path="/icpc" exact component={icpc} />
+                  <Route path="/icpc/eighteen" exact component={eighteen} />
+                  <Route path="/icpc/seventeen" exact component={seventeen} />
+                  <Route path="/icpc/twenty" exact component={twenty} />
+                  <Route path="/icpc/twentyone" exact component={twentyone} />
                   <Route path="/ratings" exact component={Ratings} />
                   <Route path="/blogs" exact component={BlogsList} />
                   <PrivateRoute path="/blogs/create" exact component={CreateBlog} />

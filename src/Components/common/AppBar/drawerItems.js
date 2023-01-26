@@ -86,7 +86,7 @@ const drawerItems = [
     materialIcon: true,
   },
   {
-    id: 9,
+    id: 12,
     name: 'ICPC',
     icon: 'group',
     path: '/icpc',

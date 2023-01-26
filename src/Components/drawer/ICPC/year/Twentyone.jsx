@@ -1,7 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Box from '@mui/material/Box';
-import { Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import NavButtons from '../common/NavButtons';
 import '../Style.css';
 

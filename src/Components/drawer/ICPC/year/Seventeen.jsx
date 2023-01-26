@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Box, Container } from '@mui/material';
+import { Box, Container } from '@material-ui/core';
 import NavButtons from '../common/NavButtons';
 
 const Seventeen = () => {

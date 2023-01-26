@@ -20,7 +20,15 @@ export const GET_IS_USER_ADMIN = gql`
     }
   }
 `;
-
+export const GET_EDITOR_SHARE = gql`
+  query editor($sharecode: String!) {
+    editor(sharecode: $sharecode) {
+      code
+      language
+      input
+    }
+  }
+`;
 export const GET_USER_EMAIL = gql`
   query UserById($_id: ID!) {
     userById(_id: $_id) {
@@ -457,6 +465,16 @@ export const IS_SUPERUSER = gql`
   }
 `;
 
+export const GET_ALL_SUPERUSERS = gql`
+  query GetAllSuperusers {
+    users(where: { role: superuser }) {
+      name
+      email
+      username
+    }
+  }
+`;
+
 export const GET_NEW_RATINGS = gql`
   query CalculateNewRatings($code: String!) {
     calculateNewRatings(code: $code) {
@@ -650,6 +668,94 @@ export const GET_ALL_FEEDBACKS = gql`
       email
       message
       replied
+    }
+  }
+`;
+
+export const TOP_USERS_BY_RATING = gql`
+  query TopUsersByRating($limit: Int) {
+    topUsersByRating(limit: $limit) {
+      id: _id
+      name
+      ratings
+    }
+  }
+`;
+export const TOP_IMPROVERS = gql`
+  query topUsersByImprovement($limit: Int) {
+    topUsersByImprovement(limit: $limit) {
+      code
+      RatingChange {
+        id
+        name
+        ratingChange
+      }
+    }
+  }
+`;
+
+export const GET_UPCOMING_CURRENT_CONTESTS = gql`
+  query {
+    upcomingcurrentContests {
+      currentContests {
+        name
+        code
+        endsIn: endsAt
+      }
+      upcomingContests {
+        name
+        code
+        endsIn: startsAt
+      }
+    }
+  }
+`;
+
+export const GET_PINNED_BLOGS = gql`
+  query pinnedBlogs($limit: Int) {
+    pinnedBlogs(limit: $limit) {
+      author: userId {
+        name
+      }
+      title
+      createdAt
+      _id
+    }
+  }
+`;
+
+export const GET_ALL_ANNOUNCEMENTS = gql`
+  query {
+    announcements {
+      announcements {
+        title
+        imageUrl
+        link
+        isCurrent
+        _id
+      }
+      success
+      message
+    }
+  }
+`;
+
+export const GET_CURRENT_ANNOUNCEMENT = gql`
+  query {
+    getCurrentAnnouncement {
+      imageUrl
+      link
+      title
+    }
+  }
+`;
+
+export const GET_TRENDING_BLOGS = gql`
+  query trendingBlogs($limit: Int) {
+    trendingBlogs(limit: $limit) {
+      _id
+      title
+      createdAt
     }
   }
 `;

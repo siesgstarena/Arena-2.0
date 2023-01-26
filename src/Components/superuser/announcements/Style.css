@@ -1,0 +1,36 @@
+.paper {
+  position: absolute;
+  width: 400;
+  height: auto;
+  border: 2px solid #000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.title {
+  font-size: 1.75rem;
+}
+.p0 {
+  padding: 0;
+}
+
+.card-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 390px) {
+  .card-grid {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .card-delete {
+    margin-top: 1rem;
+  }
+}

@@ -42,23 +42,23 @@ const info = [
       },
       {
         title: 'Strings (SEPT18C)',
-        link: '/contest/SEPT18/problem/SEPT18C',
+        link: '/contests/SEPT18/problem/SEPT18C',
       },
       {
         title: 'Stack & Queue (BETA01E)',
-        link: '/contest/BETA01/problem/BETA01E',
+        link: '/contests/BETA01/problem/BETA01E',
       },
       {
         title: 'Math (GBYE19A)',
-        link: '/contest/GBYE19/problem/GBYE19A',
+        link: '/contests/GBYE19/problem/GBYE19A',
       },
       {
         title: 'Sorting (SRM07A)',
-        link: '/contest/SRM07/problem/SRM07A',
+        link: '/contests/SRM07/problem/SRM07A',
       },
       {
         title: 'Sorting (GBYE19B)',
-        link: '/contest/GBYE19/problem/GBYE19B',
+        link: '/contests/GBYE19/problem/GBYE19B',
       },
     ],
     suggestions: [
@@ -96,35 +96,35 @@ const info = [
     problems: [
       {
         title: 'SRM14B',
-        link: '/contest/SRM14/problem/SRM14B',
+        link: '/contests/SRM14/problem/SRM14B',
       },
       {
         title: 'SEPT18B',
-        link: '/contest/SEPT18/problem/SEPT18B',
+        link: '/contests/SEPT18/problem/SEPT18B',
       },
       {
         title: 'GBYE20C',
-        link: '/contest/GBYE20/problem/GBYE20C',
+        link: '/contests/GBYE20/problem/GBYE20C',
       },
       {
         title: 'GBYE20B',
-        link: '/contest/GBYE20/problem/GBYE20B',
+        link: '/contests/GBYE20/problem/GBYE20B',
       },
       {
         title: 'GBYE19B',
-        link: '/contest/GBYE19/problem/GBYE19B',
+        link: '/contests/GBYE19/problem/GBYE19B',
       },
       {
         title: 'SRM15B',
-        link: '/contest/SRM15/problem/SRM15B',
+        link: '/contests/SRM15/problem/SRM15B',
       },
       {
         title: 'SRM13B',
-        link: '/contest/SRM13/problem/SRM13B',
+        link: '/contests/SRM13/problem/SRM13B',
       },
       {
         title: 'SRM01B',
-        link: '/contest/SRM01/problem/SRM01B',
+        link: '/contests/SRM01/problem/SRM01B',
       },
     ],
     suggestions: [
@@ -162,39 +162,39 @@ const info = [
     problems: [
       {
         title: 'GBYE20E',
-        link: '/contest/GBYE20/problem/GBYE20E',
+        link: '/contests/GBYE20/problem/GBYE20E',
       },
       {
         title: 'SRM16C',
-        link: '/contest/SRM16/problem/SRM16C',
+        link: '/contests/SRM16/problem/SRM16C',
       },
       {
         title: 'SRM15C',
-        link: '/contest/SRM15/problem/SRM15C',
+        link: '/contests/SRM15/problem/SRM15C',
       },
       {
         title: 'SRM13D',
-        link: '/contest/SRM13/problem/SRM13D',
+        link: '/contests/SRM13/problem/SRM13D',
       },
       {
         title: 'BETA01',
-        link: '/contest/BETA01/problem/BETA01E',
+        link: '/contests/BETA01/problem/BETA01E',
       },
       {
         title: 'SRM06C',
-        link: '/contest/SRM06/problem/SRM06C',
+        link: '/contests/SRM06/problem/SRM06C',
       },
       {
         title: 'SRM05C',
-        link: '/contest/SRM05/problem/SRM05C',
+        link: '/contests/SRM05/problem/SRM05C',
       },
       {
         title: 'SRM04C',
-        link: '/contest/SRM04/problem/SRM04C',
+        link: '/contests/SRM04/problem/SRM04C',
       },
       {
         title: 'SRM18E',
-        link: '/contest/SRM18/problem/SRM18E',
+        link: '/contests/SRM18/problem/SRM18E',
       },
     ],
     suggestions: [
@@ -240,19 +240,19 @@ const info = [
     problems: [
       {
         title: 'GBYE20G',
-        link: '/contest/GBYE20/problem/GBYE20G',
+        link: '/contests/GBYE20/problem/GBYE20G',
       },
       {
         title: 'SRM07C',
-        link: '/contest/SRM07/problem/SRM07C',
+        link: '/contests/SRM07/problem/SRM07C',
       },
       {
         title: 'GBYE20F',
-        link: '/contest/GBYE20/problem/GBYE20F',
+        link: '/contests/GBYE20/problem/GBYE20F',
       },
       {
         title: 'SRM14D',
-        link: '/contest/SRM14/problem/SRM14D',
+        link: '/contests/SRM14/problem/SRM14D',
       },
     ],
     suggestions: [

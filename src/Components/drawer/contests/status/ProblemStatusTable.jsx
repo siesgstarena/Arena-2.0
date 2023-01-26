@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import Table from '../../../common/Table/index';
-import { getSubmissionColor, userColor } from '../../../../commonFunctions';
+import { getSubmissionColor, userColor } from '../../../../utils/commonFunctions';
 import AuthContext from '../../../../Contexts/AuthContext';
 
 const ProblemsubmissionTable = ({

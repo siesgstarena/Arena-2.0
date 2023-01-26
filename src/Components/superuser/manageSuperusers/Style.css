@@ -1,0 +1,19 @@
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.container {
+  margin: 1rem 0.5rem;
+}
+
+.make-superuser {
+  margin: 1.5rem 0;
+}
+
+.mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}

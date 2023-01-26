@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { format, formatDistanceStrict, formatDistanceToNowStrict, isPast } from 'date-fns/esm';
-import { userColor } from '../../../../commonFunctions';
+import { userColor } from '../../../../utils/commonFunctions';
 
 const ContestsTable = ({ contests }) => {
   // hidden variable is used to hide the licontestAdmin when the width

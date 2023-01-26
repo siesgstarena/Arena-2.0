@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import AppBar from './Components/common/AppBar/index';
-import ScrollToTop from './ScrollToTop';
+import ScrollToTop from './Components/common/ScrollToTop';
 import Footer from './Components/common/Footer/index';
 import Spinner from './Components/common/Spinner/index';
 import AuthContext from './Contexts/AuthContext';
@@ -17,7 +17,7 @@ const eighteen = lazy(() => import('./Components/drawer/ICPC/year/Eighteen'));
 const seventeen = lazy(() => import('./Components/drawer/ICPC/year/Seventeen'));
 const twenty = lazy(() => import('./Components/drawer/ICPC/year/Twenty'));
 const twentyone = lazy(() => import('./Components/drawer/ICPC/year/Twentyone'));
-const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const PrivateRoute = lazy(() => import('./Components/common/PrivateRoute'));
 const SignIn = lazy(() => import('./Components/auth/signin/index'));
 const SignUp = lazy(() => import('./Components/auth/signup/index'));
 const Forgot = lazy(() => import('./Components/auth/forgot/index'));
@@ -39,6 +39,7 @@ const ContestSubmissionPage = lazy(() =>
 );
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const Learn = lazy(() => import('./Components/drawer/learn/index'));
+const TuringCup = lazy(() => import('./Components/turingcup/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const HomePage = lazy(() => import('./Components/homePage'));
@@ -68,6 +69,7 @@ const PlaylistsUNI06 = lazy(() =>
 );
 const Goodies = lazy(() => import('./Components/drawer/goodies/index'));
 const ApiDoc = lazy(() => import('./Components/drawer/Api/index'));
+const Lab = lazy(() => import('./Components/drawer/lab/Index'));
 const BrandingGuidelines = lazy(() => import('./Components/footerPages/branding/index'));
 const Profile = lazy(() => import('./Components/user/profile/index'));
 const ProfileByUsername = lazy(() => import('./Components/user/ProfileWithUsername'));
@@ -97,9 +99,14 @@ const SuperuserFeedbacks = lazy(() => import('./Components/superuser/feedback/in
 const SuperuserBlogs = lazy(() => import('./Components/superuser/blogs/index'));
 const SuperuserCreateContest = lazy(() => import('./Components/superuser/createContest/index'));
 const SuperuserEditContest = lazy(() => import('./Components/superuser/editContest/index'));
+const SuperuserAnnouncementsContainer = lazy(() =>
+  import('./Components/superuser/announcements/index')
+);
+const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperusers/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-
+const Editor = lazy(() => import('./Components/editor/global/index'));
 const Routes = () => {
+  const path = window.location.pathname;
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);
   // running the query to the server to check if the user is already logged in or not
   if (loading) return <Spinner />;
@@ -125,7 +132,7 @@ const Routes = () => {
                   some part of the URL. Hence in our case, AppBar and Footer will be rendered
                   on all the pages which has REACT_APP_BASE_ADDRESS in their URL
               */}
-              <Route path="/" render={() => <AppBar />} />
+              {path === '/turingcup' ? null : <Route path="/" render={() => <AppBar />} />}
               <Suspense fallback={<Spinner />}>
                 <Switch>
                   <Route
@@ -174,6 +181,7 @@ const Routes = () => {
                     )}
                   />
                   <Route path="/" exact component={HomePage} />
+                  <Route path="/turingcup" exact component={TuringCup} />
                   {/* <Route path="/" exact render={() => <h1 className="tc purple">WIP</h1>} /> */}
                   <Route path="/auth/signin" exact component={SignIn} />
                   <Route path="/auth/signup" exact component={SignUp} />
@@ -204,6 +212,7 @@ const Routes = () => {
                   <Route path="/playlists/topic/UNI05" exact component={PlaylistsUNI05} />
                   <Route path="/goodies" exact component={Goodies} />
                   <Route path="/api" exact component={ApiDoc} />
+                  <Route path="/labs" exact component={Lab} />
                   <PrivateRoute path="/profile/:userId/settings" exact component={Settings} />
                   <Route path="/profile/:userId" exact component={Profile} />
                   <Route path="/@:username" exact component={ProfileByUsername} />
@@ -216,6 +225,7 @@ const Routes = () => {
                   <Route path="/privacy" exact component={Privacy} />
                   <Route path="/search" exact component={Search} />
                   <Route path="/branding" exact component={BrandingGuidelines} />
+                  <Route path="/code" exact component={Editor} />
                   <PrivateRoute
                     path="/admin/:contestId/announcements"
                     exact
@@ -253,6 +263,11 @@ const Routes = () => {
                     component={AdminProblemPage}
                   />
                   <PrivateRoute path="/superuser/ratings" exact component={SuperuserRatings} />
+                  <PrivateRoute
+                    path="/superuser/announcement"
+                    exact
+                    component={SuperuserAnnouncementsContainer}
+                  />
                   <PrivateRoute path="/superuser/contests" exact component={SuperuserContests} />
                   <PrivateRoute path="/superuser/blogs" exact component={SuperuserBlogs} />
                   <PrivateRoute path="/superuser/feedbacks" exact component={SuperuserFeedbacks} />
@@ -271,10 +286,11 @@ const Routes = () => {
                     exact
                     component={SuperuserUpdateRatings}
                   />
+                  <PrivateRoute path="/superuser/manage" exact component={SuperuserManage} />
                   <Route path="*" component={PageNotFound} />
                 </Switch>
               </Suspense>
-              <Route path="/" render={() => <Footer />} />
+              {path === '/turingcup' ? null : <Route path="/" render={() => <Footer />} />}
             </ScrollToTop>
           </BrowserRouter>
         </ErrorBoundary>

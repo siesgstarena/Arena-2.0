@@ -1,0 +1,109 @@
+.menu-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.set-aside {
+  justify-content: space-between;
+}
+.submit-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+.language-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.problem-setting {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.basic-option {
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 1rem;
+}
+
+.mw-120 {
+  min-width: 120px;
+}
+.input-card-row {
+  width: 40%;
+}
+.o-hidden {
+  overflow: hidden;
+}
+.input-output-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.editor-btn-fab {
+  background-color: #6200ee;
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+}
+@media (max-width: 768px) {
+  .input-card-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .submit-btn {
+    margin-top: 0.4rem !important;
+  }
+
+  /* .mw-120{
+    min-width: 11.7rem;
+  } */
+}
+
+@media (max-width: 495px) {
+  .basic-option {
+    margin-right: 0;
+    min-width: 120px !important;
+    display: flex;
+    justify-content: space-between;
+  }
+  .language-type {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .menu-mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+  .mw-120 {
+    min-width: 45vw;
+  }
+  .mw-120-menu {
+    min-width: 0;
+  }
+  .choose-problem {
+    min-width: 75vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .choose-problem {
+    min-width: 70vw;
+  }
+}

@@ -6,7 +6,7 @@ import { useApolloClient } from '@apollo/client';
 import { Headline4, Body2 } from '@material/react-typography';
 import ContestDetails from '../createContest/ContestDetails';
 import MessageCard from '../../common/MessageCard/index';
-// import { subtracting330Minutes } from '../../../commonFunctions';
+// import { subtracting330Minutes } from '../../../utils/commonFunctions';
 import { EDIT_CONTEST } from '../../../graphql/mutations';
 
 const EditContest = ({ contestData }) => {

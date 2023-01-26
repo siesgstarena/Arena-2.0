@@ -17,7 +17,7 @@ import {
   // getYear,
   // convertTime,
   // adding330Minutes,
-} from '../../../../../../commonFunctions';
+} from '../../../../../../utils/commonFunctions';
 import AuthContext from '../../../../../../Contexts/AuthContext';
 import {
   UPVOTE_COMMENT,

@@ -448,3 +448,78 @@ export const REPLY_TO_FEEDBACK = gql`
     }
   }
 `;
+
+export const MAKE_SUPERUSER = gql`
+  mutation MakeSuperuser($username: String!) {
+    makeSuperuser(username: $username) {
+      code
+      success
+      message
+    }
+  }
+`;
+
+export const REMOVE_SUPERUSER = gql`
+  mutation RemoveSuperuser($username: String!) {
+    removeSuperuser(username: $username) {
+      code
+      success
+      message
+    }
+  }
+`;
+export const SAVE_CODE = gql`
+  mutation saveCode($code: String!, $language: String!, $input: String!) {
+    saveCode(code: $code, language: $language, input: $input) {
+      success
+      message
+      editor {
+        sharecode
+      }
+    }
+  }
+`;
+
+export const ADD_ANNOUNCEMENT = gql`
+  mutation addAnnouncement(
+    $title: String!
+    $imageUrl: String!
+    $link: String!
+    $isCurrent: Boolean!
+  ) {
+    addAnnouncement(title: $title, imageUrl: $imageUrl, link: $link, isCurrent: $isCurrent) {
+      success
+      message
+    }
+  }
+`;
+
+export const DELETE_ANNOUNCEMENT = gql`
+  mutation deleteAnnouncement($id: ID!) {
+    deleteAnnouncement(_id: $id) {
+      success
+      message
+    }
+  }
+`;
+
+export const UPDATE_ANNOUNCEMENT_HOME_PAGE = gql`
+  mutation updateAnnouncementHomePage(
+    $_id: ID!
+    $title: String!
+    $imageUrl: String!
+    $link: String!
+    $isCurrent: Boolean!
+  ) {
+    updateAnnouncementHomePage(
+      _id: $_id
+      title: $title
+      imageUrl: $imageUrl
+      link: $link
+      isCurrent: $isCurrent
+    ) {
+      success
+      message
+    }
+  }
+`;

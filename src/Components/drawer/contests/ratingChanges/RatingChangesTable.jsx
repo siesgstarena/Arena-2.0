@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Table from '../../../common/Table/index';
-import { userColor } from '../../../../commonFunctions';
+import { userColor } from '../../../../utils/commonFunctions';
 
 const RatingChangesTable = ({ ratingChanges }) => {
   const tableHeadings = ['#', 'Who', 'Δ', 'Rating'];

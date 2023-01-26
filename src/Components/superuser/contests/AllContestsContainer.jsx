@@ -7,7 +7,7 @@ import AllContestPage from './AllContests';
 import PageCountDisplayer from '../../common/PageCountDisplayer';
 import useActivePageState from '../../../customHooks/useAcitvePageState';
 import CustomSnackbar from '../../common/Snackbar/index';
-import { superuserContestsLimit } from '../../../constants';
+import { superuserContestsLimit } from '../../../utils/constants';
 
 const AllContestsContainer = () => {
   const limit = superuserContestsLimit;

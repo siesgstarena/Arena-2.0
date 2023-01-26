@@ -9,7 +9,7 @@ import AuthContext from '../../../Contexts/AuthContext';
 import useSentry from '../../../customHooks/useSentry';
 import BlogsArray from '../myBlogs/BlogsArray';
 import LoadingCardArray from '../../common/LoadingCardArray';
-import { profileMyPostsLimit } from '../../../constants';
+import { profileMyPostsLimit } from '../../../utils/constants';
 
 const PostsContainer = ({ user }) => {
   const limit = profileMyPostsLimit;

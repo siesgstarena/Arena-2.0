@@ -6,7 +6,7 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import AuthContext from './Contexts/AuthContext';
+import AuthContext from '../../Contexts/AuthContext';
 
 const PrivateRoute = ({ component: Component, data, ...rest }) => {
   const { authState } = useContext(AuthContext);

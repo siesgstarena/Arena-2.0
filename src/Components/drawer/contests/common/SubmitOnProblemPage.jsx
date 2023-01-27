@@ -12,17 +12,17 @@ import { languageOptions } from '../status/options';
 import Uploading from '../submit/Uploading';
 import useSessionExpired from '../../../../customHooks/useSessionExpired';
 import AceEditorContext from '../../../../Contexts/AceEditorContext';
-import Menu from '../../../editor/menu';
-import Editor from '../../../editor';
-import languageDefaults from '../../../editor/defaults/languages';
+import Menu from '../../../common/Editor/menu';
+import Editor from '../../../common/Editor';
+import languageDefaults from '../../../common/Editor/defaults/languages';
 import { GET_CONTEST_DASHBOARD } from '../../../../graphql/queries';
 import Spinner from '../../../common/Spinner';
 import SomethingWentWrong from '../../../common/SomethingWentWrong';
-import Run from '../../../editor/common/Run';
-import Input from '../../../editor/common/Input';
-import Output from '../../../editor/common/Output';
+import Run from '../../../common/Editor/common/Run';
+import Input from '../../../common/Editor/common/Input';
+import Output from '../../../common/Editor/common/Output';
 import './Style.css';
-import initialState from '../../../editor/defaults/initialState';
+import initialState from '../../../common/Editor/defaults/initialState';
 
 const SubmitOnProblemPage = ({ setEditorOpen }) => {
   const isMobile = window.innerWidth <= 768;

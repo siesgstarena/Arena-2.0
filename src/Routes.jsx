@@ -39,7 +39,7 @@ const ContestSubmissionPage = lazy(() =>
 );
 const Ratings = lazy(() => import('./Components/drawer/ratings/index'));
 const Learn = lazy(() => import('./Components/drawer/learn/index'));
-const TuringCup = lazy(() => import('./Components/turingcup/index'));
+const TuringCup = lazy(() => import('./Components/drawer/turingCup/index'));
 const BlogsList = lazy(() => import('./Components/drawer/blogs/blogsList/index'));
 const BlogPage = lazy(() => import('./Components/drawer/blogs/blogPage/index'));
 const HomePage = lazy(() => import('./Components/homePage'));
@@ -104,7 +104,7 @@ const SuperuserAnnouncementsContainer = lazy(() =>
 );
 const SuperuserManage = lazy(() => import('./Components/superuser/manageSuperusers/index'));
 const PageNotFound = lazy(() => import('./Components/common/PageNotFound/index'));
-const Editor = lazy(() => import('./Components/editor/global/index'));
+const Editor = lazy(() => import('./Components/common/Editor/global/index'));
 const Routes = () => {
   const path = window.location.pathname;
   const { loading, error, data } = useQuery(GET_LOGGED_IN_USER);

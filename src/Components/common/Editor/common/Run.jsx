@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import '../Style.css';
 import PropTypes from 'prop-types';
 import { Button } from '@material/react-button';
-import AceEditorContext from '../../../Contexts/AceEditorContext';
+import AceEditorContext from '../../../../Contexts/AceEditorContext';
 
 const Run = ({ loading, setLoading, lang, input, setMessageType, setMessage, setOutput }) => {
   const { editorConfig } = useContext(AceEditorContext);

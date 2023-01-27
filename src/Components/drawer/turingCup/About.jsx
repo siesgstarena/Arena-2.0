@@ -41,7 +41,7 @@ const About = () => {
           <Box className="ch1About">
             <Headline2 className="titleAbout">What is Turing Cup?</Headline2>
             <Typography className="contentAbout">
-              Named after Alan Turing, the Turing Cup is CodeChef SIESGSTs annual flagship
+              Named after Alan Turing, the Turing Cup is CodeChef SIESGST&apos;s annual flagship
               competitive coding contest. A national level programming challenge, the contest
               invites individual coders to crack challenging problem statements and come up with the
               most intuitive and efficient solution possible - all in the given time frame

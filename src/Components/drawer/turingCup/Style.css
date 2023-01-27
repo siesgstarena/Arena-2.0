@@ -1,3 +1,4 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
 * {
   box-sizing: border-box !important;
   margin: 0;
@@ -20,6 +21,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+.main-container-body {
+  background: linear-gradient(81.4deg, #000000 0.86%, #202e44 127.88%);
 }
 .navbar-light {
   background-color: #fff;
@@ -197,7 +201,10 @@ input[type='number'] {
   justify-content: space-around;
   color: rgba(0, 0, 0, 0.32);
 }
-
+.lead {
+  font-size: 1.25rem !important;
+  font-weight: 300;
+}
 .lottie-player {
   position: absolute;
   max-height: 200px;

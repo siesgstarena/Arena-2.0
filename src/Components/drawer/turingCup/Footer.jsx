@@ -8,7 +8,7 @@ const Footer = () => {
       <Box id="footer">
         <footer>
           <Box className="footer-text d-flex align-items-center justify-content-center">
-            <a href="#">Turing Cup 2022</a>
+            <a href="#">Turing Cup 2023</a>
           </Box>
           <ul className="social-links">
             <li>

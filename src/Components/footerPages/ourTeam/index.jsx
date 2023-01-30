@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline6, Body1 } from '@material/react-typography';
-import { Button } from '@material/react-button';
+
+import { Tab, Tabs, AppBar } from '@material-ui/core';
+
 import {
   alumni as alumni2018,
   developers as developers2018,
@@ -22,8 +24,14 @@ import {
   developers as developers2021,
   operationalManagers as operationalManagers2021,
 } from './2021';
+import {
+  alumni as alumni2022,
+  developers as developers2022,
+  operationalManagers as operationalManagers2022,
+} from './2022';
 import MemberCard from './MemberCard';
 import 'tachyons';
+import './Style.css';
 
 const OurTeam = () => {
   const Years = Object.freeze({
@@ -31,6 +39,7 @@ const OurTeam = () => {
     2019: '2019',
     2020: '2020',
     2021: '2021',
+    2022: '2022',
   });
 
   const [curYear, setcurYear] = useState(Years[2018]);
@@ -92,6 +101,11 @@ const OurTeam = () => {
         setdeveloperCardsArray(mapListValues(developers2021));
         setoperationManagersCardsArray(mapListValues(operationalManagers2021));
         break;
+      case Years[2022]:
+        setalumniCardsArray(mapListValues(alumni2022));
+        setdeveloperCardsArray(mapListValues(developers2022));
+        setoperationManagersCardsArray(mapListValues(operationalManagers2022));
+        break;
       default:
         setalumniCardsArray(mapListValues(alumni2018));
         setdeveloperCardsArray(mapListValues(developers2018));
@@ -102,27 +116,32 @@ const OurTeam = () => {
 
   const change = (e, year) => {
     e.preventDefault();
+
     setcurYear(year);
   };
 
   return (
-    <div className="mw8-ns pa2 center">
-      <Grid>
-        <Row>
+    <div className="mw8-ns pa2 center purple">
+      <Grid className="purple">
+        <Row className="purple">
           <Cell>
             <Headline6>
-              <Button onClick={(e) => change(e, Years[2018])} className="btn-primary">
-                2018
-              </Button>
-              <Button onClick={(e) => change(e, Years[2019])} className="btn-primary">
-                2019
-              </Button>
-              <Button onClick={(e) => change(e, Years[2020])} className="btn-primary">
-                2020
-              </Button>
-              <Button onClick={(e) => change(e, Years[2021])} className="btn-primary">
-                2021
-              </Button>
+              <AppBar className="purple mb1 team-nav" position="static">
+                <Tabs
+                  onChange={(e, y) => change(e, y)}
+                  value={curYear}
+                  variant="scrollable"
+                  scrollButtons="on"
+                  aria-label="scrollable auto tabs example"
+                  className="team-nav"
+                >
+                  <Tab label="2018-19" value={Years[2018]} />
+                  <Tab label="2019-20" value={Years[2019]} />
+                  <Tab label="2020-21" value={Years[2020]} />
+                  <Tab label="2021-22" value={Years[2021]} />
+                  <Tab label="2022-23" value={Years[2022]} />
+                </Tabs>
+              </AppBar>
               <span className="purple">SIESGSTarena Alumni</span>
               <Body1 className="mid-gray"> People behind the chapter</Body1>
             </Headline6>

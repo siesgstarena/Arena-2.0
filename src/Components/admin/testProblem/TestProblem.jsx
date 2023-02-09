@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Select, { Option } from '@material/react-select';
+import Select from '@material/react-select';
 import { Headline4, Body2 } from '@material/react-typography';
 import Button from '@material/react-button';
 import MessageCard from '../../common/MessageCard/index';
 import FileUpload from '../../common/FileUpload/index';
 import useSessionExpired from '../../../customHooks/useSessionExpired';
 import useSentry from '../../../customHooks/useSentry';
+import { languageOptions } from '../../drawer/contests/status/options';
 
 const TestProblem = () => {
   const [language, setLanguage] = useState('C');
@@ -16,7 +17,6 @@ const TestProblem = () => {
   const [messageType, setMessageType] = useState('');
   const { redirectOnSessionExpiredAfterRender, isSessionExpired } = useSessionExpired();
   const [solutionFile, setSolutionFile] = useState({});
-  const onLanguageChange = (index, item) => setLanguage(item.getAttribute('data-value'));
   const onFileChange = (event) => {
     setSolutionFile(event.target.files[0]);
   };
@@ -61,22 +61,17 @@ const TestProblem = () => {
         {problemId}
       </Body2>
       <Select
-        className="w-100"
-        notchedOutlineClassName="pa1"
-        enhanced
+        notchedOutlineClassName="pt2 pb2"
+        required
+        label="Language"
         outlined
-        label="Select Language"
+        className="w-100"
         value={language}
-        onEnhancedChange={onLanguageChange}
-      >
-        <Option value="C">C</Option>
-        <Option value="C++">C++</Option>
-        <Option value="C++ 14">C++ 14</Option>
-        <Option value="java">Java</Option>
-        <Option value="javascript">Javascript</Option>
-        <Option value="python2">Python 2</Option>
-        <Option value="python3">Python 3</Option>
-      </Select>
+        options={languageOptions}
+        onChange={(e) => {
+          setLanguage(e.target.value);
+        }}
+      />
       <div className="ma1 mt3">
         <FileUpload
           id="solution-file-upload"

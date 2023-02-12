@@ -11,6 +11,7 @@ import BlogsArray from '../../../user/myBlogs/BlogsArray';
 import { allBlogsLimit } from '../../../../utils/constants';
 
 const AllBlogsPageContainer = ({ isSuperuserRoute = false }) => {
+  document.title = 'SIESGSTArena | Blogs';
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const limit = allBlogsLimit;
   const activePageNumber = useActivePageState();

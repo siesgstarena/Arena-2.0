@@ -17,6 +17,7 @@ import '../Style.css';
 import initialState from '../defaults/initialState';
 
 const Index = () => {
+  document.title = 'SIESGSTarena | Editor';
   const isMobile = window.innerWidth <= 768;
   const [editorConfig, setEditorConfig] = useState(
     initialState({ code: languageDefaults.Java, fontSize: isMobile ? 15 : 20 })

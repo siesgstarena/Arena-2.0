@@ -10,6 +10,7 @@ import 'tachyons';
 import AuthContext from '../../../Contexts/AuthContext';
 
 const Feedback = () => {
+  document.title = 'SIESGSTarena | Feedback';
   const { authState } = useContext(AuthContext);
   const [name, setName] = useState(
     authState.user && authState.user.name ? authState.user.name : ''

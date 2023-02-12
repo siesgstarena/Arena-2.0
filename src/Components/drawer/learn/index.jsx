@@ -7,6 +7,7 @@ import './styles.scss';
 import LearnCard from './LearnCard';
 
 const LearnContainer = () => {
+  document.title = 'SIESGSTarena | Learn';
   const [activeIndex, setActiveIndex] = useState(0);
   const handleActiveIndexUpdate = (updatedActiveIndex) => {
     setActiveIndex(updatedActiveIndex);

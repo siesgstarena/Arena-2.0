@@ -1,10 +1,13 @@
 import React from 'react';
 import AboutTabBar from './AboutTabBar';
 
-const About = () => (
-  <div>
-    <AboutTabBar />
-  </div>
-);
+const About = () => {
+  document.title = 'SIESGSTArena | About';
+  return (
+    <div>
+      <AboutTabBar />
+    </div>
+  );
+};
 
 export default About;

@@ -12,6 +12,7 @@ import PasswordField from '../../common/PasswordField/index';
 import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUser';
 
 const SignUp = () => {
+  document.title = 'SIESGSTarena | Sign Up';
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

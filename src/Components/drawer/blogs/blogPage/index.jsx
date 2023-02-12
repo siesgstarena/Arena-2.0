@@ -9,6 +9,8 @@ import useSentry from '../../../../customHooks/useSentry';
 import BlogLoadingScreen from './BlogLoadingScreen';
 
 const BlogPage = () => {
+  document.title = 'SIESGSTArena | Blogs';
+
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { blogId } = useParams();
   const { loading, error, data } = useQuery(GET_BLOG_BY_BLOG_ID, {

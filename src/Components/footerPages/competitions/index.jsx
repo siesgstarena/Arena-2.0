@@ -6,6 +6,7 @@ import coders1 from './assets/coders1.jpg';
 import ContestCard from './ContestCard';
 
 const Competitions = () => {
+  document.title = 'SIESGSTarena | Competitions';
   const contests = [
     {
       name: 'BUG4EVER',

@@ -13,6 +13,7 @@ import useRedirectLoggedInUser from '../../../customHooks/useRedirectLoggedInUse
 import useLoggedInUser from '../../../customHooks/useLoggedInUser';
 
 const SignIn = () => {
+  document.title = 'SIESGSTarena | Sign In';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [messageType, setMessageType] = useState('');

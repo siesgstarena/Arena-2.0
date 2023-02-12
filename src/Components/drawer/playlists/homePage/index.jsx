@@ -6,6 +6,7 @@ import welcomeImage from '../welcomePage/assets/mbri-add-submenu.svg';
 import './index.scss';
 
 const WelcomePage = () => {
+  document.title = 'SIESGSTarena | Playlists';
   const topicsArray = topics.map((topic) => (
     <Link
       key={topic.id}

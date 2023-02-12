@@ -9,6 +9,7 @@ import LoadingTable from '../../../common/LoadingTable/index';
 import ContestsTable from './ContestsTable';
 
 const ContestScheduleContainer = () => {
+  document.title = 'SIESGSTArena | Contest';
   const { redirectOnSessionExpiredBeforeRender, isSessionExpired } = useSessionExpired();
   const { loading, error, data } = useQuery(GET_CONTEST_HOMEPAGE_DETAILS);
 

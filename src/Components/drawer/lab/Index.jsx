@@ -8,6 +8,7 @@ import './Style.css';
 import DownloadLink from 'react-download-link';
 
 const Index = () => {
+  document.title = 'SIESGSTArena | Lab';
   const getDataFromURL = (url) =>
     new Promise((resolve) => {
       setTimeout(() => {

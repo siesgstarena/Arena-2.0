@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardTimePicker } from '@material-ui/pickers';
+import AccessTime from '@material-ui/icons/AccessTime';
 
 const MaterialUITimePicker = (props) => {
   const { label, id, value, onChangeFunction } = props;
@@ -19,6 +20,7 @@ const MaterialUITimePicker = (props) => {
         KeyboardButtonProps={{
           'aria-label': 'change time',
         }}
+        keyboardIcon={<AccessTime />}
       />
     </MuiPickersUtilsProvider>
   );

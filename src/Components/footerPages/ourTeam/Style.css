@@ -1,0 +1,15 @@
+.team-nav {
+  width: 80vw !important;
+  background-color: white !important;
+  box-shadow: none !important;
+  justify-content: space-between;
+}
+.purple {
+  color: #5e2ca5 !important;
+}
+.PrivateTabIndicator-colorSecondary-3 {
+  background-color: #5e2ca5 !important;
+}
+.mb1 {
+  margin-bottom: 2rem !important;
+}

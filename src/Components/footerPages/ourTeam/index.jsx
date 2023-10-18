@@ -1,34 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
 import { Headline6, Body1 } from '@material/react-typography';
-
 import { Tab, Tabs, AppBar } from '@material-ui/core';
+import data2018 from './2018';
+import data2019 from './2019';
+import data2020 from './2020';
+import data2021 from './2021';
+import data2022 from './2022';
 
-import {
-  alumni as alumni2018,
-  developers as developers2018,
-  operationalManagers as operationalManagers2018,
-} from './2018';
-import {
-  alumni as alumni2019,
-  developers as developers2019,
-  operationalManagers as operationalManagers2019,
-} from './2019';
-import {
-  alumni as alumni2020,
-  developers as developers2020,
-  operationalManagers as operationalManagers2020,
-} from './2020';
-import {
-  alumni as alumni2021,
-  developers as developers2021,
-  operationalManagers as operationalManagers2021,
-} from './2021';
-import {
-  alumni as alumni2022,
-  developers as developers2022,
-  operationalManagers as operationalManagers2022,
-} from './2022';
 import MemberCard from './MemberCard';
 import 'tachyons';
 import './Style.css';
@@ -43,6 +22,8 @@ const OurTeam = () => {
   });
 
   const [curYear, setcurYear] = useState(Years[2018]);
+
+  const [curYearData, setcurYearData] = useState(data2018);
 
   const mapListValues = (list) => {
     return list.map((developer) => {
@@ -71,45 +52,24 @@ const OurTeam = () => {
     });
   };
 
-  const [alumniCardsArray, setalumniCardsArray] = useState(mapListValues(alumni2018));
-  const [developerCardsArray, setdeveloperCardsArray] = useState(
-    mapListValues(mapListValues(developers2018))
-  );
-  const [operationManagersCardsArray, setoperationManagersCardsArray] = useState(
-    mapListValues(operationalManagers2018)
-  );
-
   useEffect(() => {
     switch (curYear) {
       case Years[2018]:
-        setalumniCardsArray(mapListValues(alumni2018));
-        setdeveloperCardsArray(mapListValues(developers2018));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2018));
+        setcurYearData(data2018);
         break;
       case Years[2019]:
-        setalumniCardsArray(mapListValues(alumni2019));
-        setdeveloperCardsArray(mapListValues(developers2019));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2019));
+        setcurYearData(data2019);
         break;
       case Years[2020]:
-        setalumniCardsArray(mapListValues(alumni2020));
-        setdeveloperCardsArray(mapListValues(developers2020));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2020));
+        setcurYearData(data2020);
         break;
       case Years[2021]:
-        setalumniCardsArray(mapListValues(alumni2021));
-        setdeveloperCardsArray(mapListValues(developers2021));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2021));
+        setcurYearData(data2021);
         break;
       case Years[2022]:
-        setalumniCardsArray(mapListValues(alumni2022));
-        setdeveloperCardsArray(mapListValues(developers2022));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2022));
+        setcurYearData(data2022);
         break;
       default:
-        setalumniCardsArray(mapListValues(alumni2018));
-        setdeveloperCardsArray(mapListValues(developers2018));
-        setoperationManagersCardsArray(mapListValues(operationalManagers2018));
         break;
     }
   }, [curYear]);
@@ -142,37 +102,32 @@ const OurTeam = () => {
                   <Tab label="2022-23" value={Years[2022]} />
                 </Tabs>
               </AppBar>
-              <span className="purple">SIESGSTarena Alumni</span>
-              <Body1 className="mid-gray"> People behind the chapter</Body1>
+              {/* <span className="purple">SIESGSTarena Alumni</span>
+              <Body1 className="mid-gray"> People behind the chapter</Body1> */}
+              <span className="purple">{curYearData[0].title}</span>
+              <Body1 className="mid-gray">{curYearData[0].subtitle}</Body1>
             </Headline6>
           </Cell>
         </Row>
-        <Row>{alumniCardsArray}</Row>
+        <Row>{mapListValues(curYearData[0].data)}</Row>
       </Grid>
 
-      <Grid>
-        <Row>
-          <Cell>
-            <Headline6>
-              <span className="purple">SIESGSTarena developers</span>
-              <Body1 className="mid-gray"> People behind this platform</Body1>
-            </Headline6>
-          </Cell>
-        </Row>
-        <Row>{developerCardsArray}</Row>
-      </Grid>
-
-      <Grid>
-        <Row>
-          <Cell columns={12}>
-            <Headline6>
-              <span className="purple">SIESGSTarena operation managers</span>
-              <Body1 className="mid-gray"> People behind building the operations</Body1>
-            </Headline6>
-          </Cell>
-        </Row>
-        <Row>{operationManagersCardsArray}</Row>
-      </Grid>
+      {curYearData.map((year, index) => {
+        if (index === 0) return null;
+        return (
+          <Grid key={year.title}>
+            <Row>
+              <Cell columns={12}>
+                <Headline6>
+                  <span className="purple">{year.title}</span>
+                  <Body1 className="mid-gray">{year.subtitle}</Body1>
+                </Headline6>
+              </Cell>
+            </Row>
+            <Row>{mapListValues(year.data)}</Row>
+          </Grid>
+        );
+      })}
     </div>
   );
 };

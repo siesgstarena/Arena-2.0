@@ -5,6 +5,7 @@ import NavButtons from './common/NavButtons';
 import './Style.css';
 
 const Index = () => {
+  document.title = 'SIESGSTarena | ICPC';
   return (
     <Container className="container-center">
       <Typography variant="h4" className="purple" align="left">

@@ -6,6 +6,7 @@ import DeveloperCard from './MemberCard';
 import 'tachyons';
 
 const OurTeam = () => {
+  document.title = 'SIESGSTarena | Our Team';
   const alumniCardsArray = alumni.map((developer) => (
     <Cell key={developer.id} desktopColumns={3} tabletColumns={4} phoneColumns={2}>
       <DeveloperCard

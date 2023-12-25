@@ -9,6 +9,7 @@ import Spinner from '../common/Spinner';
 import useHomePage from '../../customHooks/useHomePage';
 
 const HomePageContainer = () => {
+  document.title = 'SIESGSTarena | Home';
   const {
     loading,
     CardCarouselDate,
